@@ -92,6 +92,7 @@ export type Build = {
   tagline: string;
   body: string;
   href: string;
+  cta: string;
 };
 
 export const builds: Build[] = [
@@ -102,6 +103,7 @@ export const builds: Build[] = [
     body:
       "Inspired by my own job search, Tracka is an AI-powered workspace for tailored resumes, cover letters, and application tracking.",
     href: "/builds/tracka",
+    cta: "View Project",
   },
   {
     no: "02",
@@ -110,6 +112,7 @@ export const builds: Build[] = [
     body:
       "Built in 10 hours at the BOSCH Hackathon, it uses a RAG pipeline to unify OEM documentation and operator knowledge captured in shift logs, helping diagnose machine failures beyond what manuals alone can provide.",
     href: "https://vercel.com/souvikb93s-projects/machine-whisperer",
+    cta: "View Project",
   },
   {
     no: "03",
@@ -118,6 +121,7 @@ export const builds: Build[] = [
     body:
       "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an n8n-based orchestration layer.",
     href: "https://farmdoc-omega.vercel.app/",
+    cta: "View Project",
   },
 ];
 

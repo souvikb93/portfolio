@@ -22,15 +22,13 @@ export default function ProjectsPage() {
             sizes="100vw"
             className={styles.heroBg}
           />
-          <div className={`container ${styles.heroInner}`}>
-            <div>
-              <h1 className="t-h1">
-                Client
-                <br />
-                Projects
-              </h1>
-            </div>
-            <p className={`t-title ${styles.heroIntro}`}>{INTRO}</p>
+          <div className={`container-narrow ${styles.heroInner}`}>
+            <h1 className="t-page">
+              Client
+              <br />
+              Projects
+            </h1>
+            <p className={styles.heroIntro}>{INTRO}</p>
           </div>
         </section>
 

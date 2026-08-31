@@ -22,13 +22,13 @@ export default function BuildsPage() {
             sizes="100vw"
             className={styles.heroBg}
           />
-          <div className={`container ${styles.heroInner}`}>
-            <h1 className="t-h1">
+          <div className={`container-narrow ${styles.heroInner}`}>
+            <h1 className="t-page">
               AI Powered
               <br />
               Builds
             </h1>
-            <p className={`t-title ${styles.heroIntro}`}>{INTRO}</p>
+            <p className={styles.heroIntro}>{INTRO}</p>
           </div>
         </section>
 

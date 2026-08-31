@@ -43,12 +43,14 @@
 .projectSlot:nth-child(2) { top: calc(var(--project-sticky-top) + var(--project-sticky-step)); }
 .projectSlot:nth-child(3) { top: calc(var(--project-sticky-top) + var(--project-sticky-step) * 2); }
 .projectSlot:last-child { position: static; }
+/* "See all (05)" — a plain 16/20.2 link on the live site, not a pill. */
 .pillLink {
-  display: inline-block;
-  padding: var(--space-3) var(--space-5);
-  border-radius: 999px;
-  border: 1px solid var(--rule);
-  font-size: 13px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  line-height: 1.2625;
+  letter-spacing: -0.03125em;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: var(--space-1);
 }
 @media (max-width: 1100px) {
   .portfolioBody { grid-template-columns: 1fr; }
@@ -93,7 +95,6 @@
   flex-wrap: wrap;
 }
 .buildsLink {
-  font-size: 14px;
   border-bottom: 1px solid var(--on-dark-40);
   padding-bottom: var(--space-1);
   white-space: nowrap;

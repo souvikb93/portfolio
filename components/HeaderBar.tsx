@@ -15,7 +15,7 @@ export function HeaderBar({
   return (
     <div className={styles.bar} data-variant={variant}>
       <div className={styles.line} />
-      <div className={styles.row}>
+      <div className={`t-meta ${styles.row}`}>
         <span className={styles.no}>
           <span className={styles.dot} /> {no}
         </span>

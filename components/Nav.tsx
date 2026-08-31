@@ -6,12 +6,19 @@ import { useState } from "react";
 import { nav } from "@/data/site";
 import styles from "./Nav.module.css";
 
+// Routes whose hero sits on a dark surface — the live site switches the header
+// to its white variant on these.
+const DARK_ROUTES = ["/projects", "/builds"];
+
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const onDark = DARK_ROUTES.some(
+    (r) => pathname === r || pathname.startsWith(`${r}/`),
+  );
 
   return (
-    <header className={styles.header}>
+    <header className={styles.header} data-on-dark={onDark}>
       <Link href="/" className={styles.logo} aria-label="Souvik B — home">
         sb
       </Link>

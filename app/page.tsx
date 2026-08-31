@@ -36,8 +36,8 @@ export default function HomePage() {
               className={`t-h2 ${styles.buildsHeadline}`}
             />
             <div className={styles.buildsRow}>
-              <Link href="/builds" className={styles.buildsLink}>
-                Explore More →
+              <Link href="/builds" className={`t-link ${styles.buildsLink}`}>
+                Explore More
               </Link>
               <div className={styles.plusRow} aria-hidden>
                 <span />

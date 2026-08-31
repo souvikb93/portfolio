@@ -58,6 +58,13 @@
   color: rgba(105, 105, 112, 0.5);
 }
 
+/* White variant, used where the page hero sits on a dark surface. */
+.header[data-on-dark="true"] .logo,
+.header[data-on-dark="true"] .link { color: var(--on-dark); }
+.header[data-on-dark="true"] .linkNo { color: var(--on-dark-40); }
+.header[data-on-dark="true"] .link[data-active="true"]::after { background: var(--on-dark); }
+.header[data-on-dark="true"] .toggle span { background: var(--on-dark); }
+
 .link[data-active="true"]::after {
   content: "";
   position: absolute;

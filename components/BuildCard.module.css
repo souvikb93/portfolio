@@ -1,23 +1,45 @@
+/* Build row — big index number inset from the left, text column right-aligned
+   to the container edge. Measured off the live site at 1280: number 300px wide
+   starting 94px in, text column 386px wide ending at the container edge. */
 .card {
+  --build-indent: 94px;
+  --build-no-width: 300px;
+  --build-col-width: 386px;
+  --build-stack: 58px;
+
   display: flex;
-  gap: 80px;
-  padding: 40px 0;
+  justify-content: space-between;
+  padding: var(--space-10) 0;
   border-top: 1px solid var(--on-dark-hairline);
   color: var(--white);
 }
-.left { flex: 0 0 300px; line-height: 1; }
-.body { display: flex; flex-direction: column; gap: 40px; max-width: 640px; }
-.copy { display: flex; flex-direction: column; gap: 12px; }
-.copy .t-body { color: var(--on-dark-70); }
+
+.left {
+  flex: 0 0 var(--build-no-width);
+  margin-left: var(--build-indent);
+  line-height: 1;
+}
+
+.body {
+  flex: 0 0 var(--build-col-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--build-stack);
+}
+
+.copy { display: flex; flex-direction: column; gap: var(--card-gap); }
+/* :global is required — .t-body is a global utility, so an unscoped selector
+   here would be hashed to a local name and never match. */
+.copy :global(.t-body) { color: var(--text-secondary); }
+
 .link {
-  font-size: 14px;
   border-bottom: 1px solid var(--on-dark-40);
   padding-bottom: var(--space-1);
   width: fit-content;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
   .card { flex-direction: column; gap: var(--space-6); }
-  .left { flex-basis: auto; }
-  .body { gap: var(--space-6); }
+  .left { flex-basis: auto; margin-left: 0; }
+  .body { flex-basis: auto; gap: var(--space-6); }
 }

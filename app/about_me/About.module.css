@@ -39,6 +39,6 @@
   border: 1px solid var(--gray);
   border-radius: var(--space-5);
 }
-.edgeCard .t-h3 { line-height: 1; }
+.edgeCard :global(.t-h3) { line-height: 1; }
 
 .photoImg { object-fit: cover; }

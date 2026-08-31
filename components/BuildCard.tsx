@@ -18,11 +18,11 @@ export function BuildCard({ build }: { build: Build }) {
         </div>
         <Link
           href={build.href}
-          className={styles.link}
+          className={`t-link ${styles.link}`}
           target={external ? "_blank" : undefined}
           rel={external ? "noreferrer" : undefined}
         >
-          {build.href.includes("tracka") ? "View Project" : "Explore Now"} →
+          {build.cta}
         </Link>
       </div>
     </article>
