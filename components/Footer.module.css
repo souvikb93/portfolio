@@ -1,0 +1,19 @@
+.footer {
+  background: var(--brand-primary);
+  color: var(--white);
+  padding: 64px 0 40px;
+}
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 48px;
+  align-items: center;
+  font-size: 14px;
+}
+.social { display: flex; gap: 16px; margin-left: auto; }
+.social a:hover { color: var(--brand-secondary); }
+.line { height: 1px; background: rgba(255, 255, 255, 0.15); margin: 32px 0 20px; }
+
+@media (max-width: 810px) {
+  .social { margin-left: 0; }
+}

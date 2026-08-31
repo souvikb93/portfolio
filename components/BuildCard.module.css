@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  gap: 80px;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--white);
+}
+.left { flex: 0 0 300px; line-height: 1; }
+.body { display: flex; flex-direction: column; gap: 40px; max-width: 640px; }
+.copy { display: flex; flex-direction: column; gap: 12px; }
+.copy .t-body { color: rgba(255, 255, 255, 0.7); }
+.link {
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 4px;
+  width: fit-content;
+}
+
+@media (max-width: 1000px) {
+  .card { flex-direction: column; gap: 24px; }
+  .left { flex-basis: auto; }
+  .body { gap: 24px; }
+}

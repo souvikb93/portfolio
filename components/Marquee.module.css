@@ -1,0 +1,13 @@
+.wrap { width: 100%; overflow: hidden; }
+.track { display: flex; width: max-content; animation: scroll linear infinite; }
+.group { display: flex; align-items: center; gap: 64px; padding-right: 64px; }
+.wrap:hover .track { animation-play-state: paused; }
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; }
+}

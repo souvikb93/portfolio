@@ -1,69 +1,139 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import { HeaderBar } from "@/components/HeaderBar";
+import { Marquee } from "@/components/Marquee";
+import { TextReveal } from "@/components/TextReveal";
+import { RollingText } from "@/components/RollingText";
+import { WorkCard } from "@/components/WorkCard";
+import { BuildCard } from "@/components/BuildCard";
+import { Testimonials } from "@/components/Testimonials";
+import { Footer } from "@/components/Footer";
+import {
+  hero,
+  intro,
+  experience,
+  aboutHeadline,
+  projects,
+  builds,
+} from "@/data/site";
+import styles from "./Home.module.css";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>
-            To get started, edit the{" "}
-            <code className={styles.code}>page.tsx</code> file.
-          </h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main>
+      {/* Hero */}
+      <section className={styles.hero}>
+        <div className={`container ${styles.heroInner}`}>
+          <div className={styles.heroLeft}>
+            <p className="t-h5">{hero.name}</p>
+            <h1 className={`t-h1 ${styles.roll}`}>
+              <RollingText words={hero.roles} />
+            </h1>
+          </div>
+          <div className={styles.heroRight}>
+            <p className="t-body">{hero.blurb}</p>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Intro + experience */}
+      <section className="section">
+        <div className={`container ${styles.introGrid}`}>
+          <div className={styles.introCopy}>
+            <h2 className="t-h4">{intro.heading}</h2>
+            <p className="t-body muted">{intro.body}</p>
+          </div>
+          <ul className={styles.expList}>
+            {experience.map((e) => (
+              <li key={e.title} className={styles.expRow}>
+                <span className="t-h5">{e.title}</span>
+                <span className="t-sub muted">{e.company}</span>
+                <span className="t-body muted">{e.years}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* About headline */}
+      <section className={`section ${styles.about}`}>
+        <div className="container">
+          <HeaderBar no="(01)" title="(About Me)" />
+          <TextReveal
+            text={aboutHeadline}
+            as="h2"
+            className={`t-h3 ${styles.aboutHeadline}`}
+          />
+          <Link href="/about_me" className={styles.textLink}>
+            More about me →
+          </Link>
+        </div>
+      </section>
+
+      <Marquee className={styles.ticker} speed={36}>
+        {["Design Systems", "AI Products", "Prototyping", "Accessibility", "Motion"].map(
+          (t) => (
+            <span key={t} className="t-h4">
+              {t}
+            </span>
+          ),
+        )}
+      </Marquee>
+
+      {/* Client projects */}
+      <section className={`section ${styles.portfolio}`}>
+        <div className="container">
+          <HeaderBar no="(02)" title="(Projects)" />
+          <div className={styles.portfolioBody}>
+            <div className={styles.portfolioAside}>
+              <h3 className="t-h4">Client Projects</h3>
+              <div className={styles.rule} />
+            </div>
+            <div className={styles.projectGrid}>
+              {projects.map((p) => (
+                <WorkCard key={p.title} project={p} />
+              ))}
+            </div>
+            <div className={styles.portfolioAsideEnd}>
+              <Link href="/projects" className={styles.pillLink}>
+                See all (05)
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Builds */}
+      <section className={`section ${styles.builds}`}>
+        <div className="container">
+          <HeaderBar no="(03)" title="(Builds)" variant="white" />
+          <TextReveal
+            text="Expanding beyond traditional design roles by building and shipping AI-powered products that solve real user problems."
+            as="h2"
+            halfOpacity
+            className={`t-h4 ${styles.buildsHeadline}`}
+          />
+          <Link href="/builds" className={styles.buildsLink}>
+            Explore More →
+          </Link>
+          <div className={styles.buildList}>
+            {builds.map((b) => (
+              <BuildCard key={b.title} build={b} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className={`section ${styles.testimonials}`}>
+        <div className="container">
+          <HeaderBar no="(04)" title="(Testimonial)" />
+          <div className={styles.testiInner}>
+            <Testimonials />
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </main>
   );
 }
