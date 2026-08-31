@@ -300,4 +300,125 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     },
   },
+
+  desi_aroma: {
+    slug: "desi_aroma",
+    name: "Desi Aroma",
+    headline: "Women’s Empowerment Initiative — 🏆 Second Runner-Up, User Interface Design",
+    summary:
+      "Founded by two NID alumni, Desi Aroma is a community-driven initiative that empowers housewives in Gandhinagar by transforming their love for home-cooked food into a source of income and recognition, while serving affordable, wholesome meals to students. From concept to scalable experience.",
+    meta: [
+      { label: "Client", value: "Student Project" },
+      { label: "Duration", value: "2 months" },
+      { label: "Industry", value: "Social Innovation" },
+      {
+        label: "Scope of Work",
+        value:
+          "Service Design · System Design · Brand Design · Mobile App · UX/UI · Video Production",
+      },
+    ],
+    sections: {
+      objective: {
+        title: "Creating Economic Opportunities for Housewives While Meeting Student Needs",
+        body: "Many women in Gandhinagar were looking for flexible ways to earn an income while managing their families, while many students lived away from home and missed the comfort of home-cooked food. We saw food as the natural connection between these two communities and explored how homemade food could bring the feeling of home to students while creating flexible earning opportunities for women.",
+      },
+      discovery: {
+        title: "From Observations to Insights",
+        body: "Synthesizing user interviews and discussions to uncover patterns, needs, and opportunities that informed design decisions — through primary and secondary research, focus groups, system mapping, and opportunity mapping across Gandhinagar.",
+        blocks: [
+          {
+            no: "01",
+            title: "A strong need for fresh, home-style food",
+            body: "Carrying home-cooked food leads to cold, soggy meals. Existing services lack authentic home-style taste, so there was strong demand for fresh, homemade food.",
+          },
+          {
+            no: "02",
+            title: "Cost sensitivity and transparency",
+            body: "Cost sensitivity and a preference for simple packaging. Quantity transparency was expected in online menus, alongside demand for personalization and portion options.",
+          },
+          {
+            no: "03",
+            title: "Home chefs’ lives revolve around family",
+            body: "Homemakers’ schedules revolve around family needs; retired individuals seek meaningful engagement. Stored homemade snacks fit anytime-consumption needs.",
+          },
+          {
+            no: "04",
+            title: "A small local market needs the right targeting",
+            body: "A limited local market meant the right customer targeting was essential. Tracking customer preferences mattered, and loyalty required assurance and stability for the home chefs.",
+          },
+        ],
+      },
+      solution: {
+        title: "From Service Concept to a Scalable Product",
+        body: "The concept was developed end to end — from system-level analysis through to a working app prototype envisioned as part of the scaling strategy.",
+        blocks: [
+          { no: "01", title: "Comparative Analysis", body: "Benchmarking existing food services to understand the landscape, gaps, and opportunities for a community-driven model." },
+          { no: "02", title: "Stakeholder Mapping", body: "Mapping key stakeholders, relationships, and interactions to understand how the service could function within the wider ecosystem." },
+          { no: "03", title: "Journey Mapping", body: "Mapping the end-to-end experiences of home chefs and customers to uncover pain points, expectations, and opportunities." },
+          { no: "04", title: "Service Blueprint", body: "Translating customer and chef journeys into the operational processes and touchpoints needed to deliver the service." },
+          { no: "05", title: "Brand Building", body: "Translating the service concept into a cohesive brand through identity, communication, packaging, and marketing touchpoints." },
+          { no: "06", title: "Concept Video", body: "Bringing the service concept to life through a short film that communicates its value, vision, and experience to stakeholders." },
+          { no: "07", title: "Interface Design", body: "User personas, user flows, wireframing, a design system, prototyping, and user testing — a prototype built to demonstrate the platform’s functionality and potential." },
+        ],
+      },
+    },
+  },
+
+  aero_check: {
+    slug: "aero_check",
+    name: "Aero Check",
+    headline:
+      "Designing an AI-Assisted Validation Tool That Increased Processing Speed by 3.3×",
+    summary:
+      "As a consultant, I worked on a pilot project for Airbus to demonstrate how AI could assist in validating complex manufacturing diagrams. The goal was to explore how AI could reduce manual effort by identifying missing or inconsistent information and supporting engineers with a faster, more reliable validation workflow.",
+    meta: [
+      { label: "Client", value: "Airbus" },
+      { label: "Duration", value: "4 weeks" },
+      { label: "Industry", value: "Aviation" },
+      { label: "Scope of Work", value: "AI-Driven · Enterprise SaaS · No-code" },
+    ],
+    sections: {
+      objective: {
+        title:
+          "Making Manufacturing Diagram Validation Faster Without Compromising Engineering Confidence",
+        body: "Engineers previously validated diagrams manually by comparing drawings against Bill of Material (BOM) data and supporting information. The repetitive process made validation time-consuming and required engineers to repeatedly cross-reference multiple sources. The objective was to reduce validation time by automating repetitive comparisons while ensuring every AI recommendation remained transparent, reviewable, and under human control.",
+      },
+      impact: {
+        title: "Reducing Validation Time by 70%",
+        metrics: [
+          {
+            value: "3.3×",
+            label:
+              "Faster diagram validation — by reducing repetitive manual comparisons across drawings and Bill of Material (BOM) data.",
+          },
+          {
+            value: "−70%",
+            label:
+              "Less validation time — engineers spent less time searching and reconciling information and more time reviewing the results that need their expertise.",
+          },
+        ],
+      },
+      discovery: {
+        title: "Understanding How Engineers Validate Manufacturing Diagrams",
+        body: "I spoke with engineers involved in diagram validation to understand how they review drawings, compare them against BOM and engineering data, and investigate discrepancies across supporting documentation.",
+        blocks: [
+          { no: "01", title: "Validation is cross-referencing, not matching", body: "Validation requires cross-referencing multiple engineering data sources and attributes, not just matching a part number." },
+          { no: "02", title: "Engineers need a traceable trail", body: "Engineers need a traceable validation trail showing what was checked, which rules were applied, and where human review is still required." },
+          { no: "03", title: "Data relationships decide what to trust", body: "Engineers need the relationships between drawings, BOMs and technical documents to determine which data should be trusted." },
+          { no: "04", title: "AI needs source-level evidence", body: "AI recommendations need source-level evidence so engineers can assess and trust the suggested value." },
+        ],
+      },
+      solution: {
+        title: "Proposing AX Principles to Build User Trust",
+        body: "The development team initially focused on surfacing the AI result. I mapped the validation journey — one primary review process plus four exception scenarios (missing values, AI-confirmed suggestions, manual overrides, re-review before submission) — and used three concepts to show why engineers also needed the source, reasoning, and clear paths when AI succeeds or fails.",
+        blocks: [
+          { no: "01", title: "Contextual Feedback", body: "When the system detected a mismatch — e.g. a part number in the diagram not matching the BOM — I highlighted the exact region in the diagram and displayed the conflicting BOM entry alongside it, so engineers could validate the issue without searching lists or switching screens." },
+          { no: "02", title: "AI Transparency and Explainability", body: "When the system resolved missing information by retrieving data from another source file, I surfaced the action together with its source. Engineers could review, confirm, or reject the recommendation instead of relying on silent automation." },
+          { no: "03", title: "Human–AI Handoff", body: "Instead of a generic “Needs Review” state, I displayed the validation steps performed, the data sources consulted, and why the issue remained unresolved — so engineers could continue from where the AI stopped rather than repeating the investigation." },
+          { no: "04", title: "Wireframe to High Fidelity", body: "We began with quick wireframes for shared understanding, then built high-fidelity Figma prototypes while keeping the constraints of FlutterFlow (the no-code delivery platform) in mind, so the design stayed realistic and achievable." },
+          { no: "05", title: "Prompt to Code", body: "The product was originally built in FlutterFlow; for the portfolio I rebuilt a working prototype using Claude." },
+        ],
+      },
+    },
+  },
 };
