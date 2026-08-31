@@ -1,10 +1,12 @@
 /* ---------------------------------------------------------------------------
-   Design tokens — ported from the Framer project's colour + text styles.
-   Framer breakpoints: desktop >=1200, tablet <=1200, mobile <=810.
+   Design tokens — ported from the Framer project (souvikb.net).
+   Breakpoints: desktop >=1200, tablet <=1200, mobile <=810.
+   RULE: never write a raw px value for spacing, width caps, or colour in a
+   component stylesheet. Everything comes from a token below.
 --------------------------------------------------------------------------- */
 
 :root {
-  /* colour styles */
+  /* --- colour: brand + neutrals --- */
   --brand-primary: rgb(41, 39, 36);
   --brand-secondary: rgb(255, 68, 0);
   --text-primary: rgb(18, 18, 18);
@@ -17,19 +19,71 @@
   --gray: rgb(229, 229, 229);
   --grey-100: rgb(224, 225, 230);
   --blue-shade: rgb(209, 225, 232);
-  --black-10: rgba(0, 0, 0, 0.1);
-  --black-16: rgba(0, 0, 0, 0.16);
-  --black-50: rgba(0, 0, 0, 0.5);
   --purple-green: rgb(94, 103, 230);
   --theme-white-dark: rgb(255, 255, 255);
 
-  /* fonts (see layout.tsx) */
+  /* --- colour: alpha overlays (light surfaces) --- */
+  --hairline: rgba(0, 0, 0, 0.1);      /* 1px borders */
+  --rule: rgba(0, 0, 0, 0.16);         /* section rules / HeaderBar line */
+  --scrim: rgba(0, 0, 0, 0.5);         /* image overlays */
+  /* legacy aliases — prefer the semantic names above */
+  --black-10: var(--hairline);
+  --black-16: var(--rule);
+  --black-50: var(--scrim);
+  --shadow-sm: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.18);
+
+  /* --- colour: on dark surfaces --- */
+  --on-dark: var(--white);
+  --on-dark-70: rgba(255, 255, 255, 0.7);   /* body text on dark */
+  --on-dark-40: rgba(255, 255, 255, 0.4);   /* links / underlines on dark */
+  --on-dark-hairline: rgba(255, 255, 255, 0.15);
+  --on-dark-rule: rgba(255, 255, 255, 0.2);
+
+  /* --- colour: components --- */
+  --surface-muted: rgb(247, 247, 247);      /* chat bubble, subtle fills */
+  --link: rgb(0, 102, 204);
+  --nav-surface: rgba(255, 255, 255, 0.7);
+  --nav-surface-solid: rgba(255, 255, 255, 0.95);
+
+  /* --- fonts --- */
   --font-body: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-inter-display), var(--font-inter), system-ui, sans-serif;
-  /* BDO Grotesk is licensed — Familjen Grotesk is the free stand-in for headings */
   --font-heading: var(--font-heading-fallback), var(--font-inter), system-ui, sans-serif;
+  /* BDO Grotesk is licensed — Familjen Grotesk is the free stand-in */
 
-  --maxw: 1200px;
+  /* --- spacing scale (4px base) --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-30: 120px;
+  --space-40: 160px;
+
+  /* --- semantic spacing --- */
+  --gutter: var(--space-6);          /* page side padding — everywhere */
+  --section-y: var(--space-24);      /* vertical rhythm between sections */
+  --section-y-sm: var(--space-16);
+  --stack-xs: var(--space-2);
+  --stack-sm: var(--space-3);
+  --stack-md: var(--space-5);
+  --stack-lg: var(--space-10);
+  --stack-xl: var(--space-20);
+  --nav-offset: var(--space-30);     /* clearance below the fixed nav */
+
+  /* --- widths --- */
+  --content-max: 1200px;             /* outer container */
+  --prose-max: 720px;                /* long-form text column */
+  --measure: 500px;                  /* short intro paragraphs */
+  --maxw: var(--content-max);        /* legacy alias */
 }
 
 * { box-sizing: border-box; }
@@ -42,7 +96,6 @@ html, body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
-
 body { overflow-x: hidden; }
 
 a { color: inherit; text-decoration: none; }
@@ -51,7 +104,7 @@ img { max-width: 100%; display: block; }
 h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 400; font-family: var(--font-heading); }
 p { margin: 0; }
 
-/* --- text style utilities ------------------------------------------------- */
+/* --- text style utilities (desktop; then <=1200, <=810 overrides) --- */
 .t-h1 { font-family: var(--font-heading); font-size: 192px; line-height: 0.95; letter-spacing: -0.02em; }
 .t-h2 { font-family: var(--font-heading); font-size: 72px;  line-height: 1.05; letter-spacing: -0.02em; }
 .t-h3 { font-family: var(--font-heading); font-size: 56px;  line-height: 1.1; letter-spacing: -0.01em; }
@@ -75,7 +128,18 @@ p { margin: 0; }
   .t-sub { font-size: 14px; } .t-body { font-size: 15px; } .t-title { font-size: 10px; }
 }
 
-/* --- layout helpers ----------------------------------------------------- */
-.container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-.section { width: 100%; padding: 96px 0; }
+/* --- layout helpers --- */
+.container { width: 100%; max-width: var(--content-max); margin: 0 auto; padding: 0 var(--gutter); }
+.section { width: 100%; padding: var(--section-y) 0; }
+.prose { max-width: var(--prose-max); }
+.measure { max-width: var(--measure); }
 .muted { color: var(--text-secondary); }
+
+/* small composition utilities to keep spacing out of TSX inline styles */
+.stack { display: flex; flex-direction: column; }
+.stack-sm { gap: var(--stack-sm); }
+.stack-md { gap: var(--stack-md); }
+.stack-lg { gap: var(--stack-lg); }
+.mt-3 { margin-top: var(--space-3); }
+.mt-10 { margin-top: var(--space-10); }
+.fw-500 { font-weight: 500; }

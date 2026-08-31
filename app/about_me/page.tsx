@@ -29,7 +29,7 @@ export default function AboutPage() {
                 alt="Souvik"
                 fill
                 sizes="340px"
-                style={{ objectFit: "cover" }}
+                className={styles.photoImg}
               />
             </div>
           </div>
@@ -39,13 +39,13 @@ export default function AboutPage() {
         <section className="section">
           <div className="container">
             <h2 className="t-h4">{techStack.heading}</h2>
-            <p className="t-body muted" style={{ maxWidth: 500, marginTop: 12 }}>
+            <p className="t-body muted measure mt-3">
               {techStack.intro}
             </p>
             <ul className={styles.stackList}>
               {techStack.items.map((s) => (
                 <li key={s.name} className={styles.stackRow}>
-                  <span className="t-body" style={{ fontWeight: 500 }}>
+                  <span className="t-body fw-500">
                     {s.name}
                   </span>
                   <span className="t-body muted">{s.body}</span>
@@ -59,10 +59,10 @@ export default function AboutPage() {
         <section className="section">
           <div className="container">
             <HeaderBar no="(02)" title="(Explorations)" />
-            <h2 className="t-h4" style={{ marginTop: 40 }}>
+            <h2 className="t-h4 mt-10">
               {edges.heading}
             </h2>
-            <p className="t-body muted" style={{ maxWidth: 500, marginTop: 12 }}>
+            <p className="t-body muted measure mt-3">
               {edges.intro}
             </p>
             <div className={styles.edgeGrid}>

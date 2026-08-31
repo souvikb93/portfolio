@@ -18,8 +18,6 @@ import {
 } from "@/data/site";
 import styles from "./Home.module.css";
 
-const STICKY_TOPS = ["50px", "90px", "130px", undefined];
-
 export default function HomePage() {
   return (
     <main>
@@ -91,12 +89,8 @@ export default function HomePage() {
               <div className={styles.rule} />
             </div>
             <div className={styles.projectStack}>
-              {projects.map((p, i) => (
-                <div
-                  key={p.title}
-                  className={styles.projectSlot}
-                  style={{ top: STICKY_TOPS[i] }}
-                >
+              {projects.map((p) => (
+                <div key={p.title} className={styles.projectSlot}>
                   <WorkCard project={p} />
                 </div>
               ))}

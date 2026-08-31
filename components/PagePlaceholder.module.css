@@ -1,0 +1,16 @@
+.main {
+  min-height: 80svh;
+  display: flex;
+  align-items: center;
+}
+.title {
+  margin: var(--space-3) 0 var(--space-6);
+  max-width: var(--content-max);
+}
+.link {
+  display: inline-block;
+  margin-top: var(--space-6);
+  font-size: 14px;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: var(--space-1);
+}

@@ -1,4 +1,4 @@
-.root { position: fixed; right: 24px; bottom: 24px; z-index: 200; }
+.root { position: fixed; right: var(--space-6); bottom: var(--space-6); z-index: 200; }
 
 .pill {
   border: 1px solid var(--black-10);
@@ -7,7 +7,7 @@
   padding: 12px 20px;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-sm);
 }
 
 .panel {
@@ -21,7 +21,7 @@
   border: 1px solid var(--black-10);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-lg);
 }
 
 .head {
@@ -39,8 +39,8 @@
 
 .msg { font-size: 14px; line-height: 1.5; padding: 10px 12px; border-radius: 12px; max-width: 85%; }
 .msg[data-role="user"] { align-self: flex-end; background: var(--text-primary); color: var(--white); }
-.msg[data-role="assistant"] { align-self: flex-start; background: rgb(247, 247, 247); }
-.msg a { color: rgb(0, 102, 204); text-decoration: underline; }
+.msg[data-role="assistant"] { align-self: flex-start; background: var(--surface-muted); }
+.msg a { color: var(--link); text-decoration: underline; }
 
 .form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--black-10); }
 .form input {

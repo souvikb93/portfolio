@@ -23,9 +23,7 @@ export function StudyPage({
           <div className="container">
             <p className="t-body muted">{study.name}</p>
             <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
-            <p className="t-body muted" style={{ maxWidth: 720 }}>
-              {study.summary}
-            </p>
+            <p className={`t-body muted ${styles.summary}`}>{study.summary}</p>
             <dl className={styles.meta}>
               {study.meta.map((m) => (
                 <div key={m.label}>

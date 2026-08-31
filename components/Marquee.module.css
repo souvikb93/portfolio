@@ -1,6 +1,6 @@
 .wrap { width: 100%; overflow: hidden; }
 .track { display: flex; width: max-content; animation: scroll linear infinite; }
-.group { display: flex; align-items: center; gap: 64px; padding-right: 64px; }
+.group { display: flex; align-items: center; gap: var(--space-16); padding-right: var(--space-16); }
 .wrap:hover .track { animation-play-state: paused; }
 
 @keyframes scroll {

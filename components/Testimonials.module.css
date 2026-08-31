@@ -14,8 +14,8 @@
 }
 .dots span[data-active="true"] { background: var(--brand-secondary); border-color: var(--brand-secondary); }
 
-.quote { margin: 0; display: flex; flex-direction: column; gap: 24px; }
-.quote footer { display: flex; flex-direction: column; gap: 4px; }
+.quote { margin: 0; display: flex; flex-direction: column; gap: var(--space-6); }
+.quote footer { display: flex; flex-direction: column; gap: var(--space-1); }
 
 .nav { display: flex; gap: 12px; }
 .nav button {

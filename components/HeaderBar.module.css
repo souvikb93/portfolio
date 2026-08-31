@@ -12,4 +12,4 @@
 .dot { width: 5px; height: 5px; background: currentColor; transform: rotate(-45deg); }
 
 .bar[data-variant="white"] { color: var(--white); }
-.bar[data-variant="white"] .line { background: rgba(255, 255, 255, 0.2); }
+.bar[data-variant="white"] .line { background: var(--on-dark-rule); }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import styles from "./PagePlaceholder.module.css";
 
 // Temporary shell for pages not yet ported from Framer.
 export function PagePlaceholder({
@@ -11,25 +12,14 @@ export function PagePlaceholder({
 }) {
   return (
     <>
-      <main style={{ minHeight: "80svh", display: "flex", alignItems: "center" }}>
+      <main className={styles.main}>
         <div className="container">
           <p className="t-body muted">{eyebrow}</p>
-          <h1 className="t-h2" style={{ margin: "12px 0 24px", maxWidth: 800 }}>
-            {title}
-          </h1>
-          <p className="t-body muted" style={{ maxWidth: 520 }}>
+          <h1 className={`t-h2 ${styles.title}`}>{title}</h1>
+          <p className="t-body muted measure">
             This page is still being ported from the Framer project.
           </p>
-          <Link
-            href="/"
-            style={{
-              display: "inline-block",
-              marginTop: 24,
-              fontSize: 14,
-              borderBottom: "1px solid var(--black-16)",
-              paddingBottom: 4,
-            }}
-          >
+          <Link href="/" className={styles.link}>
             ← Back home
           </Link>
         </div>
