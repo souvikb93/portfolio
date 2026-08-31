@@ -1,28 +1,44 @@
-import { HeaderBar } from "@/components/HeaderBar";
+import Image from "next/image";
 import { BuildCard } from "@/components/BuildCard";
 import { Footer } from "@/components/Footer";
 import { builds } from "@/data/site";
+import styles from "./Builds.module.css";
 
 export const metadata = { title: "Builds — Souvik B" };
+
+const INTRO =
+  "A collection of products I’ve built from idea to execution using modern AI tools. From identifying the problem and defining user journeys to designing the experience and shipping a functional product, these builds reflect my passion for turning ideas into reality.";
 
 export default function BuildsPage() {
   return (
     <>
-      <main
-        className="section"
-        style={{ paddingTop: 140, background: "var(--dark-grey)", color: "var(--white)" }}
-      >
-        <div className="container">
-          <HeaderBar no="(03)" title="(Builds)" variant="white" />
-          <h1 className="t-h3" style={{ margin: "40px 0 32px", maxWidth: 820 }}>
-            Building and shipping AI-powered products that solve real user problems.
-          </h1>
-          <div style={{ borderBottom: "1px solid rgba(255,255,255,0.15)" }}>
+      <main className={styles.page}>
+        <section className={styles.hero}>
+          <Image
+            src="https://framerusercontent.com/images/QMPpU75EPMKUWpqueYj7rlfygDE.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroBg}
+          />
+          <div className={`container ${styles.heroInner}`}>
+            <h1 className="t-h1">
+              AI Powered
+              <br />
+              Builds
+            </h1>
+            <p className={`t-title ${styles.heroIntro}`}>{INTRO}</p>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
             {builds.map((b) => (
               <BuildCard key={b.title} build={b} />
             ))}
           </div>
-        </div>
+        </section>
       </main>
       <Footer />
     </>

@@ -1,0 +1,28 @@
+.page { background: var(--dark-grey); color: var(--white); }
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: 24px 0 48px;
+  background: var(--black-pure);
+  overflow: clip;
+}
+.heroBg { object-fit: cover; opacity: 0.7; z-index: 0; }
+.heroInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  width: 100%;
+}
+.heroInner h1 { line-height: 0.9; }
+.heroIntro { max-width: 320px; color: rgba(255, 255, 255, 0.85); }
+
+@media (max-width: 810px) {
+  .heroInner { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .heroIntro { max-width: none; }
+}
