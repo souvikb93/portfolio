@@ -47,10 +47,11 @@
   --nav-surface-solid: rgba(255, 255, 255, 0.95);
 
   /* --- fonts --- */
+  /* BDO Grotesk is the site typeface (headings, nav, meta, most UI text).
+     Inter is used only for running body copy. Antonio for the hero display words. */
+  --font-heading: var(--font-bdo), system-ui, sans-serif;
   --font-body: var(--font-inter), system-ui, sans-serif;
-  --font-display: var(--font-inter-display), var(--font-inter), system-ui, sans-serif;
-  --font-heading: var(--font-heading-fallback), var(--font-inter), system-ui, sans-serif;
-  /* BDO Grotesk is licensed — Familjen Grotesk is the free stand-in */
+  --font-display: var(--font-antonio), var(--font-bdo), system-ui, sans-serif;
 
   /* --- spacing scale (4px base) --- */
   --space-1: 4px;
@@ -79,8 +80,18 @@
   --stack-xl: var(--space-20);
   --nav-offset: var(--space-30);     /* clearance below the fixed nav */
 
+  /* --- component geometry (measured off the live site) --- */
+  --radius-media: 5px;               /* project/build card media corners */
+  --card-gap: 10px;                  /* media -> meta row */
+  --card-meta-gap: var(--space-12);  /* columns inside the meta row */
+  --project-card-ratio: 640 / 452;   /* card media aspect */
+  --project-sticky-top: 50px;        /* first card's sticky offset */
+  --project-sticky-step: var(--space-10); /* each subsequent card +40px */
+
   /* --- widths --- */
-  --content-max: 1200px;             /* outer container */
+  /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a
+     1232px row flush to a 24px gutter; at 1600 it caps at 1440 and centres. */
+  --content-max: 1440px;             /* outer container */
   --prose-max: 720px;                /* long-form text column */
   --measure: 500px;                  /* short intro paragraphs */
   --maxw: var(--content-max);        /* legacy alias */
@@ -104,32 +115,51 @@ img { max-width: 100%; display: block; }
 h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 400; font-family: var(--font-heading); }
 p { margin: 0; }
 
-/* --- text style utilities (desktop; then <=1200, <=810 overrides) --- */
-.t-h1 { font-family: var(--font-heading); font-size: 192px; line-height: 0.95; letter-spacing: -0.02em; }
-.t-h2 { font-family: var(--font-heading); font-size: 72px;  line-height: 1.05; letter-spacing: -0.02em; }
-.t-h3 { font-family: var(--font-heading); font-size: 56px;  line-height: 1.1; letter-spacing: -0.01em; }
-.t-h4 { font-family: var(--font-heading); font-size: 40px;  line-height: 1.15; }
-.t-h5 { font-family: var(--font-heading); font-size: 30px;  line-height: 1.2; }
-.t-h6 { font-family: var(--font-heading); font-size: 24px;  line-height: 1.3; }
-.t-sub  { font-family: var(--font-heading); font-size: 18px; line-height: 1.4; }
-.t-body { font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
-.t-body2 { font-family: var(--font-body); font-size: 12px; line-height: 1.5; }
-.t-caption { font-family: var(--font-body); font-size: 10px; line-height: 1.4; }
-.t-title { font-family: var(--font-display); font-weight: 500; font-size: 16px; line-height: 1.3; }
+/* --- text style utilities ---------------------------------------------------
+   Sizes/line-heights/tracking below are measured off the live site at 1280.
+   Line height and letter-spacing are expressed as ratios/em so they hold at
+   every step of the responsive scale.
+     t-h1  192/196 -7px    build number
+     t-h2   70/70  -2.1px  section headline (weight 500)
+     t-h3   56/64  -1.5px  card title
+     t-h4   40/48  -1px    section h2 / hero card
+     t-h5   30/38  -0.5px  "Souvik B"
+     t-h6   24/31            sub-heading
+     t-sub  18/26           card subtitle
+     t-body Inter 16/26     running copy
+     t-meta 12/16.2 -0.5px  "(02) (Builds) © SB" labels
+     t-cap  10/11.2         nav index numerals
+     t-link 16/20.2 -0.5px  "Explore More" / "See all (05)"
+--------------------------------------------------------------------------- */
+.t-h1 { font-family: var(--font-heading); font-size: 192px; line-height: 1.0208; letter-spacing: -0.0365em; }
+.t-h2 { font-family: var(--font-heading); font-size: 70px;  line-height: 1;      letter-spacing: -0.03em; font-weight: 500; }
+.t-h3 { font-family: var(--font-heading); font-size: 56px;  line-height: 1.1429; letter-spacing: -0.0268em; }
+.t-h4 { font-family: var(--font-heading); font-size: 40px;  line-height: 1.2;    letter-spacing: -0.025em; }
+.t-h5 { font-family: var(--font-heading); font-size: 30px;  line-height: 1.2667; letter-spacing: -0.0167em; }
+.t-h6 { font-family: var(--font-heading); font-size: 24px;  line-height: 1.3; letter-spacing: -0.02em; }
+.t-sub  { font-family: var(--font-heading); font-size: 18px; line-height: 1.4444; }
+.t-body { font-family: var(--font-body); font-size: 16px; line-height: 1.625; }
+.t-meta { font-family: var(--font-heading); font-size: 12px; line-height: 1.35; letter-spacing: -0.0417em; }
+.t-cap  { font-family: var(--font-heading); font-size: 10px; line-height: 1.12; }
+.t-link { font-family: var(--font-heading); font-size: 16px; line-height: 1.2625; letter-spacing: -0.03125em; }
+/* legacy aliases */
+.t-body2 { font-family: var(--font-heading); font-size: 12px; line-height: 1.35; letter-spacing: -0.0417em; }
+.t-caption { font-family: var(--font-heading); font-size: 10px; line-height: 1.12; }
+.t-title { font-family: var(--font-heading); font-weight: 500; font-size: 16px; line-height: 1.2625; letter-spacing: -0.03125em; }
 
 @media (max-width: 1200px) {
-  .t-h1 { font-size: 120px; } .t-h2 { font-size: 52px; } .t-h3 { font-size: 40px; }
-  .t-h4 { font-size: 30px; } .t-h5 { font-size: 22px; } .t-h6 { font-size: 18px; }
-  .t-sub { font-size: 16px; } .t-title { font-size: 13px; }
+  .t-h1 { font-size: 140px; } .t-h2 { font-size: 52px; } .t-h3 { font-size: 40px; }
+  .t-h4 { font-size: 32px; } .t-h5 { font-size: 24px; } .t-h6 { font-size: 20px; }
+  .t-sub { font-size: 16px; }
 }
 @media (max-width: 810px) {
-  .t-h1 { font-size: 64px; } .t-h2 { font-size: 36px; } .t-h3 { font-size: 28px; }
-  .t-h4 { font-size: 22px; } .t-h5 { font-size: 18px; } .t-h6 { font-size: 16px; }
-  .t-sub { font-size: 14px; } .t-body { font-size: 15px; } .t-title { font-size: 10px; }
+  .t-h1 { font-size: 84px; } .t-h2 { font-size: 36px; } .t-h3 { font-size: 28px; }
+  .t-h4 { font-size: 26px; } .t-h5 { font-size: 20px; } .t-h6 { font-size: 17px; }
+  .t-sub { font-size: 15px; } .t-body { font-size: 15px; }
 }
 
 /* --- layout helpers --- */
-.container { width: 100%; max-width: var(--content-max); margin: 0 auto; padding: 0 var(--gutter); }
+.container { width: min(var(--content-max), 100% - var(--gutter) * 2); margin-inline: auto; }
 .section { width: 100%; padding: var(--section-y) 0; }
 .prose { max-width: var(--prose-max); }
 .measure { max-width: var(--measure); }

@@ -12,15 +12,15 @@ export function WorkCard({ project }: { project: Project }) {
           src={project.image}
           alt={project.title}
           fill
-          sizes="(max-width: 810px) 100vw, 440px"
+          sizes="(max-width: 810px) 100vw, 640px"
           className={styles.img}
         />
       </div>
-      <div className={styles.meta}>
+      <div className={`t-meta ${styles.meta}`}>
         <span className={styles.no}>{project.no}</span>
         <div className={styles.text}>
           <span className={styles.title}>{project.title}</span>
-          <span className={`t-body ${styles.category}`}>{project.category}</span>
+          <span className={styles.category}>{project.category}</span>
         </div>
         <span className={styles.year}>{project.year}</span>
       </div>

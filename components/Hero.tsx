@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { RollingText } from "@/components/RollingText";
-import { hero } from "@/data/site";
+import { hero, intro, experience } from "@/data/site";
 import styles from "./Hero.module.css";
 
-const FRONT = "https://framerusercontent.com/images/4IHkJM71yAnl9Jgvb8a5FBV7HeM.jpg";
-const BACK = "https://framerusercontent.com/images/XfjHiaFxSvcYATMJPAu4jDyH4s.gif";
+const FRONT = "/images/hero-front.jpg";
+const BACK = "/images/hero-back.gif";
 
-// Home hero — sticky parallax card that flips (portrait ↔ gif), mirrors souvikb.net.
-// Flip is driven by scroll progress through the 200vh section; falls back to a
-// gentle timed flip if the page isn't scrolling.
+// Home hero — mirrors souvikb.net: a card that stays sticky for 200vh while two
+// full-height type panels scroll past it (panel 1: name + display words,
+// panel 2: the intro statement + experience list). The card flips
+// portrait <-> gif on scroll progress, with a gentle idle flip as a fallback.
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const [flipped, setFlipped] = useState(false);
@@ -31,7 +31,6 @@ export function Hero() {
       idleTimer = window.setTimeout(() => (scrolledRecently = false), 1200);
     };
 
-    // gentle auto-flip while the hero is on screen and the user isn't scrolling
     const loop = window.setInterval(() => {
       if (!scrolledRecently) setFlipped((f) => !f);
     }, 4200);
@@ -47,6 +46,7 @@ export function Hero() {
 
   return (
     <section ref={ref} className={styles.hero}>
+      {/* Sticky card layer — stays put across both panels. */}
       <div className={styles.stage}>
         <div className={styles.cardPerspective}>
           <div className={styles.card} data-flipped={flipped}>
@@ -57,18 +57,44 @@ export function Hero() {
           </div>
           <span className={styles.badge}>Hi</span>
         </div>
+      </div>
 
-        <div className={`container ${styles.text}`}>
-          <div className={styles.left}>
-            <p className="t-h5">{hero.name}</p>
-            <RollingText
-              words={["Product", "UX/UI", "AI-native"]}
-              className={`t-h1 ${styles.roll}`}
-            />
+      {/* Type layer — two 100vh panels stacked behind the card. */}
+      <div className={styles.panels}>
+        <div className={styles.panel}>
+          <div className={styles.panelInner}>
+            <div className={styles.left}>
+              <span className={styles.wordWrap}>
+                <p className={`t-h5 ${styles.name}`}>{hero.name}</p>
+                <span className={styles.displayWord}>{hero.role}</span>
+              </span>
+            </div>
+            <div className={styles.right}>
+              <span className={styles.wordWrap}>
+                <span className={`${styles.displayWord} ${styles.displayWordAlt}`}>
+                  designer
+                </span>
+                <p className={`t-body ${styles.blurb}`}>{hero.blurb}</p>
+              </span>
+            </div>
           </div>
-          <div className={styles.right}>
-            <span className={styles.bigWord}>designer</span>
-            <p className={`t-body ${styles.blurb}`}>{hero.blurb}</p>
+        </div>
+
+        <div className={styles.panel}>
+          <div className={`container ${styles.panelTwo}`}>
+            <div className={styles.introCopy}>
+              <h2 className="t-h4">{intro.heading}</h2>
+              <p className="t-body muted">{intro.body}</p>
+            </div>
+            <ul className={styles.expList}>
+              {experience.map((e) => (
+                <li key={e.title} className={styles.expRow}>
+                  <span className="t-sub">{e.title}</span>
+                  <span className="t-sub muted">{e.company}</span>
+                  <span className="t-meta muted">{e.years}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

@@ -15,7 +15,7 @@ export default function BuildsPage() {
       <main className={styles.page}>
         <section className={styles.hero}>
           <Image
-            src="https://framerusercontent.com/images/QMPpU75EPMKUWpqueYj7rlfygDE.webp"
+            src="/images/QMPpU75EPMKUWpqueYj7rlfygDE.webp"
             alt=""
             fill
             priority

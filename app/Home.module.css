@@ -1,94 +1,5 @@
-/* ---------- Intro + experience ---------- */
-.introGrid {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: var(--stack-xl);
-  align-items: start;
-}
-.introCopy { display: flex; flex-direction: column; gap: var(--stack-md); }
-.expList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
-.expRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-4);
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--rule);
-}
-@media (max-width: 1000px) {
-  .introGrid { grid-template-columns: 1fr; gap: var(--stack-lg); }
-}
-
-/* ---------- About ---------- */
-.about {
-  position: relative;
-  background: var(--white);
-  padding: var(--space-6) 0 var(--section-y-sm);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: visible;
-}
-/* offset overlap block behind the section top */
-.overlap {
-  position: absolute;
-  top: calc(-1 * var(--space-40) - var(--section-y));
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 1440px;
-  height: 60vh;
-  background: var(--white);
-  z-index: 0;
-}
-.aboutTop {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--stack-xl);
-  align-items: center;
-  text-align: center;
-}
-.aboutHeadline { max-width: var(--content-max); }
-
-.aboutBottom {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--stack-lg);
-  margin-top: var(--space-30);
-}
-.aboutPhoto {
-  flex: 0 0 328px;
-  width: 328px;
-  aspect-ratio: 328 / 440;
-  object-fit: cover;
-  border-radius: var(--space-1);
-  background: var(--gray);
-}
-.aboutRows {
-  flex: 1;
-  max-width: 835px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--stack-lg);
-  padding-top: var(--space-3);
-}
-.aboutRow {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: var(--stack-xl);
-  align-items: start;
-}
-@media (max-width: 900px) {
-  .aboutTop { text-align: left; align-items: flex-start; gap: var(--stack-lg); }
-  .aboutBottom { flex-direction: column; gap: var(--stack-lg); margin-top: var(--space-12); }
-  .aboutPhoto { width: 100%; max-width: 328px; }
-  .aboutRow { grid-template-columns: 1fr; gap: var(--stack-xs); }
-}
+/* The intro statement, experience list and hero type all live in Hero.module.css —
+   on the live site they are panel 2 of the sticky hero, not separate sections. */
 
 /* ---------- Logo ticker ---------- */
 .ticker { padding: var(--space-10) 0; border-block: 1px solid var(--hairline); }
@@ -104,7 +15,7 @@
 }
 .portfolioAside {
   position: sticky;
-  top: var(--nav-offset);
+  top: 0;
   align-self: start;
   display: flex;
   flex-direction: column;
@@ -113,7 +24,7 @@
 }
 .portfolioAsideEnd {
   position: sticky;
-  top: var(--nav-offset);
+  top: 0;
   align-self: start;
   display: flex;
   justify-content: center;
@@ -124,11 +35,13 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  padding: 0 var(--space-12);
 }
-.projectSlot { position: sticky; top: var(--nav-offset); }
-.projectSlot:nth-child(2) { top: calc(var(--nav-offset) + var(--space-10)); }
-.projectSlot:nth-child(3) { top: calc(var(--nav-offset) + var(--space-20)); }
+.projectSlot { width: 100%; max-width: 640px; margin-inline: auto; }
+/* Cards stack under one another as you scroll, each pinning 40px lower than
+   the last (50 / 90 / 130 on the live site); the final card scrolls away. */
+.projectSlot { position: sticky; top: var(--project-sticky-top); }
+.projectSlot:nth-child(2) { top: calc(var(--project-sticky-top) + var(--project-sticky-step)); }
+.projectSlot:nth-child(3) { top: calc(var(--project-sticky-top) + var(--project-sticky-step) * 2); }
 .projectSlot:last-child { position: static; }
 .pillLink {
   display: inline-block;

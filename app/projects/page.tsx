@@ -15,7 +15,7 @@ export default function ProjectsPage() {
       <main>
         <section className={styles.hero}>
           <Image
-            src="https://framerusercontent.com/images/gM2fq6noqljYPYZPLPvgiKwzUA.jpeg"
+            src="/images/gM2fq6noqljYPYZPLPvgiKwzUA.jpeg"
             alt=""
             fill
             priority

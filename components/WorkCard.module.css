@@ -1,18 +1,27 @@
-.card { display: flex; flex-direction: column; gap: 16px; }
+/* Project card — 640x494 on the live site at 1280: a 640/452 media plate with
+   a 5px radius, then a 32px meta row 10px below it. */
+.card { display: flex; flex-direction: column; gap: var(--card-gap); }
+
 .media {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 24px;
+  aspect-ratio: var(--project-card-ratio);
+  border-radius: var(--radius-media);
   overflow: hidden;
   background: var(--black);
 }
 .img { object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 .card:hover .img { transform: scale(1.04); }
 
-.meta { display: flex; gap: 24px; align-items: flex-start; padding-right: 8px; }
-.no { font-size: 13px; letter-spacing: 0.02em; padding-top: 2px; }
-.text { display: flex; flex-direction: column; gap: 2px; flex: 1; }
-.title { font-family: var(--font-display); font-weight: 500; font-size: 16px; }
-.category { color: var(--text-secondary); }
-.year { font-size: 13px; letter-spacing: 0.02em; padding-top: 2px; }
+/* Every line in the meta row is 12/16.2 on the live site — title included —
+   so the row is exactly two 16px lines tall. */
+.meta {
+  display: flex;
+  gap: var(--card-meta-gap);
+  align-items: flex-start;
+}
+.no { flex: 0 0 auto; }
+.text { display: flex; flex-direction: column; flex: 1; }
+.title { color: var(--black-pure); }
+.category { color: var(--scrim); }
+.year { flex: 0 0 auto; }

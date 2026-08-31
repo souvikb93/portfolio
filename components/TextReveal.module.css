@@ -1,0 +1,8 @@
+/* Word-by-word reveal. Words are inline-block so they can be transformed
+   individually; the right margin stands in for the space between them. */
+.reveal { display: inline-block; }
+
+.word {
+  display: inline-block;
+  margin-right: 0.28em;
+}

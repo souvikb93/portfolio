@@ -13,7 +13,7 @@ export function Nav() {
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo} aria-label="Souvik B — home">
-        © SB
+        sb
       </Link>
 
       <nav className={styles.links} data-open={open}>
@@ -30,7 +30,8 @@ export function Nav() {
               data-active={active}
               onClick={() => setOpen(false)}
             >
-              {item.label}
+              <span className={styles.linkLabel}>{item.label}</span>
+              <span className={styles.linkNo}>{item.no}</span>
             </Link>
           );
         })}

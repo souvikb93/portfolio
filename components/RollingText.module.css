@@ -1,0 +1,22 @@
+/* Rolling word: a clipped box sized to the widest word, with each word
+   absolutely stacked inside it so they roll through the same line box.
+   Line height and alignment are inherited so the caller's type class wins. */
+.roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+.sizer {
+  visibility: hidden;
+  display: inline-block;
+}
+
+.word {
+  position: absolute;
+  inset: 0;
+  display: inline-block;
+  text-align: inherit;
+}

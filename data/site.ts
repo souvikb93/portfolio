@@ -1,10 +1,11 @@
 // Content pulled from the Framer project via MCP. Edit here — the pages read from this.
 
+// Order and index numerals match the live site's header.
 export const nav = [
-  { label: "Home", href: "/" },
-  { label: "Projects", href: "/projects" },
-  { label: "Builds", href: "/builds" },
-  { label: "About", href: "/about_me" },
+  { label: "Home", href: "/", no: "01" },
+  { label: "Builds", href: "/builds", no: "02" },
+  { label: "Projects", href: "/projects", no: "03" },
+  { label: "About", href: "/about_me", no: "04" },
 ];
 
 export const contact = {
@@ -20,7 +21,8 @@ export const contact = {
 
 export const hero = {
   name: "Souvik B",
-  roles: ["designer", "builder"],
+  // The live hero shows a static pair of display words: "UX / UI" + "designer".
+  role: "UX / UI",
   blurb:
     "I’m a Berlin-based designer building AI-powered products people can understand, trust, and use.",
 };
@@ -56,7 +58,7 @@ export const projects: Project[] = [
     category: "Accessibilty First Medicare Product",
     year: "© 2024",
     href: "/projects/access_now",
-    image: "https://framerusercontent.com/images/TNc8CSbNVglxdHgkw0nZm2Hwx8Q.png",
+    image: "/images/TNc8CSbNVglxdHgkw0nZm2Hwx8Q.png",
   },
   {
     no: "(04)",
@@ -64,7 +66,7 @@ export const projects: Project[] = [
     category: "AI Powered Manufacturing Diagram Validation Tool",
     year: "© 2024",
     href: "/projects/aero_check",
-    image: "https://framerusercontent.com/images/yuS2M7JfOtnVFgldybJXykkAWh8.png",
+    image: "/images/yuS2M7JfOtnVFgldybJXykkAWh8.png",
   },
   {
     no: "(02)",
@@ -72,7 +74,7 @@ export const projects: Project[] = [
     category: "Mobile App",
     year: "© 2023",
     href: "/projects/member_portal",
-    image: "https://framerusercontent.com/images/KIEFX4kEuByXd9JpGIS8twFgVoQ.png",
+    image: "/images/KIEFX4kEuByXd9JpGIS8twFgVoQ.png",
   },
   {
     no: "(03)",
@@ -80,7 +82,7 @@ export const projects: Project[] = [
     category: "Service Design for Women Empowerment",
     year: "© 2020",
     href: "/projects/desi_aroma",
-    image: "https://framerusercontent.com/images/hWgzMThzfV7DnNlrIOmiQixA1g.jpg",
+    image: "/images/hWgzMThzfV7DnNlrIOmiQixA1g.jpg",
   },
 ];
 
@@ -152,7 +154,7 @@ export const aboutPage = {
   headline: "Chai-fueled designer navigating design, culture, and curiosity",
   intro:
     "Creating things for people has always been what I enjoy most. That’s what led me to design, and it’s what continues to inspire my work today. I’m learning German as my fourth language while exploring how design, engineering, and AI can work together to make products that solve real world problems.",
-  photo: "https://framerusercontent.com/images/4IHkJM71yAnl9Jgvb8a5FBV7HeM.jpg",
+  photo: "/images/4IHkJM71yAnl9Jgvb8a5FBV7HeM.jpg",
 };
 
 export const techStack = {

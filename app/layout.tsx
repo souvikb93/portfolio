@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Familjen_Grotesk, Antonio } from "next/font/google";
+import { Inter, Antonio } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { AskSouvik } from "@/components/AskSouvik";
@@ -11,17 +12,20 @@ const inter = Inter({
   display: "swap",
 });
 
-// Free stand-in for the licensed "BDO Grotesk" used in the Framer project.
-const heading = Familjen_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-heading-fallback",
+// BDO Grotesk — the typeface the Framer site uses, self-hosted so the site has
+// no runtime dependency on framerusercontent.com. Single variable file, 400-1000.
+const bdo = localFont({
+  src: "./fonts/BDOGrotesk-Variable.woff2",
+  variable: "--font-bdo",
+  weight: "400 1000",
   display: "swap",
+  fallback: ["system-ui", "sans-serif"],
 });
 
-// Big display word in the hero ("designer").
+// Big display words in the hero ("UX / UI" + "DESIGNER").
 const antonio = Antonio({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["400", "700"],
   variable: "--font-antonio",
   display: "swap",
 });
@@ -37,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${heading.variable} ${antonio.variable}`}
+      className={`${inter.variable} ${bdo.variable} ${antonio.variable}`}
     >
       <body>
         <SmoothScroll />

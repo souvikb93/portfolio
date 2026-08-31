@@ -3,12 +3,8 @@ import path from "node:path";
 
 const nextConfig: NextConfig = {
   turbopack: { root: path.resolve(__dirname) },
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "framerusercontent.com" },
-      { protocol: "https", hostname: "*.framerusercontent.com" },
-    ],
-  },
+  // All imagery is served from /public — the site has no runtime dependency on
+  // Framer's CDN, so no remote patterns are allowed.
 };
 
 export default nextConfig;

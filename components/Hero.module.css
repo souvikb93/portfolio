@@ -1,29 +1,34 @@
+/* Hero — 200vh tall. A sticky card layer stays fixed in the viewport while two
+   full-height type panels scroll past behind it. Geometry is taken from the
+   live site: an 1200px centred row with two 415px columns (right-aligned left
+   column, left-aligned right column) and the card overlapping both. */
 .hero {
   position: relative;
   height: 200vh;
 }
+
+/* ---- sticky card layer ---- */
 .stage {
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* ---- flipping card (sits above the type layer) ---- */
 .cardPerspective {
   position: relative;
   width: 340px;
   height: 476px;
   perspective: 1600px;
-  z-index: 2;
 }
 .card {
   position: relative;
-  width: 340px;
-  height: 476px;
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
@@ -42,10 +47,11 @@
 }
 .back { transform: rotateY(180deg); }
 
+/* Centred exactly on the card's bottom-left corner, as on the live site. */
 .badge {
   position: absolute;
-  left: calc(-1 * var(--space-5));
-  bottom: calc(-1 * var(--space-5));
+  left: -60px;
+  bottom: -60px;
   width: 120px;
   height: 120px;
   border-radius: 999px;
@@ -55,61 +61,109 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-heading);
-  font-size: 32px;
-  transform: rotate(-6deg);
-  z-index: 3;
+  font-size: 40px;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
 }
 
-/* ---- text layer (behind the card — overlap reads as depth) ---- */
-.text {
+/* ---- type layer: two stacked 100vh panels behind the card ---- */
+.panels {
   position: absolute;
   inset: 0;
-  width: 100%;
-  max-width: var(--content-max);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
   z-index: 1;
-  pointer-events: none;
 }
-.left {
-  position: absolute;
-  left: var(--gutter);
-  bottom: 18vh;
+.panel {
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
+  align-items: center;
 }
-.roll {
-  font-family: var(--font-heading);
-  font-size: clamp(40px, 5.5vw, 84px);
-  line-height: 0.9;
-  letter-spacing: -0.02em;
+
+/* Panel 1 — 1200px centred row, two 415px columns. */
+.panelInner {
+  width: min(1200px, 100% - var(--gutter) * 2);
+  margin-inline: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-10);
 }
+/* Each column centres on its display word. The name and blurb hang off the
+   word itself — .wordWrap shrink-wraps the word so "Souvik B" lines up with
+   the word's left edge and the blurb with its right edge, as on the live site.
+   Because they are absolute, neither shifts the word off centre. */
+.left,
 .right {
-  position: absolute;
-  right: var(--gutter);
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  gap: var(--space-5);
+  flex: 0 1 415px;
 }
-.bigWord {
-  font-family: var(--font-antonio), var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(64px, 9vw, 140px);
-  line-height: 0.85;
-  text-transform: lowercase;
+.left { justify-content: flex-end; }
+.right { justify-content: flex-start; }
+
+.wordWrap { position: relative; display: inline-block; }
+
+.name {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: var(--space-1);
   white-space: nowrap;
 }
-.blurb { max-width: var(--measure); text-align: left; }
+.blurb {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 329px;
+  margin-top: var(--space-5);
+  text-align: left;
+  color: var(--text-secondary);
+}
+
+/* The big Antonio words. 120/132 with -3.6px tracking on the live site. */
+.displayWord {
+  display: inline-block;
+  font-family: var(--font-antonio), var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(56px, 9.4vw, 120px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--black-pure);
+}
+/* Right-hand word is a step lighter, which reads as depth behind the card. */
+.displayWordAlt { color: rgb(48, 48, 48); }
+
+/* Panel 2 — intro statement + experience list. */
+.panelTwo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: 600px;
+  margin-inline: 0 auto;
+}
+.introCopy { display: flex; flex-direction: column; gap: var(--stack-md); }
+.expList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.expRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--rule);
+}
 
 @media (max-width: 900px) {
-  .hero { height: 170vh; }
-  .text { position: static; height: 100%; padding: var(--space-24) var(--gutter) var(--space-10); display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
-  .left, .right { position: static; transform: none; align-items: center; text-align: center; }
-  .bigWord { font-size: clamp(48px, 16vw, 84px); white-space: normal; }
-  .blurb { max-width: none; text-align: center; }
+  .hero { height: auto; }
+  .stage {
+    position: relative;
+    height: auto;
+    padding: var(--space-30) 0 var(--space-10);
+  }
+  .panels { position: static; }
+  .panel { height: auto; padding: 0 0 var(--space-20); }
+  .panelInner { flex-direction: column; align-items: center; text-align: center; }
+  .left, .right { flex: none; align-items: center; text-align: center; }
+  .displayWord { white-space: normal; font-size: clamp(48px, 16vw, 84px); }
+  .blurb { max-width: none; }
+  .panelTwo { max-width: none; gap: var(--space-10); }
 }

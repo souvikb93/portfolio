@@ -1,35 +1,49 @@
 "use client";
 
 import { motion } from "motion/react";
+import styles from "./TextReveal.module.css";
+
+// The motion components are created once at module scope. Calling
+// motion.create() during render would produce a new component type on every
+// render, remounting the whole heading and restarting the animation.
+const MOTION_TAGS = {
+  h1: motion.h1,
+  h2: motion.h2,
+  h3: motion.h3,
+  h4: motion.h4,
+  p: motion.p,
+  div: motion.div,
+} as const;
+
+export type RevealTag = keyof typeof MOTION_TAGS;
 
 // Framer "TextStagger": word-by-word reveal on scroll into view.
 export function TextReveal({
   text,
   className,
-  as: Tag = "h2",
+  as = "h2",
   halfOpacity = false,
 }: {
   text: string;
   className?: string;
-  as?: keyof React.JSX.IntrinsicElements;
+  as?: RevealTag;
   halfOpacity?: boolean;
 }) {
   const words = text.trim().split(/\s+/);
-  const MotionTag = motion.create(Tag as "h2");
+  const MotionTag = MOTION_TAGS[as];
 
   return (
     <MotionTag
-      className={className}
+      className={`${styles.reveal} ${className ?? ""}`}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, amount: 0.4 }}
       transition={{ staggerChildren: 0.04 }}
-      style={{ display: "inline-block" }}
     >
       {words.map((w, i) => (
         <motion.span
-          key={i}
-          style={{ display: "inline-block", marginRight: "0.28em" }}
+          key={`${w}-${i}`}
+          className={styles.word}
           variants={{
             hidden: { opacity: halfOpacity ? 0.15 : 0, y: "0.4em" },
             show: { opacity: 1, y: 0 },
