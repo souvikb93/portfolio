@@ -6,6 +6,7 @@ import { RollingText } from "@/components/RollingText";
 import { WorkCard } from "@/components/WorkCard";
 import { BuildCard } from "@/components/BuildCard";
 import { Testimonials } from "@/components/Testimonials";
+import { ClientLogos } from "@/components/Logos";
 import { Footer } from "@/components/Footer";
 import {
   hero,
@@ -87,15 +88,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Logo ticker */}
+      {/* Client logo ticker */}
       <Marquee className={styles.ticker} speed={40}>
-        {["Dell", "UnitedHealth Group", "Lenovo", "Google", "Uptale", "Airbus"].map(
-          (t) => (
-            <span key={t} className={`t-h5 ${styles.logo}`}>
-              {t}
-            </span>
-          ),
-        )}
+        <ClientLogos />
+        <ClientLogos />
+        <ClientLogos />
       </Marquee>
 
       {/* Client projects */}

@@ -26,15 +26,15 @@ export const hero = {
 };
 
 export const intro = {
-  heading: "Building Products at the Intersection of Design and AI.",
+  heading: "Building products at the intersection of design and AI.",
   body:
-    "Designing beyond interfaces. I use AI to automate workflows, build business rule engines, generate production-ready code, and create experiences that make AI output understandable, reliable, and trustworthy.",
+    "I’m curious about what happens when designers move closer to building. I’m exploring AI, automation, business logic, and rapid prototyping, and how designers can shape not just the experience, but the product itself. That space between design and building is what excites me most.",
 };
 
 export const experience = [
   { title: "Freelance Designer", company: "Germany", years: "2026 - Present" },
-  { title: "UX Consultant", company: "Accenture", years: "2024 - 2025" },
-  { title: "Sr. UX/UI Designer", company: "Wipro", years: "2020 - 2024" },
+  { title: "Product Designer", company: "Accenture", years: "2024 - 2025" },
+  { title: "UX/UI Designer", company: "Wipro", years: "2020 - 2024" },
 ];
 
 export const aboutHeadline =
