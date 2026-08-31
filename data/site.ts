@@ -146,3 +146,38 @@ export const testimonials = [
       "Souvik was an invaluable contributor to the Google PitchHub project, a highly strategic and competitive 8-week pilot showcasing ACN’s [genai] capabilities with Google Gemini AI. His work helped create five high-impact sales demos for prominent clients, including Airbus, UHG, Coca-Cola, Banco BV, and Woolworths — demonstrating ACN’s ability to rapidly scale and deliver cutting-edge solutions. As a UX/UI Designer, Souvik played a critical role in crafting compelling, high-quality design solutions tailored to each demo. His expertise in user-centred design was evident and his ability to collaborate effectively within the team under tight timelines was truly commendable. He demonstrated strong adaptability, seamlessly responding to feedback and refining designs to meet the specific needs of diverse industries and global markets across AMER, APAC, EMEA, and LATAM.",
   },
 ];
+
+// --- /about_me -----------------------------------------------------------
+export const aboutPage = {
+  headline: "Chai-fueled designer navigating design, culture, and curiosity",
+  intro:
+    "Creating things for people has always been what I enjoy most. That’s what led me to design, and it’s what continues to inspire my work today. I’m learning German as my fourth language while exploring how design, engineering, and AI can work together to make products that solve real world problems.",
+  photo: "https://framerusercontent.com/images/4IHkJM71yAnl9Jgvb8a5FBV7HeM.jpg",
+};
+
+export const techStack = {
+  heading: "My Tech Stack",
+  intro:
+    "I work across design, AI, automation, and development, using the right tools to move from concept to prototype and working product.",
+  items: [
+    { name: "Claude", body: "My AI co-pilot for exploring ideas, prototyping, coding, and turning concepts into working products." },
+    { name: "Figma", body: "My core workspace for product design, prototyping, design systems, and exploring AI-assisted workflows." },
+    { name: "n8n", body: "My go-to for connecting APIs, automating workflows, and turning business rules into working product logic." },
+    { name: "Github", body: "Where I manage, version, and collaborate on the code behind the products I build." },
+    { name: "Supabase", body: "My backend layer for authentication, databases, storage, and quickly turning prototypes into functional products." },
+    { name: "Vercel", body: "My deployment layer for shipping, testing, and iterating on web products quickly." },
+  ],
+};
+
+export const edges = {
+  heading: "Exploring the Edges of Product Design",
+  intro:
+    "I’m interested in what happens when designers move closer to technology, logic, and building. These are some of the areas I’m currently exploring through experiments and products.",
+  items: [
+    { no: "01.", title: "Business Rule Engines", body: "Exploring how business rules, conditions, and decision logic can become part of the product experience, not just something hidden in the backend." },
+    { no: "02.", title: "Automating with n8n", body: "Experimenting with automation, APIs, and open-source tools to connect workflows, remove repetitive work, and turn ideas into functioning systems." },
+    { no: "03.", title: "Exploring Local LLM Models", body: "Exploring local LLMs, smaller models, and on-device AI as a path toward more private, controllable, and accessible product experiences." },
+    { no: "04.", title: "Switching Context with MCPs", body: "Using the Model Context Protocol to give AI tools consistent, switchable context across products and workflows." },
+    { no: "05.", title: "Context Documents for AI", body: "Exploring how Markdown files and structured documentation can give AI a consistent understanding of a product and produce consistent outputs." },
+  ],
+};
