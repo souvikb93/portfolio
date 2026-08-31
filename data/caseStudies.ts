@@ -181,4 +181,123 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     },
   },
+
+  member_portal: {
+    slug: "member_portal",
+    name: "Member Portal",
+    headline:
+      "Data-Driven Digital Transformation of a Healthcare Insurance App with 5M+ Downloads on Google Play",
+    summary:
+      "As a Product Designer at an Indian consultancy, I worked on a 1.5-year project with a leading healthcare insurer. Starting with a UX audit, we rebuilt their incomplete mobile app from scratch with a new IA and new components in the design system.",
+    meta: [
+      { label: "Client", value: "United Healthcare Group" },
+      { label: "Duration", value: "18 months" },
+      { label: "Industry", value: "Healthcare Insurance" },
+      { label: "Scope of Work", value: "App Design · Information Architecture · Design System" },
+    ],
+    sections: {
+      objective: {
+        title: "Closing the Gap Between Portal and Mobile",
+        body: "The client’s insurance agents work in the field, not at a desk, and had decided to make mobile their main channel. But the app was still missing features the legacy web portal had, so agents kept getting pulled back to desktop. Users were leaving mid-task — mobile drop-off ran well above the portal for the same actions. Support absorbed the overflow, with over 15,000 calls a month from members who got stuck on the app. And roughly half the portal’s features hadn’t made it into the app yet.",
+      },
+      discovery: {
+        title: "UX Audit & Key Findings",
+        body: "Before touching any screens, I ran a UX audit against NN Group heuristics and cross-checked it with two quarters of analytics and support ticket data. Four patterns kept showing up, and each one was quietly costing the business money.",
+        blocks: [
+          {
+            no: "01",
+            title: "Complex Navigation",
+            body: "“I know this feature exists somewhere, I just never know which menu it’s hiding in.” — Product Analyst. Users took 4 to 6 taps to reach screens that should have taken 2. Every extra tap meant more abandoned tasks flowing straight into support call volume.",
+          },
+          {
+            no: "02",
+            title: "Unclear Call-to-Action",
+            body: "“I wasn’t sure if tapping that would submit my claim or just save it.” — Insurance Agent. About 3 in 5 users hesitated or picked the wrong action on core screens during interviews.",
+          },
+          {
+            no: "03",
+            title: "Complex Form Structures",
+            body: "“On mobile I have to scroll left and right just to fill out one form. I’d rather do it on desktop.” — Insurance Agent. Claims and enrollment forms had the highest drop-off in the app, around 40% — the biggest single driver of support calls.",
+          },
+          {
+            no: "04",
+            title: "Lack of Search Functionality",
+            body: "“It takes me longer to find the record than to actually do the work.” — Support Staff. Finding the right plan took over 90 seconds on average, so members gave up and switched to desktop.",
+          },
+        ],
+      },
+      solution: {
+        title: "Solutions Mapped to the Audit Findings",
+        body: "Each fix responds directly to a finding from the audit. The goal wasn’t a redesign for its own sake — it was to solve the specific problems agents were running into every day.",
+        blocks: [
+          {
+            no: "01",
+            title: "Fixing the App’s Information Architecture",
+            body: "The app still ran on the web portal’s IA — a structure built for a desktop screen, not a phone. I rebuilt it from scratch based on real usage: ran card-sorting sessions, reorganized 40+ screens into 5 task-based groups (cutting navigation depth by half), and validated with tree testing before wireframing.",
+          },
+          {
+            no: "02",
+            title: "Setting Navigation Hierarchy from Analytics Data",
+            body: "Rather than guess what agents saw first, I pulled Google Analytics data on page views and engagement time and let usage set the order. Most-used features went into the bottom nav for one-tap access; the hamburger menu was ordered most-used to least.",
+          },
+          {
+            no: "03",
+            title: "Building Mobile Components for the Design System",
+            body: "There was no mobile component library, so developers defaulted to their own solutions screen by screen. I extended the client’s existing design system — buttons, form fields, cards, navigation elements and interaction states — and standardized CTA labels for action clarity.",
+          },
+          {
+            no: "04",
+            title: "Turning Long Forms Into Guided Steps",
+            body: "Using the new form-field components, I broke multi-column desktop layouts into single-column flows, removed horizontal scroll entirely, split long forms into labeled steps with a visible progress indicator, and moved to immediate success/error feedback instead of post-submission validation.",
+          },
+          {
+            no: "05",
+            title: "Introduced Search & Filtering to Improve Data Discovery",
+            body: "Finding claims data or a check application took over 90 seconds with no way to search. I defined search and filter categories from business workflows, designed clear empty/loading/no-results states, and specified filter-chip behavior, multi-select patterns, and clear/reset interactions.",
+          },
+        ],
+      },
+      impact: {
+        title: "Measurable Business & User Impact",
+        metrics: [
+          {
+            value: "+12%",
+            label:
+              "Higher user engagement — mobile app usage rose within the first month, with more agents choosing mobile in their daily workflow (Google Analytics).",
+          },
+          {
+            value: "68 → 91",
+            label:
+              "Improved accessibility — Lighthouse Accessibility Score, reflecting a more inclusive experience (Lighthouse, Axe & manual testing).",
+          },
+          {
+            value: "−24%",
+            label:
+              "Faster task completion — simplified navigation and fewer interaction steps reduced task time in usability testing.",
+          },
+        ],
+      },
+      reflection: {
+        title: "What This Project Taught Me",
+        body: "Beyond improving accessibility and responsiveness, three lessons I’ll carry into future projects.",
+        blocks: [
+          {
+            no: "01",
+            title: "Design Decisions Need Evidence",
+            body: "Stakeholders disagreed on which features belonged in the bottom nav. Rather than rely on opinions, we used product analytics to see which features users accessed most and structured navigation around actual behaviour. Analytics isn’t just a reporting tool — it’s an essential input for UX decisions.",
+          },
+          {
+            no: "02",
+            title: "Platform Shapes Information Architecture",
+            body: "The mobile experience was based on the web portal’s IA. The same structure that worked on desktop created unnecessary complexity on mobile. Designing around the mobile context produced a simpler navigation model and quicker access to frequent features.",
+          },
+          {
+            no: "03",
+            title: "Alignment Is Part of the Design Process",
+            body: "Adding search, filtering and sorting seemed straightforward until business expectations and technical constraints diverged. Collaborative stakeholder workshops helped prioritise the most valuable, feasible features. Design isn’t just about creating interfaces — it’s about aligning people around practical solutions.",
+          },
+        ],
+      },
+    },
+  },
 };
