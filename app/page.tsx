@@ -18,6 +18,8 @@ import {
 } from "@/data/site";
 import styles from "./Home.module.css";
 
+const STICKY_TOPS = ["50px", "90px", "130px", undefined];
+
 export default function HomePage() {
   return (
     <main>
@@ -55,33 +57,41 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* About headline */}
-      <section className={`section ${styles.about}`}>
-        <div className="container">
+      {/* About */}
+      <section className={styles.about}>
+        <div className={styles.overlap} aria-hidden />
+        <div className={`container ${styles.aboutTop}`}>
           <HeaderBar no="(01)" title="(About Me)" />
           <TextReveal
             text={aboutHeadline}
             as="h2"
-            className={`t-h3 ${styles.aboutHeadline}`}
+            halfOpacity
+            className={`t-h2 ${styles.aboutHeadline}`}
+          />
+        </div>
+        <div className={`container ${styles.aboutBottom}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className={styles.aboutPhoto}
+            src="https://framerusercontent.com/images/XfjHiaFxSvcYATMJPAu4jDyH4s.gif"
+            alt="Souvik"
           />
           <div className={styles.aboutRows}>
             {about.map((a) => (
               <div key={a.label} className={styles.aboutRow}>
-                <h3 className="t-sub">{a.label}</h3>
+                <h3 className="t-h6">{a.label}</h3>
                 <p className="t-body muted">{a.body}</p>
               </div>
             ))}
           </div>
-          <Link href="/about_me" className={styles.textLink}>
-            More about me →
-          </Link>
         </div>
       </section>
 
-      <Marquee className={styles.ticker} speed={36}>
-        {["Design Systems", "AI Products", "Prototyping", "Accessibility", "Motion"].map(
+      {/* Logo ticker */}
+      <Marquee className={styles.ticker} speed={40}>
+        {["Dell", "UnitedHealth Group", "Lenovo", "Google", "Uptale", "Airbus"].map(
           (t) => (
-            <span key={t} className="t-h4">
+            <span key={t} className={`t-h5 ${styles.logo}`}>
               {t}
             </span>
           ),
@@ -97,9 +107,15 @@ export default function HomePage() {
               <h3 className="t-h4">Client Projects</h3>
               <div className={styles.rule} />
             </div>
-            <div className={styles.projectGrid}>
-              {projects.map((p) => (
-                <WorkCard key={p.title} project={p} />
+            <div className={styles.projectStack}>
+              {projects.map((p, i) => (
+                <div
+                  key={p.title}
+                  className={styles.projectSlot}
+                  style={{ top: STICKY_TOPS[i] }}
+                >
+                  <WorkCard project={p} />
+                </div>
               ))}
             </div>
             <div className={styles.portfolioAsideEnd}>
@@ -112,23 +128,33 @@ export default function HomePage() {
       </section>
 
       {/* Builds */}
-      <section className={`section ${styles.builds}`}>
-        <div className="container">
+      <section className={styles.builds}>
+        <div className={styles.overlapDark} aria-hidden />
+        <div className={`container ${styles.buildsTop}`}>
           <HeaderBar no="(03)" title="(Builds)" variant="white" />
-          <TextReveal
-            text="Expanding beyond traditional design roles by building and shipping AI-powered products that solve real user problems."
-            as="h2"
-            halfOpacity
-            className={`t-h4 ${styles.buildsHeadline}`}
-          />
-          <Link href="/builds" className={styles.buildsLink}>
-            Explore More →
-          </Link>
-          <div className={styles.buildList}>
-            {builds.map((b) => (
-              <BuildCard key={b.title} build={b} />
-            ))}
+          <div className={styles.buildsContent}>
+            <TextReveal
+              text="Expanding beyond traditional design roles by building and shipping AI-powered products that solve real user problems."
+              as="h2"
+              halfOpacity
+              className={`t-h2 ${styles.buildsHeadline}`}
+            />
+            <div className={styles.buildsRow}>
+              <Link href="/builds" className={styles.buildsLink}>
+                Explore More →
+              </Link>
+              <div className={styles.plusRow} aria-hidden>
+                <span />
+                <span data-sm />
+                <span />
+              </div>
+            </div>
           </div>
+        </div>
+        <div className={`container ${styles.buildList}`}>
+          {builds.map((b) => (
+            <BuildCard key={b.title} build={b} />
+          ))}
         </div>
       </section>
 

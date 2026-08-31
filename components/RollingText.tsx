@@ -19,19 +19,36 @@ export function RollingText({
     return () => clearInterval(id);
   }, [words.length, interval]);
 
+  // widest word reserves the box size so layout doesn't jump
+  const widest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
+
   return (
     <span
       className={className}
-      style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }}
+      style={{
+        position: "relative",
+        display: "inline-block",
+        overflow: "hidden",
+        verticalAlign: "bottom",
+      }}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
+      {/* invisible sizer */}
+      <span style={{ visibility: "hidden", display: "inline-block" }}>
+        {widest}
+      </span>
+      <AnimatePresence initial={false}>
         <motion.span
           key={words[i]}
-          initial={{ y: "100%" }}
-          animate={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: "inline-block" }}
+          initial={{ y: "110%" }}
+          animate={{ y: "0%" }}
+          exit={{ y: "-110%" }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            display: "inline-block",
+          }}
         >
           {words[i]}
         </motion.span>

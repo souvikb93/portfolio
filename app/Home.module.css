@@ -1,3 +1,4 @@
+/* ---------- Hero ---------- */
 .hero {
   min-height: 100svh;
   display: flex;
@@ -13,12 +14,12 @@
 .heroLeft { display: flex; flex-direction: column; gap: 8px; }
 .roll { line-height: 0.9; }
 .heroRight { max-width: 360px; padding-bottom: 8px; }
-
 @media (max-width: 810px) {
   .heroInner { flex-direction: column; align-items: flex-start; gap: 32px; }
   .heroRight { max-width: none; }
 }
 
+/* ---------- Intro + experience ---------- */
 .introGrid {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -35,30 +36,112 @@
   padding: 20px 0;
   border-bottom: 1px solid var(--black-16);
 }
-@media (max-width: 1000px) {
-  .introGrid { grid-template-columns: 1fr; gap: 40px; }
+@media (max-width: 1000px) { .introGrid { grid-template-columns: 1fr; gap: 40px; } }
+
+/* ---------- About ---------- */
+.about {
+  position: relative;
+  background: var(--white);
+  padding: 24px 0 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+}
+/* offset overlap block behind the section top */
+.overlap {
+  position: absolute;
+  top: -390px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1440px;
+  height: 834px;
+  background: var(--white);
+  z-index: 0;
+}
+.aboutTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  align-items: center;
+  text-align: center;
+}
+.aboutHeadline { max-width: 900px; }
+
+.aboutBottom {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+  margin-top: 110px;
+}
+.aboutPhoto {
+  flex: 0 0 328px;
+  width: 328px;
+  height: 440px;
+  object-fit: cover;
+  border-radius: 5px;
+  background: var(--gray);
+}
+.aboutRows {
+  flex: 1;
+  max-width: 835px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding-top: 12px;
+}
+.aboutRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .aboutTop { text-align: left; align-items: flex-start; gap: 40px; }
+  .aboutBottom { flex-direction: column; gap: 40px; margin-top: 48px; }
+  .aboutPhoto { width: 100%; max-width: 328px; }
+  .aboutRow { grid-template-columns: 1fr; gap: 8px; }
 }
 
-.about { padding-top: 40px; }
-.aboutHeadline { margin: 40px 0 32px; max-width: 900px; }
-.aboutRows { display: flex; flex-direction: column; gap: 40px; max-width: 820px; margin-bottom: 32px; }
-.aboutRow { display: grid; grid-template-columns: 160px 1fr; gap: 24px; align-items: start; }
-@media (max-width: 700px) { .aboutRow { grid-template-columns: 1fr; gap: 8px; } }
-.textLink { font-size: 14px; border-bottom: 1px solid var(--black-16); padding-bottom: 4px; }
+/* ---------- Logo ticker ---------- */
+.ticker { padding: 40px 0; border-block: 1px solid var(--black-10); }
+.logo { color: var(--text-secondary); font-weight: 400; white-space: nowrap; }
 
-.ticker { padding: 32px 0; border-block: 1px solid var(--black-10); }
-
-.portfolio { background: var(--white); }
+/* ---------- Portfolio ---------- */
+.portfolio { background: var(--white); padding-bottom: 120px; }
 .portfolioBody {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
-  gap: 40px;
-  margin-top: 64px;
+  grid-template-columns: 250px 1fr 250px;
+  gap: 0;
+  margin-top: 80px;
+  align-items: start;
 }
-.portfolioAside { position: sticky; top: 120px; align-self: start; display: flex; flex-direction: column; gap: 16px; }
-.portfolioAsideEnd { position: sticky; top: 120px; align-self: start; }
+.portfolioAside {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 44px 0 40px;
+}
+.portfolioAsideEnd {
+  position: sticky;
+  top: 120px;
+  align-self: start;
+  display: flex;
+  justify-content: center;
+  padding: 44px 0 40px;
+}
 .rule { height: 1px; background: var(--black-16); }
-.projectGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.projectStack { display: flex; flex-direction: column; gap: 24px; padding: 0 46px; }
+.projectSlot { position: sticky; }
 .pillLink {
   display: inline-block;
   padding: 12px 20px;
@@ -68,20 +151,73 @@
 }
 @media (max-width: 1100px) {
   .portfolioBody { grid-template-columns: 1fr; }
-  .portfolioAside, .portfolioAsideEnd { position: static; }
-}
-@media (max-width: 700px) {
-  .projectGrid { grid-template-columns: 1fr; }
+  .portfolioAside, .portfolioAsideEnd { position: static; padding: 0 0 24px; }
+  .projectStack { padding: 0; }
+  .projectSlot { position: static !important; }
 }
 
-.builds { background: var(--dark-grey); color: var(--white); }
-.buildsHeadline { margin: 48px 0 24px; max-width: 820px; }
+/* ---------- Builds ---------- */
+.builds {
+  position: relative;
+  background: var(--dark-grey);
+  color: var(--white);
+  padding: 24px 0 160px;
+  overflow: hidden;
+}
+.overlapDark {
+  position: absolute;
+  top: -220px;
+  left: 50%;
+  transform: translateX(-50%) skewY(-7deg);
+  width: 120%;
+  height: 834px;
+  background: var(--dark-grey);
+  z-index: 0;
+}
+.buildsTop {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 120px;
+  align-items: center;
+}
+.buildsContent { width: 100%; display: flex; flex-direction: column; gap: 70px; }
+.buildsHeadline { max-width: 1000px; }
+.buildsRow { display: flex; align-items: center; gap: 230px; }
 .buildsLink {
   font-size: 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
   padding-bottom: 4px;
+  white-space: nowrap;
 }
-.buildList { margin-top: 64px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); }
+.plusRow { display: flex; align-items: center; gap: 200px; }
+.plusRow span {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+.plusRow span[data-sm] { width: 8px; height: 8px; }
+.plusRow span::before,
+.plusRow span::after {
+  content: "";
+  position: absolute;
+  background: var(--blue-shade);
+}
+.plusRow span::before { left: 50%; top: 0; bottom: 0; width: 1.6px; transform: translateX(-50%); }
+.plusRow span::after { top: 50%; left: 0; right: 0; height: 1.6px; transform: translateY(-50%); }
 
+.buildList {
+  position: relative;
+  z-index: 1;
+  margin-top: 100px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+@media (max-width: 900px) {
+  .buildsRow { gap: 32px; }
+  .plusRow { display: none; }
+}
+
+/* ---------- Testimonials ---------- */
 .testimonials { background: var(--white); }
-.testiInner { margin-top: 64px; }
+.testiInner { margin-top: 80px; }
