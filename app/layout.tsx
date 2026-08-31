@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Familjen_Grotesk } from "next/font/google";
+import { Inter, Familjen_Grotesk, Antonio } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { AskSouvik } from "@/components/AskSouvik";
@@ -18,6 +18,14 @@ const heading = Familjen_Grotesk({
   display: "swap",
 });
 
+// Big display word in the hero ("designer").
+const antonio = Antonio({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-antonio",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.souvikb.net"),
   title: "Souvik B — Designer building AI-powered products",
@@ -27,7 +35,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${heading.variable}`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${heading.variable} ${antonio.variable}`}
+    >
       <body>
         <SmoothScroll />
         <Nav />

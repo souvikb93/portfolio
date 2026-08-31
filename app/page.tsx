@@ -1,15 +1,14 @@
 import Link from "next/link";
 import { HeaderBar } from "@/components/HeaderBar";
+import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
 import { TextReveal } from "@/components/TextReveal";
-import { RollingText } from "@/components/RollingText";
 import { WorkCard } from "@/components/WorkCard";
 import { BuildCard } from "@/components/BuildCard";
 import { Testimonials } from "@/components/Testimonials";
 import { ClientLogos } from "@/components/Logos";
 import { Footer } from "@/components/Footer";
 import {
-  hero,
   intro,
   experience,
   aboutHeadline,
@@ -24,20 +23,7 @@ const STICKY_TOPS = ["50px", "90px", "130px", undefined];
 export default function HomePage() {
   return (
     <main>
-      {/* Hero */}
-      <section className={styles.hero}>
-        <div className={`container ${styles.heroInner}`}>
-          <div className={styles.heroLeft}>
-            <p className="t-h5">{hero.name}</p>
-            <h1 className={`t-h1 ${styles.roll}`}>
-              <RollingText words={hero.roles} />
-            </h1>
-          </div>
-          <div className={styles.heroRight}>
-            <p className="t-body">{hero.blurb}</p>
-          </div>
-        </div>
-      </section>
+      <Hero />
 
       {/* Intro + experience */}
       <section className="section">

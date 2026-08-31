@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 // Framer "Rolling Text": cycles through words with a vertical roll.
+// mode="wait" — the outgoing word fully leaves before the next enters (no overlap).
 export function RollingText({
   words,
   interval = 2600,
@@ -19,7 +20,6 @@ export function RollingText({
     return () => clearInterval(id);
   }, [words.length, interval]);
 
-  // widest word reserves the box size so layout doesn't jump
   const widest = words.reduce((a, b) => (b.length > a.length ? b : a), "");
 
   return (
@@ -29,26 +29,22 @@ export function RollingText({
         position: "relative",
         display: "inline-block",
         overflow: "hidden",
+        whiteSpace: "nowrap",
+        lineHeight: 1,
         verticalAlign: "bottom",
       }}
     >
-      {/* invisible sizer */}
-      <span style={{ visibility: "hidden", display: "inline-block" }}>
+      <span aria-hidden style={{ visibility: "hidden", display: "inline-block" }}>
         {widest}
       </span>
-      <AnimatePresence initial={false}>
+      <AnimatePresence mode="wait" initial={false}>
         <motion.span
           key={words[i]}
-          initial={{ y: "110%" }}
-          animate={{ y: "0%" }}
-          exit={{ y: "-110%" }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            position: "absolute",
-            left: 0,
-            top: 0,
-            display: "inline-block",
-          }}
+          initial={{ y: "100%", opacity: 0 }}
+          animate={{ y: "0%", opacity: 1 }}
+          exit={{ y: "-100%", opacity: 0 }}
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          style={{ position: "absolute", left: 0, top: 0, display: "inline-block" }}
         >
           {words[i]}
         </motion.span>
