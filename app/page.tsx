@@ -12,6 +12,7 @@ import {
   intro,
   experience,
   aboutHeadline,
+  about,
   projects,
   builds,
 } from "@/data/site";
@@ -63,6 +64,14 @@ export default function HomePage() {
             as="h2"
             className={`t-h3 ${styles.aboutHeadline}`}
           />
+          <div className={styles.aboutRows}>
+            {about.map((a) => (
+              <div key={a.label} className={styles.aboutRow}>
+                <h3 className="t-sub">{a.label}</h3>
+                <p className="t-body muted">{a.body}</p>
+              </div>
+            ))}
+          </div>
           <Link href="/about_me" className={styles.textLink}>
             More about me →
           </Link>

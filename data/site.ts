@@ -106,7 +106,7 @@ export const builds: Build[] = [
     title: "Shift Assist",
     tagline: "AI-Powered Diagnostics",
     body:
-      "Built in 10 hours at the BCX26 Hackathon, ShiftAssist helps factory operators diagnose machine issues using AI, HMI scanning, and OEM documentation.",
+      "Built in 10 hours at the BOSCH Hackathon, it uses a RAG pipeline to unify OEM documentation and operator knowledge captured in shift logs, helping diagnose machine failures beyond what manuals alone can provide.",
     href: "https://vercel.com/souvikb93s-projects/machine-whisperer",
   },
   {
@@ -114,17 +114,35 @@ export const builds: Build[] = [
     title: "Farm.doc",
     tagline: "Farm Compliance Automation",
     body:
-      "An AI-powered farm documentation platform that automates compliance by syncing requirements across multiple German agricultural regulations.",
+      "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an n8n-based orchestration layer.",
     href: "https://farmdoc-omega.vercel.app/",
   },
 ];
 
-// Real testimonial copy wasn't in the Framer export — placeholders, replace later.
+// About section — Foundation / Evolution / Today (from the getfull.site export).
+export const about = [
+  {
+    label: "(Foundation)",
+    body:
+      "Completed my Master’s in Design while building practical experience through six internships across sectors, from UNESCO to Unilever.",
+  },
+  {
+    label: "(+Evolution)",
+    body:
+      "Expanded into digital product design, designing enterprise SaaS platforms, mobile applications, AI-powered products, and agentic systems for global clients over five years in IT consulting.",
+  },
+  {
+    label: "(=Today)",
+    body:
+      "Building AI-powered and agentic products at the intersection of design, automation, and engineering. Learning German as my fourth language while exploring the latest advances in AI for product design.",
+  },
+];
+
 export const testimonials = [
-  { name: "Eleisha", role: "Product Manager", quote: "TODO: add testimonial copy." },
-  { name: "Aurelie", role: "Design Lead", quote: "TODO: add testimonial copy." },
-  { name: "Sergio", role: "Engineering Manager", quote: "TODO: add testimonial copy." },
-  { name: "Sukanya", role: "UX Researcher", quote: "TODO: add testimonial copy." },
-  { name: "Ukasha", role: "Founder", quote: "TODO: add testimonial copy." },
-  { name: "Anhwa", role: "Product Designer", quote: "TODO: add testimonial copy." },
+  {
+    name: "Eleisha Z. Tetteh",
+    role: "Creative Leadership Senior Manager, Accenture London",
+    quote:
+      "Souvik was an invaluable contributor to the Google PitchHub project, a highly strategic and competitive 8-week pilot showcasing ACN’s [genai] capabilities with Google Gemini AI. His work helped create five high-impact sales demos for prominent clients, including Airbus, UHG, Coca-Cola, Banco BV, and Woolworths — demonstrating ACN’s ability to rapidly scale and deliver cutting-edge solutions. As a UX/UI Designer, Souvik played a critical role in crafting compelling, high-quality design solutions tailored to each demo. His expertise in user-centred design was evident and his ability to collaborate effectively within the team under tight timelines was truly commendable. He demonstrated strong adaptability, seamlessly responding to feedback and refining designs to meet the specific needs of diverse industries and global markets across AMER, APAC, EMEA, and LATAM.",
+  },
 ];
