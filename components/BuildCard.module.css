@@ -32,12 +32,6 @@
    here would be hashed to a local name and never match. */
 .copy :global(.t-body) { color: var(--text-secondary); }
 
-.link {
-  border-bottom: 1px solid var(--on-dark-40);
-  padding-bottom: var(--space-1);
-  width: fit-content;
-}
-
 @media (max-width: 1100px) {
   .card { flex-direction: column; gap: var(--space-6); }
   .left { flex-basis: auto; margin-left: 0; }

@@ -1,61 +1,259 @@
-.root { position: fixed; right: var(--space-6); bottom: var(--space-6); z-index: 200; }
+/* "Ask Souvik" — port of the Framer code component. The collapsed pill and the
+   expanded chat are the same box; only its width/height/radius animate.
+   Colours and metrics come straight from the component's defaults. */
 
-.pill {
-  border: 1px solid var(--black-10);
-  background: var(--white);
-  border-radius: 999px;
-  padding: 12px 20px;
-  font-size: 14px;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
+.root {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 9999;
+  font-family: var(--font-body);
 }
 
-.panel {
-  width: 380px;
-  max-width: calc(100vw - 48px);
-  height: 500px;
-  max-height: calc(100vh - 48px);
+.shell {
+  position: relative;
+  overflow: hidden;
+  background: var(--chat-bg);
+  border: 1px solid var(--chat-border);
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+}
+.shell[data-open="true"] {
+  box-shadow:
+    0 20px 60px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+/* ---- collapsed pill ---- */
+.pill {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: var(--chat-text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.shell[data-open="true"] .pill { pointer-events: none; }
+
+/* ---- expanded chat ---- */
+.chat {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
-  background: var(--white);
-  border: 1px solid var(--black-10);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+}
+.shell[data-open="true"] .chat { pointer-events: auto; }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--card-gap);
+  padding: 14px var(--space-4);
+  border-bottom: 1px solid var(--chat-border);
+  flex-shrink: 0;
+}
+.headerName {
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--chat-text);
+}
+.close {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--space-2);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--chat-text);
+  opacity: 0.5;
+  padding: 0;
+  transition: opacity 0.15s ease;
+}
+.close:hover { opacity: 1; }
+
+.messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
 }
 
-.head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid var(--black-10);
+.bubble {
+  align-self: flex-start;
+  max-width: 85%;
+  padding: 9px 13px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--chat-ai-bubble);
+  color: var(--chat-text);
+  border: 1px solid var(--chat-border);
+}
+.bubble[data-from="user"] {
+  align-self: flex-end;
+  background: var(--chat-user-bubble);
+  color: var(--white);
+  border: 0;
+}
+
+.link {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
   font-weight: 500;
 }
-.head button { border: 0; background: none; cursor: pointer; font-size: 14px; }
 
-.body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
-.hint { color: var(--text-secondary); font-size: 14px; }
-
-.msg { font-size: 14px; line-height: 1.5; padding: 10px 12px; border-radius: 12px; max-width: 85%; }
-.msg[data-role="user"] { align-self: flex-end; background: var(--text-primary); color: var(--white); }
-.msg[data-role="assistant"] { align-self: flex-start; background: var(--surface-muted); }
-.msg a { color: var(--link); text-decoration: underline; }
-
-.form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--black-10); }
-.form input {
-  flex: 1;
-  border: 1px solid var(--black-10);
-  border-radius: 999px;
-  padding: 10px 14px;
-  font-size: 14px;
-  outline: none;
+/* ---- typing indicator ---- */
+.typing {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 11px 13px;
+  border-radius: 14px;
+  background: var(--chat-ai-bubble);
+  border: 1px solid var(--chat-border);
 }
-.form button {
-  border: 0;
-  background: var(--text-primary);
-  color: var(--white);
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--chat-text);
+  display: inline-block;
+}
+
+/* ---- suggested prompt chips ---- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: var(--space-1);
+  align-self: flex-start;
+  max-width: 100%;
+}
+.chip {
+  background: var(--chat-bg);
+  border: 1px solid var(--chat-chip-border);
   border-radius: 999px;
-  width: 40px;
+  padding: 6px var(--space-3);
+  font-size: 12.5px;
+  color: var(--chat-text);
   cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.chip:hover {
+  transform: translateY(-1px);
+  background: var(--chat-chip-hover);
+}
+
+/* ---- input ---- */
+.form {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-top: 1px solid var(--chat-border);
+  flex-shrink: 0;
+}
+.input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 1px solid var(--chat-border);
+  border-radius: var(--card-gap);
+  padding: 9px var(--space-3);
+  font-size: 13.5px;
+  color: var(--chat-text);
+  outline: none;
+  font-family: inherit;
+}
+.send {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--card-gap);
+  border: 0;
+  background: var(--chat-user-bubble);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.15s ease;
+}
+.send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ---- animated gradient orb ---- */
+@property --askai-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.orb {
+  display: grid;
+  grid-template-areas: "stack";
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  flex-shrink: 0;
+  transform: scale(1.1);
+}
+.orb[data-size="sm"] { width: 22px; height: 22px; --ai-blur: 1px; --ai-contrast: 1.2; }
+.orb[data-size="md"] { width: 28px; height: 28px; --ai-blur: 1px; --ai-contrast: 1.5; }
+
+.orb::before,
+.orb::after {
+  content: "";
+  display: block;
+  grid-area: stack;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.orb::before {
+  background:
+    conic-gradient(from calc(var(--askai-angle) * 2) at 25% 70%, var(--ai-a3), transparent 20% 80%, var(--ai-a3)),
+    conic-gradient(from calc(var(--askai-angle) * 2) at 45% 75%, var(--ai-a2), transparent 30% 60%, var(--ai-a2)),
+    conic-gradient(from calc(var(--askai-angle) * -3) at 80% 20%, var(--ai-a1), transparent 40% 60%, var(--ai-a1)),
+    conic-gradient(from calc(var(--askai-angle) * 2) at 15% 5%, var(--ai-a2), transparent 10% 90%, var(--ai-a2)),
+    conic-gradient(from calc(var(--askai-angle) * 1) at 20% 80%, var(--ai-a1), transparent 10% 90%, var(--ai-a1)),
+    conic-gradient(from calc(var(--askai-angle) * -2) at 85% 10%, var(--ai-a3), transparent 20% 80%, var(--ai-a3));
+  box-shadow: inset var(--ai-base) 0 0 1px 0.2px;
+  filter: blur(var(--ai-blur)) contrast(var(--ai-contrast));
+  animation: orb-spin 20s linear infinite;
+}
+.orb::after {
+  background-image: radial-gradient(circle at center, var(--ai-base) 0.1px, transparent 0.1px);
+  background-size: 0.2px 0.2px;
+  mix-blend-mode: overlay;
+}
+
+@keyframes orb-spin {
+  to { --askai-angle: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orb::before { animation: none; }
 }

@@ -41,6 +41,41 @@
   color: var(--text-primary);
   position: relative;
   padding-bottom: 2px;
+  transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+/* Rest / hover / press / focus. The active page keeps its underline; hovering
+   any other link previews the same underline at half strength. */
+.link:hover { opacity: 0.6; }
+.link:active { transform: translateY(1px); }
+.link:focus-visible {
+  outline: 2px solid var(--brand-secondary);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.link:not([data-active="true"])::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.link:not([data-active="true"]):hover::after { opacity: 0.4; }
+
+.logo { transition: opacity 0.2s ease; }
+.logo:hover { opacity: 0.6; }
+.logo:focus-visible {
+  outline: 2px solid var(--brand-secondary);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link, .logo, .link::after { transition: none; }
+  .link:active { transform: none; }
 }
 
 .linkLabel {

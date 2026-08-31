@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { HeaderBar } from "@/components/HeaderBar";
 import { Hero } from "@/components/Hero";
 import { Marquee } from "@/components/Marquee";
@@ -8,6 +7,8 @@ import { BuildCard } from "@/components/BuildCard";
 import { Testimonials } from "@/components/Testimonials";
 import { ClientLogos } from "@/components/Logos";
 import { Footer } from "@/components/Footer";
+import { AskSouvik } from "@/components/AskSouvik";
+import { ActionLink } from "@/components/ActionLink";
 import { projects, builds } from "@/data/site";
 import styles from "./Home.module.css";
 
@@ -36,9 +37,9 @@ export default function HomePage() {
               className={`t-h2 ${styles.buildsHeadline}`}
             />
             <div className={styles.buildsRow}>
-              <Link href="/builds" className={`t-link ${styles.buildsLink}`}>
+              <ActionLink href="/builds" tone="light">
                 Explore More
-              </Link>
+              </ActionLink>
               <div className={styles.plusRow} aria-hidden>
                 <span />
                 <span data-sm />
@@ -71,9 +72,7 @@ export default function HomePage() {
               ))}
             </div>
             <div className={styles.portfolioAsideEnd}>
-              <Link href="/projects" className={styles.pillLink}>
-                See all (05)
-              </Link>
+              <ActionLink href="/projects">See all (05)</ActionLink>
             </div>
           </div>
         </div>
@@ -90,6 +89,9 @@ export default function HomePage() {
       </section>
 
       <Footer />
+
+      {/* Chat lives on the home page only. */}
+      <AskSouvik />
     </main>
   );
 }

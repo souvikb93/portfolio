@@ -43,6 +43,19 @@
   /* --- colour: components --- */
   --surface-muted: rgb(247, 247, 247);      /* chat bubble, subtle fills */
   --link: rgb(0, 102, 204);
+
+  /* "Ask Souvik" chat — values from the Framer component's defaults. */
+  --chat-bg: rgb(255, 255, 255);
+  --chat-text: rgb(10, 10, 10);
+  --chat-border: rgba(0, 0, 0, 0.08);
+  --chat-user-bubble: rgb(10, 10, 10);
+  --chat-ai-bubble: var(--surface-muted);
+  --chat-chip-border: rgba(0, 0, 0, 0.12);
+  --chat-chip-hover: rgb(240, 240, 240);
+  --ai-base: rgb(26, 26, 26);
+  --ai-a1: rgb(255, 107, 157);
+  --ai-a2: rgb(116, 199, 236);
+  --ai-a3: rgb(167, 139, 250);
   --nav-surface: rgba(255, 255, 255, 0.7);
   --nav-surface-solid: rgba(255, 255, 255, 0.95);
 

@@ -159,11 +159,38 @@
     height: auto;
     padding: var(--space-30) 0 var(--space-10);
   }
+  /* Card shrinks with the viewport so the badge stays on screen. */
+  .cardPerspective {
+    width: min(340px, 100% - var(--space-20));
+    height: auto;
+    aspect-ratio: 340 / 476;
+  }
+  .badge {
+    left: calc(-1 * var(--space-10));
+    bottom: calc(-1 * var(--space-10));
+    width: 80px;
+    height: 80px;
+    font-size: 28px;
+  }
+
   .panels { position: static; }
   .panel { height: auto; padding: 0 0 var(--space-20); }
-  .panelInner { flex-direction: column; align-items: center; text-align: center; }
-  .left, .right { flex: none; align-items: center; text-align: center; }
-  .displayWord { white-space: normal; font-size: clamp(48px, 16vw, 84px); }
-  .blurb { max-width: none; }
+  .panelInner { flex-direction: column; align-items: center; gap: var(--space-16); }
+  .left, .right { flex: none; justify-content: center; }
+  .wordWrap { text-align: center; }
+
+  /* 56/61.6 on the live site's mobile breakpoint. */
+  .displayWord { font-size: 56px; line-height: 1.1; white-space: nowrap; }
+
+  /* Satellites return to normal flow so they cannot overlap the words. */
+  .name, .blurb {
+    position: static;
+    width: auto;
+    margin: 0;
+    text-align: center;
+  }
+  .name { margin-bottom: var(--space-2); }
+  .blurb { margin-top: var(--space-4); }
+
   .panelTwo { max-width: none; gap: var(--space-10); }
 }

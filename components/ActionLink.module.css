@@ -1,0 +1,44 @@
+/* Underlined action link. The rule under the label carries the state: it is
+   half-strength at rest, full on hover, and the whole label nudges down on
+   press. Focus is a visible ring so keyboard users get the same affordance. */
+.action {
+  display: inline-block;
+  width: fit-content;
+  padding-bottom: var(--space-1);
+  border-bottom: 1px solid;
+  transition:
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+/* On a light surface */
+.action[data-tone="dark"] {
+  color: var(--text-primary);
+  border-bottom-color: var(--rule);
+}
+.action[data-tone="dark"]:hover {
+  border-bottom-color: var(--text-primary);
+}
+
+/* On a dark surface */
+.action[data-tone="light"] {
+  color: var(--on-dark);
+  border-bottom-color: var(--on-dark-40);
+}
+.action[data-tone="light"]:hover {
+  border-bottom-color: var(--on-dark);
+}
+
+.action:active { transform: translateY(1px); }
+
+.action:focus-visible {
+  outline: 2px solid var(--brand-secondary);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action { transition: none; }
+  .action:active { transform: none; }
+}

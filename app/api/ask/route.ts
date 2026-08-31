@@ -28,9 +28,11 @@ export async function POST(req: NextRequest) {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "llama-3.1-8b-instant",
-      temperature: 0.6,
-      max_tokens: 400,
+      // The Framer component defaulted to llama-3.3-70b-versatile, which this
+      // Groq account cannot access. Override with GROQ_MODEL if that changes.
+      model: process.env.GROQ_MODEL ?? "openai/gpt-oss-120b",
+      temperature: 0.7,
+      max_tokens: 500,
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         ...messages.slice(-10),
@@ -39,8 +41,13 @@ export async function POST(req: NextRequest) {
   });
 
   if (!res.ok) {
+    // Pass the upstream status through so the client can tell rate limiting
+    // (429) apart from an auth problem (401/403) and word the reply properly.
     const detail = await res.text();
-    return NextResponse.json({ error: "Upstream error", detail }, { status: 502 });
+    return NextResponse.json(
+      { error: "Upstream error", detail: detail.slice(0, 200) },
+      { status: res.status === 429 ? 429 : res.status === 401 || res.status === 403 ? res.status : 502 },
+    );
   }
 
   const data = await res.json();

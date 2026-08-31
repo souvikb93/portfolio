@@ -1,10 +1,10 @@
-import Link from "next/link";
 import type { Build } from "@/data/site";
+import { ActionLink } from "./ActionLink";
 import styles from "./BuildCard.module.css";
 
 // Framer "Service Card" (Builds section): step no + title + body + link.
+// Single column in both places it is used — the home Builds band and /builds.
 export function BuildCard({ build }: { build: Build }) {
-  const external = build.href.startsWith("http");
   return (
     <article className={styles.card}>
       <div className={styles.left}>
@@ -16,14 +16,9 @@ export function BuildCard({ build }: { build: Build }) {
           <p className="t-sub">{build.tagline}</p>
           <p className="t-body">{build.body}</p>
         </div>
-        <Link
-          href={build.href}
-          className={`t-link ${styles.link}`}
-          target={external ? "_blank" : undefined}
-          rel={external ? "noreferrer" : undefined}
-        >
+        <ActionLink href={build.href} tone="light">
           {build.cta}
-        </Link>
+        </ActionLink>
       </div>
     </article>
   );

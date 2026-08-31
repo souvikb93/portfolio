@@ -3,7 +3,6 @@ import { Inter, Antonio } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
-import { AskSouvik } from "@/components/AskSouvik";
 import { SmoothScroll } from "@/components/SmoothScroll";
 
 const inter = Inter({
@@ -47,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SmoothScroll />
         <Nav />
         {children}
-        <AskSouvik />
       </body>
     </html>
   );
