@@ -48,7 +48,12 @@ export type Project = {
   category: string;
   year: string;
   href: string;
+  /** Backdrop plate — the defocused asset the live site sits behind the inset. */
   image: string;
+  /** Sharp inset that sits on top and zooms on hover. */
+  imageFg: string;
+  /** One-line summary, shown on the /projects index. */
+  blurb: string;
 };
 
 export const projects: Project[] = [
@@ -59,6 +64,9 @@ export const projects: Project[] = [
     year: "© 2024",
     href: "/projects/access_now",
     image: "/images/TNc8CSbNVglxdHgkw0nZm2Hwx8Q.png",
+    imageFg: "/images/rjWxseohg4HjUxA2gzHSZAnBZI.jpg",
+    blurb:
+      "Led WCAG compliance for a medicare portal by creating an accessible design system and conducting UAT with visually impaired users.",
   },
   {
     no: "(04)",
@@ -67,6 +75,9 @@ export const projects: Project[] = [
     year: "© 2024",
     href: "/projects/aero_check",
     image: "/images/yuS2M7JfOtnVFgldybJXykkAWh8.png",
+    imageFg: "/images/0WVv7WVddGAaPFm7sjj9ECNGFM.jpg",
+    blurb:
+      "Designed an AI-powered validation tool that helps engineers identify errors in Airbus manufacturing diagrams 70% faster.",
   },
   {
     no: "(02)",
@@ -75,6 +86,9 @@ export const projects: Project[] = [
     year: "© 2023",
     href: "/projects/member_portal",
     image: "/images/KIEFX4kEuByXd9JpGIS8twFgVoQ.png",
+    imageFg: "/images/rfp44x8PMyDNpOJEIvkRhLl2GbI.jpg",
+    blurb:
+      "Revamped UnitedHealthcare's member portal end-to-end, now having 5M+ downloads on the Play Store.",
   },
   {
     no: "(03)",
@@ -83,6 +97,9 @@ export const projects: Project[] = [
     year: "© 2020",
     href: "/projects/desi_aroma",
     image: "/images/hWgzMThzfV7DnNlrIOmiQixA1g.jpg",
+    imageFg: "/images/Q6OjndpLE4aI7t2azNzHPcjesxE.jpg",
+    blurb:
+      "A women's empowerment initiative helping housewives in Gujarat serve home-cooked meals to students.",
   },
 ];
 
@@ -98,7 +115,7 @@ export type Build = {
   cta: string;
   /** Year stamp shown on the /builds page meta row. */
   year: string;
-  /** Looping preview clip (8:1 crop). null renders a placeholder of the same size. */
+  /** Looping 16:9 preview clip. null renders a placeholder of the same size. */
   video: string | null;
   /** Long-form copy for the /builds page, with the emphasised runs the live site bolds. */
   detail: RichText;
@@ -170,7 +187,7 @@ export const builds: Build[] = [
     href: "https://farmdoc-omega.vercel.app/",
     cta: "Explore Now",
     year: "© 2026",
-    // No clip supplied yet — renders a placeholder of the same 8:1 size.
+    // No clip supplied yet — renders a placeholder of the same 16:9 size.
     video: null,
     detail: [
       "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an ",

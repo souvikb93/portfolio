@@ -1,0 +1,58 @@
+/* Live geometry at 1280: card 576 wide in a 2-col 1200 row, tile ratio
+   634/497, inset 68% of the tile width at 432/256, 5px radius. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+/* (01) · title over category · © year */
+.meta {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  color: var(--black-pure);
+}
+.no,
+.year { flex: 0 0 auto; }
+.text { flex: 1; display: flex; flex-direction: column; }
+.category { color: var(--scrim); }
+
+/* The tile clips, so a scaling inset never changes the card's size. */
+.tile {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--project-tile-ratio);
+  overflow: hidden;
+  background: var(--gray);
+}
+.back { object-fit: cover; }
+
+/* Inset plate, centred, its own clip so the image scales inside it. */
+.frontWrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--project-inset-w);
+  aspect-ratio: var(--project-inset-ratio);
+  overflow: hidden;
+  border-radius: var(--radius-media);
+}
+.front {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover zooms only the inset. */
+.card:hover .front { transform: scale(1.08); }
+
+.blurb { color: var(--text-secondary); max-width: var(--prose-max); }
+
+@media (prefers-reduced-motion: reduce) {
+  .front { transition: none; }
+  .card:hover .front { transform: none; }
+}

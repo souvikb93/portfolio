@@ -109,9 +109,12 @@
   --btn-radius: var(--space-2);
   --hero-z: 1;                       /* sticky hero sits under the content */
   --content-z: 2;                    /* content scrolls up over the hero */
-  --build-media-ratio: 8 / 1;        /* /builds preview clip (1200x150) */
+  --build-media-ratio: 16 / 9;       /* /builds preview clip (1200x675) */
   --marquee-gap: 100px;              /* space between logos in the ticker */
   --marquee-fade: 50%;               /* edge fade reach, per side */
+  --project-tile-ratio: 634 / 497;   /* /projects card tile */
+  --project-inset-ratio: 432 / 256;  /* sharp plate on top of it */
+  --project-inset-w: 68%;            /* inset width, as a share of the tile */
 
   /* --- widths --- */
   /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a

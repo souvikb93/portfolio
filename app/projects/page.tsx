@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { WorkCard } from "@/components/WorkCard";
+import { ProjectCard } from "@/components/ProjectCard";
 import { Footer } from "@/components/Footer";
 import { projects } from "@/data/site";
 import styles from "./Projects.module.css";
@@ -33,9 +33,9 @@ export default function ProjectsPage() {
         </section>
 
         <section className={`section over-hero ${styles.work}`}>
-          <div className={`container ${styles.grid}`}>
+          <div className={`container-narrow ${styles.grid}`}>
             {projects.map((p) => (
-              <WorkCard key={p.title} project={p} />
+              <ProjectCard key={p.title} project={p} />
             ))}
           </div>
         </section>

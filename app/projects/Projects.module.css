@@ -35,9 +35,10 @@
 
 /* Opaque so it wipes the sticky hero as it scrolls up. */
 .work { background: var(--white); }
+/* 2 x 576 with a 48px gutter fills the 1200 row exactly, as on the live site. */
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-12);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-30) var(--space-12);
 }
 @media (max-width: 810px) { .grid { grid-template-columns: 1fr; } }
