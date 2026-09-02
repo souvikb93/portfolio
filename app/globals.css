@@ -100,6 +100,7 @@
   --project-card-ratio: 640 / 452;   /* card media aspect */
   --project-sticky-top: 50px;        /* first card's sticky offset */
   --project-sticky-step: var(--space-10); /* each subsequent card +40px */
+  --build-media-ratio: 8 / 1;        /* /builds preview clip (1200x150) */
 
   /* --- widths --- */
   /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a
@@ -108,6 +109,7 @@
   --content-narrow: 1200px;          /* hero rows (home, /projects, /builds) */
   --prose-max: 720px;                /* long-form text column */
   --measure: 500px;                  /* short intro paragraphs */
+  --panel-col: 600px;                /* hero panel 2 column */
   --maxw: var(--content-max);        /* legacy alias */
 }
 

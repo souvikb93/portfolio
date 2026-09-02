@@ -1,0 +1,50 @@
+/* /builds entry. Measured off the live site at 1280: everything sits on the
+   1200px centred row (x=40), with the clip a full-width 8:1 strip. */
+.entry {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+/* (01) left · title centred · © year right */
+.meta {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: var(--black-pure);
+}
+.title { flex: 1; text-align: center; }
+
+.media,
+.mediaPlaceholder {
+  width: 100%;
+  aspect-ratio: var(--build-media-ratio);
+  object-fit: cover;
+  display: block;
+  background: var(--gray);
+}
+
+/* Placeholder for a build with no clip yet — same box, quietly striped so it
+   reads as intentionally empty rather than broken. */
+.mediaPlaceholder {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--gray) 0 10px,
+      var(--surface-muted) 10px 20px
+    );
+}
+
+.body { color: var(--text-secondary); }
+
+/* The live site bolds key phrases inside the body copy. */
+.em { font-weight: 700; color: inherit; }
+
+@media (max-width: 810px) {
+  .entry { gap: var(--space-5); }
+  .meta { flex-wrap: wrap; gap: var(--space-2); }
+  .title { flex: 0 0 100%; text-align: left; order: -1; }
+  .media, .mediaPlaceholder { aspect-ratio: 16 / 9; }
+}

@@ -7,15 +7,15 @@ import { nav } from "@/data/site";
 import styles from "./Nav.module.css";
 
 // Routes whose hero sits on a dark surface — the live site switches the header
-// to its white variant on these.
+// to its white variant on these. Exact matches only: the index pages have dark
+// heroes, but the case studies under them are on white, where a white header
+// would be invisible.
 const DARK_ROUTES = ["/projects", "/builds"];
 
 export function Nav() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const onDark = DARK_ROUTES.some(
-    (r) => pathname === r || pathname.startsWith(`${r}/`),
-  );
+  const onDark = DARK_ROUTES.includes(pathname);
 
   return (
     <header className={styles.header} data-on-dark={onDark}>

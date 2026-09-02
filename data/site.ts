@@ -86,6 +86,9 @@ export const projects: Project[] = [
   },
 ];
 
+/** A run of body copy. A bare string renders as-is; { b } renders bold. */
+export type RichText = (string | { b: string })[];
+
 export type Build = {
   no: string;
   title: string;
@@ -93,6 +96,12 @@ export type Build = {
   body: string;
   href: string;
   cta: string;
+  /** Year stamp shown on the /builds page meta row. */
+  year: string;
+  /** Looping preview clip (8:1 crop). null renders a placeholder of the same size. */
+  video: string | null;
+  /** Long-form copy for the /builds page, with the emphasised runs the live site bolds. */
+  detail: RichText;
 };
 
 export const builds: Build[] = [
@@ -104,6 +113,27 @@ export const builds: Build[] = [
       "Inspired by my own job search, Tracka is an AI-powered workspace for tailored resumes, cover letters, and application tracking.",
     href: "/builds/tracka",
     cta: "View Project",
+    year: "© 2026",
+    video: "/video/tracka.mp4",
+    detail: [
+      "Inspired by my own job search journey, I realized that many talented candidates struggle not because of a lack of skills, but because they miss the right keywords, structure, or language needed to get past ",
+      { b: "ATS filters" },
+      ". This led me to create an ",
+      { b: "AI-powered workspace" },
+      " that simplifies resume tailoring, cover letter generation, and application tracking in one connected experience. As the ",
+      { b: "creator" },
+      " and Product Designer, I took the product from concept to a full-fledged experience by defining ",
+      { b: "use cases" },
+      ", mapping ",
+      { b: "user journey" },
+      " and ",
+      { b: "edge cases" },
+      ", building the ",
+      { b: "design system" },
+      ", and crafting the ",
+      { b: "end-to-end interface" },
+      ".",
+    ],
   },
   {
     no: "02",
@@ -112,7 +142,24 @@ export const builds: Build[] = [
     body:
       "Built in 10 hours at the BOSCH Hackathon, it uses a RAG pipeline to unify OEM documentation and operator knowledge captured in shift logs, helping diagnose machine failures beyond what manuals alone can provide.",
     href: "https://vercel.com/souvikb93s-projects/machine-whisperer",
-    cta: "View Project",
+    cta: "Explore Now",
+    year: "© 2026",
+    video: "/video/shift-assist.mp4",
+    detail: [
+      "Built in just ",
+      { b: "10 hours" },
+      " during the ",
+      { b: "Bosch Connected World (BCX26) Hackathon" },
+      ", ",
+      { b: "ShiftAssist" },
+      " is an AI-powered troubleshooting solution for factory operators. My role focused on ",
+      { b: "Product Design" },
+      ", where I crafted the ",
+      { b: "frontend experience" },
+      ", mapped the ",
+      { b: "user journey and key use cases" },
+      ", established the interaction patterns, and collaborated closely with the engineering team to deliver a working MVP that combines HMI scanning, AI-driven diagnostics, OEM documentation, and ShiftBook insights into a seamless repair workflow.",
+    ],
   },
   {
     no: "03",
@@ -121,7 +168,15 @@ export const builds: Build[] = [
     body:
       "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an n8n-based orchestration layer.",
     href: "https://farmdoc-omega.vercel.app/",
-    cta: "View Project",
+    cta: "Explore Now",
+    year: "© 2026",
+    // No clip supplied yet — renders a placeholder of the same 8:1 size.
+    video: null,
+    detail: [
+      "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an ",
+      { b: "n8n-based orchestration layer" },
+      ". It turns scattered paperwork into a guided flow, capturing field activities as they happen and mapping them to the records German agricultural authorities expect.",
+    ],
   },
 ];
 

@@ -89,9 +89,11 @@ export function Hero() {
             <ul className={styles.expList}>
               {experience.map((e) => (
                 <li key={e.title} className={styles.expRow}>
-                  <span className="t-sub">{e.title}</span>
-                  <span className="t-sub muted">{e.company}</span>
-                  <span className="t-meta muted">{e.years}</span>
+                  <span className="t-h5">{e.title}</span>
+                  <span className={styles.expMeta}>
+                    <span className="t-sub">{e.company}</span>
+                    <span className="t-body muted">{e.years}</span>
+                  </span>
                 </li>
               ))}
             </ul>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { BuildCard } from "@/components/BuildCard";
+import { BuildEntry } from "@/components/BuildEntry";
 import { Footer } from "@/components/Footer";
 import { builds } from "@/data/site";
 import styles from "./Builds.module.css";
@@ -32,10 +32,10 @@ export default function BuildsPage() {
           </div>
         </section>
 
-        <section className="section">
-          <div className="container">
+        <section className={styles.list}>
+          <div className="container-narrow">
             {builds.map((b) => (
-              <BuildCard key={b.title} build={b} />
+              <BuildEntry key={b.title} build={b} />
             ))}
           </div>
         </section>
