@@ -107,6 +107,8 @@
      1232px row flush to a 24px gutter; at 1600 it caps at 1440 and centres. */
   --content-max: 1440px;             /* outer container */
   --content-narrow: 1200px;          /* hero rows (home, /projects, /builds) */
+  --content-study: 1152px;           /* case-study body (3x352 or 2x552 + 48 gap) */
+  --figure-gap: var(--space-12);     /* gap between figures in a gallery */
   --prose-max: 720px;                /* long-form text column */
   --measure: 500px;                  /* short intro paragraphs */
   --panel-col: 600px;                /* hero panel 2 column */
@@ -182,6 +184,7 @@ p { margin: 0; }
 .container { width: min(var(--content-max), 100% - var(--gutter) * 2); margin-inline: auto; }
 /* Narrower 1200px row used by the hero rows on the home and index pages. */
 .container-narrow { width: min(var(--content-narrow), 100% - var(--gutter) * 2); margin-inline: auto; }
+.container-study { width: min(var(--content-study), 100% - var(--gutter) * 2); margin-inline: auto; }
 .section { width: 100%; padding: var(--section-y) 0; }
 .prose { max-width: var(--prose-max); }
 .measure { max-width: var(--measure); }

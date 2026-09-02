@@ -1,0 +1,42 @@
+/* Figure groups inside a case study. Widths come from the live site's 1152px
+   body column, where 3x352 and 2x552 both land exactly on 48px gaps. */
+.group {
+  display: grid;
+  gap: var(--figure-gap);
+  margin-block: var(--space-16);
+}
+
+.item {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  background: var(--gray);
+}
+.item[data-rounded="true"] { border-radius: var(--space-2); }
+
+.group[data-layout="grid3"] { grid-template-columns: repeat(3, 1fr); }
+.group[data-layout="grid2"] { grid-template-columns: repeat(2, 1fr); }
+
+/* Left-aligned partial-width groups */
+.group[data-layout="half"] { grid-template-columns: minmax(0, 552px); }
+.group[data-layout="portraitPair"] { grid-template-columns: repeat(2, minmax(0, 252px)); justify-content: start; }
+
+.group[data-layout="center"] { justify-items: center; }
+.group[data-layout="center"] .item { width: 100%; }
+
+.group[data-layout="wide"] { justify-items: center; }
+
+/* Breaks the body column to sit edge-to-edge. */
+.group[data-layout="full"] {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+}
+.group[data-layout="full"] .item { border-radius: 0; }
+
+@media (max-width: 810px) {
+  .group { margin-block: var(--space-10); gap: var(--space-5); }
+  .group[data-layout="grid3"],
+  .group[data-layout="grid2"] { grid-template-columns: 1fr; }
+  .group[data-layout="portraitPair"] { grid-template-columns: repeat(2, 1fr); }
+}

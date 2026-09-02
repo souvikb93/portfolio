@@ -2,6 +2,8 @@ import Link from "next/link";
 import { HeaderBar } from "@/components/HeaderBar";
 import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
+import { FigureGroup } from "./Figure";
+import type { Gallery } from "@/data/caseStudies";
 import styles from "./StudyPage.module.css";
 
 // Shared long-form study layout used by /projects/[slug] and /builds/[slug].
@@ -19,8 +21,14 @@ export function StudyPage({
   return (
     <>
       <main className={styles.page}>
+        {study.hero && (
+          <div className="container-study">
+            <FigureGroup gallery={study.hero} />
+          </div>
+        )}
+
         <header className={styles.head}>
-          <div className="container">
+          <div className="container-study">
             <p className="t-body muted">{study.name}</p>
             <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
             <p className={`t-body muted ${styles.summary}`}>{study.summary}</p>
@@ -39,6 +47,7 @@ export function StudyPage({
           <Section eyebrow="Objective">
             <h2 className="t-h4">{s.objective.title}</h2>
             <p className="t-body muted">{s.objective.body}</p>
+            <Media galleries={s.objective.media} />
           </Section>
         )}
 
@@ -47,6 +56,7 @@ export function StudyPage({
             <h2 className="t-h4">{s.discovery.title}</h2>
             <p className="t-body muted">{s.discovery.body}</p>
             <BlockGrid blocks={s.discovery.blocks} />
+            <Media galleries={s.discovery.media} />
           </Section>
         )}
 
@@ -81,6 +91,7 @@ export function StudyPage({
                 </article>
               ))}
             </div>
+            <Media galleries={s.synthesis.media} />
           </Section>
         )}
 
@@ -89,6 +100,7 @@ export function StudyPage({
             <h2 className="t-h4">{s.solution.title}</h2>
             <p className="t-body muted">{s.solution.body}</p>
             <BlockGrid blocks={s.solution.blocks} />
+            <Media galleries={s.solution.media} />
           </Section>
         )}
 
@@ -103,6 +115,7 @@ export function StudyPage({
                 </div>
               ))}
             </div>
+            <Media galleries={s.impact.media} />
           </Section>
         )}
 
@@ -111,10 +124,11 @@ export function StudyPage({
             <h2 className="t-h4">{s.reflection.title}</h2>
             <p className="t-body muted">{s.reflection.body}</p>
             <BlockGrid blocks={s.reflection.blocks} />
+            <Media galleries={s.reflection.media} />
           </Section>
         )}
 
-        <div className={`container ${styles.next}`}>
+        <div className={`container-study ${styles.next}`}>
           <Link href={backHref} className={styles.link}>
             {backLabel} →
           </Link>
@@ -152,10 +166,22 @@ function Section({
 }) {
   return (
     <section className={`section ${styles.section}`}>
-      <div className="container">
+      <div className="container-study">
         <HeaderBar no={`(${eyebrow})`} title="" />
         <div className={styles.sectionBody}>{children}</div>
       </div>
     </section>
+  );
+}
+
+/** Renders a section's figure groups, if it has any. */
+function Media({ galleries }: { galleries?: Gallery[] }) {
+  if (!galleries?.length) return null;
+  return (
+    <>
+      {galleries.map((g, i) => (
+        <FigureGroup key={i} gallery={g} />
+      ))}
+    </>
   );
 }

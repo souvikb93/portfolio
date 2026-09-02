@@ -12,6 +12,23 @@ export type Finding = {
 
 export type Block = { no: string; title: string; body: string };
 
+/** One image or clip inside a case study. `ratio` is the live rendered aspect. */
+export type Figure = {
+  src: string;
+  alt: string;
+  ratio: string;
+  /** Cap for layouts that do not stretch the tile (e.g. "center"). */
+  width?: string;
+  rounded?: boolean;
+  kind?: "video";
+};
+
+/** A row of figures. See components/Figure.tsx for what each layout means. */
+export type Gallery = {
+  layout: "wide" | "grid3" | "grid2" | "half" | "portraitPair" | "center" | "full";
+  items: Figure[];
+};
+
 export type Metric = { value: string; label: string };
 
 export type CaseStudy = {
@@ -20,13 +37,15 @@ export type CaseStudy = {
   headline: string;
   summary: string;
   meta: { label: string; value: string }[];
+  /** Banner above the title, as on the live site. */
+  hero?: Gallery;
   sections: {
-    objective?: { title: string; body: string };
-    discovery?: { title: string; body: string; blocks: Block[] };
-    synthesis?: { title: string; body: string; findings: Finding[] };
-    solution?: { title: string; body: string; blocks: Block[] };
-    impact?: { title: string; metrics: Metric[] };
-    reflection?: { title: string; body: string; blocks: Block[] };
+    objective?: { title: string; body: string; media?: Gallery[] };
+    discovery?: { title: string; body: string; blocks: Block[]; media?: Gallery[] };
+    synthesis?: { title: string; body: string; findings: Finding[]; media?: Gallery[] };
+    solution?: { title: string; body: string; blocks: Block[]; media?: Gallery[] };
+    impact?: { title: string; metrics: Metric[]; media?: Gallery[] };
+    reflection?: { title: string; body: string; blocks: Block[]; media?: Gallery[] };
   };
 };
 
@@ -47,6 +66,16 @@ export const caseStudies: Record<string, CaseStudy> = {
         value: "Accessibility Design · Design System · User Acceptance Testing",
       },
     ],
+    hero: {
+      layout: "wide",
+      items: [
+        {
+          src: "/images/f0OA58mX9qCOCJclp3K48XNjro.png",
+          alt: "Access Now product screens",
+          ratio: "1110 / 672",
+        },
+      ],
+    },
     sections: {
       objective: {
         title: "A Legacy Platform That Didn’t Meet Its Users’ Needs",
@@ -54,6 +83,16 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       discovery: {
         title: "Understanding the Problem Beyond Compliance",
+        media: [
+          {
+            layout: "grid3",
+            items: [
+              { src: "/images/cnMFEityxCm6so3X8q1VAdmZnVI.png", alt: "Accessibility and heuristic evaluation", ratio: "352 / 345", rounded: true },
+              { src: "/images/rE890x8TdwGicnNvCiSqyCljeGY.png", alt: "Stakeholder discovery workshop", ratio: "352 / 345", rounded: true },
+              { src: "/images/w6tcePsmOGIC636jAKev622bf8.png", alt: "Moderated user testing session", ratio: "352 / 345", rounded: true },
+            ],
+          },
+        ],
         body: "Before proposing solutions, I wanted to understand whether the challenges were caused by accessibility barriers, usability issues, or both. I combined expert evaluation, stakeholder insights, and user research to identify the highest-impact opportunities.",
         blocks: [
           {
@@ -75,6 +114,18 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       synthesis: {
         title: "Key Research Findings",
+        media: [
+          { layout: "half", items: [{ src: "/images/l4jOXmRKhJuAi4Vs3phyxKiTo.jpg", alt: "Research synthesis board", ratio: "552 / 340", rounded: true }] },
+          { layout: "half", items: [{ src: "/images/2r9utmvCNQaNmQbC8af4a3kp89k.jpg", alt: "Affinity mapping of findings", ratio: "552 / 443", rounded: true }] },
+          {
+            layout: "portraitPair",
+            items: [
+              { src: "/images/3jGHNPpb1gpwiWzLQ40X0Rvc.jpg", alt: "Assistive technology testing", ratio: "252 / 543", rounded: true },
+              { src: "/images/TDQ0v0hiB3php81bnyeeVkr3iIY.jpg", alt: "Screen reader walkthrough", ratio: "252 / 543", rounded: true },
+            ],
+          },
+          { layout: "full", items: [{ src: "/video/Bg3EZMZeCz8GdHAFGYfbnuRtwA.mp4", alt: "Prototype walkthrough", ratio: "1280 / 150", kind: "video" }] },
+        ],
         body: "Findings from user research, stakeholder workshops, accessibility audits, and heuristic evaluation revealed the most critical barriers affecting usability, accessibility, and business outcomes.",
         findings: [
           {
@@ -114,6 +165,24 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       solution: {
         title: "How I Improved the Overall User Experience",
+        media: [
+          {
+            layout: "grid2",
+            items: [
+              { src: "/images/JjkM4aIGwDfsDQZd1GVWPoKCdk.png", alt: "Redesigned dashboard", ratio: "552 / 313" },
+              { src: "/images/DwMGPjO7IPxAGwiVgA897RWcOwI.png", alt: "Redesigned claims flow", ratio: "552 / 313" },
+            ],
+          },
+          {
+            layout: "grid2",
+            items: [
+              { src: "/images/ZGJ9fY6rWT08w9d9g6tsNqeVWbk.png", alt: "Accessible form patterns", ratio: "446 / 253" },
+              { src: "/images/GNHZ4A77qlrfB2PHOXUCG7Ji8ps.png", alt: "Focus and contrast states", ratio: "446 / 253" },
+            ],
+          },
+          { layout: "center", items: [{ src: "/images/AZ2YY1OCKwquvzp5kP8pHtqcX8.png", alt: "Mobile member portal", ratio: "344 / 475", width: "344px" }] },
+          { layout: "full", items: [{ src: "/images/5XPoAP7xb7e7FA8M0puFHGZCG88.png", alt: "Accessible design system overview", ratio: "1280 / 1031" }] },
+        ],
         body: "Guided by the research findings, I redesigned the experience to address the most critical accessibility and usability challenges — applying inclusive design principles and WCAG guidelines to create a more intuitive, consistent, and accessible product.",
         blocks: [
           {
