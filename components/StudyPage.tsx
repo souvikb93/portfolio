@@ -36,6 +36,9 @@ export function StudyPage({
         <header className={`${study.hero ? "over-hero" : ""} ${styles.head}`}>
           <div className="container-study">
             <p className="t-body muted">{study.name}</p>
+            {study.subtitle && (
+              <p className="t-body2 muted">{study.subtitle}</p>
+            )}
             <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
             <p className={`t-body muted ${styles.summary}`}>{study.summary}</p>
             <dl className={styles.meta}>
@@ -116,8 +119,11 @@ function BlockGrid({
     <div className={styles.blockGrid}>
       {blocks.map((b) => (
         <article key={b.no} className={styles.block}>
-          <span className="t-body2 muted">{b.no}</span>
-          <h3 className="t-h6">{b.title}</h3>
+          {/* Live sets these as one line, "02 · Title", not a number above a
+              heading — keeping them separate broke the reading order. */}
+          <h3 className="t-h6">
+            {b.no} · {b.title}
+          </h3>
           <p className="t-body muted">{b.body}</p>
           {b.bullets && (
             <>

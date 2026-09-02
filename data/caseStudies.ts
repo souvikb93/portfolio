@@ -85,6 +85,8 @@ export type CaseStudy = {
   headline: string;
   summary: string;
   meta: { label: string; value: string }[];
+  /** Short line live runs under the study name. */
+  subtitle?: string;
   /** Banner above the title, as on the live site. */
   hero?: Gallery;
   sections: StudySection[];
@@ -322,13 +324,14 @@ export const caseStudies: Record<string, CaseStudy> = {
     name: "Member Portal",
     headline:
       "Data-Driven Digital Transformation of a Healthcare Insurance App with 5M+ Downloads on Google Play",
+    subtitle: "Insurance in the Digital Era",
     summary:
       "As a Product Designer at an Indian consultancy, I worked on a 1.5-year project with a leading healthcare insurer. Starting with a UX audit, we rebuilt their incomplete mobile app from scratch with a new IA and new components in the design system.",
     meta: [
       { label: "Client", value: "United Healthcare Group" },
       { label: "Duration", value: "18 months" },
       { label: "Industry", value: "Healthcare Insurance" },
-      { label: "Scope of Work", value: "App Design · Information Architecture · Design System" },
+      { label: "Scope of Work", value: "App Design · Design System · Information Architecture" },
     ],
     hero: {
       layout: "wide",
@@ -338,43 +341,116 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     sections: [
       {
-        eyebrow: "Objective",
+        eyebrow: "Challenge",
         title: "Closing the Gap Between Portal and Mobile",
-        body: "The client’s insurance agents work in the field, not at a desk, and had decided to make mobile their main channel. But the app was still missing features the legacy web portal had, so agents kept getting pulled back to desktop. Users were leaving mid-task — mobile drop-off ran well above the portal for the same actions. Support absorbed the overflow, with over 15,000 calls a month from members who got stuck on the app. And roughly half the portal’s features hadn’t made it into the app yet."
+        body: "The client’s insurance agents work in the field, not at a desk, and had decided to make mobile their main channel. But the app was still missing features the legacy web portal had, so agents kept getting pulled back to desktop. Closing that gap is why I was brought on.",
+        blocks: [
+          { no: "01", title: "Users Leaving Mid-Task", body: "Mobile drop-off ran well above what the portal saw for the same actions." },
+          { no: "02", title: "Support Absorbing the Overflow", body: "Over 15,000 calls a month came from members who got stuck on the app." },
+          { no: "03", title: "Half the Portal Wasn’t on Mobile Yet", body: "Several web portal features hadn’t made it into the app, so agents had to switch back to desktop to finish the task." },
+        ],
       },
       {
         eyebrow: "Discovery",
         title: "UX Audit & Key Findings",
-        media: [
-          { layout: "half", items: [{ src: "/images/4BfM8vfOJ28Nn1gvhGlHOtpUTW8.png", alt: "Complex navigation audit", ratio: "352 / 416", radius: "24px" , width: "352px"}] },
-          { layout: "halfRight", items: [{ src: "/images/TzMN54p9mY4McvUUg7HNbLmW4w.png", alt: "Unclear call-to-action audit", ratio: "371 / 472", radius: "24px" , width: "371px"}] },
-          { layout: "half", items: [{ src: "/images/XVF7lubG4aSHdDyIdYiiwrSics.png", alt: "Complex form structures audit", ratio: "371 / 472", radius: "24px" , width: "371px"}] },
-          { layout: "halfRight", items: [{ src: "/images/aQdPDGSUnioclPASar0F9Sm0bdE.png", alt: "Missing search audit", ratio: "371 / 472", radius: "24px" , width: "371px"}] },
-        ],
         body: "Before touching any screens, I ran a UX audit against NN Group heuristics and cross-checked it with two quarters of analytics and support ticket data. Four patterns kept showing up, and each one was quietly costing the business money.",
+        findings: [
+          {
+            no: "(01)",
+            title: "Lack of Search Functionality",
+            quote: "It takes me longer to find the record than to actually do the work.",
+            quoteBy: "Support Staff",
+            support: "Finding the right plan took over 90 seconds on average.",
+            impact: "Instead of finishing on their phone, members gave up and switched to desktop.",
+          },
+          {
+            no: "(02)",
+            title: "Complex Navigation",
+            quote: "I know this feature exists somewhere, I just never know which menu it’s hiding in.",
+            quoteBy: "Product Analyst",
+            support: "Users took 4 to 6 taps to reach screens that should’ve taken 2.",
+            impact: "Every extra tap meant more people abandoning the task, and abandoned tasks were flowing straight into support call volume.",
+          },
+          {
+            no: "(03)",
+            title: "Unclear Call-to-Action",
+            quote: "I wasn’t sure if tapping that would submit my claim or just save it.",
+            quoteBy: "Insurance Agent",
+            support: "About 3 in 5 users hesitated or picked the wrong action on core screens during user interviews.",
+            impact: "Second-guessing what a button does slows every client interaction and erodes trust in the tool itself.",
+          },
+          {
+            no: "(04)",
+            title: "Complex Form Structures",
+            quote: "On mobile I have to scroll left and right just to fill out one form. I’d rather just do it on desktop where I can see the whole thing at once.",
+            quoteBy: "Insurance Agent",
+            support: "Claims and enrollment forms had the highest drop-off in the app, around 40%.",
+            impact: "Biggest single driver of support calls.",
+          },
+        ],
+        media: [
+          {
+            layout: "half",
+            items: [{ src: "/images/4BfM8vfOJ28Nn1gvhGlHOtpUTW8.png", alt: "Search audit", ratio: "352 / 416", radius: "24px", width: "352px" }],
+          },
+          {
+            layout: "halfRight",
+            items: [{ src: "/images/TzMN54p9mY4McvUUg7HNbLmW4w.png", alt: "Navigation audit", ratio: "371 / 472", radius: "24px", width: "371px" }],
+          },
+          {
+            layout: "half",
+            items: [{ src: "/images/XVF7lubG4aSHdDyIdYiiwrSics.png", alt: "Call-to-action audit", ratio: "371 / 472", radius: "24px", width: "371px" }],
+          },
+          {
+            layout: "halfRight",
+            items: [{ src: "/images/aQdPDGSUnioclPASar0F9Sm0bdE.png", alt: "Form structure audit", ratio: "371 / 472", radius: "24px", width: "371px" }],
+          },
+        ],
+      },
+      {
+        eyebrow: "Solution",
+        title: "Solutions Mapped to the Audit Findings",
+        body: "Each fix responds directly to a finding from the audit. The goal wasn’t a redesign for its own sake, it was to solve the specific problems agents were running into every day.",
         blocks: [
           {
             no: "01",
-            title: "Complex Navigation",
-            body: "“I know this feature exists somewhere, I just never know which menu it’s hiding in.” — Product Analyst. Users took 4 to 6 taps to reach screens that should have taken 2. Every extra tap meant more abandoned tasks flowing straight into support call volume.",
+            title: "Fixing the App’s Information Architecture",
+            body: "Agents couldn’t find things because the app was still running on the same information architecture as the web portal, a structure built for a desktop screen where everything is visible at once, not a phone. I rebuilt the IA from scratch based on real usage patterns.",
+            bullets: [
+              "Ran card sorting sessions to see how agents naturally grouped features",
+              "Reorganized 40+ screens into 5 task-based groups, cutting navigation depth by half",
+              "Validated the new structure with tree testing before wireframing",
+            ],
+            media: [
+              {
+                layout: "grid2",
+                items: [
+                  { src: "/images/b8y7sSEzHNKqiJvNCPbe9t4cg.png", alt: "Simplified navigation", ratio: "628 / 421" },
+                  { src: "/images/DwGsmAvGmMvMsFAcoHNxgfX4I.png", alt: "Focused primary action", ratio: "203 / 421" },
+                ],
+              },
+            ],
           },
           {
             no: "02",
-            title: "Unclear Call-to-Action",
-            body: "“I wasn’t sure if tapping that would submit my claim or just save it.” — Insurance Agent. About 3 in 5 users hesitated or picked the wrong action on core screens during interviews.",
+            title: "Setting Navigation Hierarchy from Google Analytics Data",
+            body: "With the new structure in place, I still had to decide what agents saw first. Rather than guess, I pulled Google Analytics data on page views and engagement time and let actual usage set the order.",
             bullets: [
               "Pulled Google Analytics data on page views and engagement time across the app",
               "Ranked features by actual usage, not internal opinion",
               "Placed the most-used features in the bottom navigation bar for one-tap access",
               "Ordered the hamburger menu to match, most used to least",
             ],
+            media: [
+              { layout: "center", items: [{ src: "/images/RnninTV2md2x7JBJSglnAqKX9U.png", alt: "Navigation hierarchy from analytics", ratio: "600 / 586", width: "600px" }] },
+            ],
             caption:
               "The most visited pages identified in Google Analytics (left) were used to determine the hierarchy of items in the hamburger menu (right), aligning navigation with real user behavior.",
           },
           {
             no: "03",
-            title: "Complex Form Structures",
-            body: "“On mobile I have to scroll left and right just to fill out one form. I’d rather do it on desktop.” — Insurance Agent. Claims and enrollment forms had the highest drop-off in the app, around 40% — the biggest single driver of support calls.",
+            title: "Building Mobile Components for the Design System",
+            body: "There was no mobile component library, so developers were defaulting to their own solutions screen by screen. I extended the client’s existing design system instead of building a new one from scratch.",
             bullets: [
               "Audited the existing design system to understand tokens and patterns already in place",
               "Built mobile-specific components extending the system, not replacing it",
@@ -384,74 +460,41 @@ export const caseStudies: Record<string, CaseStudy> = {
           },
           {
             no: "04",
-            title: "Lack of Search Functionality",
-            body: "“It takes me longer to find the record than to actually do the work.” — Support Staff. Finding the right plan took over 90 seconds on average, so members gave up and switched to desktop.",
+            title: "Turning Long Forms Into Guided Steps",
+            body: "Using the form field components just built in the design system, I broke a multi-column desktop layout into something a phone could actually handle.",
             bullets: [
               "Switched to single-column layouts, removing horizontal scroll entirely",
               "Broke long forms into labeled steps with a visible progress indicator",
               "Designed immediate success and error feedback instead of post-submission validation",
             ],
+            media: [
+              { layout: "center", items: [{ src: "/images/aR9W0ECwmb0A9lACmtnxzurCeE.png", alt: "Guided form steps", ratio: "262 / 525", width: "262px" }] },
+            ],
             caption:
               "Wireframes were initially developed to align the team on the application’s structure and user flow. These were then evolved into interactive prototypes that communicated transition states and user interactions, enabling consistent implementation by developers.",
-          },
-        ]
-      },
-      {
-        eyebrow: "Solution",
-        title: "Solutions Mapped to the Audit Findings",
-        media: [
-          {
-            layout: "grid2",
-            items: [
-              { src: "/images/b8y7sSEzHNKqiJvNCPbe9t4cg.png", alt: "Simplified navigation", ratio: "628 / 421" },
-              { src: "/images/DwGsmAvGmMvMsFAcoHNxgfX4I.png", alt: "Focused primary action", ratio: "203 / 421" },
-            ],
-          },
-          { layout: "center", items: [{ src: "/images/RnninTV2md2x7JBJSglnAqKX9U.png", alt: "Redesigned member dashboard", ratio: "600 / 586", width: "600px" }] },
-          { layout: "center", items: [{ src: "/images/aR9W0ECwmb0A9lACmtnxzurCeE.png", alt: "Streamlined form flow", ratio: "262 / 525", width: "262px" }] },
-          {
-            layout: "grid2",
-            items: [
-              { src: "/images/YMmNg5RoIAtZ9AGQvmaNllff2FU.png", alt: "Search and filtering", ratio: "670 / 368", radius: "12px" },
-              { src: "/images/7IQJUxN4YeaG2rOEKvDOG0HF5tw.png", alt: "Mobile parity", ratio: "299 / 374" },
-            ],
-          },
-        ],
-        body: "Each fix responds directly to a finding from the audit. The goal wasn’t a redesign for its own sake — it was to solve the specific problems agents were running into every day.",
-        blocks: [
-          {
-            no: "01",
-            title: "Fixing the App’s Information Architecture",
-            body: "The app still ran on the web portal’s IA — a structure built for a desktop screen, not a phone. I rebuilt it from scratch based on real usage: ran card-sorting sessions, reorganized 40+ screens into 5 task-based groups (cutting navigation depth by half), and validated with tree testing before wireframing.",
-          },
-          {
-            no: "02",
-            title: "Setting Navigation Hierarchy from Analytics Data",
-            body: "Rather than guess what agents saw first, I pulled Google Analytics data on page views and engagement time and let usage set the order. Most-used features went into the bottom nav for one-tap access; the hamburger menu was ordered most-used to least.",
-          },
-          {
-            no: "03",
-            title: "Building Mobile Components for the Design System",
-            body: "There was no mobile component library, so developers defaulted to their own solutions screen by screen. I extended the client’s existing design system — buttons, form fields, cards, navigation elements and interaction states — and standardized CTA labels for action clarity.",
-          },
-          {
-            no: "04",
-            title: "Turning Long Forms Into Guided Steps",
-            body: "Using the new form-field components, I broke multi-column desktop layouts into single-column flows, removed horizontal scroll entirely, split long forms into labeled steps with a visible progress indicator, and moved to immediate success/error feedback instead of post-submission validation.",
           },
           {
             no: "05",
             title: "Introduced Search & Filtering to Improve Data Discovery",
-            body: "Finding claims data or a check application took over 90 seconds with no way to search. I defined search and filter categories from business workflows, designed clear empty/loading/no-results states, and specified filter-chip behavior, multi-select patterns, and clear/reset interactions.",
+            body: "Finding the right claims data or check application took over 90 seconds, so agents gave up and switched back to desktop. There was no way to search or narrow down long lists.",
             bullets: [
               "Defined search and filter categories based on business workflows and stakeholder requirements",
               "Designed clear empty, loading, and no-results states for search experiences",
               "Defined filter chip behavior, multi-select patterns, and clear/reset interactions",
             ],
+            media: [
+              {
+                layout: "grid2",
+                items: [
+                  { src: "/images/YMmNg5RoIAtZ9AGQvmaNllff2FU.png", alt: "Search and filtering", ratio: "670 / 368", radius: "12px" },
+                  { src: "/images/7IQJUxN4YeaG2rOEKvDOG0HF5tw.png", alt: "Mobile parity", ratio: "299 / 374" },
+                ],
+              },
+            ],
             caption:
               "Stakeholder workshops for the Application Status page defined the search, filtering, and sorting experience, which was translated into the final UI shown on the right.",
           },
-        ]
+        ],
       },
       {
         eyebrow: "Impact",
@@ -487,6 +530,24 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         eyebrow: "Reflection",
         title: "What This Project Taught Me",
+        body: "Beyond improving accessibility and responsiveness, these are three lessons I’ll carry into future projects.",
+        blocks: [
+          {
+            no: "01",
+            title: "Design Decisions Need Evidence",
+            body: "Working on this project changed how I approach product decisions. During the redesign, different stakeholders had different views on which features should appear in the bottom navigation and the hamburger menu. Rather than relying on opinions, we used product analytics to understand which features users accessed most frequently and structured the navigation around actual behaviour. It reinforced that analytics isn’t just a reporting tool, it’s an essential input for UX decision-making.",
+          },
+          {
+            no: "02",
+            title: "Platform Shapes Information Architecture",
+            body: "When I joined the project, the mobile experience was based on the same information architecture as the web portal. The same structure that worked well on desktop created unnecessary complexity on mobile. Designing around the mobile context resulted in a simpler navigation model and quicker access to frequently used features.",
+          },
+          {
+            no: "03",
+            title: "Alignment Is Part of the Design Process",
+            body: "Adding search, filtering and sorting seemed straightforward until business expectations and technical constraints diverged. Running collaborative stakeholder workshops helped us prioritise features that delivered the most value while remaining technically feasible. It changed how I think about design. It’s not just about creating interfaces, but also about aligning people around practical solutions.",
+          },
+        ],
         media: [
           {
             layout: "grid3",
@@ -497,24 +558,6 @@ export const caseStudies: Record<string, CaseStudy> = {
             ],
           },
         ],
-        body: "Beyond improving accessibility and responsiveness, three lessons I’ll carry into future projects.",
-        blocks: [
-          {
-            no: "01",
-            title: "Design Decisions Need Evidence",
-            body: "Stakeholders disagreed on which features belonged in the bottom nav. Rather than rely on opinions, we used product analytics to see which features users accessed most and structured navigation around actual behaviour. Analytics isn’t just a reporting tool — it’s an essential input for UX decisions.",
-          },
-          {
-            no: "02",
-            title: "Platform Shapes Information Architecture",
-            body: "The mobile experience was based on the web portal’s IA. The same structure that worked on desktop created unnecessary complexity on mobile. Designing around the mobile context produced a simpler navigation model and quicker access to frequent features.",
-          },
-          {
-            no: "03",
-            title: "Alignment Is Part of the Design Process",
-            body: "Adding search, filtering and sorting seemed straightforward until business expectations and technical constraints diverged. Collaborative stakeholder workshops helped prioritise the most valuable, feasible features. Design isn’t just about creating interfaces — it’s about aligning people around practical solutions.",
-          },
-        ]
       },
     ],
   },
