@@ -5,14 +5,17 @@ export const buildStudies: Record<string, CaseStudy> = {
   tracka: {
     slug: "tracka",
     name: "Tracka",
-    headline: "Track Better · Tailor Smarter · Apply Faster",
+    headline: "Tailor Smarter. Track Better. Apply Faster.",
     summary:
       "As a solo product designer, I built Tracka to solve a real problem faced by job seekers while expanding my role beyond UX. Alongside designing the experience, I defined the product logic, business rules, and technical architecture required to bring a functional application to life.",
     meta: [
-      { label: "Type", value: "Self-initiated product" },
+      { label: "Client", value: "Self-initiated product" },
       { label: "Duration", value: "3 months" },
       { label: "Industry", value: "Career Tech" },
-      { label: "Scope of Work", value: "Full-stack Build · Information Architecture · Design System" },
+      {
+        label: "Scope of Work",
+        value: "Full-stack Build · Information Architecture · Design System",
+      },
     ],
     hero: {
       layout: "wide",
@@ -22,67 +25,99 @@ export const buildStudies: Record<string, CaseStudy> = {
     },
     sections: [
       {
-        eyebrow: "Objective",
+        eyebrow: "Context",
         title: "A Changing Job Market in the Age of AI",
-        body: "When I moved to Berlin and began my own job search, I noticed how diverse the job market was — people from different cultural, educational, professional, and language backgrounds. At the same time, AI was changing how candidates were screened and evaluated, from AI-powered CV screening to AI-led interviews. Finding the right opportunity was only the beginning: each application involved understanding the role, preparing and tailoring a CV, writing a cover letter, navigating AI-driven screening, and managing multiple applications, follow-ups, and recruiter conversations. Keeping track of everything became a job in itself."
+        body: "When I moved to Berlin and began my own job search, I noticed how diverse the job market was, with people from different cultural, educational, professional, and language backgrounds. At the same time, AI was changing how candidates were screened and evaluated, from AI-powered CV screening to AI-led interviews.",
+        caption:
+          "Me (blue and red printed T-shirt) in discussion with fellow job seekers and career mentors at a Berlin employment meetup, listening to diverse perspectives on navigating the German job market.",
       },
       {
-        eyebrow: "Discovery",
+        eyebrow: "Problem",
+        title: "Job Searching Has Become a Process to Manage",
+        body: "Every application came with its own requirements, materials, and next steps. Context was constantly recreated across CVs, cover letters, applications, and interviews. As applications multiplied, the effort wasn’t just finding jobs — it was managing everything around each application.",
+      },
+      {
+        eyebrow: "Research",
         title: "Understanding the Job Search Journey",
+        body: "Before exploring solutions, I wanted to understand how people actually manage their job search. I captured recurring behaviors, frustrations, and workarounds through informal conversations with job seekers and recruiters.",
+        metrics: [
+          { value: "10+", label: "Career Meetups Attended" },
+          { value: "4", label: "Hiring Managers" },
+          { value: "18", label: "User Interviews" },
+          { value: "7", label: "Industries Represented" },
+        ],
         media: [
           { layout: "wide", items: [{ src: "/video/1jcvQ3Vvht0pfBEzcyTjIVBrnA.mp4", alt: "Research synthesis", ratio: "690 / 388", kind: "video" }] },
-          { layout: "wide", items: [{ src: "/images/N9Czpipl9lUSddOVtWvc8kCn2Q.png", alt: "From insights to product decisions", ratio: "1152 / 411" }] },
-          { layout: "wide", items: [{ src: "/images/q1FJIbRxEr5zleZdoNmhSrx4XUU.png", alt: "Opportunity mapping", ratio: "1072 / 383" }] },
-          { layout: "wide", items: [{ src: "/images/YEjleZD455mfl5bIJBjeFDKeoi0.png", alt: "Activation and retention", ratio: "1152 / 412" }] },
-          { layout: "wide", items: [{ src: "/images/IIGp5fjqkwugqytphjGK6WII88E.png", alt: "Feature prioritisation", ratio: "1152 / 344" }] },
         ],
-        body: "Before exploring solutions, I wanted to understand how people actually manage their job search. To ensure Tracka solved real problems, I interviewed job seekers, spoke with recruiters, attended career meetups, and analysed the real job application process across the Berlin hiring market — capturing recurring behaviours, frustrations, and workarounds.",
-        blocks: [
-          {
-            no: "01",
-            title: "Personalized Applications",
-            body: "Tailoring applications was the most time-consuming part of the job search. Users needed faster ways to personalize resumes and cover letters without compromising quality. → Resume & Cover Letter Builder: analyse the job description, extract ATS keywords, generate personalized materials.",
-          },
-          {
-            no: "02",
-            title: "ATS Optimization",
-            body: "Candidates increasingly relied on ATS checkers and manually compared resumes with job descriptions. Identifying the right keywords had become an extra step in every application. → ATS Match Analyzer: extract ATS keywords from the job description, highlight missing skills, estimate an ATS match score.",
-          },
-          {
-            no: "03",
-            title: "Application Management",
-            body: "As applications progressed, important information became scattered across job portals, emails, folders, spreadsheets, and documents. Reconstructing the full context of an application often took longer than expected. → Unified Workspace: save the original job description, store tailored CVs and cover letters, keep recruiter contacts and notes together.",
-          },
-          {
-            no: "04",
-            title: "Frictionless Onboarding",
-            body: "We couldn’t eliminate repetitive forms across external job portals, but we could remove the same friction from our own onboarding. → AI-Powered Onboarding: upload an existing CV, automatically extract profile details, review and confirm before getting started.",
-          },
-        ]
       },
       {
-        eyebrow: "Solution",
-        title: "From Hand Sketch to Production UI",
-        media: [
-          { layout: "wide", items: [{ src: "/images/7gTirUV54JrihWCjLTzUPoKvCWs.png", alt: "Hand sketch", ratio: "636 / 424" }] },
-          { layout: "wide", items: [{ src: "/images/pbfTymDicgXSWTragjoWUJIL6g.png", alt: "Wireframe", ratio: "636 / 414" }] },
-          { layout: "wide", items: [{ src: "/images/ohK2uWdMuzohlJSEsexEcDa4lY.png", alt: "Production UI", ratio: "636 / 348" }] },
-        ],
-        body: "I defined the information architecture and key entry points first — separating marketing, authentication, onboarding, and the core workspace into a clear navigation structure — then moved through concept exploration and an AI-assisted production process.",
-        blocks: [
+        eyebrow: "Analysis",
+        title: "From Insights to Product Decisions",
+        body: "Conversations with job seekers revealed four recurring themes. Rather than solving every problem directly, I focused on the areas where Tracka could create the greatest impact within its own experience.",
+        findings: [
           {
-            no: "01",
-            title: "Defining the Information Hierarchy",
-        media: [
-          { layout: "wide", items: [{ src: "/images/sJ2y1cRqGOZ9uYngaHxiCbIpThI.png", alt: "Information hierarchy", ratio: "1152 / 605" }] },
-          { layout: "center", items: [{ src: "/video/bami6O5MLqZdLUMdBO2ty9EVNA.mp4", alt: "Interface walkthrough", ratio: "600 / 600", width: "600px", kind: "video" }] },
-        ],
-            body: "The experience separates marketing, authentication, onboarding, and the core workspace into a clear navigation structure, creating an intuitive journey for both first-time and returning users.",
+            no: "(01)",
+            title: "Personalized Applications",
+            quote:
+              "I have to tweak my CV for every job, and in Germany the cover letter matters too. Sending the same one everywhere just doesn’t work anymore.",
+            support:
+              "Tailoring applications was the most time-consuming part of the job search. Users needed faster ways to personalize resumes and cover letters without compromising quality.",
           },
           {
-            no: "02",
-            title: "Design System as AI Context",
+            no: "(02)",
+            title: "ATS Optimization",
+            quote:
+              "Everyone keeps talking about ATS these days... before I apply, I compare my CV with the job description using AI.",
+            support:
+              "Candidates increasingly relied on ATS checkers and manually compared resumes with job descriptions to improve their chances of reaching recruiters. Identifying the right keywords had become an additional step in every application.",
+          },
+          {
+            no: "(03)",
+            title: "Unified Workspace",
+            quote:
+              "By the time someone emails me back, the job posting has disappeared. I can’t remember which CV I sent, where I saved the cover letter, or what the role was actually looking for.",
+            support:
+              "As applications progressed, important information became scattered across job portals, emails, folders, spreadsheets, and documents. Reconstructing the full context of an application often took longer than expected, especially during interviews and follow-ups.",
+          },
+          {
+            no: "(04)",
+            title: "Reusable Context",
+            quote:
+              "I already uploaded my CV... why am I filling in my work experience, education, and address all over again? After a few applications, those long forms get really tiring.",
+            support:
+              "When a user provides context once, that context should carry forward and be reused wherever it is relevant. Users shouldn’t have to repeatedly re-enter or re-explain the same information at different steps or across different parts of the product.",
+          },
+        ],
         media: [
+          { layout: "wide", items: [{ src: "/images/N9Czpipl9lUSddOVtWvc8kCn2Q.png", alt: "From insights to product decisions", ratio: "1152 / 411" }] },
+        ],
+      },
+      {
+        eyebrow: "User Journey",
+        title: "Designing for Activation and Retention",
+        body: "Defined distinct paths based on the different needs of first-time and returning users. Comparing both journeys helped identify moments of uncertainty, opportunities to reduce friction, and design decisions that support long-term engagement.",
+        media: [
+          { layout: "wide", items: [{ src: "/images/q1FJIbRxEr5zleZdoNmhSrx4XUU.png", alt: "Activation and retention journeys", ratio: "1072 / 383" }] },
+          { layout: "wide", items: [{ src: "/images/YEjleZD455mfl5bIJBjeFDKeoi0.png", alt: "Journey comparison", ratio: "1152 / 412" }] },
+          { layout: "wide", items: [{ src: "/images/IIGp5fjqkwugqytphjGK6WII88E.png", alt: "Feature prioritisation", ratio: "1152 / 344" }] },
+        ],
+      },
+      {
+        eyebrow: "Information Architecture",
+        title: "Defining the Information Hierarchy",
+        body: "I translated the journey into a clear information architecture, separating marketing, authentication, onboarding, and the core workspace.",
+        media: [
+          { layout: "wide", items: [{ src: "/images/sJ2y1cRqGOZ9uYngaHxiCbIpThI.png", alt: "Information architecture", ratio: "1152 / 605" }] },
+        ],
+        caption:
+          "First-time users move through onboarding before entering the product, while returning users can go straight to the workspace.",
+      },
+      {
+        eyebrow: "Design System",
+        title: "From Design System to Consistent Interfaces",
+        body: "I translated the design system into structured documentation that AI could interpret, enabling reusable components, predictable layouts, and consistent outputs across the product.",
+        media: [
+          { layout: "center", items: [{ src: "/video/bami6O5MLqZdLUMdBO2ty9EVNA.mp4", alt: "Design system walkthrough", ratio: "600 / 600", width: "600px", kind: "video" }] },
           {
             layout: "grid3",
             items: [
@@ -92,73 +127,109 @@ export const buildStudies: Record<string, CaseStudy> = {
             ],
           },
         ],
-            body: "A design system is only valuable if applied consistently. I translated the system into structured documentation that AI could interpret, enabling reusable components, predictable layouts, and consistent outputs across the product.",
-          },
-          {
-            no: "03",
-            title: "Concept Exploration",
+        caption: "Design System to Markdown File.",
+      },
+      {
+        eyebrow: "Concept Exploration",
+        title: "Exploring Ways to Structure the Experience",
+        body: "I explored multiple ways to connect Tracka’s three core workflows and tested different navigation and information structures. This helped me narrow the exploration to the direction that provided the clearest structure while keeping the three core workflows connected.",
+        blocks: [
+          { no: "A", title: "Concept A: Data-First Tracker", body: "A dense structure optimized for job management." },
+          { no: "B", title: "Concept B: Unified Navigation", body: "Three core tools with shared navigation." },
+          { no: "C", title: "Concept C: AI-First Workspace", body: "A conversational hub connecting key tasks." },
+        ],
         media: [
           {
             layout: "grid3",
             items: [
-              { src: "/images/aVYKH1wVnrxsFXGwh2gc0jiAdl8.png", alt: "Concept one", ratio: "352 / 225" },
-              { src: "/images/DMzXWMK6jkNVYOvvMYyFndUgMs.png", alt: "Concept two", ratio: "352 / 225" },
-              { src: "/images/Y9gDikOyHWx2ld5JeD1nbkzuE.png", alt: "Concept three", ratio: "352 / 226" },
+              { src: "/images/aVYKH1wVnrxsFXGwh2gc0jiAdl8.png", alt: "Concept A", ratio: "352 / 225" },
+              { src: "/images/DMzXWMK6jkNVYOvvMYyFndUgMs.png", alt: "Concept B", ratio: "352 / 225" },
+              { src: "/images/Y9gDikOyHWx2ld5JeD1nbkzuE.png", alt: "Concept C", ratio: "352 / 226" },
             ],
           },
-          { layout: "center", items: [{ src: "/images/94153csZ6w2Mjd4cYhHZo6y0Fpo.png", alt: "Selected direction", ratio: "544 / 230", width: "544px" }] },
         ],
-            body: "I explored different ways of bringing the Tracker, Resume Builder, and Letter Builder together, evaluating each concept against navigation clarity, cognitive load, scalability, and continuity — using product goals and user needs as criteria rather than visual preference.",
-          },
-          {
-            no: "04",
-            title: "Production Process",
-            body: "Hand-drawn sketches explored hierarchy and layout; low-fidelity Figma wireframes became the design specification and context for an AI coding assistant to generate the initial high-fidelity interface, which I refined through iteration.",
-          },
-          {
-            no: "05",
-            title: "Scalable Technical Architecture",
+      },
+      {
+        eyebrow: "Concept Finalization",
+        title: "Selecting the Direction to Take Forward",
+        body: "I selected this direction based on three key considerations to ensure it best supported the overall job-search experience.",
+        blocks: [
+          { no: "01", title: "Workflow Continuity", body: "How naturally users move between core tasks." },
+          { no: "02", title: "Information Clarity", body: "How easily users understand and act on what matters." },
+          { no: "03", title: "Scalability", body: "How well the structure supports a growing job-search workflow." },
+        ],
+        media: [
+          { layout: "center", items: [{ src: "/images/94153csZ6w2Mjd4cYhHZo6y0Fpo.png", alt: "Concept B: Unified Navigation", ratio: "544 / 230", width: "544px" }] },
+        ],
+        caption: "Concept B: Unified Navigation.",
+      },
+      {
+        eyebrow: "Production Process",
+        title: "From Hand Sketch to Production UI",
+        body: "I started with hand-drawn sketches to explore the information hierarchy, content structure, and overall layout. Once the concept was clear, I recreated it as low-fidelity wireframes in Figma. These wireframes served as the design specification and context for an AI coding assistant to generate the initial high-fidelity interface, which I then refined through iterative design decisions.",
+        blocks: [
+          { no: "01", title: "Concept Sketch", body: "Explore layout and information hierarchy." },
+          { no: "02", title: "Figma Wireframe", body: "Define structure and provide AI design context." },
+          { no: "03", title: "Production UI", body: "UI generated using AI coding agents, refined through iteration." },
+        ],
+        media: [
+          { layout: "wide", items: [{ src: "/images/7gTirUV54JrihWCjLTzUPoKvCWs.png", alt: "Concept sketch", ratio: "636 / 424" }] },
+          { layout: "wide", items: [{ src: "/images/pbfTymDicgXSWTragjoWUJIL6g.png", alt: "Figma wireframe", ratio: "636 / 414" }] },
+          { layout: "wide", items: [{ src: "/images/ohK2uWdMuzohlJSEsexEcDa4lY.png", alt: "Production UI", ratio: "636 / 348" }] },
+        ],
+      },
+      {
+        eyebrow: "Technical Architecture",
+        title: "Building a Scalable Architecture",
+        body: "Rather than building custom infrastructure, I evaluated modern tools that could accelerate development while keeping costs low and maintenance minimal. The architecture prioritizes rapid iteration today, with the flexibility to replace individual services as the product scales.",
         media: [
           { layout: "wide", items: [{ src: "/images/LUF6swkZyBEg7ZnHqBLmoe5alM.png", alt: "System architecture", ratio: "1072 / 681" }] },
         ],
-            body: "Rather than building custom infrastructure, I evaluated modern tools that could accelerate development while keeping costs and maintenance low — prioritising rapid iteration today with the flexibility to replace individual services as the product scales.",
-          },
-          {
-            no: "06",
-            title: "A Consistent ATS Scoring System",
+      },
+      {
+        eyebrow: "Business Logic",
+        title: "Building a Consistent ATS Scoring System",
+        body: "The problem — Tracka’s ATS Analyzer scores how well a resume lines up with a job description before someone applies. Tracka initially used an LLM to calculate ATS scores. Because the model could interpret the same CV and job description differently across runs, the same application would receive different scores. The decision — I separated understanding from scoring. The LLM extracts structured job requirements once, while a deterministic ATS engine calculates the score using predefined matching logic and weighted dimensions. The result is consistent, transparent, and repeatable: the same input always produces the same score.",
         media: [
           { layout: "wide", items: [{ src: "/images/P6r1WHlaZmpTPdgtxUpI3tYZPFE.png", alt: "ATS scoring model", ratio: "1152 / 199" }] },
         ],
-            body: "Tracka initially used an LLM to calculate ATS scores, so the same CV and job description could receive different scores across runs. I separated understanding from scoring: the LLM extracts structured job requirements once, while a deterministic ATS engine calculates the score using predefined matching logic and weighted dimensions. The same input always produces the same score.",
-          },
-        ]
       },
       {
         eyebrow: "Reflection",
         title: "What I Learned While Building Tracka",
+        body: "Designing, building, and testing the product exposed challenges that only became visible during implementation. These experiences reshaped how I think about design systems, product logic, and product decisions.",
+        blocks: [
+          {
+            no: "01",
+            title: "Layered Decision Making: reliable products are built on clear fallback paths",
+            body: "Building Tracka required defining product behavior for situations where a single rule wasn’t enough. For example, deciding which theme the application should display meant evaluating multiple signals before reaching a final decision. This taught me to design layered decision paths that keep the experience predictable even when preferred inputs aren’t available.",
+          },
+          {
+            no: "02",
+            title: "Consistency & Reliability: reliable products build more trust than clever features",
+            body: "While designing the job tracker, I initially allowed users to add a job by pasting a job posting URL. Since different job boards use different page structures, universal URL extraction wasn’t practical. Instead of forcing the feature to work everywhere, I redesigned the workflow so users paste the job description directly while the AI automatically extracts and fills the required fields. This reinforced that reliability creates more value than automation that only works in certain situations.",
+          },
+          {
+            no: "03",
+            title: "Continuous Refinement: a design system evolves through continuous feedback",
+            body: "While building Tracka with an AI coding assistant, I found that every new feature introduced new components, variants, and design refinements. Simply updating the design system in Figma wasn’t enough because the AI also needed the latest design context to generate consistent interfaces. I learned to establish a feedback loop that kept both the design system and the AI aligned as the product evolved.",
+          },
+        ],
         media: [
           { layout: "wide", items: [{ src: "/images/25GyxFzR0HsgETtZTVG50i6Jqc.png", alt: "Layered decision making", ratio: "1152 / 199" }] },
           { layout: "wide", items: [{ src: "/images/L5HpHx26RmmM7uvn63gekQPcLE.png", alt: "Consistency and reliability", ratio: "1152 / 193" }] },
           { layout: "wide", items: [{ src: "/images/K3EQfioE2BsZqX7mNTzeuoma4P4.png", alt: "Continuous refinement", ratio: "1152 / 193" }] },
         ],
-        body: "Designing, building, and testing the product exposed challenges that only became visible during implementation — and reshaped how I think about design systems, product logic, and product decisions.",
+      },
+      {
+        eyebrow: "User Feedback",
+        title: "Build a tailored job application in under 15 minutes.",
+        body: "Tracka is live and continuously evolving through feedback from early users. I’m refining the experience with each iteration before making it available to everyone. Below are a few comments shared by people who have used it so far.",
         blocks: [
-          {
-            no: "01",
-            title: "Layered Decision Making",
-            body: "Reliable products are built on clear fallback paths. Deciding which theme to display meant evaluating multiple signals before reaching a final decision. I learned to design layered decision paths that keep the experience predictable even when preferred inputs aren’t available.",
-          },
-          {
-            no: "02",
-            title: "Consistency & Reliability",
-            body: "Reliable products build more trust than clever features. I initially let users add a job by pasting a posting URL, but universal URL extraction wasn’t practical across job boards. I redesigned the workflow so users paste the job description directly while AI extracts and fills the fields — reliability beats automation that only sometimes works.",
-          },
-          {
-            no: "03",
-            title: "Continuous Refinement",
-            body: "A design system evolves through continuous feedback. Every new feature introduced new components and refinements; updating Figma wasn’t enough because the AI also needed the latest design context. I established a feedback loop that kept both the design system and the AI aligned as the product evolved.",
-          },
-        ]
+          { no: "01", title: "Marla Rode, Forest Auditor", body: "I kept losing track of which companies replied and which ones didn’t. This made things a bit less chaotic for me, especially during busy weeks." },
+          { no: "02", title: "Hannah Petrova, Costume Designer", body: "The cover letter part is surprisingly decent. I still edit everything myself, but it helped me stop starting at a blank page every time." },
+          { no: "03", title: "Rohan S, Software Engineer", body: "I was using Notes and random bookmarks before. This feels cleaner. Still figuring it out, but at least applications aren’t scattered anymore." },
+        ],
       },
     ],
   },
