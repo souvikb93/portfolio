@@ -463,12 +463,12 @@ export const caseStudies: Record<string, CaseStudy> = {
   desi_aroma: {
     slug: "desi_aroma",
     name: "Desi Aroma",
-    headline: "Women’s Empowerment Initiative — 🏆 Second Runner-Up, User Interface Design",
+    headline: "Women’s Empowerment Initiative — From concept to scalable experience.",
     summary:
-      "Founded by two NID alumni, Desi Aroma is a community-driven initiative that empowers housewives in Gandhinagar by transforming their love for home-cooked food into a source of income and recognition, while serving affordable, wholesome meals to students. From concept to scalable experience.",
+      "Founded by two NID alumni, Desi Aroma is a community-driven initiative that empowers housewives in Gandhinagar by transforming their love for home-cooked food into a source of income and recognition, while serving affordable, wholesome meals to students.",
     meta: [
       { label: "Client", value: "Student Project" },
-      { label: "Duration", value: "2 months" },
+      { label: "Duration", value: "2 Months" },
       { label: "Industry", value: "Social Innovation" },
       {
         label: "Scope of Work",
@@ -486,63 +486,101 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         eyebrow: "Objective",
         title: "Creating Economic Opportunities for Housewives While Meeting Student Needs",
-        body: "Many women in Gandhinagar were looking for flexible ways to earn an income while managing their families, while many students lived away from home and missed the comfort of home-cooked food. We saw food as the natural connection between these two communities and explored how homemade food could bring the feeling of home to students while creating flexible earning opportunities for women."
+        body: "Many women in Gandhinagar were looking for flexible ways to earn an income while managing their families, while many students lived away from home and missed the comfort of home-cooked food. We saw food as the natural connection between these two communities and explored how homemade food could bring the feeling of home to students while creating flexible earning opportunities for women.",
       },
       {
-        eyebrow: "Discovery",
-        title: "From Observations to Insights",
+        eyebrow: "System Mapping",
+        title: "System-Level Analysis of gandhinagar",
+        body: "Primary & Secondary Research · Focus Groups · System Mapping · Insights Articulation · Opportunity Mapping",
         media: [
-          { layout: "wide", items: [{ src: "/images/SjsFFtOJgAJkUGJBosOOYUh0aUc.jpg", alt: "System-level analysis of Gandhinagar", ratio: "1094 / 669" }] },
+          { layout: "wide", items: [{ src: "/images/SjsFFtOJgAJkUGJBosOOYUh0aUc.jpg", alt: "System map of Gandhinagar", ratio: "1094 / 669" }] },
+        ],
+        caption: "The above shows a system map of Gandhinagar.",
+      },
+      {
+        eyebrow: "User Research",
+        title: "From Observations to Insights",
+        body: "Synthesizing user interviews and discussions to uncover patterns, needs, and opportunities that informed design decisions.",
+        blocks: [
+          { no: "01", title: "One-to-one interviews with potential customers", body: "Limited time to cook led to dependence on restaurants, carrying home-cooked food left meals cold and soggy, and existing services lacked authentic home-style taste — a strong need for fresh, homemade food." },
+          { no: "02", title: "Food tasting workshop with students", body: "Willingness to pay ₹100–₹150 for non-veg meals, cost sensitivity and a preference for simple packaging, quantity transparency expected in online menus, and demand for personalization and portion options." },
+          { no: "03", title: "One-to-one discussions with homemakers", body: "Family approval is critical for homemakers’ participation, their schedules revolve around family needs, retired individuals seek meaningful engagement, and stored homemade snacks fit anytime consumption needs." },
+          { no: "04", title: "Insights from food business owners", body: "Cook selection is key to consistent homemade taste, a limited local market means the right customer targeting is needed, tracking customer preferences matters, and loyalty requires assurance and stability for home chefs." },
+        ],
+        media: [
           { layout: "center", items: [{ src: "/images/1C8DzuEyAy7rk5rkULtbQdAwVc.jpg", alt: "Field research", ratio: "209 / 266", width: "209px" }] },
         ],
-        body: "Synthesizing user interviews and discussions to uncover patterns, needs, and opportunities that informed design decisions — through primary and secondary research, focus groups, system mapping, and opportunity mapping across Gandhinagar.",
-        blocks: [
-          {
-            no: "01",
-            title: "A strong need for fresh, home-style food",
-            body: "Carrying home-cooked food leads to cold, soggy meals. Existing services lack authentic home-style taste, so there was strong demand for fresh, homemade food.",
-          },
-          {
-            no: "02",
-            title: "Cost sensitivity and transparency",
-            body: "Cost sensitivity and a preference for simple packaging. Quantity transparency was expected in online menus, alongside demand for personalization and portion options.",
-          },
-          {
-            no: "03",
-            title: "Home chefs’ lives revolve around family",
-            body: "Homemakers’ schedules revolve around family needs; retired individuals seek meaningful engagement. Stored homemade snacks fit anytime-consumption needs.",
-          },
-          {
-            no: "04",
-            title: "A small local market needs the right targeting",
-            body: "A limited local market meant the right customer targeting was essential. Tracking customer preferences mattered, and loyalty required assurance and stability for the home chefs.",
-          },
-        ]
       },
       {
-        eyebrow: "Solution",
-        title: "From Service Concept to a Scalable Product",
+        eyebrow: "Comparative Analysis",
+        title: "From Existing Services to New Opportunities",
+        body: "Benchmarking existing food services to understand the landscape, gaps, and opportunities for a community-driven model.",
         media: [
           { layout: "wide", items: [{ src: "/images/GV12Wz2AUp2nk0c1DpNpNk4Ds.jpg", alt: "Comparative analysis", ratio: "1018 / 573" }] },
-          { layout: "wide", items: [{ src: "/images/68k9G833PEFIVks3kQPJavkWGA.jpg", alt: "Stakeholder mapping", ratio: "1018 / 573" }] },
-          { layout: "wide", items: [{ src: "/images/KJB7Y0g0VMKzU1PktFiAxppgC8.jpg", alt: "Journey mapping", ratio: "1018 / 573" }] },
+        ],
+        caption: "*Original artifacts shown as-is in 2018, not recreated.",
+      },
+      {
+        eyebrow: "Stakeholder Mapping",
+        title: "From Stakeholders to Service Ecosystem",
+        body: "Mapping key stakeholders, relationships, and interactions to understand how the service could function within the wider ecosystem.",
+        media: [
+          { layout: "wide", items: [{ src: "/images/68k9G833PEFIVks3kQPJavkWGA.jpg", alt: "Stakeholder map", ratio: "1018 / 573" }] },
+        ],
+      },
+      {
+        eyebrow: "Journey Mapping",
+        title: "From Individual Journeys to Shared Experiences",
+        body: "Mapping the end-to-end experiences of home chefs and customers to uncover pain points, expectations, and opportunities.",
+        media: [
+          { layout: "wide", items: [{ src: "/images/KJB7Y0g0VMKzU1PktFiAxppgC8.jpg", alt: "Journey map", ratio: "1018 / 573" }] },
+        ],
+      },
+      {
+        eyebrow: "Service Blueprint",
+        title: "From Experiences to Service Operations",
+        body: "Translating customer and chef journeys into the operational processes and touchpoints needed to deliver the service.",
+        media: [
           { layout: "wide", items: [{ src: "/images/yPgr4DLOyx05l44uilEH8ItRiVQ.png", alt: "Service blueprint", ratio: "1018 / 573" }] },
-          { layout: "wide", items: [{ src: "/images/s4cSCilOy9wpzPdYApUc4fpZWUQ.jpg", alt: "Brand building", ratio: "1018 / 573" }] },
+        ],
+      },
+      {
+        eyebrow: "Brand Building",
+        title: "From Service Concept to Brand Identity",
+        body: "Translating the service concept into a cohesive brand through identity, communication, packaging, and marketing touchpoints.",
+        media: [
+          { layout: "wide", items: [{ src: "/images/s4cSCilOy9wpzPdYApUc4fpZWUQ.jpg", alt: "Brand identity", ratio: "1018 / 573" }] },
+        ],
+      },
+      {
+        eyebrow: "Concept Video",
+        title: "From Concept to Story",
+        body: "Bringing the service concept to life through a short video that communicates its value, vision, and experience to stakeholders.",
+        media: [
           { layout: "wide", items: [{ src: "/video/j6bOtMAnk1jhu46ZoAclLZZjjaw.webm", alt: "Concept video", ratio: "1152 / 648", kind: "video" }] },
+        ],
+      },
+      {
+        eyebrow: "Key Service Metrics",
+        title: "Key Service Metrics",
+        metrics: [
+          { value: "10", label: "Service POC Duration" },
+          { value: "6", label: "Home Chefs" },
+          { value: "135", label: "Total Orders" },
+          { value: "81", label: "Total Customers" },
+          { value: "62%", label: "Repeat Customers" },
+        ],
+      },
+      {
+        eyebrow: "Interface Design",
+        title: "From Service to Product",
+        body: "User Persona · User Flows · Wireframing · Design System · Prototyping · User Testing. An app-based platform was envisioned as part of the scaling strategy, and a prototype was developed to demonstrate its functionality and potential.",
+        media: [
           { layout: "full", items: [{ src: "/images/3QRI5gCdHRlRKXEWUbFamb4GX8.jpg", alt: "Interface design", ratio: "1280 / 767" }] },
         ],
-        body: "The concept was developed end to end — from system-level analysis through to a working app prototype envisioned as part of the scaling strategy.",
-        blocks: [
-          { no: "01", title: "Comparative Analysis", body: "Benchmarking existing food services to understand the landscape, gaps, and opportunities for a community-driven model." },
-          { no: "02", title: "Stakeholder Mapping", body: "Mapping key stakeholders, relationships, and interactions to understand how the service could function within the wider ecosystem." },
-          { no: "03", title: "Journey Mapping", body: "Mapping the end-to-end experiences of home chefs and customers to uncover pain points, expectations, and opportunities." },
-          { no: "04", title: "Service Blueprint", body: "Translating customer and chef journeys into the operational processes and touchpoints needed to deliver the service." },
-          { no: "05", title: "Brand Building", body: "Translating the service concept into a cohesive brand through identity, communication, packaging, and marketing touchpoints." },
-          { no: "06", title: "Concept Video", body: "Bringing the service concept to life through a short film that communicates its value, vision, and experience to stakeholders." },
-          { no: "07", title: "Interface Design", body: "User personas, user flows, wireframing, a design system, prototyping, and user testing — a prototype built to demonstrate the platform’s functionality and potential." },
-        ]
       },
     ],
+
   },
 
   aero_check: {
