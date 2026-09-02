@@ -1,11 +1,25 @@
+/* Live layout: portrait plus attribution on the left, quote on the right at
+   779px, both starting at the container edges. */
 .wrap {
   width: 100%;
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 40px;
-  align-items: center;
+  grid-template-columns: var(--testimonial-photo-w) minmax(0, 779px);
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--space-10);
 }
-.dots { display: flex; flex-direction: column; gap: 6px; }
+
+.person { display: flex; flex-direction: column; gap: var(--space-8); }
+.photo {
+  width: var(--testimonial-photo-w);
+  height: auto;
+  aspect-ratio: var(--testimonial-photo-ratio);
+  object-fit: contain;
+  border-radius: var(--radius-media);
+}
+.who { display: flex; flex-direction: column; }
+
+.dots { display: flex; gap: 6px; }
 .dots span {
   width: 8px;
   height: 8px;
@@ -17,11 +31,10 @@
 .quote { margin: 0; display: flex; flex-direction: column; gap: var(--space-6); }
 .quote footer { display: flex; flex-direction: column; gap: var(--space-1); }
 
-.nav { display: flex; gap: var(--space-3); }
+.nav { display: none; gap: var(--space-3); grid-column: 1 / -1; justify-content: flex-end; }
+.nav[data-multiple="true"] { display: flex; }
 
 
 @media (max-width: 810px) {
-  .wrap { grid-template-columns: 1fr; }
-  .dots { flex-direction: row; }
-  .nav { justify-content: flex-end; }
+  .wrap { grid-template-columns: 1fr; gap: var(--space-6); }
 }

@@ -10,11 +10,21 @@ export function WorkCard({ project }: { project: Project }) {
       <div className={styles.media}>
         <Image
           src={project.image}
-          alt={project.title}
+          alt=""
+          aria-hidden
           fill
           sizes="(max-width: 810px) 100vw, 640px"
           className={styles.img}
         />
+        <div className={styles.frontWrap}>
+          <Image
+            src={project.imageFg}
+            alt={project.title}
+            fill
+            sizes="(max-width: 810px) 70vw, 400px"
+            className={styles.front}
+          />
+        </div>
       </div>
       <div className={`t-meta ${styles.meta}`}>
         <span className={styles.no}>{project.no}</span>

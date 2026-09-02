@@ -81,6 +81,19 @@
   align-items: center;
 }
 .buildsContent { width: 100%; display: flex; flex-direction: column; gap: var(--space-16); }
+
+/* Portrait clip pinned to the top-left of the band, behind the headline. */
+.buildsIntroClip {
+  position: absolute;
+  left: 0;
+  top: var(--space-20);
+  width: var(--build-intro-w);
+  aspect-ratio: var(--build-intro-ratio);
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+@media (max-width: 1100px) { .buildsIntroClip { display: none; } }
 .buildsHeadline { max-width: var(--content-max); }
 .buildsRow {
   display: flex;

@@ -1,15 +1,39 @@
 /* Project card — 640x494 on the live site at 1280: a 640/452 media plate with
    a 5px radius, then a 32px meta row 10px below it. */
-.card { display: flex; flex-direction: column; gap: var(--card-gap); }
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--card-gap);
+  background: var(--bg);
+}
 
+/* Opaque: these cards stack as sticky layers on the home page, so each one
+   has to occlude the card beneath it. Without a solid tile the lower card's
+   meta row shows through and the labels pile up on each other. */
 .media {
   position: relative;
   width: 100%;
   aspect-ratio: var(--project-card-ratio);
-  border-radius: var(--radius-media);
   overflow: hidden;
   background: var(--black);
 }
+
+/* Sharp inset over the defocused plate, as on /projects. */
+.frontWrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--project-inset-w);
+  aspect-ratio: var(--project-inset-ratio);
+  overflow: hidden;
+  border-radius: var(--radius-media);
+}
+.front {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card:hover .front { transform: scale(1.08); }
 .img { object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
 
 /* Rest / hover / press / focus. Hover eases the image in and underlines the
@@ -25,8 +49,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .img, .card { transition: none; }
-  .card:hover .img { transform: none; }
+  .img, .card, .front { transition: none; }
+  .card:hover .img,
+  .card:hover .front { transform: none; }
   .card:active { transform: none; }
 }
 

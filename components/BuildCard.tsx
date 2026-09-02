@@ -10,6 +10,21 @@ export function BuildCard({ build }: { build: Build }) {
       <div className={styles.left}>
         <span className="t-h1">{build.no}</span>
       </div>
+
+      {build.video ? (
+        <video
+          className={styles.clip}
+          src={build.video}
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="metadata"
+          aria-label={`${build.title} preview`}
+        />
+      ) : (
+        <div className={styles.clipPlaceholder} role="img" aria-label={`${build.title} preview coming soon`} />
+      )}
       <div className={styles.body}>
         <h3 className="t-h3">{build.title}</h3>
         <div className={styles.copy}>

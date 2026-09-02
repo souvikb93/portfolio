@@ -1,17 +1,42 @@
 /* Build row — big index number inset from the left, text column right-aligned
    to the container edge. Measured off the live site at 1280: number 300px wide
    starting 94px in, text column 386px wide ending at the container edge. */
+/* Three columns on the live site: index number, a 16:9 preview clip, then the
+   text. The clip column was missing entirely. */
 .card {
   --build-indent: 94px;
   --build-no-width: 300px;
-  --build-col-width: 386px;
+  --build-col-width: var(--build-col);
   --build-stack: 58px;
 
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
   padding: var(--space-10) 0;
   border-top: 1px solid var(--on-dark-hairline);
   color: var(--white);
+}
+
+.clip,
+.clipPlaceholder {
+  /* auto right margin keeps the clip next to the number and pushes the text
+     column to the container edge; space-between alone centres it in the gap. */
+  margin-right: auto;
+  flex: 0 0 var(--build-col);
+  width: var(--build-col);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background: var(--on-dark-hairline);
+}
+.clipPlaceholder {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      var(--on-dark-hairline) 0 10px,
+      transparent 10px 20px
+    );
 }
 
 .left {
@@ -36,4 +61,5 @@
   .card { flex-direction: column; gap: var(--space-6); }
   .left { flex-basis: auto; margin-left: 0; }
   .body { flex-basis: auto; gap: var(--space-6); }
+  .clip, .clipPlaceholder { flex-basis: auto; width: 100%; }
 }

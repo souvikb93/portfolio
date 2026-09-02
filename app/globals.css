@@ -114,7 +114,12 @@
   --marquee-fade: 50%;               /* edge fade reach, per side */
   --project-tile-ratio: 634 / 497;   /* /projects card tile */
   --project-inset-ratio: 432 / 256;  /* sharp plate on top of it */
-  --project-inset-w: 68%;            /* inset width, as a share of the tile */
+  --project-inset-w: min(393px, 70%); /* inset plate — fixed on the live site */
+  --build-col: 386px;                /* video + text columns in a build row */
+  --build-intro-w: 178px;            /* portrait clip at the top of the band */
+  --build-intro-ratio: 178 / 232;
+  --testimonial-photo-w: 212px;
+  --testimonial-photo-ratio: 212 / 253;
 
   /* --- widths --- */
   /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a

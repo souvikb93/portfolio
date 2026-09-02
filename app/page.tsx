@@ -29,6 +29,16 @@ export default function HomePage() {
         <div className={styles.overlapDark} aria-hidden />
         <div className={`container ${styles.buildsTop}`}>
           <HeaderBar no="(02)" title="(Builds)" variant="white" />
+          <video
+            className={styles.buildsIntroClip}
+            src="/video/builds-intro.mp4"
+            muted
+            loop
+            playsInline
+            autoPlay
+            preload="metadata"
+            aria-hidden
+          />
           <div className={styles.buildsContent}>
             <TextReveal
               text="Expanding beyond traditional design roles by building and shipping AI-powered products that solve real user problems."
