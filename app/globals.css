@@ -110,6 +110,8 @@
   --hero-z: 1;                       /* sticky hero sits under the content */
   --content-z: 2;                    /* content scrolls up over the hero */
   --build-media-ratio: 8 / 1;        /* /builds preview clip (1200x150) */
+  --marquee-gap: 100px;              /* space between logos in the ticker */
+  --marquee-fade: 50%;               /* edge fade reach, per side */
 
   /* --- widths --- */
   /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a

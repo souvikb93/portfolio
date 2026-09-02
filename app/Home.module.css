@@ -2,7 +2,11 @@
    on the live site they are panel 2 of the sticky hero, not separate sections. */
 
 /* ---------- Logo ticker ---------- */
-.ticker { padding: var(--space-10) 0; border-block: 1px solid var(--hairline); }
+/* The band sits in its own breathing room; the 40px inside the ticker plus
+   this makes the ~195px strip the live site has. No rules — live has none. */
+/* margin, not padding: this class lands on the Marquee's own .wrap element,
+   so padding here would overwrite the component's internal 40px. */
+.ticker { margin-block: var(--space-12); }
 
 /* ---------- Portfolio ---------- */
 .portfolio { background: var(--white); padding-bottom: var(--space-30); }

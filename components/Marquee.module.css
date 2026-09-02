@@ -1,6 +1,33 @@
-.wrap { width: 100%; overflow: hidden; }
+/* Ticker with a symmetric edge fade, as on the live site: the strip is masked
+   transparent at both edges and fully opaque at the centre, so logos dissolve
+   in and out rather than being clipped. --marquee-fade is the reach of each
+   side; the live value is 50%, i.e. a long, soft falloff. */
+.wrap {
+  width: 100%;
+  overflow: hidden;
+  padding-block: var(--space-10);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 var(--marquee-fade),
+    #000 var(--marquee-fade),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 var(--marquee-fade),
+    #000 var(--marquee-fade),
+    transparent 100%
+  );
+}
 .track { display: flex; width: max-content; animation: scroll linear infinite; }
-.group { display: flex; align-items: center; gap: var(--space-16); padding-right: var(--space-16); }
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--marquee-gap);
+  padding-right: var(--marquee-gap);
+}
 .wrap:hover .track { animation-play-state: paused; }
 
 @keyframes scroll {
