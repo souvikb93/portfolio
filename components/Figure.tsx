@@ -8,6 +8,7 @@ import styles from "./Figure.module.css";
  *   grid3         three 352px tiles, 48px gaps
  *   grid2         two 552px tiles, 48px gaps
  *   half          a single 552px tile, left-aligned
+ *   halfRight     the same, aligned to the right of the column
  *   portraitPair  two 252px portraits, left-aligned
  *   center        one tile, centred at its natural width
  *   full          edge-to-edge, breaking out of the column
@@ -19,6 +20,7 @@ export function FigureGroup({ gallery }: { gallery: Gallery }) {
         const style = {
           aspectRatio: item.ratio,
           maxWidth: item.width,
+          borderRadius: item.radius,
         } as React.CSSProperties;
         return item.kind === "video" ? (
           <video

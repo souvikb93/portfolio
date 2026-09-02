@@ -20,6 +20,8 @@
 
 /* Left-aligned partial-width groups */
 .group[data-layout="half"] { grid-template-columns: minmax(0, 552px); }
+/* Same tile pushed to the right — the studies alternate sides down the page. */
+.group[data-layout="halfRight"] { grid-template-columns: minmax(0, 552px); justify-content: end; }
 .group[data-layout="portraitPair"] { grid-template-columns: repeat(2, minmax(0, 252px)); justify-content: start; }
 
 .group[data-layout="center"] { justify-items: center; }
@@ -36,6 +38,7 @@
 
 @media (max-width: 810px) {
   .group { margin-block: var(--space-10); gap: var(--space-5); }
+  .group[data-layout="halfRight"] { justify-content: start; }
   .group[data-layout="grid3"],
   .group[data-layout="grid2"] { grid-template-columns: 1fr; }
   .group[data-layout="portraitPair"] { grid-template-columns: repeat(2, 1fr); }

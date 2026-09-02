@@ -10,7 +10,7 @@ export type Finding = {
   impact?: string;
 };
 
-export type Block = { no: string; title: string; body: string };
+
 
 /** One image or clip inside a case study. `ratio` is the live rendered aspect. */
 export type Figure = {
@@ -19,14 +19,32 @@ export type Figure = {
   ratio: string;
   /** Cap for layouts that do not stretch the tile (e.g. "center"). */
   width?: string;
+  /** Corner radius as rendered on the live site; defaults to square. */
+  radius?: string;
   rounded?: boolean;
   kind?: "video";
 };
 
 /** A row of figures. See components/Figure.tsx for what each layout means. */
 export type Gallery = {
-  layout: "wide" | "grid3" | "grid2" | "half" | "portraitPair" | "center" | "full";
+  layout:
+    | "wide"
+    | "grid3"
+    | "grid2"
+    | "half"
+    | "halfRight"
+    | "portraitPair"
+    | "center"
+    | "full";
   items: Figure[];
+};
+
+export type Block = {
+  no: string;
+  title: string;
+  body: string;
+  /** Plates that sit under this sub-heading, as on the live pages. */
+  media?: Gallery[];
 };
 
 export type Metric = { value: string; label: string };
@@ -277,6 +295,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       discovery: {
         title: "UX Audit & Key Findings",
+        media: [
+          { layout: "half", items: [{ src: "/images/4BfM8vfOJ28Nn1gvhGlHOtpUTW8.png", alt: "Complex navigation audit", ratio: "352 / 416", radius: "24px" , width: "352px"}] },
+          { layout: "halfRight", items: [{ src: "/images/TzMN54p9mY4McvUUg7HNbLmW4w.png", alt: "Unclear call-to-action audit", ratio: "371 / 472", radius: "24px" , width: "371px"}] },
+          { layout: "half", items: [{ src: "/images/XVF7lubG4aSHdDyIdYiiwrSics.png", alt: "Complex form structures audit", ratio: "371 / 472", radius: "24px" , width: "371px"}] },
+          { layout: "halfRight", items: [{ src: "/images/aQdPDGSUnioclPASar0F9Sm0bdE.png", alt: "Missing search audit", ratio: "371 / 472", radius: "24px" , width: "371px"}] },
+        ],
         body: "Before touching any screens, I ran a UX audit against NN Group heuristics and cross-checked it with two quarters of analytics and support ticket data. Four patterns kept showing up, and each one was quietly costing the business money.",
         blocks: [
           {
@@ -303,6 +327,24 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       solution: {
         title: "Solutions Mapped to the Audit Findings",
+        media: [
+          {
+            layout: "grid2",
+            items: [
+              { src: "/images/b8y7sSEzHNKqiJvNCPbe9t4cg.png", alt: "Simplified navigation", ratio: "628 / 421" },
+              { src: "/images/DwGsmAvGmMvMsFAcoHNxgfX4I.png", alt: "Focused primary action", ratio: "203 / 421" },
+            ],
+          },
+          { layout: "center", items: [{ src: "/images/RnninTV2md2x7JBJSglnAqKX9U.png", alt: "Redesigned member dashboard", ratio: "600 / 586", width: "600px" }] },
+          { layout: "center", items: [{ src: "/images/aR9W0ECwmb0A9lACmtnxzurCeE.png", alt: "Streamlined form flow", ratio: "262 / 525", width: "262px" }] },
+          {
+            layout: "grid2",
+            items: [
+              { src: "/images/YMmNg5RoIAtZ9AGQvmaNllff2FU.png", alt: "Search and filtering", ratio: "670 / 368", radius: "12px" },
+              { src: "/images/7IQJUxN4YeaG2rOEKvDOG0HF5tw.png", alt: "Mobile parity", ratio: "299 / 374" },
+            ],
+          },
+        ],
         body: "Each fix responds directly to a finding from the audit. The goal wasn’t a redesign for its own sake — it was to solve the specific problems agents were running into every day.",
         blocks: [
           {
@@ -334,6 +376,16 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       impact: {
         title: "Measurable Business & User Impact",
+        media: [
+          {
+            layout: "grid3",
+            items: [
+              { src: "/images/TeIvsNJgRD2FayZrptxBbautI.png", alt: "Adoption metric", ratio: "296 / 296", radius: "24px" },
+              { src: "/images/txOOsTpVEKtsjhPxV75EabF3rwo.png", alt: "Task completion metric", ratio: "288 / 288", radius: "24px" },
+              { src: "/images/fE8T7KtXCbDlHDPyumc6gIfs.png", alt: "Support load metric", ratio: "288 / 288", radius: "24px" },
+            ],
+          },
+        ],
         metrics: [
           {
             value: "+12%",
@@ -354,6 +406,16 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       reflection: {
         title: "What This Project Taught Me",
+        media: [
+          {
+            layout: "grid3",
+            items: [
+              { src: "/images/cf4S1rIIHoppVD27U4diTvJvl8.png", alt: "Final screens, left", ratio: "438 / 879" },
+              { src: "/images/2BpfDGbz2myEIbvBNiCTGvt5bg.png", alt: "Final screens, centre", ratio: "490 / 983" },
+              { src: "/images/yfM9UzbAkuUdabCGggUF93UNF3M.png", alt: "Final screens, right", ratio: "438 / 879" },
+            ],
+          },
+        ],
         body: "Beyond improving accessibility and responsiveness, three lessons I’ll carry into future projects.",
         blocks: [
           {
@@ -405,6 +467,10 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       discovery: {
         title: "From Observations to Insights",
+        media: [
+          { layout: "wide", items: [{ src: "/images/SjsFFtOJgAJkUGJBosOOYUh0aUc.jpg", alt: "System-level analysis of Gandhinagar", ratio: "1094 / 669" }] },
+          { layout: "center", items: [{ src: "/images/1C8DzuEyAy7rk5rkULtbQdAwVc.jpg", alt: "Field research", ratio: "209 / 266", width: "209px" }] },
+        ],
         body: "Synthesizing user interviews and discussions to uncover patterns, needs, and opportunities that informed design decisions — through primary and secondary research, focus groups, system mapping, and opportunity mapping across Gandhinagar.",
         blocks: [
           {
@@ -431,6 +497,15 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       solution: {
         title: "From Service Concept to a Scalable Product",
+        media: [
+          { layout: "wide", items: [{ src: "/images/GV12Wz2AUp2nk0c1DpNpNk4Ds.jpg", alt: "Comparative analysis", ratio: "1018 / 573" }] },
+          { layout: "wide", items: [{ src: "/images/68k9G833PEFIVks3kQPJavkWGA.jpg", alt: "Stakeholder mapping", ratio: "1018 / 573" }] },
+          { layout: "wide", items: [{ src: "/images/KJB7Y0g0VMKzU1PktFiAxppgC8.jpg", alt: "Journey mapping", ratio: "1018 / 573" }] },
+          { layout: "wide", items: [{ src: "/images/yPgr4DLOyx05l44uilEH8ItRiVQ.png", alt: "Service blueprint", ratio: "1018 / 573" }] },
+          { layout: "wide", items: [{ src: "/images/s4cSCilOy9wpzPdYApUc4fpZWUQ.jpg", alt: "Brand building", ratio: "1018 / 573" }] },
+          { layout: "wide", items: [{ src: "/video/j6bOtMAnk1jhu46ZoAclLZZjjaw.webm", alt: "Concept video", ratio: "1152 / 648", kind: "video" }] },
+          { layout: "full", items: [{ src: "/images/3QRI5gCdHRlRKXEWUbFamb4GX8.jpg", alt: "Interface design", ratio: "1280 / 767" }] },
+        ],
         body: "The concept was developed end to end — from system-level analysis through to a working app prototype envisioned as part of the scaling strategy.",
         blocks: [
           { no: "01", title: "Comparative Analysis", body: "Benchmarking existing food services to understand the landscape, gaps, and opportunities for a community-driven model." },
@@ -487,6 +562,17 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       discovery: {
         title: "Understanding How Engineers Validate Manufacturing Diagrams",
+        media: [
+          {
+            layout: "grid3",
+            items: [
+              { src: "/images/9KaLvxH5RBdryHTufo6WRngdK5c.png", alt: "Cross-referencing sources", ratio: "276 / 215" },
+              { src: "/images/XMaXzxbkI1OahLIQ1HWAwjhK8Gk.png", alt: "Traceable audit trail", ratio: "276 / 215" },
+              { src: "/images/UO6BqLgAAXWdFtnsNfYSCx7PFk.png", alt: "Source-level evidence", ratio: "257 / 212" },
+            ],
+          },
+          { layout: "wide", items: [{ src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "How engineers, AI and data work together", ratio: "1018 / 573" }] },
+        ],
         body: "I spoke with engineers involved in diagram validation to understand how they review drawings, compare them against BOM and engineering data, and investigate discrepancies across supporting documentation.",
         blocks: [
           { no: "01", title: "Validation is cross-referencing, not matching", body: "Validation requires cross-referencing multiple engineering data sources and attributes, not just matching a part number." },
@@ -497,6 +583,25 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       solution: {
         title: "Proposing AX Principles to Build User Trust",
+        media: [
+          { layout: "wide", items: [{ src: "/images/Z0pVDqzTy3ChPFYNlghgaPask.png", alt: "Contextual feedback", ratio: "1072 / 605" }] },
+          { layout: "wide", items: [{ src: "/images/R7yB2WULGZcVYACGYFbQ9OeFk.png", alt: "AI transparency and explainability", ratio: "1072 / 565" }] },
+          { layout: "wide", items: [{ src: "/images/5EA2VLkcnffffwkEhlvfXyfn2wk.png", alt: "Human-AI handoff", ratio: "1072 / 579" }] },
+          {
+            layout: "grid2",
+            items: [
+              { src: "/images/6WuizpwHUDxfrNbIxg8auejobq0.png", alt: "Wireframes", ratio: "465 / 472" },
+              { src: "/images/QunoMlryEyhlKCNMai4IB4l19wU.png", alt: "High fidelity screens", ratio: "541 / 435" },
+            ],
+          },
+          {
+            layout: "grid2",
+            items: [
+              { src: "/images/MPizP4rzrfBa53vALBAm6ptwj0w.jpg", alt: "Prompt to code", ratio: "505 / 469" },
+              { src: "/images/bAxOxScd2j9HtWHZ67NDrtk6uE.png", alt: "Generated interface", ratio: "541 / 509" },
+            ],
+          },
+        ],
         body: "The development team initially focused on surfacing the AI result. I mapped the validation journey — one primary review process plus four exception scenarios (missing values, AI-confirmed suggestions, manual overrides, re-review before submission) — and used three concepts to show why engineers also needed the source, reasoning, and clear paths when AI succeeds or fails.",
         blocks: [
           { no: "01", title: "Contextual Feedback", body: "When the system detected a mismatch — e.g. a part number in the diagram not matching the BOM — I highlighted the exact region in the diagram and displayed the conflicting BOM entry alongside it, so engineers could validate the issue without searching lists or switching screens." },

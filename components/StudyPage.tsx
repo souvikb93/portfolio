@@ -4,7 +4,7 @@ import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
 import { ScrollStage } from "./ScrollStage";
-import type { Gallery } from "@/data/caseStudies";
+import type { Block, Gallery } from "@/data/caseStudies";
 import styles from "./StudyPage.module.css";
 
 // Shared long-form study layout used by /projects/[slug] and /builds/[slug].
@@ -150,7 +150,7 @@ export function StudyPage({
 function BlockGrid({
   blocks,
 }: {
-  blocks: { no: string; title: string; body: string }[];
+  blocks: Block[];
 }) {
   return (
     <div className={styles.blockGrid}>
@@ -159,6 +159,7 @@ function BlockGrid({
           <span className="t-body2 muted">{b.no}</span>
           <h3 className="t-h6">{b.title}</h3>
           <p className="t-body muted">{b.body}</p>
+          <Media galleries={b.media} />
         </article>
       ))}
     </div>

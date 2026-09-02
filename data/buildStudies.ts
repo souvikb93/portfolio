@@ -27,6 +27,13 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       discovery: {
         title: "Understanding the Job Search Journey",
+        media: [
+          { layout: "wide", items: [{ src: "/video/1jcvQ3Vvht0pfBEzcyTjIVBrnA.mp4", alt: "Research synthesis", ratio: "690 / 388", kind: "video" }] },
+          { layout: "wide", items: [{ src: "/images/N9Czpipl9lUSddOVtWvc8kCn2Q.png", alt: "From insights to product decisions", ratio: "1152 / 411" }] },
+          { layout: "wide", items: [{ src: "/images/q1FJIbRxEr5zleZdoNmhSrx4XUU.png", alt: "Opportunity mapping", ratio: "1072 / 383" }] },
+          { layout: "wide", items: [{ src: "/images/YEjleZD455mfl5bIJBjeFDKeoi0.png", alt: "Activation and retention", ratio: "1152 / 412" }] },
+          { layout: "wide", items: [{ src: "/images/IIGp5fjqkwugqytphjGK6WII88E.png", alt: "Feature prioritisation", ratio: "1152 / 344" }] },
+        ],
         body: "Before exploring solutions, I wanted to understand how people actually manage their job search. To ensure Tracka solved real problems, I interviewed job seekers, spoke with recruiters, attended career meetups, and analysed the real job application process across the Berlin hiring market — capturing recurring behaviours, frustrations, and workarounds.",
         blocks: [
           {
@@ -53,21 +60,51 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       solution: {
         title: "From Hand Sketch to Production UI",
+        media: [
+          { layout: "wide", items: [{ src: "/images/7gTirUV54JrihWCjLTzUPoKvCWs.png", alt: "Hand sketch", ratio: "636 / 424" }] },
+          { layout: "wide", items: [{ src: "/images/pbfTymDicgXSWTragjoWUJIL6g.png", alt: "Wireframe", ratio: "636 / 414" }] },
+          { layout: "wide", items: [{ src: "/images/ohK2uWdMuzohlJSEsexEcDa4lY.png", alt: "Production UI", ratio: "636 / 348" }] },
+        ],
         body: "I defined the information architecture and key entry points first — separating marketing, authentication, onboarding, and the core workspace into a clear navigation structure — then moved through concept exploration and an AI-assisted production process.",
         blocks: [
           {
             no: "01",
             title: "Defining the Information Hierarchy",
+        media: [
+          { layout: "wide", items: [{ src: "/images/sJ2y1cRqGOZ9uYngaHxiCbIpThI.png", alt: "Information hierarchy", ratio: "1152 / 605" }] },
+          { layout: "center", items: [{ src: "/video/bami6O5MLqZdLUMdBO2ty9EVNA.mp4", alt: "Interface walkthrough", ratio: "600 / 600", width: "600px", kind: "video" }] },
+        ],
             body: "The experience separates marketing, authentication, onboarding, and the core workspace into a clear navigation structure, creating an intuitive journey for both first-time and returning users.",
           },
           {
             no: "02",
             title: "Design System as AI Context",
+        media: [
+          {
+            layout: "grid3",
+            items: [
+              { src: "/images/wORQtUBM2tFRXAaa5tvsT0TEsM.png", alt: "Tokens", ratio: "228 / 500" },
+              { src: "/images/VqSj1R0aHspBuXbCY6lzRQryEB0.png", alt: "Components", ratio: "228 / 269" },
+              { src: "/images/vWTijuAUzVOAkwO0NsVRBT0341g.png", alt: "Patterns", ratio: "228 / 447" },
+            ],
+          },
+        ],
             body: "A design system is only valuable if applied consistently. I translated the system into structured documentation that AI could interpret, enabling reusable components, predictable layouts, and consistent outputs across the product.",
           },
           {
             no: "03",
             title: "Concept Exploration",
+        media: [
+          {
+            layout: "grid3",
+            items: [
+              { src: "/images/aVYKH1wVnrxsFXGwh2gc0jiAdl8.png", alt: "Concept one", ratio: "352 / 225" },
+              { src: "/images/DMzXWMK6jkNVYOvvMYyFndUgMs.png", alt: "Concept two", ratio: "352 / 225" },
+              { src: "/images/Y9gDikOyHWx2ld5JeD1nbkzuE.png", alt: "Concept three", ratio: "352 / 226" },
+            ],
+          },
+          { layout: "center", items: [{ src: "/images/94153csZ6w2Mjd4cYhHZo6y0Fpo.png", alt: "Selected direction", ratio: "544 / 230", width: "544px" }] },
+        ],
             body: "I explored different ways of bringing the Tracker, Resume Builder, and Letter Builder together, evaluating each concept against navigation clarity, cognitive load, scalability, and continuity — using product goals and user needs as criteria rather than visual preference.",
           },
           {
@@ -78,17 +115,28 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             no: "05",
             title: "Scalable Technical Architecture",
+        media: [
+          { layout: "wide", items: [{ src: "/images/LUF6swkZyBEg7ZnHqBLmoe5alM.png", alt: "System architecture", ratio: "1072 / 681" }] },
+        ],
             body: "Rather than building custom infrastructure, I evaluated modern tools that could accelerate development while keeping costs and maintenance low — prioritising rapid iteration today with the flexibility to replace individual services as the product scales.",
           },
           {
             no: "06",
             title: "A Consistent ATS Scoring System",
+        media: [
+          { layout: "wide", items: [{ src: "/images/P6r1WHlaZmpTPdgtxUpI3tYZPFE.png", alt: "ATS scoring model", ratio: "1152 / 199" }] },
+        ],
             body: "Tracka initially used an LLM to calculate ATS scores, so the same CV and job description could receive different scores across runs. I separated understanding from scoring: the LLM extracts structured job requirements once, while a deterministic ATS engine calculates the score using predefined matching logic and weighted dimensions. The same input always produces the same score.",
           },
         ],
       },
       reflection: {
         title: "What I Learned While Building Tracka",
+        media: [
+          { layout: "wide", items: [{ src: "/images/25GyxFzR0HsgETtZTVG50i6Jqc.png", alt: "Layered decision making", ratio: "1152 / 199" }] },
+          { layout: "wide", items: [{ src: "/images/L5HpHx26RmmM7uvn63gekQPcLE.png", alt: "Consistency and reliability", ratio: "1152 / 193" }] },
+          { layout: "wide", items: [{ src: "/images/K3EQfioE2BsZqX7mNTzeuoma4P4.png", alt: "Continuous refinement", ratio: "1152 / 193" }] },
+        ],
         body: "Designing, building, and testing the product exposed challenges that only became visible during implementation — and reshaped how I think about design systems, product logic, and product decisions.",
         blocks: [
           {

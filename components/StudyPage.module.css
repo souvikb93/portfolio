@@ -84,3 +84,7 @@
   border-bottom: 1px solid var(--rule);
   padding-bottom: var(--space-1);
 }
+
+/* A block that carries plates spans the whole row — the grid column is far too
+   narrow for them, and the live pages run these full width. */
+.block:has(> .figures), .blockGrid > .block:has([data-layout]) { grid-column: 1 / -1; }
