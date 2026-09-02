@@ -17,7 +17,7 @@ export const buildStudies: Record<string, CaseStudy> = {
     hero: {
       layout: "wide",
       items: [
-        { src: "/images/fyASe6P3NXZ0bKrLXVLq0E2w6q8.png", alt: "Tracka case study", ratio: "1110 / 672" },
+        { src: "/images/j4GfC2irkQU5bFWLES6jP4YnhI.jpg", alt: "Tracka case study", ratio: "1200 / 800" },
       ],
     },
     sections: {

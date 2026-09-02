@@ -267,7 +267,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     hero: {
       layout: "wide",
       items: [
-        { src: "/images/RnninTV2md2x7JBJSglnAqKX9U.png", alt: "Member Portal case study", ratio: "1110 / 672" },
+        { src: "/images/9dPytogKpslavi9lGu7pupli6g.gif", alt: "Member Portal case study", ratio: "1216 / 814" },
       ],
     },
     sections: {
@@ -395,7 +395,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     hero: {
       layout: "wide",
       items: [
-        { src: "/images/4kIRLN6BsC79ZmlDXywHarBU0o.png", alt: "Desi Aroma case study", ratio: "1110 / 672" },
+        { src: "/images/0SMOdOOz4ZNWbgzkgp9E1xwTYfc.jpg", alt: "Desi Aroma case study", ratio: "1216 / 760" },
       ],
     },
     sections: {
@@ -461,7 +461,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     hero: {
       layout: "wide",
       items: [
-        { src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "Aero Check case study", ratio: "1110 / 672" },
+        { src: "/images/ThKHR9rfGkWENcL1AIy01Kos.gif", alt: "Aero Check case study", ratio: "1216 / 681" },
       ],
     },
     sections: {

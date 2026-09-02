@@ -1,3 +1,7 @@
+/* The whole study body sits on an opaque surface above the sticky hero. */
+.page > * { position: relative; z-index: var(--content-z); background: var(--bg); }
+.page > .hero { z-index: var(--hero-z); background: var(--black-pure); }
+
 /* Full-viewport hero plate, mirroring the index pages: the study content
    scrolls up over it behind the diagonal curtain. */
 .hero {
@@ -12,9 +16,17 @@
   object-fit: cover;
 }
 
-.page { padding-top: var(--nav-offset); }
+/* No top padding: the hero owns the first viewport and starts flush under the
+   nav, which is absolute and overlays it. Pages without a hero get their
+   clearance from .head's own padding instead. */
+.page { padding-top: 0; }
 
-.head { padding: var(--space-10) 0 var(--space-6); }
+/* Opaque — this band scrolls up over the hero behind the diagonal curtain, so
+   without a background the copy reads straight over the hero image. */
+.head {
+  background: var(--bg);
+  padding: var(--space-10) 0 var(--space-6);
+}
 .headline { margin: var(--space-4) 0 var(--space-5); max-width: var(--content-max); }
 .summary { max-width: var(--prose-max); }
 .meta {
