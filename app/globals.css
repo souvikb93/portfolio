@@ -254,7 +254,6 @@ p { margin: 0; }
   position: relative;
   z-index: var(--content-z);
   margin-top: calc(-1 * var(--curtain-reserve));
-  padding-top: var(--curtain-reserve);
   clip-path: polygon(
     0 calc(var(--curtain-reserve) - var(--p, 0) * var(--curtain-rise-l)),
     100% calc(var(--curtain-reserve) - var(--p, 0) * var(--curtain-rise-r)),
@@ -263,12 +262,22 @@ p { margin: 0; }
   );
 }
 
+/* The reserve has to be added back as top padding, or the negative margin
+   pulls the content up by that much and the diagonal clips into it.
+   Element+class deliberately: the sections this lands on (.section, .list) set
+   `padding` as a shorthand, which would otherwise win over a bare
+   `.over-hero { padding-top }` and silently drop the reserve. */
+section.over-hero {
+  padding-top: calc(var(--curtain-reserve) + var(--section-y));
+}
+
 @media (prefers-reduced-motion: reduce) {
   /* Without the sticky pin the hero simply scrolls away as a normal band, and
      the curtain becomes an ordinary straight edge. */
   .sticky-hero { position: relative; height: auto; min-height: 100svh; }
   .sticky-hero::after { opacity: 0; }
-  .over-hero { margin-top: 0; padding-top: 0; clip-path: none; }
+  .over-hero { margin-top: 0; clip-path: none; }
+  section.over-hero { padding-top: var(--section-y); }
 }
 .section { width: 100%; padding: var(--section-y) 0; }
 .prose { max-width: var(--prose-max); }
