@@ -8,6 +8,7 @@ import { Testimonials } from "@/components/Testimonials";
 import { ClientLogos } from "@/components/Logos";
 import { Footer } from "@/components/Footer";
 import { AskSouvik } from "@/components/AskSouvik";
+import { ScrollStage } from "@/components/ScrollStage";
 import { ActionLink } from "@/components/ActionLink";
 import { projects, builds } from "@/data/site";
 import styles from "./Home.module.css";
@@ -24,29 +25,33 @@ export default function HomePage() {
         <ClientLogos />
       </Marquee>
 
-      {/* Builds */}
-      <section className={styles.builds}>
-        <div className={styles.overlapDark} aria-hidden />
+      {/* Builds — the band rises over the logo strip with a diagonal top edge. */}
+      <ScrollStage mode="enter">
+      <section className={`over-hero ${styles.builds}`}>
         <div className={`container ${styles.buildsTop}`}>
           <HeaderBar no="(02)" title="(Builds)" variant="white" />
-          <video
-            className={styles.buildsIntroClip}
-            src="/video/builds-intro.mp4"
-            muted
-            loop
-            playsInline
-            autoPlay
-            preload="metadata"
-            aria-hidden
-          />
           <div className={styles.buildsContent}>
-            <TextReveal
-              text="Expanding beyond traditional design roles by building and shipping AI-powered products that solve real user problems."
-              as="h2"
-              halfOpacity
-              className={`t-h2 ${styles.buildsHeadline}`}
-            />
-            <div className={styles.buildsRow}>
+            <div className={styles.buildsHeadlineWrap}>
+              {/* Must precede the heading and share its block, or the float
+                  has nothing to push the text around. */}
+              <video
+                className={styles.buildsIntroClip}
+                src="/video/builds-intro.mp4"
+                muted
+                loop
+                playsInline
+                autoPlay
+                preload="metadata"
+                aria-hidden
+              />
+              <TextReveal
+                text="Expanding beyond traditional design roles by building and shipping AI-powered products that solve real user problems."
+                as="h2"
+                halfOpacity
+                className={`t-h2 ${styles.buildsHeadline}`}
+              />
+            </div>
+            <div className={`${styles.buildsRow} ${styles.buildsRowWrap}`}>
               <ActionLink href="/builds" tone="light">
                 Explore More
               </ActionLink>
@@ -64,6 +69,7 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+      </ScrollStage>
 
       {/* Client projects */}
       <section className={`section ${styles.portfolio}`}>

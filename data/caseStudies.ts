@@ -264,6 +264,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Industry", value: "Healthcare Insurance" },
       { label: "Scope of Work", value: "App Design · Information Architecture · Design System" },
     ],
+    hero: {
+      layout: "wide",
+      items: [
+        { src: "/images/RnninTV2md2x7JBJSglnAqKX9U.png", alt: "Member Portal case study", ratio: "1110 / 672" },
+      ],
+    },
     sections: {
       objective: {
         title: "Closing the Gap Between Portal and Mobile",
@@ -386,6 +392,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Service Design · System Design · Brand Design · Mobile App · UX/UI · Video Production",
       },
     ],
+    hero: {
+      layout: "wide",
+      items: [
+        { src: "/images/4kIRLN6BsC79ZmlDXywHarBU0o.png", alt: "Desi Aroma case study", ratio: "1110 / 672" },
+      ],
+    },
     sections: {
       objective: {
         title: "Creating Economic Opportunities for Housewives While Meeting Student Needs",
@@ -446,6 +458,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Industry", value: "Aviation" },
       { label: "Scope of Work", value: "AI-Driven · Enterprise SaaS · No-code" },
     ],
+    hero: {
+      layout: "wide",
+      items: [
+        { src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "Aero Check case study", ratio: "1110 / 672" },
+      ],
+    },
     sections: {
       objective: {
         title:

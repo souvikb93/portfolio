@@ -3,6 +3,7 @@ import { HeaderBar } from "@/components/HeaderBar";
 import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
+import { ScrollStage } from "./ScrollStage";
 import type { Gallery } from "@/data/caseStudies";
 import styles from "./StudyPage.module.css";
 
@@ -21,13 +22,19 @@ export function StudyPage({
   return (
     <>
       <main className={styles.page}>
-        {study.hero && (
-          <div className="container-study">
-            <FigureGroup gallery={study.hero} />
-          </div>
+        <ScrollStage>
+        {study.hero?.items[0] && (
+          <section className={`sticky-hero ${styles.hero}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className={styles.heroBg}
+              src={study.hero.items[0].src}
+              alt={study.hero.items[0].alt}
+            />
+          </section>
         )}
 
-        <header className={styles.head}>
+        <header className={`${study.hero ? "over-hero" : ""} ${styles.head}`}>
           <div className="container-study">
             <p className="t-body muted">{study.name}</p>
             <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
@@ -42,6 +49,7 @@ export function StudyPage({
             </dl>
           </div>
         </header>
+        </ScrollStage>
 
         {s.objective && (
           <Section eyebrow="Objective">

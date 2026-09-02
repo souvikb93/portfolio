@@ -14,6 +14,12 @@ export const buildStudies: Record<string, CaseStudy> = {
       { label: "Industry", value: "Career Tech" },
       { label: "Scope of Work", value: "Full-stack Build · Information Architecture · Design System" },
     ],
+    hero: {
+      layout: "wide",
+      items: [
+        { src: "/images/fyASe6P3NXZ0bKrLXVLq0E2w6q8.png", alt: "Tracka case study", ratio: "1110 / 672" },
+      ],
+    },
     sections: {
       objective: {
         title: "A Changing Job Market in the Age of AI",

@@ -118,6 +118,8 @@
   --build-col: 386px;                /* video + text columns in a build row */
   --build-intro-w: 178px;            /* portrait clip at the top of the band */
   --build-intro-ratio: 178 / 232;
+  --build-intro-pull: 190px;         /* clip rises this far into the gap above
+                                        the headline, so exactly one line wraps */
   --testimonial-photo-w: 212px;
   --testimonial-photo-ratio: 212 / 253;
   /* hero card, scroll-driven (values measured off the live site) */
@@ -267,8 +269,8 @@ p { margin: 0; }
    Element+class deliberately: the sections this lands on (.section, .list) set
    `padding` as a shorthand, which would otherwise win over a bare
    `.over-hero { padding-top }` and silently drop the reserve. */
-section.over-hero {
-  padding-top: calc(var(--curtain-reserve) + var(--section-y));
+:is(section, header).over-hero {
+  padding-top: calc(var(--curtain-reserve) + var(--curtain-pad, var(--section-y)));
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -277,7 +279,7 @@ section.over-hero {
   .sticky-hero { position: relative; height: auto; min-height: 100svh; }
   .sticky-hero::after { opacity: 0; }
   .over-hero { margin-top: 0; clip-path: none; }
-  section.over-hero { padding-top: var(--section-y); }
+  :is(section, header).over-hero { padding-top: var(--curtain-pad, var(--section-y)); }
 }
 .section { width: 100%; padding: var(--section-y) 0; }
 .prose { max-width: var(--prose-max); }

@@ -9,7 +9,21 @@ import { useEffect, useRef } from "react";
  * Used by the index pages to run the hero dim and the diagonal curtain off a
  * single progress value, so both stay in step and reverse exactly on scroll up.
  */
-export function ScrollStage({ children }: { children: React.ReactNode }) {
+export function ScrollStage({
+  children,
+  mode = "leave",
+  className,
+}: {
+  children: React.ReactNode;
+  /**
+   * "leave"  progress as the stage scrolls out of the top — for page heroes.
+   * "enter"  progress as the stage rises into view from the bottom — for bands
+   *          further down the page, which would otherwise sit at 0 until their
+   *          top reached the viewport top and then jump.
+   */
+  mode?: "leave" | "enter";
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,9 +33,10 @@ export function ScrollStage({ children }: { children: React.ReactNode }) {
       const el = ref.current;
       if (!el) return;
       const span = window.innerHeight;
-      const p = span > 0
-        ? Math.min(Math.max(-el.getBoundingClientRect().top / span, 0), 1)
-        : 0;
+      if (span <= 0) return;
+      const top = el.getBoundingClientRect().top;
+      const raw = mode === "enter" ? (span - top) / span : -top / span;
+      const p = Math.min(Math.max(raw, 0), 1);
       el.style.setProperty("--p", p.toFixed(4));
     };
 
@@ -32,7 +47,11 @@ export function ScrollStage({ children }: { children: React.ReactNode }) {
       window.removeEventListener("scroll", apply);
       window.removeEventListener("resize", apply);
     };
-  }, []);
+  }, [mode]);
 
-  return <div ref={ref}>{children}</div>;
+  return (
+    <div ref={ref} className={className}>
+      {children}
+    </div>
+  );
 }
