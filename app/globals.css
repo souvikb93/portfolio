@@ -125,6 +125,13 @@
   --card-travel-y: 24px;
   --card-spin: 140deg;
 
+  /* hero -> content curtain on the index pages */
+  --hero-dim: 0.7;                   /* darkest the hero image gets */
+  --curtain-reserve: 160px;          /* how far the sheet overlaps the hero */
+  --curtain-rise-l: 60px;            /* left edge travel at full progress */
+  --curtain-rise-r: 150px;           /* right edge travels further, so the
+                                        boundary tilts up to the right */
+
   /* --- widths --- */
   /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a
      1232px row flush to a 24px gutter; at 1600 it caps at 1440 and centres. */
@@ -223,15 +230,45 @@ p { margin: 0; }
   z-index: var(--hero-z);
   overflow: clip;
 }
-/* Opaque, and above the hero, so it wipes it as it rises. */
+
+/* The hero image dims as the sheet climbs over it. Sits above the image but
+   below the hero's own copy, so the picture recedes while the text stays
+   legible. Driven by the same --p as the curtain. */
+.sticky-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: var(--black-pure);
+  opacity: calc(var(--p, 0) * var(--hero-dim));
+  pointer-events: none;
+}
+
+/* Opaque, and above the hero, so it wipes it as it rises.
+   The section overlaps the hero by --curtain-reserve and clips that reserve
+   back off, so at rest the edge is exactly where the section would have been
+   and perfectly horizontal. As progress grows the two clip points rise — the
+   right one further — turning the boundary diagonal. Only the edge is shaped;
+   the section itself never rotates, so its content stays level. */
 .over-hero {
   position: relative;
   z-index: var(--content-z);
+  margin-top: calc(-1 * var(--curtain-reserve));
+  padding-top: var(--curtain-reserve);
+  clip-path: polygon(
+    0 calc(var(--curtain-reserve) - var(--p, 0) * var(--curtain-rise-l)),
+    100% calc(var(--curtain-reserve) - var(--p, 0) * var(--curtain-rise-r)),
+    100% 100%,
+    0 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Without the sticky pin the hero simply scrolls away as a normal band. */
+  /* Without the sticky pin the hero simply scrolls away as a normal band, and
+     the curtain becomes an ordinary straight edge. */
   .sticky-hero { position: relative; height: auto; min-height: 100svh; }
+  .sticky-hero::after { opacity: 0; }
+  .over-hero { margin-top: 0; padding-top: 0; clip-path: none; }
 }
 .section { width: 100%; padding: var(--section-y) 0; }
 .prose { max-width: var(--prose-max); }

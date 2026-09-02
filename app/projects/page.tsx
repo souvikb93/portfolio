@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Footer } from "@/components/Footer";
+import { ScrollStage } from "@/components/ScrollStage";
 import { projects } from "@/data/site";
 import styles from "./Projects.module.css";
 
@@ -13,6 +14,7 @@ export default function ProjectsPage() {
   return (
     <>
       <main>
+        <ScrollStage>
         <section className={`sticky-hero ${styles.hero}`}>
           <Image
             src="/images/gM2fq6noqljYPYZPLPvgiKwzUA.jpeg"
@@ -39,6 +41,7 @@ export default function ProjectsPage() {
             ))}
           </div>
         </section>
+        </ScrollStage>
       </main>
       <Footer />
     </>

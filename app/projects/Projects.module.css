@@ -15,7 +15,9 @@
    intro sitting directly beneath the heading in a 381px column. */
 .heroInner {
   position: relative;
-  z-index: 1;
+  /* above .sticky-hero::after, so the copy stays legible while the picture
+     behind it dims */
+  z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
