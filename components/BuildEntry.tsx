@@ -29,7 +29,7 @@ export function BuildEntry({ build }: { build: Build }) {
     <article className={styles.entry}>
       <div className={`t-meta ${styles.meta}`}>
         <span>({build.no})</span>
-        <span className={styles.title}>{build.title}</span>
+        <span className={styles.title}>{build.cardTitle}</span>
         <span>{build.year}</span>
       </div>
 

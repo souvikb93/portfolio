@@ -26,7 +26,7 @@ export function BuildCard({ build }: { build: Build }) {
         <div className={styles.clipPlaceholder} role="img" aria-label={`${build.title} preview coming soon`} />
       )}
       <div className={styles.body}>
-        <h3 className="t-h3">{build.title}</h3>
+        <h3 className="t-h3">{build.cardTitle}</h3>
         <div className={styles.copy}>
           <p className="t-sub">{build.tagline}</p>
           <p className="t-body">{build.body}</p>

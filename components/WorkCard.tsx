@@ -19,7 +19,7 @@ export function WorkCard({ project }: { project: Project }) {
         <div className={styles.frontWrap}>
           <Image
             src={project.imageFg}
-            alt={project.title}
+            alt={project.titleHome ?? project.title}
             fill
             sizes="(max-width: 810px) 70vw, 400px"
             className={styles.front}
@@ -29,10 +29,12 @@ export function WorkCard({ project }: { project: Project }) {
       <div className={`t-meta ${styles.meta}`}>
         <span className={styles.no}>{project.no}</span>
         <div className={styles.text}>
-          <span className={styles.title}>{project.title}</span>
-          <span className={styles.category}>{project.category}</span>
+          <span className={styles.title}>{project.titleHome ?? project.title}</span>
+          <span className={styles.category}>
+            {project.categoryHome ?? project.category}
+          </span>
         </div>
-        <span className={styles.year}>{project.year}</span>
+        <span className={styles.year}>{project.yearHome ?? project.year}</span>
       </div>
     </Link>
   );

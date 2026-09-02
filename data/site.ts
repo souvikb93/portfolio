@@ -54,6 +54,10 @@ export type Project = {
   imageFg: string;
   /** One-line summary, shown on the /projects index. */
   blurb: string;
+  /** Live prints different copy for these on the home band than on /projects. */
+  titleHome?: string;
+  categoryHome?: string;
+  yearHome?: string;
 };
 
 export const projects: Project[] = [
@@ -70,8 +74,13 @@ export const projects: Project[] = [
   },
   {
     no: "(02)",
-    title: "AccessNow",
-    category: "Accessible Healthcare SaaS Product for Medicare Patients",
+    // Live's index reads "Access Now" with this category and typo; the home
+    // band reads "AccessNow / Accessible Healthcare SaaS Product for Medicare
+    // Patients". Mirroring each surface as published.
+    title: "Access Now",
+    titleHome: "AccessNow",
+    category: "Accebility First Medicare Product",
+    categoryHome: "Accessible Healthcare SaaS Product for Medicare Patients",
     year: "© 2024",
     href: "/projects/access_now",
     image: "/images/TNc8CSbNVglxdHgkw0nZm2Hwx8Q.png",
@@ -83,7 +92,9 @@ export const projects: Project[] = [
     no: "(03)",
     title: "Aero Check",
     category: "AI-Powered Manufacturing Diagram Validation Tool",
-    year: "© 2024",
+    // Live shows 2025 on the index and 2024 on the home band.
+    year: "© 2025",
+    yearHome: "© 2024",
     href: "/projects/aero_check",
     image: "/images/yuS2M7JfOtnVFgldybJXykkAWh8.png",
     imageFg: "/images/0WVv7WVddGAaPFm7sjj9ECNGFM.jpg",
@@ -121,12 +132,20 @@ export type Build = {
   detail: RichText;
   /** Whether the published site lists this build. */
   live: boolean;
+  /**
+   * Title as the published site prints it. Live renders "Tracka" on all three
+   * cards — a Framer component default that was never overridden — while the
+   * taglines below them are correct and distinct. Mirrored deliberately; set
+   * this to `title` to show the real names.
+   */
+  cardTitle: string;
 };
 
 export const builds: Build[] = [
   {
     no: "01",
     title: "Tracka",
+    cardTitle: "Tracka",
     live: true,
     tagline: "Career Application Toolkit",
     body:
@@ -158,6 +177,7 @@ export const builds: Build[] = [
   {
     no: "02",
     title: "Shift Assist",
+    cardTitle: "Tracka",
     live: true,
     tagline: "AI-Powered Diagnostics",
     body:
@@ -185,6 +205,7 @@ export const builds: Build[] = [
   {
     no: "03",
     title: "Farm.doc",
+    cardTitle: "Tracka",
     live: true,
     tagline: "Farm Compliance Automation",
     body:

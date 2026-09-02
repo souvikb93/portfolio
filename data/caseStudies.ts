@@ -564,19 +564,16 @@ export const caseStudies: Record<string, CaseStudy> = {
 
   desi_aroma: {
     slug: "desi_aroma",
-    name: "Desi Aroma",
-    headline: "Women’s Empowerment Initiative — From concept to scalable experience.",
+    subtitle: "Reimagining Applications with AI",
+    name: "PitchHub",
+    headline: "From concept to scalable experience.",
     summary:
-      "Founded by two NID alumni, Desi Aroma is a community-driven initiative that empowers housewives in Gandhinagar by transforming their love for home-cooked food into a source of income and recognition, while serving affordable, wholesome meals to students.",
+      "Google’s sales enablement team creates hundreds of MVPs each quarter, demonstrating how Vertex AI integrates with diverse applications. As consultants, we ran a pilot project to prove we could take over this process, delivering scalable MVP development for Google.",
     meta: [
-      { label: "Client", value: "Student Project" },
-      { label: "Duration", value: "2 Months" },
-      { label: "Industry", value: "Social Innovation" },
-      {
-        label: "Scope of Work",
-        value:
-          "Service Design · System Design · Brand Design · Mobile App · UX/UI · Video Production",
-      },
+      { label: "Client", value: "Google (Vertex AI – Sales Enablement Team)" },
+      { label: "Duration", value: "2 weeks" },
+      { label: "Industry", value: "AI & Cloud Computing" },
+      { label: "Scope of work", value: "SaaS · AI-Driven · No-code" },
     ],
     hero: {
       layout: "wide",
@@ -727,126 +724,65 @@ export const caseStudies: Record<string, CaseStudy> = {
 
   aero_check: {
     slug: "aero_check",
-    name: "Aero Check",
-    headline:
-      "Designing an AI-Assisted Validation Tool That Increased Processing Speed by 3.3×",
+    name: "PitchHub",
+    subtitle: "Reimagining Applications with AI",
+    headline: "Validating Manufacturing Diagrams for Airbus.",
     summary:
-      "As a consultant, I worked on a pilot project for Airbus to demonstrate how AI could assist in validating complex manufacturing diagrams. The goal was to explore how AI could reduce manual effort by identifying missing or inconsistent information and supporting engineers with a faster, more reliable validation workflow.",
+      "Google’s sales enablement team creates hundreds of MVPs each quarter, demonstrating how Vertex AI integrates with diverse applications. As consultants, we ran a pilot project to prove we could take over this process, delivering scalable MVP development for Google.",
     meta: [
-      { label: "Client", value: "Airbus" },
-      { label: "Duration", value: "4 weeks" },
-      { label: "Industry", value: "Aviation" },
-      { label: "Scope of Work", value: "AI-Driven · Enterprise SaaS · No-code" },
+      { label: "Client", value: "Google (Vertex AI – Sales Enablement Team)" },
+      { label: "Duration", value: "2 weeks" },
+      { label: "Industry", value: "AI & Cloud Computing" },
+      { label: "Scope of work", value: "SaaS · AI-Driven · No-code" },
     ],
     hero: {
       layout: "wide",
       items: [
-        { src: "/images/ThKHR9rfGkWENcL1AIy01Kos.gif", alt: "Aero Check case study", ratio: "1216 / 681" },
+        { src: "/images/ThKHR9rfGkWENcL1AIy01Kos.gif", alt: "PitchHub case study", ratio: "1216 / 681" },
       ],
     },
     sections: [
       {
-        eyebrow: "Objective",
-        title:
-          "Making Manufacturing Diagram Validation Faster Without Compromising Engineering Confidence",
-        body: "Engineers previously validated diagrams manually by comparing drawings against Bill of Material (BOM) data and supporting information. The repetitive process made validation time-consuming and required engineers to repeatedly cross-reference multiple sources. The objective was to reduce validation time by automating repetitive comparisons while ensuring every AI recommendation remained transparent, reviewable, and under human control."
+        eyebrow: "Overview",
+        title: "Validating Manufacturing Diagrams for Airbus.",
+        body: "One of the key use cases to showcase Vertex AI’s real impact was with Airbus. We applied AI to streamline the validation of complex, legacy manufacturing diagrams. The system cross-referenced each diagram with the bill of materials and part data, automatically completing missing details. When gaps couldn’t be resolved, the AI clearly highlighted them on both the diagram and validation tables, ensuring accuracy, efficiency, and production readiness.",
       },
       {
-        eyebrow: "Business Impact",
-        title: "Reducing Validation Time by 70%",
-        metrics: [
-          {
-            value: "3.3×",
-            label:
-              "Faster diagram validation — by reducing repetitive manual comparisons across drawings and Bill of Material (BOM) data.",
-          },
-          {
-            value: "−70%",
-            label:
-              "Less validation time — engineers spent less time searching and reconciling information and more time reviewing the results that need their expertise.",
-          },
-        ]
-      },
-      {
-        eyebrow: "Discovery",
-        title: "Understanding How Engineers Validate Manufacturing Diagrams",
-        body: "I spoke with engineers involved in diagram validation to understand how they review drawings, compare them against BOM and engineering data, and investigate discrepancies across supporting documentation.",
-        findings: [
-          {
-            no: "(01)",
-            title: "Cross-Referencing Engineering Data",
-            quote:
-              "...I need to check the drawing with the BOM and master data, especially the P/N, quantity and parameters. Sometimes I have to pivot between different data sets to understand where the deviation is coming from...",
-            quoteBy: "Design Engineer",
-            support:
-              "Validation requires cross-referencing multiple engineering data sources and attributes, not just matching a part number.",
-          },
-          {
-            no: "(02)",
-            title: "Making Validation Traceable",
-            quote:
-              "...when there is a missing or validation deviation in the Post-BOM, I want to know what was compared, which validation rules were applied...",
-            quoteBy: "Design Engineer",
-            support:
-              "Engineers need a traceable validation trail showing what was checked, which rules were applied, and where human review is still required.",
-          },
-          {
-            no: "(03)",
-            title: "Establishing Document Relationships",
-            quote:
-              "...for one part there can be the drawing, BOM and other technical data. I need to check the revision, configuration and document mapping before I know which information is valid for the component...",
-            quoteBy: "Design Engineer",
-            support:
-              "Engineers need relationships between drawings, BOMs and technical documents to determine which data should be trusted.",
-          },
-          {
-            no: "(04)",
-            title: "Tracing the Source of AI Recommendations",
-            quote:
-              "...if the AI suggests a different material, supplier or P/N, I need to see where it got the information from. I cannot just accept the suggestion if I can’t confirm the source data...",
-            quoteBy: "Design Engineer",
-            support:
-              "AI recommendations need source-level evidence so engineers can assess and trust the suggested value.",
-          },
-        ],
-      },
-      {
-        eyebrow: "Analysis",
-        title: "Three Core Requirements for the Solution.",
-        body: "The analysis distilled the recurring needs across the validation process into three essential pillars for the solution.",
+        eyebrow: "My Process",
+        title: "My Process",
+        body: "Working on rapid MVP builds meant balancing speed with clarity. My process moved from understanding requirements to validating storyboards with stakeholders, designing high-fidelity prototypes within FlutterFlow’s constraints, and closing the loop with final reviews before handoff.",
         blocks: [
-          { no: "01", title: "Data Comparison", body: "Compare the manufacturing diagram against BOMs, revisions, configurations, and other engineering data." },
-          { no: "02", title: "Deviation Resolution", body: "Identify missing or conflicting information and determine the appropriate resolution." },
-          { no: "03", title: "Source Traceability", body: "Show the source and evidence behind each finding or AI recommendation." },
+          { no: "01", title: "Requirement Analysis", body: "Reviewed requirement docs to understand goals, users, and constraints." },
+          { no: "02", title: "Storyboard Validation", body: "Created and showcased storyboards to align on user flow and demo expectations." },
+          { no: "03", title: "Prototype Design", body: "Designed interactive prototypes and collaborated with developers to build in FlutterFlow." },
+          { no: "04", title: "Final Review & Sign-off", body: "Conducted final walkthrough with stakeholders and incorporated feedback." },
         ],
         media: [
           {
             layout: "grid3",
             items: [
-              { src: "/images/9KaLvxH5RBdryHTufo6WRngdK5c.png", alt: "Data comparison", ratio: "276 / 215" },
-              { src: "/images/XMaXzxbkI1OahLIQ1HWAwjhK8Gk.png", alt: "Deviation resolution", ratio: "276 / 215" },
-              { src: "/images/UO6BqLgAAXWdFtnsNfYSCx7PFk.png", alt: "Source traceability", ratio: "257 / 212" },
+              { src: "/images/9KaLvxH5RBdryHTufo6WRngdK5c.png", alt: "Requirement analysis", ratio: "276 / 215" },
+              { src: "/images/XMaXzxbkI1OahLIQ1HWAwjhK8Gk.png", alt: "Storyboard validation", ratio: "276 / 215" },
+              { src: "/images/UO6BqLgAAXWdFtnsNfYSCx7PFk.png", alt: "Prototype design", ratio: "257 / 212" },
             ],
           },
         ],
       },
       {
-        eyebrow: "Interaction Workflow",
-        title: "Mapping How Engineers, AI, and Data Work Together.",
-        body: "I mapped the validation journey to define how engineers and AI interact across the primary flow and key exception scenarios, from data comparison and discrepancy detection to review, confirmation, and override.",
+        eyebrow: "Storyboard",
+        title: "Storyboard",
+        body: "The storyboard was carefully designed to map out each step of the user’s actions alongside the corresponding generative AI responses. At every stage, we outlined what the user would do and how the AI would assist, whether by validating data, completing missing parts, or highlighting gaps.",
         media: [
-          { layout: "wide", items: [{ src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "Validation workflow map", ratio: "1018 / 573" }] },
+          { layout: "wide", items: [{ src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "Storyboard", ratio: "1018 / 573" }] },
         ],
         caption:
-          "The workflow illustrates one primary review process alongside four supporting scenarios: missing values, AI-confirmed suggestions, manual overrides, and re-review before submission. Bringing these together in a single map helped align product, design, and engineering before prototyping.",
+          "*Replica of the original project artifact, unchanged to reflect real delivery under time constraints. Use the custom zoom to view research text.",
       },
       {
-        eyebrow: "Design Advocacy",
-        title: "Proposing AX Principles to Build User Trust",
+        eyebrow: "Design",
+        title: "Wireframe to High Fidelity",
+        body: "For this project, we began by creating quick wireframes to ensure alignment and shared understanding across the team. Once aligned, we developed high-fidelity Figma prototypes, all while keeping in mind the constraints of FlutterFlow, the no-code platform we used to deliver the final product. This ensured the design was both realistic and achievable from concept to final build.",
         media: [
-          { layout: "wide", items: [{ src: "/images/Z0pVDqzTy3ChPFYNlghgaPask.png", alt: "Contextual feedback", ratio: "1072 / 605" }] },
-          { layout: "wide", items: [{ src: "/images/R7yB2WULGZcVYACGYFbQ9OeFk.png", alt: "AI transparency and explainability", ratio: "1072 / 565" }] },
-          { layout: "wide", items: [{ src: "/images/5EA2VLkcnffffwkEhlvfXyfn2wk.png", alt: "Human-AI handoff", ratio: "1072 / 579" }] },
           {
             layout: "grid2",
             items: [
@@ -854,6 +790,16 @@ export const caseStudies: Record<string, CaseStudy> = {
               { src: "/images/QunoMlryEyhlKCNMai4IB4l19wU.png", alt: "High fidelity screens", ratio: "541 / 435" },
             ],
           },
+        ],
+      },
+      {
+        eyebrow: "Prototype",
+        title: "Prompt to Code",
+        body: "For the project, we originally built it in FlutterFlow, but for the purpose of showcasing it in my portfolio, I created a working prototype using Claude.",
+        blocks: [
+          { no: "01", title: "Prototype features & interactions", body: "Filter Part Cards → Sort by AI processed, errors, or all. Open Part Details → Click on any card to view detailed screen. Upload Flow → Simulate uploading diagrams and BOM data. Inspect Diagram → Identify AI-marked missing information. Cross-Reference Tables → See issues mapped with reference IDs. Scrollable Tables → Navigate Pre-BOM and Post-BOM data. View Part Details Panel → Review part metadata in the side panel." },
+        ],
+        media: [
           {
             layout: "grid2",
             items: [
@@ -862,15 +808,59 @@ export const caseStudies: Record<string, CaseStudy> = {
             ],
           },
         ],
-        body: "The development team initially focused on surfacing the AI result. I mapped the validation journey — one primary review process plus four exception scenarios (missing values, AI-confirmed suggestions, manual overrides, re-review before submission) — and used three concepts to show why engineers also needed the source, reasoning, and clear paths when AI succeeds or fails.",
+        caption:
+          "PIXELWAVE INNOVATION — this prototype is only available in desktop or tablet view. Please switch to a desktop or tablet device to interact.",
+      },
+      {
+        eyebrow: "Design Advocacy",
+        title: "How I Built Trust in AI-Assisted Review Systems",
+        body: "Through stakeholder interviews and user feedback, I found that trust was the key adoption barrier. Engineers valued AI assistance, but only when they could understand its recommendations, validate its reasoning, and remain accountable for every decision.",
         blocks: [
-          { no: "01", title: "Contextual Feedback", body: "When the system detected a mismatch — e.g. a part number in the diagram not matching the BOM — I highlighted the exact region in the diagram and displayed the conflicting BOM entry alongside it, so engineers could validate the issue without searching lists or switching screens." },
-          { no: "02", title: "AI Transparency and Explainability", body: "When the system resolved missing information by retrieving data from another source file, I surfaced the action together with its source. Engineers could review, confirm, or reject the recommendation instead of relying on silent automation." },
-          { no: "03", title: "Human–AI Handoff", body: "Instead of a generic “Needs Review” state, I displayed the validation steps performed, the data sources consulted, and why the issue remained unresolved — so engineers could continue from where the AI stopped rather than repeating the investigation." },
-          { no: "04", title: "Wireframe to High Fidelity", body: "We began with quick wireframes for shared understanding, then built high-fidelity Figma prototypes while keeping the constraints of FlutterFlow (the no-code delivery platform) in mind, so the design stayed realistic and achievable." },
-          { no: "05", title: "Prompt to Code", body: "The product was originally built in FlutterFlow; for the portfolio I rebuilt a working prototype using Claude." },
-        ]
+          {
+            no: "01.",
+            title: "Principle: Contextual Feedback",
+            body: "Present AI feedback within the user’s visual context and workflow. How I applied it — when the system detected a mismatch, such as a part number in the manufacturing diagram not matching the Bill of Materials (BOM), I highlighted the exact region in the diagram and displayed the conflicting BOM entry alongside it. Engineers could immediately validate the issue without searching through lists or switching screens.",
+            media: [
+              { layout: "wide", items: [{ src: "/images/Z0pVDqzTy3ChPFYNlghgaPask.png", alt: "Contextual feedback", ratio: "1072 / 605" }] },
+            ],
+          },
+          {
+            no: "02.",
+            title: "Principle: AI Transparency and Explainability",
+            body: "Make AI decisions, actions, and reasoning visible to users. How I applied it — when the system automatically resolved missing information by retrieving data from another source file, I surfaced the action together with its source. Engineers could review, confirm, or reject the AI recommendation instead of relying on silent automation.",
+            media: [
+              { layout: "wide", items: [{ src: "/images/R7yB2WULGZcVYACGYFbQ9OeFk.png", alt: "AI transparency", ratio: "1072 / 565" }] },
+            ],
+          },
+          {
+            no: "03.",
+            title: "Principle: Human AI Handoff",
+            body: "Provide sufficient context when AI requires human intervention. How I applied it — instead of showing a generic \"Needs Review\" state, I displayed the validation steps performed, the data sources consulted, and why the issue remained unresolved. Engineers could continue from where the AI stopped instead of repeating the investigation.",
+            media: [
+              { layout: "wide", items: [{ src: "/images/5EA2VLkcnffffwkEhlvfXyfn2wk.png", alt: "Human AI handoff", ratio: "1072 / 579" }] },
+            ],
+          },
+          {
+            no: "04.",
+            title: "Principle: Human in the Loop Control",
+            body: "Ensure users retain final control over AI assisted decisions. How I applied it — I designed Confirm and Override as equally accessible actions with an optional rationale field. This enabled quick validation while creating a feedback loop to improve future AI performance.",
+          },
+        ],
+      },
+      {
+        eyebrow: "Measurable Impact",
+        title: "Measurable Impact",
+        metrics: [
+          {
+            value: "3.3X Faster",
+            label: "Faster turnaround validating complex manufacturing diagrams against the bill of materials — compared to the fully manual workflow.",
+          },
+        ],
+        blocks: [
+          { no: "01", title: "Process Comparison", body: "Manual Process — validate relationships. AI-Powered Workflow — finished. Validation Time Saved ~70%." },
+        ],
       },
     ],
+
   },
 };
