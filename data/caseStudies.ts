@@ -572,29 +572,96 @@ export const caseStudies: Record<string, CaseStudy> = {
         body: "Engineers previously validated diagrams manually by comparing drawings against Bill of Material (BOM) data and supporting information. The repetitive process made validation time-consuming and required engineers to repeatedly cross-reference multiple sources. The objective was to reduce validation time by automating repetitive comparisons while ensuring every AI recommendation remained transparent, reviewable, and under human control."
       },
       {
+        eyebrow: "Business Impact",
+        title: "Reducing Validation Time by 70%",
+        metrics: [
+          {
+            value: "3.3×",
+            label:
+              "Faster diagram validation — by reducing repetitive manual comparisons across drawings and Bill of Material (BOM) data.",
+          },
+          {
+            value: "−70%",
+            label:
+              "Less validation time — engineers spent less time searching and reconciling information and more time reviewing the results that need their expertise.",
+          },
+        ]
+      },
+      {
         eyebrow: "Discovery",
         title: "Understanding How Engineers Validate Manufacturing Diagrams",
+        body: "I spoke with engineers involved in diagram validation to understand how they review drawings, compare them against BOM and engineering data, and investigate discrepancies across supporting documentation.",
+        findings: [
+          {
+            no: "(01)",
+            title: "Cross-Referencing Engineering Data",
+            quote:
+              "...I need to check the drawing with the BOM and master data, especially the P/N, quantity and parameters. Sometimes I have to pivot between different data sets to understand where the deviation is coming from...",
+            quoteBy: "Design Engineer",
+            support:
+              "Validation requires cross-referencing multiple engineering data sources and attributes, not just matching a part number.",
+          },
+          {
+            no: "(02)",
+            title: "Making Validation Traceable",
+            quote:
+              "...when there is a missing or validation deviation in the Post-BOM, I want to know what was compared, which validation rules were applied...",
+            quoteBy: "Design Engineer",
+            support:
+              "Engineers need a traceable validation trail showing what was checked, which rules were applied, and where human review is still required.",
+          },
+          {
+            no: "(03)",
+            title: "Establishing Document Relationships",
+            quote:
+              "...for one part there can be the drawing, BOM and other technical data. I need to check the revision, configuration and document mapping before I know which information is valid for the component...",
+            quoteBy: "Design Engineer",
+            support:
+              "Engineers need relationships between drawings, BOMs and technical documents to determine which data should be trusted.",
+          },
+          {
+            no: "(04)",
+            title: "Tracing the Source of AI Recommendations",
+            quote:
+              "...if the AI suggests a different material, supplier or P/N, I need to see where it got the information from. I cannot just accept the suggestion if I can’t confirm the source data...",
+            quoteBy: "Design Engineer",
+            support:
+              "AI recommendations need source-level evidence so engineers can assess and trust the suggested value.",
+          },
+        ],
+      },
+      {
+        eyebrow: "Analysis",
+        title: "Three Core Requirements for the Solution.",
+        body: "The analysis distilled the recurring needs across the validation process into three essential pillars for the solution.",
+        blocks: [
+          { no: "01", title: "Data Comparison", body: "Compare the manufacturing diagram against BOMs, revisions, configurations, and other engineering data." },
+          { no: "02", title: "Deviation Resolution", body: "Identify missing or conflicting information and determine the appropriate resolution." },
+          { no: "03", title: "Source Traceability", body: "Show the source and evidence behind each finding or AI recommendation." },
+        ],
         media: [
           {
             layout: "grid3",
             items: [
-              { src: "/images/9KaLvxH5RBdryHTufo6WRngdK5c.png", alt: "Cross-referencing sources", ratio: "276 / 215" },
-              { src: "/images/XMaXzxbkI1OahLIQ1HWAwjhK8Gk.png", alt: "Traceable audit trail", ratio: "276 / 215" },
-              { src: "/images/UO6BqLgAAXWdFtnsNfYSCx7PFk.png", alt: "Source-level evidence", ratio: "257 / 212" },
+              { src: "/images/9KaLvxH5RBdryHTufo6WRngdK5c.png", alt: "Data comparison", ratio: "276 / 215" },
+              { src: "/images/XMaXzxbkI1OahLIQ1HWAwjhK8Gk.png", alt: "Deviation resolution", ratio: "276 / 215" },
+              { src: "/images/UO6BqLgAAXWdFtnsNfYSCx7PFk.png", alt: "Source traceability", ratio: "257 / 212" },
             ],
           },
-          { layout: "wide", items: [{ src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "How engineers, AI and data work together", ratio: "1018 / 573" }] },
         ],
-        body: "I spoke with engineers involved in diagram validation to understand how they review drawings, compare them against BOM and engineering data, and investigate discrepancies across supporting documentation.",
-        blocks: [
-          { no: "01", title: "Validation is cross-referencing, not matching", body: "Validation requires cross-referencing multiple engineering data sources and attributes, not just matching a part number." },
-          { no: "02", title: "Engineers need a traceable trail", body: "Engineers need a traceable validation trail showing what was checked, which rules were applied, and where human review is still required." },
-          { no: "03", title: "Data relationships decide what to trust", body: "Engineers need the relationships between drawings, BOMs and technical documents to determine which data should be trusted." },
-          { no: "04", title: "AI needs source-level evidence", body: "AI recommendations need source-level evidence so engineers can assess and trust the suggested value." },
-        ]
       },
       {
-        eyebrow: "Solution",
+        eyebrow: "Interaction Workflow",
+        title: "Mapping How Engineers, AI, and Data Work Together.",
+        body: "I mapped the validation journey to define how engineers and AI interact across the primary flow and key exception scenarios, from data comparison and discrepancy detection to review, confirmation, and override.",
+        media: [
+          { layout: "wide", items: [{ src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "Validation workflow map", ratio: "1018 / 573" }] },
+        ],
+        caption:
+          "The workflow illustrates one primary review process alongside four supporting scenarios: missing values, AI-confirmed suggestions, manual overrides, and re-review before submission. Bringing these together in a single map helped align product, design, and engineering before prototyping.",
+      },
+      {
+        eyebrow: "Design Advocacy",
         title: "Proposing AX Principles to Build User Trust",
         media: [
           { layout: "wide", items: [{ src: "/images/Z0pVDqzTy3ChPFYNlghgaPask.png", alt: "Contextual feedback", ratio: "1072 / 605" }] },
@@ -622,22 +689,6 @@ export const caseStudies: Record<string, CaseStudy> = {
           { no: "03", title: "Human–AI Handoff", body: "Instead of a generic “Needs Review” state, I displayed the validation steps performed, the data sources consulted, and why the issue remained unresolved — so engineers could continue from where the AI stopped rather than repeating the investigation." },
           { no: "04", title: "Wireframe to High Fidelity", body: "We began with quick wireframes for shared understanding, then built high-fidelity Figma prototypes while keeping the constraints of FlutterFlow (the no-code delivery platform) in mind, so the design stayed realistic and achievable." },
           { no: "05", title: "Prompt to Code", body: "The product was originally built in FlutterFlow; for the portfolio I rebuilt a working prototype using Claude." },
-        ]
-      },
-      {
-        eyebrow: "Impact",
-        title: "Reducing Validation Time by 70%",
-        metrics: [
-          {
-            value: "3.3×",
-            label:
-              "Faster diagram validation — by reducing repetitive manual comparisons across drawings and Bill of Material (BOM) data.",
-          },
-          {
-            value: "−70%",
-            label:
-              "Less validation time — engineers spent less time searching and reconciling information and more time reviewing the results that need their expertise.",
-          },
         ]
       },
     ],
