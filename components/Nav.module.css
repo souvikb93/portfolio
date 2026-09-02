@@ -90,7 +90,7 @@
   font-family: var(--font-heading);
   font-size: 10px;
   line-height: 1.12;
-  color: rgba(105, 105, 112, 0.5);
+  color: var(--text-index);
 }
 
 /* White variant, used where the page hero sits on a dark surface. */
@@ -110,14 +110,12 @@
   background: var(--text-primary);
 }
 
+/* Layout only — rest/hover/press/focus come from the Button primitive. */
 .toggle {
   display: none;
   flex-direction: column;
   gap: 5px;
   width: 24px;
-  background: none;
-  border: 0;
-  cursor: pointer;
   padding: var(--space-1) 0;
   margin-left: auto;
 }
@@ -135,7 +133,7 @@
 
 @media (max-width: 810px) {
   .header { height: 44px; }
-  .toggle { display: flex; }
+  .toggle { display: inline-flex; }
   .links {
     position: absolute;
     top: calc(100% + 12px);

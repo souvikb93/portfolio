@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { testimonials } from "@/data/site";
+import { Button } from "./Button";
 import styles from "./Testimonials.module.css";
 
 // Framer "Testimonial Slider".
@@ -26,12 +27,12 @@ export function Testimonials() {
         </footer>
       </blockquote>
       <div className={styles.nav}>
-        <button onClick={() => go(-1)} aria-label="Previous">
+        <Button label="Previous" onClick={() => go(-1)}>
           ←
-        </button>
-        <button onClick={() => go(1)} aria-label="Next">
+        </Button>
+        <Button label="Next" onClick={() => go(1)}>
           →
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ export default function BuildsPage() {
   return (
     <>
       <main className={styles.page}>
-        <section className={styles.hero}>
+        <section className={`sticky-hero ${styles.hero}`}>
           <Image
             src="/images/QMPpU75EPMKUWpqueYj7rlfygDE.webp"
             alt=""
@@ -32,7 +32,7 @@ export default function BuildsPage() {
           </div>
         </section>
 
-        <section className={styles.list}>
+        <section className={`over-hero ${styles.list}`}>
           <div className="container-narrow">
             {builds.map((b) => (
               <BuildEntry key={b.title} build={b} />

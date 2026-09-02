@@ -13,7 +13,7 @@ export default function ProjectsPage() {
   return (
     <>
       <main>
-        <section className={styles.hero}>
+        <section className={`sticky-hero ${styles.hero}`}>
           <Image
             src="/images/gM2fq6noqljYPYZPLPvgiKwzUA.jpeg"
             alt=""
@@ -32,7 +32,7 @@ export default function ProjectsPage() {
           </div>
         </section>
 
-        <section className={`section ${styles.work}`}>
+        <section className={`section over-hero ${styles.work}`}>
           <div className={`container ${styles.grid}`}>
             {projects.map((p) => (
               <WorkCard key={p.title} project={p} />

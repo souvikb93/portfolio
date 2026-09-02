@@ -1,13 +1,11 @@
 .page { background: var(--dark-grey); color: var(--white); }
 
 .hero {
-  position: relative;
-  min-height: 100svh;
+  /* positioning comes from .sticky-hero */
   display: flex;
   align-items: flex-end;
   padding: var(--space-6) 0 var(--space-12);
   background: var(--black-pure);
-  overflow: clip;
 }
 .heroBg { object-fit: cover; opacity: 0.7; z-index: 0; }
 /* Matches /projects: heading and intro stack at the left of the 1200px row. */

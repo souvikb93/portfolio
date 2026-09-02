@@ -1,12 +1,10 @@
 .hero {
-  position: relative;
-  min-height: 100svh;
+  /* positioning comes from .sticky-hero */
   display: flex;
   align-items: flex-end;
   padding: var(--space-6) 0 var(--space-12);
   background: var(--black-pure);
   color: var(--white);
-  overflow: clip;
 }
 .heroBg {
   object-fit: cover;
@@ -35,6 +33,7 @@
   .heroIntro { max-width: none; }
 }
 
+/* Opaque so it wipes the sticky hero as it scrolls up. */
 .work { background: var(--white); }
 .grid {
   display: grid;

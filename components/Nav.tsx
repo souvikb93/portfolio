@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { nav } from "@/data/site";
+import { Button } from "./Button";
 import styles from "./Nav.module.css";
 
 // Routes whose hero sits on a dark surface — the live site switches the header
@@ -44,15 +45,16 @@ export function Nav() {
         })}
       </nav>
 
-      <button
+      <Button
+        variant="ghost"
+        tone={onDark ? "light" : "dark"}
+        label="Toggle menu"
         className={styles.toggle}
-        aria-label="Toggle menu"
-        aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
         <span data-open={open} />
         <span data-open={open} />
-      </button>
+      </Button>
     </header>
   );
 }

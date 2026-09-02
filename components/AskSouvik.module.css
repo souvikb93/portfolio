@@ -15,12 +15,10 @@
   overflow: hidden;
   background: var(--chat-bg);
   border: 1px solid var(--chat-border);
-  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-pill);
 }
 .shell[data-open="true"] {
-  box-shadow:
-    0 20px 60px -12px rgba(0, 0, 0, 0.25),
-    0 0 0 1px rgba(0, 0, 0, 0.02);
+  box-shadow: var(--shadow-panel);
 }
 
 /* ---- collapsed pill ---- */

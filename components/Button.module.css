@@ -1,0 +1,47 @@
+/* Control primitive. Buttons do not inherit the page font, so it is set
+   explicitly — without it the glyphs fall back to the UA default. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  line-height: 1;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn[data-variant="icon"] {
+  width: var(--btn-size);
+  height: var(--btn-size);
+  border-radius: var(--btn-radius);
+  border: 1px solid var(--rule);
+}
+
+.btn[data-tone="light"] {
+  color: var(--on-dark);
+  border-color: var(--on-dark-rule);
+}
+
+/* states */
+.btn:hover { background: var(--gray); }
+.btn[data-tone="light"]:hover { background: var(--on-dark-hairline); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible {
+  outline: 2px solid var(--brand-secondary);
+  outline-offset: 3px;
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:active { transform: none; }
+}

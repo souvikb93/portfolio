@@ -131,7 +131,7 @@
   color: var(--black-pure);
 }
 /* Right-hand word is a step lighter, which reads as depth behind the card. */
-.displayWordAlt { color: rgb(48, 48, 48); }
+.displayWordAlt { color: var(--display-word-alt); }
 
 /* Panel 2 — intro statement + experience list.
    On the live site this is a 600px column sitting on the container's own left
