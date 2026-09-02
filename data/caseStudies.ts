@@ -49,6 +49,24 @@ export type Block = {
 
 export type Metric = { value: string; label: string };
 
+/**
+ * One band of a case study. The live pages label each with its own eyebrow
+ * ("Objective", "Business Impact", "Analysis", "Interaction Workflow",
+ * "Design Advocacy"...) and order them differently per study, so this is an
+ * ordered list rather than a fixed set of named slots.
+ */
+export type StudySection = {
+  eyebrow: string;
+  title?: string;
+  body?: string;
+  blocks?: Block[];
+  findings?: Finding[];
+  metrics?: Metric[];
+  media?: Gallery[];
+  /** Small print under the section's media. */
+  caption?: string;
+};
+
 export type CaseStudy = {
   slug: string;
   name: string;
@@ -57,14 +75,7 @@ export type CaseStudy = {
   meta: { label: string; value: string }[];
   /** Banner above the title, as on the live site. */
   hero?: Gallery;
-  sections: {
-    objective?: { title: string; body: string; media?: Gallery[] };
-    discovery?: { title: string; body: string; blocks: Block[]; media?: Gallery[] };
-    synthesis?: { title: string; body: string; findings: Finding[]; media?: Gallery[] };
-    solution?: { title: string; body: string; blocks: Block[]; media?: Gallery[] };
-    impact?: { title: string; metrics: Metric[]; media?: Gallery[] };
-    reflection?: { title: string; body: string; blocks: Block[]; media?: Gallery[] };
-  };
+  sections: StudySection[];
 };
 
 export const caseStudies: Record<string, CaseStudy> = {
@@ -94,12 +105,14 @@ export const caseStudies: Record<string, CaseStudy> = {
         },
       ],
     },
-    sections: {
-      objective: {
+    sections: [
+      {
+        eyebrow: "Objective",
         title: "A Legacy Platform That Didn’t Meet Its Users’ Needs",
-        body: "The client had a healthcare product built for Medicare plan members in the U.S, enabling them to manage their health plans, benefits, claims, and payments through a unified digital experience. Medicare plans primarily serve adults aged 65 and older, people under 65 with certain qualifying disabilities, and people with long-term medical conditions. Despite serving a user base with significant accessibility and usability needs, the legacy product was neither intuitive for older adults nor accessible to people relying on assistive technologies. The redesign needed to modernise the user experience while achieving WCAG compliance and meeting U.S. accessibility requirements — creating a senior-friendly, inclusive experience that reduced legal and compliance risk without disrupting existing healthcare workflows.",
+        body: "The client had a healthcare product built for Medicare plan members in the U.S, enabling them to manage their health plans, benefits, claims, and payments through a unified digital experience. Medicare plans primarily serve adults aged 65 and older, people under 65 with certain qualifying disabilities, and people with long-term medical conditions. Despite serving a user base with significant accessibility and usability needs, the legacy product was neither intuitive for older adults nor accessible to people relying on assistive technologies. The redesign needed to modernise the user experience while achieving WCAG compliance and meeting U.S. accessibility requirements — creating a senior-friendly, inclusive experience that reduced legal and compliance risk without disrupting existing healthcare workflows."
       },
-      discovery: {
+      {
+        eyebrow: "Discovery",
         title: "Understanding the Problem Beyond Compliance",
         media: [
           {
@@ -128,9 +141,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "Moderated User Testing",
             body: "Observed users with visual and hearing disabilities completing common tasks using assistive technologies. Through moderated sessions and screen sharing, I identified areas of friction throughout the experience.",
           },
-        ],
+        ]
       },
-      synthesis: {
+      {
+        eyebrow: "Synthesis",
         title: "Key Research Findings",
         media: [
           { layout: "half", items: [{ src: "/images/l4jOXmRKhJuAi4Vs3phyxKiTo.jpg", alt: "Research synthesis board", ratio: "552 / 340", rounded: true }] },
@@ -179,9 +193,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             impact:
               "With an estimated 30–40% of users on mobile, the desktop-first experience risked affecting a significant portion of the customer base and increased task abandonment on smaller screens.",
           },
-        ],
+        ]
       },
-      solution: {
+      {
+        eyebrow: "Solution",
         title: "How I Improved the Overall User Experience",
         media: [
           {
@@ -223,9 +238,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "Designing Responsive Experiences Across Breakpoints",
             body: "Developed responsive prototypes using defined breakpoints for mobile, tablet, and desktop. Auto layout and constraints ensured consistent scaling of layouts, touch targets, and typography for a seamless experience across devices.",
           },
-        ],
+        ]
       },
-      impact: {
+      {
+        eyebrow: "Impact",
         title: "Measurable Business & User Impact",
         metrics: [
           {
@@ -243,9 +259,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             label:
               "Better action recognition — CTA recognition improved from 1 in 3 to 4 in 5 users with disability, through clearer button hierarchy and interaction states.",
           },
-        ],
+        ]
       },
-      reflection: {
+      {
+        eyebrow: "Reflection",
         title: "How This Project Changed My Thinking",
         body: "This project challenged a few assumptions I had and changed how I think about designing accessible, scalable products.",
         blocks: [
@@ -264,9 +281,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "Consistency Matters Most When Designing for Older Adults",
             body: "Nielsen Norman Group research found that predictable interaction patterns help older users build confidence and complete tasks more successfully. Consistency is more than a design principle — it’s a usability tool.",
           },
-        ],
+        ]
       },
-    },
+    ],
   },
 
   member_portal: {
@@ -288,12 +305,14 @@ export const caseStudies: Record<string, CaseStudy> = {
         { src: "/images/9dPytogKpslavi9lGu7pupli6g.gif", alt: "Member Portal case study", ratio: "1216 / 814" },
       ],
     },
-    sections: {
-      objective: {
+    sections: [
+      {
+        eyebrow: "Objective",
         title: "Closing the Gap Between Portal and Mobile",
-        body: "The client’s insurance agents work in the field, not at a desk, and had decided to make mobile their main channel. But the app was still missing features the legacy web portal had, so agents kept getting pulled back to desktop. Users were leaving mid-task — mobile drop-off ran well above the portal for the same actions. Support absorbed the overflow, with over 15,000 calls a month from members who got stuck on the app. And roughly half the portal’s features hadn’t made it into the app yet.",
+        body: "The client’s insurance agents work in the field, not at a desk, and had decided to make mobile their main channel. But the app was still missing features the legacy web portal had, so agents kept getting pulled back to desktop. Users were leaving mid-task — mobile drop-off ran well above the portal for the same actions. Support absorbed the overflow, with over 15,000 calls a month from members who got stuck on the app. And roughly half the portal’s features hadn’t made it into the app yet."
       },
-      discovery: {
+      {
+        eyebrow: "Discovery",
         title: "UX Audit & Key Findings",
         media: [
           { layout: "half", items: [{ src: "/images/4BfM8vfOJ28Nn1gvhGlHOtpUTW8.png", alt: "Complex navigation audit", ratio: "352 / 416", radius: "24px" , width: "352px"}] },
@@ -323,9 +342,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "Lack of Search Functionality",
             body: "“It takes me longer to find the record than to actually do the work.” — Support Staff. Finding the right plan took over 90 seconds on average, so members gave up and switched to desktop.",
           },
-        ],
+        ]
       },
-      solution: {
+      {
+        eyebrow: "Solution",
         title: "Solutions Mapped to the Audit Findings",
         media: [
           {
@@ -372,9 +392,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "Introduced Search & Filtering to Improve Data Discovery",
             body: "Finding claims data or a check application took over 90 seconds with no way to search. I defined search and filter categories from business workflows, designed clear empty/loading/no-results states, and specified filter-chip behavior, multi-select patterns, and clear/reset interactions.",
           },
-        ],
+        ]
       },
-      impact: {
+      {
+        eyebrow: "Impact",
         title: "Measurable Business & User Impact",
         media: [
           {
@@ -402,9 +423,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             label:
               "Faster task completion — simplified navigation and fewer interaction steps reduced task time in usability testing.",
           },
-        ],
+        ]
       },
-      reflection: {
+      {
+        eyebrow: "Reflection",
         title: "What This Project Taught Me",
         media: [
           {
@@ -433,9 +455,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "Alignment Is Part of the Design Process",
             body: "Adding search, filtering and sorting seemed straightforward until business expectations and technical constraints diverged. Collaborative stakeholder workshops helped prioritise the most valuable, feasible features. Design isn’t just about creating interfaces — it’s about aligning people around practical solutions.",
           },
-        ],
+        ]
       },
-    },
+    ],
   },
 
   desi_aroma: {
@@ -460,12 +482,14 @@ export const caseStudies: Record<string, CaseStudy> = {
         { src: "/images/0SMOdOOz4ZNWbgzkgp9E1xwTYfc.jpg", alt: "Desi Aroma case study", ratio: "1216 / 760" },
       ],
     },
-    sections: {
-      objective: {
+    sections: [
+      {
+        eyebrow: "Objective",
         title: "Creating Economic Opportunities for Housewives While Meeting Student Needs",
-        body: "Many women in Gandhinagar were looking for flexible ways to earn an income while managing their families, while many students lived away from home and missed the comfort of home-cooked food. We saw food as the natural connection between these two communities and explored how homemade food could bring the feeling of home to students while creating flexible earning opportunities for women.",
+        body: "Many women in Gandhinagar were looking for flexible ways to earn an income while managing their families, while many students lived away from home and missed the comfort of home-cooked food. We saw food as the natural connection between these two communities and explored how homemade food could bring the feeling of home to students while creating flexible earning opportunities for women."
       },
-      discovery: {
+      {
+        eyebrow: "Discovery",
         title: "From Observations to Insights",
         media: [
           { layout: "wide", items: [{ src: "/images/SjsFFtOJgAJkUGJBosOOYUh0aUc.jpg", alt: "System-level analysis of Gandhinagar", ratio: "1094 / 669" }] },
@@ -493,9 +517,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "A small local market needs the right targeting",
             body: "A limited local market meant the right customer targeting was essential. Tracking customer preferences mattered, and loyalty required assurance and stability for the home chefs.",
           },
-        ],
+        ]
       },
-      solution: {
+      {
+        eyebrow: "Solution",
         title: "From Service Concept to a Scalable Product",
         media: [
           { layout: "wide", items: [{ src: "/images/GV12Wz2AUp2nk0c1DpNpNk4Ds.jpg", alt: "Comparative analysis", ratio: "1018 / 573" }] },
@@ -515,9 +540,9 @@ export const caseStudies: Record<string, CaseStudy> = {
           { no: "05", title: "Brand Building", body: "Translating the service concept into a cohesive brand through identity, communication, packaging, and marketing touchpoints." },
           { no: "06", title: "Concept Video", body: "Bringing the service concept to life through a short film that communicates its value, vision, and experience to stakeholders." },
           { no: "07", title: "Interface Design", body: "User personas, user flows, wireframing, a design system, prototyping, and user testing — a prototype built to demonstrate the platform’s functionality and potential." },
-        ],
+        ]
       },
-    },
+    ],
   },
 
   aero_check: {
@@ -539,28 +564,15 @@ export const caseStudies: Record<string, CaseStudy> = {
         { src: "/images/ThKHR9rfGkWENcL1AIy01Kos.gif", alt: "Aero Check case study", ratio: "1216 / 681" },
       ],
     },
-    sections: {
-      objective: {
+    sections: [
+      {
+        eyebrow: "Objective",
         title:
           "Making Manufacturing Diagram Validation Faster Without Compromising Engineering Confidence",
-        body: "Engineers previously validated diagrams manually by comparing drawings against Bill of Material (BOM) data and supporting information. The repetitive process made validation time-consuming and required engineers to repeatedly cross-reference multiple sources. The objective was to reduce validation time by automating repetitive comparisons while ensuring every AI recommendation remained transparent, reviewable, and under human control.",
+        body: "Engineers previously validated diagrams manually by comparing drawings against Bill of Material (BOM) data and supporting information. The repetitive process made validation time-consuming and required engineers to repeatedly cross-reference multiple sources. The objective was to reduce validation time by automating repetitive comparisons while ensuring every AI recommendation remained transparent, reviewable, and under human control."
       },
-      impact: {
-        title: "Reducing Validation Time by 70%",
-        metrics: [
-          {
-            value: "3.3×",
-            label:
-              "Faster diagram validation — by reducing repetitive manual comparisons across drawings and Bill of Material (BOM) data.",
-          },
-          {
-            value: "−70%",
-            label:
-              "Less validation time — engineers spent less time searching and reconciling information and more time reviewing the results that need their expertise.",
-          },
-        ],
-      },
-      discovery: {
+      {
+        eyebrow: "Discovery",
         title: "Understanding How Engineers Validate Manufacturing Diagrams",
         media: [
           {
@@ -579,9 +591,10 @@ export const caseStudies: Record<string, CaseStudy> = {
           { no: "02", title: "Engineers need a traceable trail", body: "Engineers need a traceable validation trail showing what was checked, which rules were applied, and where human review is still required." },
           { no: "03", title: "Data relationships decide what to trust", body: "Engineers need the relationships between drawings, BOMs and technical documents to determine which data should be trusted." },
           { no: "04", title: "AI needs source-level evidence", body: "AI recommendations need source-level evidence so engineers can assess and trust the suggested value." },
-        ],
+        ]
       },
-      solution: {
+      {
+        eyebrow: "Solution",
         title: "Proposing AX Principles to Build User Trust",
         media: [
           { layout: "wide", items: [{ src: "/images/Z0pVDqzTy3ChPFYNlghgaPask.png", alt: "Contextual feedback", ratio: "1072 / 605" }] },
@@ -609,8 +622,24 @@ export const caseStudies: Record<string, CaseStudy> = {
           { no: "03", title: "Human–AI Handoff", body: "Instead of a generic “Needs Review” state, I displayed the validation steps performed, the data sources consulted, and why the issue remained unresolved — so engineers could continue from where the AI stopped rather than repeating the investigation." },
           { no: "04", title: "Wireframe to High Fidelity", body: "We began with quick wireframes for shared understanding, then built high-fidelity Figma prototypes while keeping the constraints of FlutterFlow (the no-code delivery platform) in mind, so the design stayed realistic and achievable." },
           { no: "05", title: "Prompt to Code", body: "The product was originally built in FlutterFlow; for the portfolio I rebuilt a working prototype using Claude." },
-        ],
+        ]
       },
-    },
+      {
+        eyebrow: "Impact",
+        title: "Reducing Validation Time by 70%",
+        metrics: [
+          {
+            value: "3.3×",
+            label:
+              "Faster diagram validation — by reducing repetitive manual comparisons across drawings and Bill of Material (BOM) data.",
+          },
+          {
+            value: "−70%",
+            label:
+              "Less validation time — engineers spent less time searching and reconciling information and more time reviewing the results that need their expertise.",
+          },
+        ]
+      },
+    ],
   },
 };

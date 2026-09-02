@@ -20,12 +20,14 @@ export const buildStudies: Record<string, CaseStudy> = {
         { src: "/images/j4GfC2irkQU5bFWLES6jP4YnhI.jpg", alt: "Tracka case study", ratio: "1200 / 800" },
       ],
     },
-    sections: {
-      objective: {
+    sections: [
+      {
+        eyebrow: "Objective",
         title: "A Changing Job Market in the Age of AI",
-        body: "When I moved to Berlin and began my own job search, I noticed how diverse the job market was — people from different cultural, educational, professional, and language backgrounds. At the same time, AI was changing how candidates were screened and evaluated, from AI-powered CV screening to AI-led interviews. Finding the right opportunity was only the beginning: each application involved understanding the role, preparing and tailoring a CV, writing a cover letter, navigating AI-driven screening, and managing multiple applications, follow-ups, and recruiter conversations. Keeping track of everything became a job in itself.",
+        body: "When I moved to Berlin and began my own job search, I noticed how diverse the job market was — people from different cultural, educational, professional, and language backgrounds. At the same time, AI was changing how candidates were screened and evaluated, from AI-powered CV screening to AI-led interviews. Finding the right opportunity was only the beginning: each application involved understanding the role, preparing and tailoring a CV, writing a cover letter, navigating AI-driven screening, and managing multiple applications, follow-ups, and recruiter conversations. Keeping track of everything became a job in itself."
       },
-      discovery: {
+      {
+        eyebrow: "Discovery",
         title: "Understanding the Job Search Journey",
         media: [
           { layout: "wide", items: [{ src: "/video/1jcvQ3Vvht0pfBEzcyTjIVBrnA.mp4", alt: "Research synthesis", ratio: "690 / 388", kind: "video" }] },
@@ -56,9 +58,10 @@ export const buildStudies: Record<string, CaseStudy> = {
             title: "Frictionless Onboarding",
             body: "We couldn’t eliminate repetitive forms across external job portals, but we could remove the same friction from our own onboarding. → AI-Powered Onboarding: upload an existing CV, automatically extract profile details, review and confirm before getting started.",
           },
-        ],
+        ]
       },
-      solution: {
+      {
+        eyebrow: "Solution",
         title: "From Hand Sketch to Production UI",
         media: [
           { layout: "wide", items: [{ src: "/images/7gTirUV54JrihWCjLTzUPoKvCWs.png", alt: "Hand sketch", ratio: "636 / 424" }] },
@@ -128,9 +131,10 @@ export const buildStudies: Record<string, CaseStudy> = {
         ],
             body: "Tracka initially used an LLM to calculate ATS scores, so the same CV and job description could receive different scores across runs. I separated understanding from scoring: the LLM extracts structured job requirements once, while a deterministic ATS engine calculates the score using predefined matching logic and weighted dimensions. The same input always produces the same score.",
           },
-        ],
+        ]
       },
-      reflection: {
+      {
+        eyebrow: "Reflection",
         title: "What I Learned While Building Tracka",
         media: [
           { layout: "wide", items: [{ src: "/images/25GyxFzR0HsgETtZTVG50i6Jqc.png", alt: "Layered decision making", ratio: "1152 / 199" }] },
@@ -154,8 +158,8 @@ export const buildStudies: Record<string, CaseStudy> = {
             title: "Continuous Refinement",
             body: "A design system evolves through continuous feedback. Every new feature introduced new components and refinements; updating Figma wasn’t enough because the AI also needed the latest design context. I established a feedback loop that kept both the design system and the AI aligned as the product evolved.",
           },
-        ],
+        ]
       },
-    },
+    ],
   },
 };

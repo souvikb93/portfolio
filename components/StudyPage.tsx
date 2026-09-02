@@ -17,7 +17,6 @@ export function StudyPage({
   backHref: string;
   backLabel: string;
 }) {
-  const s = study.sections;
 
   return (
     <>
@@ -51,90 +50,57 @@ export function StudyPage({
         </header>
         </ScrollStage>
 
-        {s.objective && (
-          <Section eyebrow="Objective">
-            <h2 className="t-h4">{s.objective.title}</h2>
-            <p className="t-body muted">{s.objective.body}</p>
-            <Media galleries={s.objective.media} />
-          </Section>
-        )}
+        {study.sections.map((sec, i) => (
+          <Section key={`${sec.eyebrow}-${i}`} eyebrow={sec.eyebrow}>
+            {sec.title && <h2 className="t-h4">{sec.title}</h2>}
+            {sec.body && <p className="t-body muted">{sec.body}</p>}
 
-        {s.discovery && (
-          <Section eyebrow="Discovery">
-            <h2 className="t-h4">{s.discovery.title}</h2>
-            <p className="t-body muted">{s.discovery.body}</p>
-            <BlockGrid blocks={s.discovery.blocks} />
-            <Media galleries={s.discovery.media} />
-          </Section>
-        )}
+            {sec.findings && (
+              <div className={styles.findings}>
+                {sec.findings.map((f) => (
+                  <article key={f.no} className={styles.finding}>
+                    <h3 className="t-h5">
+                      {f.no} · {f.title}
+                    </h3>
+                    {f.quote && (
+                      <blockquote className={styles.quote}>
+                        “{f.quote}”
+                        {f.quoteBy && (
+                          <cite className="t-body2 muted"> — {f.quoteBy}</cite>
+                        )}
+                      </blockquote>
+                    )}
+                    {f.support && (
+                      <p className="t-body muted">
+                        <strong>Findings.</strong> {f.support}
+                      </p>
+                    )}
+                    {f.impact && (
+                      <p className="t-body muted">
+                        <strong>Business impact.</strong> {f.impact}
+                      </p>
+                    )}
+                  </article>
+                ))}
+              </div>
+            )}
 
-        {s.synthesis && (
-          <Section eyebrow="Synthesis">
-            <h2 className="t-h4">{s.synthesis.title}</h2>
-            <p className="t-body muted">{s.synthesis.body}</p>
-            <div className={styles.findings}>
-              {s.synthesis.findings.map((f) => (
-                <article key={f.no} className={styles.finding}>
-                  <h3 className="t-h5">
-                    {f.no} · {f.title}
-                  </h3>
-                  {f.quote && (
-                    <blockquote className={styles.quote}>
-                      “{f.quote}”
-                      {f.quoteBy && (
-                        <cite className="t-body2 muted"> — {f.quoteBy}</cite>
-                      )}
-                    </blockquote>
-                  )}
-                  {f.support && (
-                    <p className="t-body muted">
-                      <strong>Findings.</strong> {f.support}
-                    </p>
-                  )}
-                  {f.impact && (
-                    <p className="t-body muted">
-                      <strong>Business impact.</strong> {f.impact}
-                    </p>
-                  )}
-                </article>
-              ))}
-            </div>
-            <Media galleries={s.synthesis.media} />
-          </Section>
-        )}
+            {sec.metrics && (
+              <div className={styles.metrics}>
+                {sec.metrics.map((m) => (
+                  <div key={m.value} className={styles.metric}>
+                    <span className="t-h3">{m.value}</span>
+                    <p className="t-body muted">{m.label}</p>
+                  </div>
+                ))}
+              </div>
+            )}
 
-        {s.solution && (
-          <Section eyebrow="Solution">
-            <h2 className="t-h4">{s.solution.title}</h2>
-            <p className="t-body muted">{s.solution.body}</p>
-            <BlockGrid blocks={s.solution.blocks} />
-            <Media galleries={s.solution.media} />
+            {sec.blocks && <BlockGrid blocks={sec.blocks} />}
+            <Media galleries={sec.media} />
+            {sec.caption && <p className="t-body2 muted">{sec.caption}</p>}
           </Section>
-        )}
-
-        {s.impact && (
-          <Section eyebrow="Impact">
-            <h2 className="t-h4">{s.impact.title}</h2>
-            <div className={styles.metrics}>
-              {s.impact.metrics.map((m) => (
-                <div key={m.value} className={styles.metric}>
-                  <span className="t-h3">{m.value}</span>
-                  <p className="t-body muted">{m.label}</p>
-                </div>
-              ))}
-            </div>
-            <Media galleries={s.impact.media} />
-          </Section>
-        )}
-
-        {s.reflection && (
-          <Section eyebrow="Reflection">
-            <h2 className="t-h4">{s.reflection.title}</h2>
-            <p className="t-body muted">{s.reflection.body}</p>
-            <BlockGrid blocks={s.reflection.blocks} />
-            <Media galleries={s.reflection.media} />
-          </Section>
-        )}
+        ))}
 
         <div className={`container-study ${styles.next}`}>
           <Link href={backHref} className={styles.link}>
