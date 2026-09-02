@@ -70,16 +70,9 @@ export function StudyPage({
                         )}
                       </blockquote>
                     )}
-                    {f.support && (
-                      <p className="t-body muted">
-                        <strong>Findings.</strong> {f.support}
-                      </p>
-                    )}
-                    {f.impact && (
-                      <p className="t-body muted">
-                        <strong>Business impact.</strong> {f.impact}
-                      </p>
-                    )}
+                    {f.caption && <p className="t-body2 muted">{f.caption}</p>}
+                    <FindingList label="Supporting Findings" value={f.support} />
+                    <FindingList label="Business Impact" value={f.impact} />
                   </article>
                 ))}
               </div>
@@ -171,6 +164,33 @@ function Media({ galleries }: { galleries?: Gallery[] }) {
       {galleries.map((g, i) => (
         <FigureGroup key={i} gallery={g} />
       ))}
+    </>
+  );
+}
+
+/** A finding's supporting points — prose on some studies, a list on others. */
+function FindingList({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | string[];
+}) {
+  if (!value) return null;
+  return (
+    <>
+      <p className="t-body2 muted">{label}</p>
+      {Array.isArray(value) ? (
+        <ul className={styles.bullets}>
+          {value.map((x) => (
+            <li key={x} className="t-body muted">
+              {x}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="t-body muted">{value}</p>
+      )}
     </>
   );
 }

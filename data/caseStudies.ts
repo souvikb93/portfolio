@@ -6,8 +6,11 @@ export type Finding = {
   title: string;
   quote?: string;
   quoteBy?: string;
-  support?: string;
-  impact?: string;
+  /** Live runs these as bullet lists on some studies and prose on others. */
+  support?: string | string[];
+  impact?: string | string[];
+  /** Description of the screenshot the finding is illustrated with. */
+  caption?: string;
 };
 
 
@@ -172,37 +175,56 @@ export const caseStudies: Record<string, CaseStudy> = {
           {
             no: "01",
             title: "Accessibility Barriers Reduced Task Success Rate",
+            caption:
+              "Screenshot of the legacy application showing unclear interactive controls, including a text-based “Close” action instead of a standard close icon, and low-contrast table content that reduces readability.",
             quote:
               "I can’t always tell what’s clickable, especially when I’m using 400% zoom, and my screen reader doesn’t give me enough context.",
             quoteBy: "User relying on assistive technologies",
-            support:
-              "68% of audited screens contained at least one WCAG colour contrast violation. 5 of 6 participants struggled to distinguish tertiary links from supporting text because colour was the only visual indicator.",
-            impact:
-              "Increased risk of ADA and WCAG non-compliance. Lower task completion for users relying on assistive technologies.",
+            support: [
+              "68% of audited screens contained at least one WCAG colour contrast violation.",
+              "5 of 6 participants struggled to distinguish tertiary links from supporting text because colour was the only visual indicator.",
+            ],
+            impact: [
+              "Increased risk of ADA and WCAG non-compliance.",
+              "Lower task completion for users relying on assistive technologies.",
+            ],
           },
           {
             no: "02",
             title: "Inconsistent Design Patterns Slowed Decision Making",
+            caption:
+              "Screenshot of legacy application showing weak button hierarchy and inconsistent input field patterns.",
             quote:
               "I rely on familiar patterns to navigate. When every screen uses different buttons and form layouts, I have to relearn the interface over and over.",
             quoteBy: "User relying on assistive technologies",
-            support:
-              "7 of 10 audited screens lacked a clear distinction between primary and secondary buttons. Long forms contained up to 18–24 input fields on one page before users reached the next major section.",
-            impact:
-              "Estimated 31% longer task completion time for first-time users. Higher drop-off during multi-step enrolment journeys. Greater development effort due to inconsistent UI implementation.",
+            support: [
+              "7 of 10 audited screens lacked a clear distinction between primary and secondary buttons.",
+              "Long forms contained up to 18–24 input fields in one page before users reached the next major section.",
+            ],
+            impact: [
+              "Estimated 31% longer task completion time for first-time users.",
+              "Higher drop-off during multi-step enrolment journeys.",
+              "Greater development effort due to inconsistent UI implementation.",
+            ],
           },
           {
             no: "03",
             title: "Application Was Not Optimized for Mobile Devices",
+            caption:
+              "Mobile view of the legacy application showing a desktop-first interface that was not optimized for mobile, resulting in broken layouts.",
             quote:
               "Our analytics show that more and more users are accessing the platform on mobile, but the application isn’t optimized for smaller screens. It’s contributing to higher drop-off rates.",
             quoteBy: "Product Manager",
-            support:
-              "WebAIM research shows that 90% of screen reader users access the web using a mobile screen reader. Fixed-width layouts required users to zoom and scroll horizontally to complete key healthcare tasks.",
-            impact:
-              "With an estimated 30–40% of users on mobile, the desktop-first experience risked affecting a significant portion of the customer base and increased task abandonment on smaller screens.",
+            support: [
+              "WebAIM research shows that 90% of screen reader users access the web using a mobile screen reader, reinforcing the need for responsive, mobile-accessible experiences.",
+              "Fixed-width layouts required users to zoom and scroll horizontally to complete key healthcare tasks.",
+            ],
+            impact: [
+              "With an estimated 30–40% of users accessing the platform via mobile devices, the desktop-first experience had the potential to affect a significant portion of the customer base.",
+              "Increased task abandonment rate during key workflows on smaller screens.",
+            ],
           },
-        ]
+        ],
       },
       {
         eyebrow: "Solution",
