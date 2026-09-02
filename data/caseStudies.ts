@@ -87,6 +87,17 @@ export type CaseStudy = {
   meta: { label: string; value: string }[];
   /** Short line live runs under the study name. */
   subtitle?: string;
+  /**
+   * The header this study carries when the published site's swapped headers
+   * are not being mirrored. See data/fidelity.ts.
+   */
+  corrected?: {
+    name: string;
+    subtitle?: string;
+    headline: string;
+    summary: string;
+    meta: { label: string; value: string }[];
+  };
   /** Banner above the title, as on the live site. */
   hero?: Gallery;
   sections: StudySection[];
@@ -575,6 +586,22 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Industry", value: "AI & Cloud Computing" },
       { label: "Scope of work", value: "SaaS · AI-Driven · No-code" },
     ],
+    corrected: {
+      name: "Desi Aroma",
+      headline: "Women’s Empowerment Initiative — From concept to scalable experience.",
+      summary:
+        "Founded by two NID alumni, Desi Aroma is a community-driven initiative that empowers housewives in Gandhinagar by transforming their love for home-cooked food into a source of income and recognition, while serving affordable, wholesome meals to students.",
+      meta: [
+        { label: "Client", value: "Student Project" },
+        { label: "Duration", value: "2 Months" },
+        { label: "Industry", value: "Social Innovation" },
+        {
+          label: "Scope of Work",
+          value:
+            "Service Design · System Design · Brand Design · Mobile App · UX/UI · Video Production",
+        },
+      ],
+    },
     hero: {
       layout: "wide",
       items: [
@@ -735,6 +762,19 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Industry", value: "AI & Cloud Computing" },
       { label: "Scope of work", value: "SaaS · AI-Driven · No-code" },
     ],
+    corrected: {
+      name: "Aero Check",
+      headline:
+        "Designing an AI-Assisted Validation Tool That Increased Processing Speed by 3.3×",
+      summary:
+        "As a consultant, I worked on a pilot project for Airbus to demonstrate how AI could assist in validating complex manufacturing diagrams. The goal was to explore how AI could reduce manual effort by identifying missing or inconsistent information and supporting engineers with a faster, more reliable validation workflow.",
+      meta: [
+        { label: "Client", value: "Airbus" },
+        { label: "Duration", value: "4 weeks" },
+        { label: "Industry", value: "Aviation" },
+        { label: "Scope of Work", value: "AI-Driven · Enterprise SaaS · No-code" },
+      ],
+    },
     hero: {
       layout: "wide",
       items: [

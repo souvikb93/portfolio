@@ -5,6 +5,7 @@ import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
 import { ScrollStage } from "./ScrollStage";
 import type { Block, Gallery } from "@/data/caseStudies";
+import { MIRROR_LIVE } from "@/data/fidelity";
 import styles from "./StudyPage.module.css";
 
 // Shared long-form study layout used by /projects/[slug] and /builds/[slug].
@@ -17,6 +18,11 @@ export function StudyPage({
   backHref: string;
   backLabel: string;
 }) {
+
+  // Live currently prints a different project's header on two studies; the
+  // switch in data/fidelity.ts decides whether we reproduce that.
+  const head =
+    !MIRROR_LIVE && study.corrected ? study.corrected : study;
 
   return (
     <>
@@ -35,14 +41,14 @@ export function StudyPage({
 
         <header className={`${study.hero ? "over-hero" : ""} ${styles.head}`}>
           <div className="container-study">
-            <p className="t-body muted">{study.name}</p>
-            {study.subtitle && (
-              <p className="t-body2 muted">{study.subtitle}</p>
+            <p className="t-body muted">{head.name}</p>
+            {head.subtitle && (
+              <p className="t-body2 muted">{head.subtitle}</p>
             )}
-            <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
-            <p className={`t-body muted ${styles.summary}`}>{study.summary}</p>
+            <h1 className={`t-h3 ${styles.headline}`}>{head.headline}</h1>
+            <p className={`t-body muted ${styles.summary}`}>{head.summary}</p>
             <dl className={styles.meta}>
-              {study.meta.map((m) => (
+              {head.meta.map((m) => (
                 <div key={m.label}>
                   <dt className="t-body2 muted">{m.label}</dt>
                   <dd className="t-body">{m.value}</dd>
