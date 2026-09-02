@@ -561,10 +561,50 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "From Observations to Insights",
         body: "Synthesizing user interviews and discussions to uncover patterns, needs, and opportunities that informed design decisions.",
         blocks: [
-          { no: "01", title: "One-to-one interviews with potential customers", body: "Limited time to cook led to dependence on restaurants, carrying home-cooked food left meals cold and soggy, and existing services lacked authentic home-style taste — a strong need for fresh, homemade food." },
-          { no: "02", title: "Food tasting workshop with students", body: "Willingness to pay ₹100–₹150 for non-veg meals, cost sensitivity and a preference for simple packaging, quantity transparency expected in online menus, and demand for personalization and portion options." },
-          { no: "03", title: "One-to-one discussions with homemakers", body: "Family approval is critical for homemakers’ participation, their schedules revolve around family needs, retired individuals seek meaningful engagement, and stored homemade snacks fit anytime consumption needs." },
-          { no: "04", title: "Insights from food business owners", body: "Cook selection is key to consistent homemade taste, a limited local market means the right customer targeting is needed, tracking customer preferences matters, and loyalty requires assurance and stability for home chefs." },
+          {
+            no: "01",
+            title: "One-to-one interviews with potential customers",
+            body: "Insights from interviews and group discussions with students living away from home.",
+            bullets: [
+              "Limited time to cook, leading to dependence on restaurants",
+              "Carrying home-cooked food leads to cold, soggy meals",
+              "Strong need for fresh, homemade food",
+              "Existing services lack authentic home-style taste",
+            ],
+          },
+          {
+            no: "02",
+            title: "Food tasting workshop with students",
+            body: "What students were willing to pay for, and what they expected in return.",
+            bullets: [
+              "Willingness to pay ₹100–₹150 for non-veg meals",
+              "Cost sensitivity; preference for simple packaging",
+              "Quantity transparency expected in online menus",
+              "Demand for personalization and portion options",
+            ],
+          },
+          {
+            no: "03",
+            title: "One-to-one discussions with homemakers",
+            body: "What would make participation realistic for the women the service depends on.",
+            bullets: [
+              "Family approval is critical for homemakers’ participation",
+              "Homemakers’ schedules revolve around family needs",
+              "Retired individuals seek meaningful engagement",
+              "Stored homemade snacks fit anytime consumption needs",
+            ],
+          },
+          {
+            no: "04",
+            title: "Insights from food business owners",
+            body: "What operators already running food businesses had learned the hard way.",
+            bullets: [
+              "Cook selection is key to consistent homemade taste",
+              "Limited local market means the right customer targeting is needed",
+              "Importance of tracking customer preferences",
+              "Loyalty requires assurance and stability for home chefs",
+            ],
+          },
         ],
         media: [
           { layout: "center", items: [{ src: "/images/1C8DzuEyAy7rk5rkULtbQdAwVc.jpg", alt: "Field research", ratio: "209 / 266", width: "209px" }] },
