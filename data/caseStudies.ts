@@ -762,19 +762,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Industry", value: "AI & Cloud Computing" },
       { label: "Scope of work", value: "SaaS · AI-Driven · No-code" },
     ],
-    corrected: {
-      name: "Aero Check",
-      headline:
-        "Designing an AI-Assisted Validation Tool That Increased Processing Speed by 3.3×",
-      summary:
-        "As a consultant, I worked on a pilot project for Airbus to demonstrate how AI could assist in validating complex manufacturing diagrams. The goal was to explore how AI could reduce manual effort by identifying missing or inconsistent information and supporting engineers with a faster, more reliable validation workflow.",
-      meta: [
-        { label: "Client", value: "Airbus" },
-        { label: "Duration", value: "4 weeks" },
-        { label: "Industry", value: "Aviation" },
-        { label: "Scope of Work", value: "AI-Driven · Enterprise SaaS · No-code" },
-      ],
-    },
     hero: {
       layout: "wide",
       items: [
