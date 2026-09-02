@@ -59,30 +59,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     no: "(01)",
-    title: "AccessNow",
-    category: "Accessibilty First Medicare Product",
-    year: "© 2024",
-    href: "/projects/access_now",
-    image: "/images/TNc8CSbNVglxdHgkw0nZm2Hwx8Q.png",
-    imageFg: "/images/rjWxseohg4HjUxA2gzHSZAnBZI.jpg",
-    blurb:
-      "Led WCAG compliance for a medicare portal by creating an accessible design system and conducting UAT with visually impaired users.",
-  },
-  {
-    no: "(04)",
-    title: "Airbus",
-    category: "AI Powered Manufacturing Diagram Validation Tool",
-    year: "© 2024",
-    href: "/projects/aero_check",
-    image: "/images/yuS2M7JfOtnVFgldybJXykkAWh8.png",
-    imageFg: "/images/0WVv7WVddGAaPFm7sjj9ECNGFM.jpg",
-    blurb:
-      "Designed an AI-powered validation tool that helps engineers identify errors in Airbus manufacturing diagrams 70% faster.",
-  },
-  {
-    no: "(02)",
     title: "Member Portal",
-    category: "Mobile App",
+    category: "Mobile App for Mendical Insurers",
     year: "© 2023",
     href: "/projects/member_portal",
     image: "/images/KIEFX4kEuByXd9JpGIS8twFgVoQ.png",
@@ -91,7 +69,29 @@ export const projects: Project[] = [
       "Revamped UnitedHealthcare's member portal end-to-end, now having 5M+ downloads on the Play Store.",
   },
   {
+    no: "(02)",
+    title: "AccessNow",
+    category: "Accessible Healthcare SaaS Product for Medicare Patients",
+    year: "© 2024",
+    href: "/projects/access_now",
+    image: "/images/TNc8CSbNVglxdHgkw0nZm2Hwx8Q.png",
+    imageFg: "/images/rjWxseohg4HjUxA2gzHSZAnBZI.jpg",
+    blurb:
+      "Led WCAG compliance for a medicare portal by creating an accessible design system and conducting UAT with visually impaired users.",
+  },
+  {
     no: "(03)",
+    title: "Aero Check",
+    category: "AI-Powered Manufacturing Diagram Validation Tool",
+    year: "© 2024",
+    href: "/projects/aero_check",
+    image: "/images/yuS2M7JfOtnVFgldybJXykkAWh8.png",
+    imageFg: "/images/0WVv7WVddGAaPFm7sjj9ECNGFM.jpg",
+    blurb:
+      "Designed an AI-powered validation tool that helps engineers identify errors in Airbus manufacturing diagrams 70% faster.",
+  },
+  {
+    no: "(04)",
     title: "Desi Aroma",
     category: "Service Design for Women Empowerment",
     year: "© 2020",
@@ -123,11 +123,6 @@ export type Build = {
   live: boolean;
 };
 
-/**
- * Builds shown on the site. `live` marks the two the published souvikb.net
- * lists; Farm.doc is newer work that is not on it yet. It is kept here rather
- * than deleted — flip its flag to true to publish it.
- */
 export const builds: Build[] = [
   {
     no: "01",
@@ -190,7 +185,7 @@ export const builds: Build[] = [
   {
     no: "03",
     title: "Farm.doc",
-    live: false,
+    live: true,
     tagline: "Farm Compliance Automation",
     body:
       "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an n8n-based orchestration layer.",
