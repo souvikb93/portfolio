@@ -119,12 +119,20 @@ export type Build = {
   video: string | null;
   /** Long-form copy for the /builds page, with the emphasised runs the live site bolds. */
   detail: RichText;
+  /** Whether the published site lists this build. */
+  live: boolean;
 };
 
+/**
+ * Builds shown on the site. `live` marks the two the published souvikb.net
+ * lists; Farm.doc is newer work that is not on it yet. It is kept here rather
+ * than deleted — flip its flag to true to publish it.
+ */
 export const builds: Build[] = [
   {
     no: "01",
     title: "Tracka",
+    live: true,
     tagline: "Career Application Toolkit",
     body:
       "Inspired by my own job search, Tracka is an AI-powered workspace for tailored resumes, cover letters, and application tracking.",
@@ -155,6 +163,7 @@ export const builds: Build[] = [
   {
     no: "02",
     title: "Shift Assist",
+    live: true,
     tagline: "AI-Powered Diagnostics",
     body:
       "Built in 10 hours at the BOSCH Hackathon, it uses a RAG pipeline to unify OEM documentation and operator knowledge captured in shift logs, helping diagnose machine failures beyond what manuals alone can provide.",
@@ -181,6 +190,7 @@ export const builds: Build[] = [
   {
     no: "03",
     title: "Farm.doc",
+    live: false,
     tagline: "Farm Compliance Automation",
     body:
       "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an n8n-based orchestration layer.",
@@ -260,3 +270,6 @@ export const edges = {
     { no: "05.", title: "Context Documents for AI", body: "Exploring how Markdown files and structured documentation can give AI a consistent understanding of a product and produce consistent outputs." },
   ],
 };
+
+/** The builds the published site shows. */
+export const liveBuilds = builds.filter((b) => b.live);

@@ -55,10 +55,7 @@
 }
 
 /* ---------- Builds ---------- */
-/* --curtain-pad keeps the band's own 24px top rhythm; without it the shared
-   curtain padding would push the header bar down by a full section. */
 .builds {
-  --curtain-pad: var(--space-6);
   position: relative;
   background: var(--dark-grey);
   color: var(--on-dark);
@@ -70,30 +67,20 @@
   z-index: 1;
   display: flex;
   flex-direction: column;
-  /* matches the intro clip's negative top margin */
-  gap: var(--build-intro-pull);
+  gap: var(--space-20);
   align-items: center;
 }
 /* Block, not flex: a flex item will not wrap around a float. */
 .buildsContent { width: 100%; }
-.buildsHeadlineWrap { display: flow-root; }
-/* TextReveal sets display:inline-block on its root, which makes the heading its
-   own block formatting context — it then clears the float and drops below it
-   instead of wrapping beside it. Two classes so this outranks .reveal. */
-.buildsHeadlineWrap .buildsHeadline { display: block; }
-.buildsRowWrap { clear: both; padding-top: var(--space-16); }
+.buildsRowWrap { padding-top: var(--space-16); }
 
-/* Floated, not absolute: the headline has to flow around it. Absolute took the
-   clip out of flow, so the text ran underneath and the two collided. */
+/* In normal flow above the headline, which is where live puts it — the float
+   that wrapped text around it is not on the published site. */
 .buildsIntroClip {
-  float: left;
   width: var(--build-intro-w);
   aspect-ratio: var(--build-intro-ratio);
   object-fit: cover;
-  /* Pulled up into the gap above the headline so exactly one line wraps beside
-     it, as in the reference. --build-intro-pull also sets the band's top gap,
-     so the clip can never ride up into the header bar. */
-  margin: calc(-1 * var(--build-intro-pull)) var(--space-6) var(--space-2) 0;
+  align-self: flex-start;
   pointer-events: none;
 }
 @media (max-width: 1100px) { .buildsIntroClip { display: none; } }

@@ -2,7 +2,7 @@ import Image from "next/image";
 import { BuildEntry } from "@/components/BuildEntry";
 import { Footer } from "@/components/Footer";
 import { ScrollStage } from "@/components/ScrollStage";
-import { builds } from "@/data/site";
+import { liveBuilds } from "@/data/site";
 import styles from "./Builds.module.css";
 
 export const metadata = { title: "Builds — Souvik B" };
@@ -36,7 +36,7 @@ export default function BuildsPage() {
 
         <section className={`over-hero ${styles.list}`}>
           <div className="container-narrow">
-            {builds.map((b) => (
+            {liveBuilds.map((b) => (
               <BuildEntry key={b.title} build={b} />
             ))}
           </div>

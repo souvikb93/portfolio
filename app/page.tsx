@@ -8,9 +8,8 @@ import { Testimonials } from "@/components/Testimonials";
 import { ClientLogos } from "@/components/Logos";
 import { Footer } from "@/components/Footer";
 import { AskSouvik } from "@/components/AskSouvik";
-import { ScrollStage } from "@/components/ScrollStage";
 import { ActionLink } from "@/components/ActionLink";
-import { projects, builds } from "@/data/site";
+import { projects, liveBuilds } from "@/data/site";
 import styles from "./Home.module.css";
 
 export default function HomePage() {
@@ -25,25 +24,22 @@ export default function HomePage() {
         <ClientLogos />
       </Marquee>
 
-      {/* Builds — the band rises over the logo strip with a diagonal top edge. */}
-      <ScrollStage mode="enter">
-      <section className={`over-hero ${styles.builds}`}>
+      {/* Builds */}
+      <section className={styles.builds}>
         <div className={`container ${styles.buildsTop}`}>
           <HeaderBar no="(02)" title="(Builds)" variant="white" />
+          <video
+            className={styles.buildsIntroClip}
+            src="/video/builds-intro.mp4"
+            muted
+            loop
+            playsInline
+            autoPlay
+            preload="metadata"
+            aria-hidden
+          />
           <div className={styles.buildsContent}>
             <div className={styles.buildsHeadlineWrap}>
-              {/* Must precede the heading and share its block, or the float
-                  has nothing to push the text around. */}
-              <video
-                className={styles.buildsIntroClip}
-                src="/video/builds-intro.mp4"
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="metadata"
-                aria-hidden
-              />
               <TextReveal
                 text="Expanding beyond traditional design roles by building and shipping AI-powered products that solve real user problems."
                 as="h2"
@@ -64,12 +60,11 @@ export default function HomePage() {
           </div>
         </div>
         <div className={`container ${styles.buildList}`}>
-          {builds.map((b) => (
+          {liveBuilds.map((b) => (
             <BuildCard key={b.title} build={b} />
           ))}
         </div>
       </section>
-      </ScrollStage>
 
       {/* Client projects */}
       <section className={`section ${styles.portfolio}`}>

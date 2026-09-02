@@ -127,12 +127,8 @@
   --card-travel-y: 24px;
   --card-spin: 140deg;
 
-  /* hero -> content curtain on the index pages */
-  --hero-dim: 0.7;                   /* darkest the hero image gets */
-  --curtain-reserve: 160px;          /* how far the sheet overlaps the hero */
-  --curtain-rise-l: 60px;            /* left edge travel at full progress */
-  --curtain-rise-r: 150px;           /* right edge travels further, so the
-                                        boundary tilts up to the right */
+  /* index hero parallax — live drifts it up 80px across the first viewport */
+  --hero-parallax: 80px;
 
   /* --- widths --- */
   /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a
@@ -231,55 +227,25 @@ p { margin: 0; }
   height: 100svh;
   z-index: var(--hero-z);
   overflow: clip;
+  /* Live drifts the pinned hero up at a tenth of scroll speed — measured at
+     -20/-40/-60/-80px across the first viewport. No dimming and no diagonal
+     edge: the published site has neither. */
+  transform: translateY(calc(var(--p, 0) * -1 * var(--hero-parallax)));
 }
 
-/* The hero image dims as the sheet climbs over it. Sits above the image but
-   below the hero's own copy, so the picture recedes while the text stays
-   legible. Driven by the same --p as the curtain. */
-.sticky-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: var(--black-pure);
-  opacity: calc(var(--p, 0) * var(--hero-dim));
-  pointer-events: none;
-}
-
-/* Opaque, and above the hero, so it wipes it as it rises.
-   The section overlaps the hero by --curtain-reserve and clips that reserve
-   back off, so at rest the edge is exactly where the section would have been
-   and perfectly horizontal. As progress grows the two clip points rise — the
-   right one further — turning the boundary diagonal. Only the edge is shaped;
-   the section itself never rotates, so its content stays level. */
+/* Opaque, and above the hero, so it covers it as it passes. */
 .over-hero {
   position: relative;
   z-index: var(--content-z);
-  margin-top: calc(-1 * var(--curtain-reserve));
-  clip-path: polygon(
-    0 calc(var(--curtain-reserve) - var(--p, 0) * var(--curtain-rise-l)),
-    100% calc(var(--curtain-reserve) - var(--p, 0) * var(--curtain-rise-r)),
-    100% 100%,
-    0 100%
-  );
-}
-
-/* The reserve has to be added back as top padding, or the negative margin
-   pulls the content up by that much and the diagonal clips into it.
-   Element+class deliberately: the sections this lands on (.section, .list) set
-   `padding` as a shorthand, which would otherwise win over a bare
-   `.over-hero { padding-top }` and silently drop the reserve. */
-:is(section, header).over-hero {
-  padding-top: calc(var(--curtain-reserve) + var(--curtain-pad, var(--section-y)));
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Without the sticky pin the hero simply scrolls away as a normal band, and
-     the curtain becomes an ordinary straight edge. */
-  .sticky-hero { position: relative; height: auto; min-height: 100svh; }
-  .sticky-hero::after { opacity: 0; }
-  .over-hero { margin-top: 0; clip-path: none; }
-  :is(section, header).over-hero { padding-top: var(--curtain-pad, var(--section-y)); }
+  .sticky-hero {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+    transform: none;
+  }
 }
 .section { width: 100%; padding: var(--section-y) 0; }
 .prose { max-width: var(--prose-max); }
