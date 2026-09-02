@@ -13,7 +13,7 @@ const BACK = "/images/hero-back.gif";
 // and rotates toward its back face, all driven by scroll progress.
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
 
   // The card's motion is driven entirely by scroll progress through the hero,
   // so scrolling back up reverses it exactly. Progress is written to a CSS
@@ -26,12 +26,12 @@ export function Hero() {
     // deferring to requestAnimationFrame would only add a frame of lag.
     const apply = () => {
       const el = ref.current;
-      const card = cardRef.current;
-      if (!el || !card) return;
+      const stage = stageRef.current;
+      if (!el || !stage) return;
       const rect = el.getBoundingClientRect();
       const total = rect.height - window.innerHeight;
       const p = total > 0 ? Math.min(Math.max(-rect.top / total, 0), 1) : 0;
-      card.style.setProperty("--p", p.toFixed(4));
+      stage.style.setProperty("--p", p.toFixed(4));
     };
 
     window.addEventListener("scroll", apply, { passive: true });
@@ -47,8 +47,8 @@ export function Hero() {
     <section ref={ref} className={styles.hero}>
       {/* Sticky card layer — stays put across both panels. */}
       <div className={styles.stage}>
-        <div className={styles.cardPerspective}>
-          <div ref={cardRef} className={styles.card}>
+        <div ref={stageRef} className={styles.cardPerspective}>
+          <div className={styles.card}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className={styles.face} src={FRONT} alt="Souvik" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
