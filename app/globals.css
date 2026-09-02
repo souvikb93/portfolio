@@ -120,6 +120,10 @@
   --build-intro-ratio: 178 / 232;
   --testimonial-photo-w: 212px;
   --testimonial-photo-ratio: 212 / 253;
+  /* hero card, scroll-driven (values measured off the live site) */
+  --card-travel-x: 340px;
+  --card-travel-y: 24px;
+  --card-spin: 140deg;
 
   /* --- widths --- */
   /* Live site: content is min(1440px, 100% - 2*gutter). At 1280 that gives a

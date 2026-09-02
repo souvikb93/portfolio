@@ -41,19 +41,25 @@
   color: var(--text-primary);
   position: relative;
   padding-bottom: 2px;
-  transition: opacity 0.2s ease, transform 0.1s ease;
+  transition: color 0.25s ease, transform 0.1s ease;
 }
 
 /* Rest / hover / press / focus. The active page keeps its underline; hovering
    any other link previews the same underline at half strength. */
-.link:hover { opacity: 0.6; }
+/* Hovering the row mutes every link, then the hovered one is restored. The
+   previous rule faded the hovered item instead, which is backwards. */
+.links:hover .link { color: var(--text-index); }
+.links:hover .link:hover { color: var(--text-primary); }
 .link:active { transform: translateY(1px); }
 .link:focus-visible {
   outline: 2px solid var(--brand-secondary);
   outline-offset: 4px;
   border-radius: 2px;
 }
-.link:not([data-active="true"])::after {
+/* Underline wipes in from the left rather than appearing at full width.
+   Every link carries it; only the scale changes, so active and hover share
+   one animation and it reverses cleanly on mouse-out. */
+.link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -61,10 +67,12 @@
   bottom: 0;
   height: 1px;
   background: currentColor;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.link:not([data-active="true"]):hover::after { opacity: 0.4; }
+.link[data-active="true"]::after,
+.link:hover::after { transform: scaleX(1); }
 
 .logo { transition: opacity 0.2s ease; }
 .logo:hover { opacity: 0.6; }
@@ -97,18 +105,9 @@
 .header[data-on-dark="true"] .logo,
 .header[data-on-dark="true"] .link { color: var(--on-dark); }
 .header[data-on-dark="true"] .linkNo { color: var(--on-dark-40); }
-.header[data-on-dark="true"] .link[data-active="true"]::after { background: var(--on-dark); }
+.header[data-on-dark="true"] .links:hover .link { color: var(--on-dark-40); }
+.header[data-on-dark="true"] .links:hover .link:hover { color: var(--on-dark); }
 .header[data-on-dark="true"] .toggle span { background: var(--on-dark); }
-
-.link[data-active="true"]::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: var(--text-primary);
-}
 
 /* Layout only — rest/hover/press/focus come from the Button primitive. */
 .toggle {

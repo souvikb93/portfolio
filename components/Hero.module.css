@@ -25,15 +25,23 @@
   height: 476px;
   perspective: 1600px;
 }
+/* Scroll-driven, via --p (0 -> 1) set by Hero.tsx. Measured off the live site:
+   the card drifts ~340px right while rotating ~140deg, so it passes its own
+   edge and shows the back face before settling on the right of panel 2. The
+   vertical component is what makes the path read as diagonal rather than a
+   sideways slide. No transition: the position is the scroll position, so
+   scrolling back up reverses it exactly. */
 .card {
+  --p: 0;
   position: relative;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  transform:
+    translate3d(calc(var(--p) * var(--card-travel-x)), calc(var(--p) * var(--card-travel-y)), 0)
+    rotateY(calc(var(--p) * var(--card-spin)));
   will-change: transform;
 }
-.card[data-flipped="true"] { transform: rotateY(180deg); }
 
 .face {
   position: absolute;
@@ -166,6 +174,10 @@
   text-align: right;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .card { transform: none; }
+}
+
 @media (max-width: 900px) {
   .hero { height: auto; }
   .stage {
@@ -187,6 +199,7 @@
     font-size: 28px;
   }
 
+  .card { transform: none; }
   .panels { position: static; }
   .panel { height: auto; padding: 0 0 var(--space-20); }
   .panelInner { flex-direction: column; align-items: center; gap: var(--space-16); }
