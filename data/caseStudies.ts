@@ -43,11 +43,20 @@ export type Block = {
   no: string;
   title: string;
   body: string;
+  /** "Solution Highlights" list the live pages run under the body copy. */
+  bullets?: string[];
+  /** Small print under this block's media. */
+  caption?: string;
   /** Plates that sit under this sub-heading, as on the live pages. */
   media?: Gallery[];
 };
 
-export type Metric = { value: string; label: string };
+export type Metric = {
+  value: string;
+  label: string;
+  /** Live states how each number was measured. */
+  note?: string;
+};
 
 /**
  * One band of a case study. The live pages label each with its own eyebrow
@@ -331,16 +340,37 @@ export const caseStudies: Record<string, CaseStudy> = {
             no: "02",
             title: "Unclear Call-to-Action",
             body: "“I wasn’t sure if tapping that would submit my claim or just save it.” — Insurance Agent. About 3 in 5 users hesitated or picked the wrong action on core screens during interviews.",
+            bullets: [
+              "Pulled Google Analytics data on page views and engagement time across the app",
+              "Ranked features by actual usage, not internal opinion",
+              "Placed the most-used features in the bottom navigation bar for one-tap access",
+              "Ordered the hamburger menu to match, most used to least",
+            ],
+            caption:
+              "The most visited pages identified in Google Analytics (left) were used to determine the hierarchy of items in the hamburger menu (right), aligning navigation with real user behavior.",
           },
           {
             no: "03",
             title: "Complex Form Structures",
             body: "“On mobile I have to scroll left and right just to fill out one form. I’d rather do it on desktop.” — Insurance Agent. Claims and enrollment forms had the highest drop-off in the app, around 40% — the biggest single driver of support calls.",
+            bullets: [
+              "Audited the existing design system to understand tokens and patterns already in place",
+              "Built mobile-specific components extending the system, not replacing it",
+              "Covered buttons, form fields, cards, navigation elements and interaction states",
+              "Standardized CTA labels to improve action clarity and consistency",
+            ],
           },
           {
             no: "04",
             title: "Lack of Search Functionality",
             body: "“It takes me longer to find the record than to actually do the work.” — Support Staff. Finding the right plan took over 90 seconds on average, so members gave up and switched to desktop.",
+            bullets: [
+              "Switched to single-column layouts, removing horizontal scroll entirely",
+              "Broke long forms into labeled steps with a visible progress indicator",
+              "Designed immediate success and error feedback instead of post-submission validation",
+            ],
+            caption:
+              "Wireframes were initially developed to align the team on the application’s structure and user flow. These were then evolved into interactive prototypes that communicated transition states and user interactions, enabling consistent implementation by developers.",
           },
         ]
       },
@@ -391,6 +421,13 @@ export const caseStudies: Record<string, CaseStudy> = {
             no: "05",
             title: "Introduced Search & Filtering to Improve Data Discovery",
             body: "Finding claims data or a check application took over 90 seconds with no way to search. I defined search and filter categories from business workflows, designed clear empty/loading/no-results states, and specified filter-chip behavior, multi-select patterns, and clear/reset interactions.",
+            bullets: [
+              "Defined search and filter categories based on business workflows and stakeholder requirements",
+              "Designed clear empty, loading, and no-results states for search experiences",
+              "Defined filter chip behavior, multi-select patterns, and clear/reset interactions",
+            ],
+            caption:
+              "Stakeholder workshops for the Application Status page defined the search, filtering, and sorting experience, which was translated into the final UI shown on the right.",
           },
         ]
       },
@@ -410,20 +447,20 @@ export const caseStudies: Record<string, CaseStudy> = {
         metrics: [
           {
             value: "+12%",
-            label:
-              "Higher user engagement — mobile app usage rose within the first month, with more agents choosing mobile in their daily workflow (Google Analytics).",
+            label: "Higher User Engagement",
+            note: "Mobile app usage increased by 12% within the first month, with more insurance agents choosing the mobile app as part of their daily workflow. Validated using: Google Analytics.",
           },
           {
             value: "68 → 91",
-            label:
-              "Improved accessibility — Lighthouse Accessibility Score, reflecting a more inclusive experience (Lighthouse, Axe & manual testing).",
+            label: "Improved Accessibility",
+            note: "Lighthouse Accessibility Score improved from 68 to 91, reflecting a more accessible and inclusive experience across the redesigned member portal. Validated using: Lighthouse, Axe and manual accessibility testing.",
           },
           {
-            value: "−24%",
-            label:
-              "Faster task completion — simplified navigation and fewer interaction steps reduced task time in usability testing.",
+            value: "-24%",
+            label: "Faster Task Completion",
+            note: "Task completion time improved by 24% during usability testing, with simplified navigation and fewer interaction steps reducing the time required. Validated using: moderated usability testing.",
           },
-        ]
+        ],
       },
       {
         eyebrow: "Reflection",

@@ -91,6 +91,7 @@ export function StudyPage({
                   <div key={m.value} className={styles.metric}>
                     <span className="t-h3">{m.value}</span>
                     <p className="t-body muted">{m.label}</p>
+                    {m.note && <p className="t-body2 muted">{m.note}</p>}
                   </div>
                 ))}
               </div>
@@ -125,7 +126,20 @@ function BlockGrid({
           <span className="t-body2 muted">{b.no}</span>
           <h3 className="t-h6">{b.title}</h3>
           <p className="t-body muted">{b.body}</p>
+          {b.bullets && (
+            <>
+              <p className="t-body2 muted">Solution Highlights</p>
+              <ul className={styles.bullets}>
+                {b.bullets.map((x) => (
+                  <li key={x} className="t-body muted">
+                    {x}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
           <Media galleries={b.media} />
+          {b.caption && <p className="t-body2 muted">{b.caption}</p>}
         </article>
       ))}
     </div>
