@@ -8,6 +8,8 @@ export type Finding = {
   quoteBy?: string;
   /** Live keeps the attribution on the quote line for some studies. */
   quoteInline?: boolean;
+  /** Live labels this list per study — "Insight" on the build write-ups. */
+  supportLabel?: string;
   /** Live runs these as bullet lists on some studies and prose on others. */
   support?: string | string[];
   impact?: string | string[];
@@ -34,6 +36,7 @@ export type Figure = {
 export type Gallery = {
   layout:
     | "wide"
+    | "grid4"
     | "grid3"
     | "grid2"
     | "half"
@@ -47,7 +50,7 @@ export type Gallery = {
 export type Block = {
   no?: string;
   title: string;
-  body: string;
+  body?: string;
   /** "Solution Highlights" list the live pages run under the body copy. */
   bullets?: string[];
   /** Small print under this block's media. */
@@ -94,6 +97,8 @@ export type CaseStudy = {
   subtitle?: string;
   /** Banner above the title, as on the live site. */
   hero?: Gallery;
+  /** Interactive frame live floats over the hero image. */
+  heroEmbed?: Figure;
   sections: StudySection[];
 };
 
@@ -792,7 +797,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           {
             layout: "wide",
             items: [
-              { src: "/images/j6bOtMAnk1jhu46ZoAclLZZjjaw.webm", alt: "Concept video", ratio: "1152 / 648", kind: "video" },
+              { src: "/video/j6bOtMAnk1jhu46ZoAclLZZjjaw.webm", alt: "Concept video", ratio: "1152 / 648", kind: "video" },
             ],
           },
         ],

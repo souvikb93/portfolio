@@ -30,6 +30,16 @@ export function StudyPage({
               src={study.hero.items[0].src}
               alt={study.hero.items[0].alt}
             />
+            {study.heroEmbed && (
+              <iframe
+                className={styles.heroEmbed}
+                src={study.heroEmbed.src}
+                title={study.heroEmbed.alt}
+                style={{ aspectRatio: study.heroEmbed.ratio, width: study.heroEmbed.width }}
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin"
+              />
+            )}
           </section>
         )}
 
@@ -94,7 +104,10 @@ export function StudyPage({
                         </blockquote>
                       </>
                     )}
-                    <FindingList label="Supporting Findings" value={f.support} />
+                    <FindingList
+                      label={f.supportLabel ?? "Supporting Findings"}
+                      value={f.support}
+                    />
                     <FindingList label="Business Impact" value={f.impact} />
                   </article>
                 ))}
@@ -147,7 +160,7 @@ function BlockGrid({
             {b.no ? `${b.no} · ` : ""}
             {b.title}
           </h3>
-          <p className="t-body muted">{b.body}</p>
+          {b.body && <p className="t-body muted">{b.body}</p>}
           {b.bullets && (
             <>
               <p className="t-body2 muted">Solution Highlights</p>

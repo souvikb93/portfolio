@@ -55,3 +55,9 @@ iframe.item {
 }
 .group[data-layout="full"] iframe.item,
 .group[data-layout="center"] iframe.item { display: block; }
+
+/* Four plates on one row — Tracka's design-system band. */
+.group[data-layout="grid4"] { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 810px) {
+  .group[data-layout="grid4"] { grid-template-columns: repeat(2, 1fr); }
+}

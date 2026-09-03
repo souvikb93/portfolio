@@ -34,7 +34,7 @@ export default async function BuildDetail({
     <StudyPage
       study={b}
       backHref="/builds"
-      backLabel="Explore other builds"
+      backLabel="Explore Other Client Projects"
     />
   );
 }
