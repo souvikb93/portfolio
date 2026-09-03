@@ -848,7 +848,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     hero: {
       layout: "wide",
       items: [
-        { src: "/images/ThKHR9rfGkWENcL1AIy01Kos.gif", alt: "PitchHub case study", ratio: "1216 / 681" },
+        { src: "/images/ThKHR9rfGkWENcL1AIy01Kos.gif", alt: "Aero Check case study", ratio: "1216 / 681" },
       ],
     },
     sections: [
