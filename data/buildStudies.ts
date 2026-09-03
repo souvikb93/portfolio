@@ -388,7 +388,13 @@ export const buildStudies: Record<string, CaseStudy> = {
             { src: "/images/deck/tradeoff-review-details.png", alt: "Review details modal listing the fields extraction could not find", ratio: "1600 / 1611", caption: "Initial job details modal after extraction failure" },
           ] },
           { layout: "wide", items: [
-            { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607", caption: "Finding a job on a job portal and bringing its description into Tracka." },
+            {
+              src: "/video/tracka-jd-extraction.mp4",
+              alt: "Finding a job on a job portal and pasting its description into Tracka",
+              ratio: "1600 / 900",
+              kind: "video",
+              caption: "The outcome: a job found on a portal, its description pasted into Tracka, and the fields filled in automatically.",
+            },
           ] },
         ],
       },
