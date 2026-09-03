@@ -1,0 +1,8 @@
+/* Measured on the live study pages: 18/26 heading face, primary ink, no
+   uppercasing or tracking, and 26px of air before the section title. 26px is
+   off the 4px space scale, so it is named here at the component layer. */
+.eyebrow {
+  --eyebrow-gap: 26px;
+  color: var(--text-primary);
+  margin: 0 0 var(--eyebrow-gap);
+}

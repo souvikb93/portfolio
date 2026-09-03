@@ -362,6 +362,9 @@ export const buildStudies: Record<string, CaseStudy> = {
           { title: "The Outcome", body: "Job details could be extracted consistently, regardless of the source website." },
         ],
         media: [
+          { layout: "wide", items: [
+            { src: "/images/deck/tradeoff-steps.png", alt: "Original approach, the challenge, the product decision and the outcome", ratio: "1900 / 319" },
+          ] },
           { layout: "grid2", items: [
             { src: "/images/deck/tradeoff-add-job.png", alt: "The original add-a-job modal built around URL extraction", ratio: "1600 / 1695" },
             { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607" },
@@ -421,17 +424,19 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             no: "02",
             title: "Consistency & Reliability: Reliable products build more trust than clever features.",
+            media: [
+              { layout: "wide", items: [{ src: "/images/L5HpHx26RmmM7uvn63gekQPcLE.png", alt: "Consistency and reliability", ratio: "1152 / 193" }] },
+            ],
             body: "While designing the job tracker, I initially allowed users to add a job by pasting a job posting URL. Since different job boards use different page structures, universal URL extraction wasn\u2019t practical. Instead of forcing the feature to work everywhere, I redesigned the workflow so users paste the job description directly while the AI automatically extracts and fills the required fields. This reinforced that reliability creates more value than automation that only works in certain situations.",
           },
           {
             no: "03",
             title: "Continuous Refinement: A design system evolves through continuous feedback.",
+            media: [
+              { layout: "wide", items: [{ src: "/images/deck/refinement-loop.png", alt: "Review AI output, identify gaps, update the Figma system, re-extract context, keep context fresh", ratio: "1900 / 318" }] },
+            ],
             body: "While building Tracka with an AI coding assistant, I found that every new feature introduced new components, variants, and design refinements. Simply updating the design system in Figma wasn\u2019t enough because the AI also needed the latest design context to generate consistent interfaces. I learned to establish a feedback loop that kept both the design system and the AI aligned as the product evolved.",
           },
-        ],
-        media: [
-          { layout: "wide", items: [{ src: "/images/L5HpHx26RmmM7uvn63gekQPcLE.png", alt: "Consistency and reliability", ratio: "1152 / 193" }] },
-          { layout: "wide", items: [{ src: "/images/K3EQfioE2BsZqX7mNTzeuoma4P4.png", alt: "Continuous refinement", ratio: "1152 / 193" }] },
         ],
       },
       {

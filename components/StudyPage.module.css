@@ -38,12 +38,17 @@
 .meta dt { margin-bottom: var(--space-1); }
 .meta dd { margin: 0; }
 
-.section { border-top: 1px solid var(--rule); }
+/* Study sections carry no dividing rule on live, and a tighter rhythm than the
+   site-wide .section: 60px above, 64px below. 60 is off the space scale. */
+.section {
+  --study-section-top: 60px;
+  padding: var(--study-section-top) 0 var(--space-16);
+}
+/* The eyebrow already owns the 26px gap above the title. */
 .sectionBody {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  margin-top: var(--space-8);
 }
 .sectionBody > p { max-width: var(--prose-max); }
 

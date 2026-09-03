@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeaderBar } from "@/components/HeaderBar";
+import { SectionEyebrow } from "@/components/SectionEyebrow";
 import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
@@ -192,7 +192,7 @@ function Section({
   return (
     <section className={`section ${styles.section}`}>
       <div className="container-study">
-        <HeaderBar no={`(${eyebrow})`} title="" />
+        <SectionEyebrow>{eyebrow}</SectionEyebrow>
         <div className={styles.sectionBody}>{children}</div>
       </div>
     </section>
