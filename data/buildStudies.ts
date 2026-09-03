@@ -31,6 +31,7 @@ export const buildStudies: Record<string, CaseStudy> = {
     sections: [
       {
         eyebrow: "Context",
+        layout: "split",
         title: "A Changing Job Market in the Age of AI",
         body: "When I moved to Berlin and began my own job search, I noticed how diverse the job market was, with people from different cultural, educational, professional, and language backgrounds. At the same time, AI was changing how candidates were screened and evaluated, from AI-powered CV screening to AI-led interviews.",
         media: [
@@ -46,19 +47,21 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Problem",
+        layout: "split",
         title: "Job Searching Has Become a Process to Manage",
         body: "Every application came with its own requirements, materials, and next steps. Context was constantly recreated across CVs, cover letters, applications, and interviews. As applications multiplied, the effort wasn\u2019t just finding jobs. It was managing everything around each application.",
         media: [
           {
             layout: "center",
             items: [
-              { src: "/images/fyASe6P3NXZ0bKrLXVLq0E2w6q8.png", alt: "The six steps behind every application", ratio: "364 / 863", width: "364px" },
+              { src: "/images/fyASe6P3NXZ0bKrLXVLq0E2w6q8.png", alt: "The six steps behind every application", ratio: "364 / 863", width: "364px", caption: "The six steps every application ran through, from finding a job to following up with recruiters." },
             ],
           },
         ],
       },
       {
         eyebrow: "Research",
+        layout: "splitReverse",
         title: "Understanding the Job Search Journey",
         body: "Before exploring solutions, I wanted to understand how people actually manage their job search. I captured recurring behaviors, frustrations, and workarounds through informal conversations with job seekers and recruiters.",
         metrics: [
@@ -68,7 +71,7 @@ export const buildStudies: Record<string, CaseStudy> = {
           { value: "4", label: "Hiring Managers" },
         ],
         media: [
-          { layout: "wide", items: [{ src: "/video/1jcvQ3Vvht0pfBEzcyTjIVBrnA.mp4", alt: "Research synthesis", ratio: "690 / 388", kind: "video" }] },
+          { layout: "wide", items: [{ src: "/video/1jcvQ3Vvht0pfBEzcyTjIVBrnA.mp4", alt: "Research synthesis", ratio: "690 / 388", kind: "video", caption: "Job seekers at Berlin career meetups describing the same problems." }] },
         ],
       },
       {
@@ -87,7 +90,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             support:
               "Tailoring applications was the most time-consuming part of the job search. Users needed faster ways to personalize resumes and cover letters without compromising quality.",
             media: [
-              { layout: "wide", items: [{ src: "/images/deck/theme-personalized.png", alt: "Job description analysed into a tailored resume and cover letter", ratio: "1600 / 610" }] },
+              { layout: "wide", items: [{ src: "/images/deck/theme-personalized.png", alt: "Job description analysed into a tailored resume and cover letter", ratio: "1600 / 610", caption: "One job description analysed into an ATS-optimised resume and a personalised cover letter." }] },
             ],
           },
           {
@@ -101,7 +104,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             support:
               "Candidates increasingly relied on ATS checkers and compared resumes with job descriptions using AI to improve their chances of reaching recruiters. Identifying the right keywords had become an additional step in every application.",
             media: [
-              { layout: "wide", items: [{ src: "/images/deck/theme-ats.png", alt: "ATS match analyzer scoring a resume against a job description", ratio: "1600 / 630" }] },
+              { layout: "wide", items: [{ src: "/images/deck/theme-ats.png", alt: "ATS match analyzer scoring a resume against a job description", ratio: "1600 / 630", caption: "The ATS match analyzer scoring a resume and listing matched against missing keywords." }] },
             ],
           },
           {
@@ -115,7 +118,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             support:
               "As applications progressed, important information became scattered across job portals, emails, folders, spreadsheets, and documents. Reconstructing the full context of an application often took longer than expected, especially during interviews and follow-ups.",
             media: [
-              { layout: "wide", items: [{ src: "/images/deck/theme-workspace.png", alt: "One workspace holding the job description, documents and contacts", ratio: "1600 / 580" }] },
+              { layout: "wide", items: [{ src: "/images/deck/theme-workspace.png", alt: "One workspace holding the job description, documents and contacts", ratio: "1600 / 580", caption: "One workspace holding the original posting, the tailored documents, and recruiter contacts." }] },
             ],
           },
           {
@@ -129,12 +132,12 @@ export const buildStudies: Record<string, CaseStudy> = {
             support:
               "While we couldn\u2019t eliminate repetitive forms across external job portals, we could remove the same friction from our own onboarding experience.",
             media: [
-              { layout: "wide", items: [{ src: "/images/deck/theme-onboarding.png", alt: "Upload a CV and have profile details extracted automatically", ratio: "1600 / 550" }] },
+              { layout: "wide", items: [{ src: "/images/deck/theme-onboarding.png", alt: "Upload a CV and have profile details extracted automatically", ratio: "1600 / 550", caption: "A CV uploaded once, with the profile extracted and pre-filled from it." }] },
             ],
           },
         ],
         media: [
-          { layout: "wide", items: [{ src: "/images/N9Czpipl9lUSddOVtWvc8kCn2Q.png", alt: "From insights to product decisions", ratio: "1152 / 411" }] },
+          { layout: "wide", items: [{ src: "/images/N9Czpipl9lUSddOVtWvc8kCn2Q.png", alt: "From insights to product decisions", ratio: "1152 / 411", caption: "The four themes carried forward into the product." }] },
         ],
       },
       {
@@ -150,22 +153,25 @@ export const buildStudies: Record<string, CaseStudy> = {
                 alt: "Interactive first-time and returning user journeys",
                 ratio: "1152 / 979",
                 kind: "embed",
+                caption:
+                  "Both journeys plotted against confidence. Select a stage to read its action, goal and touchpoint.",
               },
             ],
           },
-          { layout: "wide", items: [{ src: "/images/YEjleZD455mfl5bIJBjeFDKeoi0.png", alt: "Journey comparison", ratio: "1152 / 412" }] },
-          { layout: "wide", items: [{ src: "/images/IIGp5fjqkwugqytphjGK6WII88E.png", alt: "Feature prioritisation", ratio: "1152 / 344" }] },
+          { layout: "wide", items: [{ src: "/images/YEjleZD455mfl5bIJBjeFDKeoi0.png", alt: "Journey comparison", ratio: "1152 / 412", caption: "First-time and returning journeys compared side by side." }] },
+          { layout: "wide", items: [{ src: "/images/IIGp5fjqkwugqytphjGK6WII88E.png", alt: "Feature prioritisation", ratio: "1152 / 344", caption: "Features prioritised against the journey." }] },
         ],
       },
       {
         eyebrow: "Product Hierarchy",
+        layout: "split",
         title: "Defining the Information Hierarchy",
         body: "Before moving into UI design, I defined the information architecture and key user entry points. The experience separates marketing, authentication, onboarding, and the core workspace into a clear navigation structure, creating an intuitive journey for both first-time and returning users.",
         media: [
           {
             layout: "wide",
             items: [
-              { src: "/images/deck/ia-hierarchy.png", alt: "Product hierarchy from marketing and authentication through onboarding to the core workspace", ratio: "1600 / 840" },
+              { src: "/images/deck/ia-hierarchy.png", alt: "Product hierarchy from marketing and authentication through onboarding to the core workspace", ratio: "1600 / 840", caption: "Marketing, authentication, onboarding and the core workspace as separate branches." },
             ],
           },
         ],
@@ -174,14 +180,15 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Design System",
+        layout: "split",
         title: "From Design System to Consistent Interfaces",
         body: "I translated the design system into structured documentation that AI could interpret, enabling reusable components, predictable layouts, and consistent outputs across the product.",
         media: [
-          { layout: "center", items: [{ src: "/video/bami6O5MLqZdLUMdBO2ty9EVNA.mp4", alt: "Design system walkthrough", ratio: "600 / 600", width: "600px", kind: "video" }] },
+          { layout: "center", items: [{ src: "/video/bami6O5MLqZdLUMdBO2ty9EVNA.mp4", alt: "Design system walkthrough", ratio: "600 / 600", width: "600px", kind: "video", caption: "Walking through the Tracka design system in Figma." }] },
           {
             layout: "wide",
             items: [
-              { src: "/images/deck/design-system-color-rules.png", alt: "Colour rules page: how to use colour correctly in Tracka UI", ratio: "1440 / 2276" },
+              { src: "/images/deck/design-system-color-rules.png", alt: "Colour rules page: how to use colour correctly in Tracka UI", ratio: "1440 / 2276", caption: "Colour roles documented with the rule that status colours always carry a label." },
             ],
           },
           {
@@ -194,7 +201,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             ],
           },
         ],
-        caption: "Design System to Markdown File",
+        caption: "The design system written out as a markdown file the AI could read: tokens, components, patterns and documentation.",
       },
       {
         eyebrow: "Design to Code",
@@ -210,6 +217,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             ],
           },
         ],
+        caption: "The Figma library exposed through an MCP server, formalised by an AI copilot, and written out as DESIGN_SYSTEM.md.",
       },
       {
         eyebrow: "Concept Exploration",
@@ -224,15 +232,16 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             layout: "grid3",
             items: [
-              { src: "/images/aVYKH1wVnrxsFXGwh2gc0jiAdl8.png", alt: "Concept A", ratio: "352 / 225" },
-              { src: "/images/DMzXWMK6jkNVYOvvMYyFndUgMs.png", alt: "Concept B", ratio: "352 / 225" },
-              { src: "/images/Y9gDikOyHWx2ld5JeD1nbkzuE.png", alt: "Concept C", ratio: "352 / 226" },
+              { src: "/images/aVYKH1wVnrxsFXGwh2gc0jiAdl8.png", alt: "Concept A", ratio: "352 / 225", caption: "Concept A: a dense structure optimised for job management." },
+              { src: "/images/DMzXWMK6jkNVYOvvMYyFndUgMs.png", alt: "Concept B", ratio: "352 / 225", caption: "Concept B: three core tools under one shared navigation." },
+              { src: "/images/Y9gDikOyHWx2ld5JeD1nbkzuE.png", alt: "Concept C", ratio: "352 / 226", caption: "Concept C: a conversational hub connecting key tasks." },
             ],
           },
         ],
       },
       {
         eyebrow: "Concept Finalization",
+        layout: "split",
         title: "Selecting the Direction to Take Forward",
         body: "I selected this direction based on three key considerations to ensure it best supported the overall job-search experience.",
         blocks: [
@@ -241,8 +250,8 @@ export const buildStudies: Record<string, CaseStudy> = {
           { no: "03", title: "Scalability", body: "How well the structure supports a growing job-search workflow." },
         ],
         media: [
-          { layout: "center", items: [{ src: "/images/aVYKH1wVnrxsFXGwh2gc0jiAdl8.png", alt: "Concept B thumbnail", ratio: "341 / 218", width: "341px" }] },
-          { layout: "center", items: [{ src: "/images/94153csZ6w2Mjd4cYhHZo6y0Fpo.png", alt: "Concept B: Unified Navigation", ratio: "544 / 230", width: "544px" }] },
+          { layout: "center", items: [{ src: "/images/aVYKH1wVnrxsFXGwh2gc0jiAdl8.png", alt: "Concept B thumbnail", ratio: "341 / 218", width: "341px", caption: "Concept A: a dense structure optimised for job management." }] },
+          { layout: "center", items: [{ src: "/images/94153csZ6w2Mjd4cYhHZo6y0Fpo.png", alt: "Concept B: Unified Navigation", ratio: "544 / 230", width: "544px", caption: "The chosen direction drawn out across the three core screens." }] },
         ],
         caption: "Concept B: Unified Navigation",
       },
@@ -258,7 +267,7 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             layout: "wide",
             items: [
-              { src: "/images/deck/wireframe-to-ui.png", alt: "Hand-drawn wireframe translated into the job tracker interface", ratio: "1600 / 596" },
+              { src: "/images/deck/wireframe-to-ui.png", alt: "Hand-drawn wireframe translated into the job tracker interface", ratio: "1600 / 596", caption: "The wireframe, and the job tracker built from it." },
             ],
           },
         ],
@@ -275,8 +284,8 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             layout: "grid2",
             items: [
-              { src: "/images/deck/hifi-light.png", alt: "Job tracker in light mode", ratio: "1600 / 1040" },
-              { src: "/images/deck/hifi-dark.png", alt: "Job tracker in dark mode", ratio: "1600 / 1137" },
+              { src: "/images/deck/hifi-light.png", alt: "Job tracker in light mode", ratio: "1600 / 1040", caption: "The job tracker in light mode." },
+              { src: "/images/deck/hifi-dark.png", alt: "Job tracker in dark mode", ratio: "1600 / 1137", caption: "The same screen in dark mode." },
             ],
           },
         ],
@@ -294,16 +303,18 @@ export const buildStudies: Record<string, CaseStudy> = {
             ],
           },
         ],
+        caption: "The AI context package, the Figma MCP context and the CPAC prompt, handed to the coding assistant together.",
       },
       {
         eyebrow: "Technical Architecture",
+        layout: "split",
         title: "Building a Scalable Architecture",
         body: "Rather than building custom infrastructure, I evaluated modern tools that could accelerate development while keeping costs low and maintenance minimal. The architecture prioritizes rapid iteration today, with the flexibility to replace individual services as the product scales.",
         media: [
           {
             layout: "wide",
             items: [
-              { src: "/images/deck/tech-architecture.png", alt: "ATS scoring engine, data layer and AI features, and the flows between them", ratio: "1600 / 1016" },
+              { src: "/images/deck/tech-architecture.png", alt: "ATS scoring engine, data layer and AI features, and the flows between them", ratio: "1600 / 1016", caption: "How the ATS scoring engine, the data layer and the AI features connect." },
             ],
           },
         ],
@@ -325,6 +336,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             ],
           },
         ],
+        caption: "Read the structured data, match and map the terms, score each dimension, apply the weights, aggregate the final score.",
       },
       {
         eyebrow: "Feedback",
@@ -338,7 +350,7 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             layout: "wide",
             items: [
-              { src: "/images/deck/feedback-testing.png", alt: "In-product feedback form alongside a moderated testing session", ratio: "1600 / 420" },
+              { src: "/images/deck/feedback-testing.png", alt: "In-product feedback form alongside a moderated testing session", ratio: "1600 / 420", caption: "The in-product feedback form, and a moderated testing session." },
             ],
           },
         ],
@@ -351,13 +363,14 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             layout: "wide",
             items: [
-              { src: "/images/deck/feedback-synthesis.png", alt: "Feedback and the resulting design change mapped against each journey stage", ratio: "1600 / 660" },
+              { src: "/images/deck/feedback-synthesis.png", alt: "Feedback and the resulting design change mapped against each journey stage", ratio: "1600 / 660", caption: "Feedback mapped to each journey stage with the design change it produced. Green is implemented, red still in progress." },
             ],
           },
         ],
       },
       {
         eyebrow: "Design Trade-off",
+        layout: "split",
         title: "Choosing Reliability Over Automation",
         body: "I wanted to make adding a job to the Tracker as effortless as possible, while keeping the experience automated, reliable, and consistent.",
         blocks: [
@@ -368,14 +381,14 @@ export const buildStudies: Record<string, CaseStudy> = {
         ],
         media: [
           { layout: "wide", items: [
-            { src: "/images/deck/tradeoff-steps.png", alt: "Original approach, the challenge, the product decision and the outcome", ratio: "1900 / 319" },
+            { src: "/images/deck/tradeoff-steps.png", alt: "Original approach, the challenge, the product decision and the outcome", ratio: "1900 / 319", caption: "From the original URL-based approach through to pasting the job description." },
           ] },
           { layout: "grid2", items: [
             { src: "/images/deck/tradeoff-add-job.png", alt: "The original add-a-job modal built around URL extraction", ratio: "1600 / 1695", caption: "Initial job add modal using URL-based extraction" },
             { src: "/images/deck/tradeoff-review-details.png", alt: "Review details modal listing the fields extraction could not find", ratio: "1600 / 1611", caption: "Initial job details modal after extraction failure" },
           ] },
           { layout: "wide", items: [
-            { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607" },
+            { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607", caption: "Finding a job on a job portal and bringing its description into Tracka." },
           ] },
         ],
       },
@@ -392,7 +405,7 @@ export const buildStudies: Record<string, CaseStudy> = {
           {
             layout: "wide",
             items: [
-              { src: "/images/deck/impact-table.png", alt: "Time taken per user across Word, Canva and Tracka", ratio: "1600 / 900" },
+              { src: "/images/deck/impact-table.png", alt: "Time taken per user across Word, Canva and Tracka", ratio: "1600 / 900", caption: "Time taken to tailor the same resume across Word, Canva and Tracka." },
             ],
           },
         ],
@@ -428,12 +441,14 @@ export const buildStudies: Record<string, CaseStudy> = {
                 ],
               },
             ],
+            caption:
+              "Theme resolution falling back from the user\u2019s choice to the device, then the local time, then the default.",
           },
           {
             no: "02",
             title: "Consistency & Reliability: Reliable products build more trust than clever features.",
             media: [
-              { layout: "wide", items: [{ src: "/images/L5HpHx26RmmM7uvn63gekQPcLE.png", alt: "Consistency and reliability", ratio: "1152 / 193" }] },
+              { layout: "wide", items: [{ src: "/images/L5HpHx26RmmM7uvn63gekQPcLE.png", alt: "Consistency and reliability", ratio: "1152 / 193", caption: "Reliability chosen over automation that only worked on some job boards." }] },
             ],
             body: "While designing the job tracker, I initially allowed users to add a job by pasting a job posting URL. Since different job boards use different page structures, universal URL extraction wasn\u2019t practical. Instead of forcing the feature to work everywhere, I redesigned the workflow so users paste the job description directly while the AI automatically extracts and fills the required fields. This reinforced that reliability creates more value than automation that only works in certain situations.",
           },
@@ -441,7 +456,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             no: "03",
             title: "Continuous Refinement: A design system evolves through continuous feedback.",
             media: [
-              { layout: "wide", items: [{ src: "/images/deck/refinement-loop.png", alt: "Review AI output, identify gaps, update the Figma system, re-extract context, keep context fresh", ratio: "1900 / 318" }] },
+              { layout: "wide", items: [{ src: "/images/deck/refinement-loop.png", alt: "Review AI output, identify gaps, update the Figma system, re-extract context, keep context fresh", ratio: "1900 / 318", caption: "Keeping the design system and the AI in step as the product changed." }] },
             ],
             body: "While building Tracka with an AI coding assistant, I found that every new feature introduced new components, variants, and design refinements. Simply updating the design system in Figma wasn\u2019t enough because the AI also needed the latest design context to generate consistent interfaces. I learned to establish a feedback loop that kept both the design system and the AI aligned as the product evolved.",
           },

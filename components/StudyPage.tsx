@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
 import { ScrollStage } from "./ScrollStage";
-import type { Block, Gallery } from "@/data/caseStudies";
+import type { Block, Gallery, StudySection } from "@/data/caseStudies";
 import styles from "./StudyPage.module.css";
 
 // Shared long-form study layout used by /projects/[slug] and /builds/[slug].
@@ -70,73 +70,13 @@ export function StudyPage({
         </ScrollStage>
 
         {study.sections.map((sec, i) => (
-          <Section key={`${sec.eyebrow}-${i}`} eyebrow={sec.eyebrow}>
-            {sec.title && <h2 className="t-h4">{sec.title}</h2>}
-            {sec.body && <p className="t-body muted">{sec.body}</p>}
-            {sec.bullets && (
-              <ul className={styles.bullets}>
-                {sec.bullets.map((x) => (
-                  <li key={x} className="t-body muted">
-                    {x}
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {sec.findings && (
-              <div className={styles.findings}>
-                {sec.findings.map((f) => (
-                  <article key={f.no ?? f.title} className={styles.finding}>
-                    <h3 className="t-h5">
-                      {f.no ? `${f.no} · ` : ""}
-                      {f.title}
-                    </h3>
-                    {f.caption && <p className="t-body2 muted">{f.caption}</p>}
-                    {f.quote && (
-                      <>
-                        <p className="t-body2 muted">User Quote</p>
-                        <blockquote className={styles.quote}>
-                          <p className="t-body">
-                            &quot;{f.quote}&quot;
-                            {f.quoteBy && f.quoteInline && (
-                              <cite className="t-body2 muted"> {f.quoteBy}</cite>
-                            )}
-                          </p>
-                          {f.quoteBy && !f.quoteInline && (
-                            <cite className={`t-body2 muted ${styles.cite}`}>
-                              {f.quoteBy}
-                            </cite>
-                          )}
-                        </blockquote>
-                      </>
-                    )}
-                    <FindingList
-                      label={f.supportLabel ?? "Supporting Findings"}
-                      value={f.support}
-                    />
-                    <Media galleries={f.media} />
-                    <FindingList label="Business Impact" value={f.impact} />
-                  </article>
-                ))}
-              </div>
-            )}
-
-            {sec.metrics && (
-              <div className={styles.metrics}>
-                {sec.metrics.map((m) => (
-                  <div key={m.value} className={styles.metric}>
-                    <span className="t-h3">{m.value}</span>
-                    <p className="t-body muted">{m.label}</p>
-                    {m.note && <p className="t-body2 muted">{m.note}</p>}
-                    {m.source && <p className="t-body2 muted">{m.source}</p>}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {sec.blocks && <BlockGrid blocks={sec.blocks} />}
-            <Media galleries={sec.media} />
-            {sec.caption && <p className="t-body2 muted">{sec.caption}</p>}
+          <Section
+            key={`${sec.eyebrow}-${i}`}
+            eyebrow={sec.eyebrow}
+            layout={sec.layout}
+          >
+            <SectionCopy sec={sec} />
+            <SectionMedia sec={sec} />
           </Section>
         ))}
 
@@ -188,18 +128,107 @@ function BlockGrid({
   );
 }
 
+/** Everything a section says: heading, prose, lists, findings, metrics, blocks. */
+function SectionCopy({ sec }: { sec: StudySection }) {
+  return (
+    <div className={styles.copy}>
+      {sec.title && <h2 className="t-h4">{sec.title}</h2>}
+      {sec.body && <p className="t-body muted">{sec.body}</p>}
+      {sec.bullets && (
+        <ul className={styles.bullets}>
+          {sec.bullets.map((x) => (
+            <li key={x} className="t-body muted">
+              {x}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {sec.findings && (
+        <div className={styles.findings}>
+          {sec.findings.map((f) => (
+            <article key={f.no ?? f.title} className={styles.finding}>
+              <h3 className="t-h5">
+                {f.no ? `${f.no} · ` : ""}
+                {f.title}
+              </h3>
+              {f.caption && <p className="t-body2 muted">{f.caption}</p>}
+              {f.quote && (
+                <>
+                  <p className="t-body2 muted">User Quote</p>
+                  <blockquote className={styles.quote}>
+                    <p className="t-body">
+                      &quot;{f.quote}&quot;
+                      {f.quoteBy && f.quoteInline && (
+                        <cite className="t-body2 muted"> {f.quoteBy}</cite>
+                      )}
+                    </p>
+                    {f.quoteBy && !f.quoteInline && (
+                      <cite className={`t-body2 muted ${styles.cite}`}>
+                        {f.quoteBy}
+                      </cite>
+                    )}
+                  </blockquote>
+                </>
+              )}
+              <FindingList
+                label={f.supportLabel ?? "Supporting Findings"}
+                value={f.support}
+              />
+              <Media galleries={f.media} />
+              <FindingList label="Business Impact" value={f.impact} />
+            </article>
+          ))}
+        </div>
+      )}
+
+      {sec.metrics && (
+        <div className={styles.metrics}>
+          {sec.metrics.map((m) => (
+            <div key={m.value} className={styles.metric}>
+              <span className="t-h3">{m.value}</span>
+              <p className="t-body muted">{m.label}</p>
+              {m.note && <p className="t-body2 muted">{m.note}</p>}
+              {m.source && <p className="t-body2 muted">{m.source}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {sec.blocks && <BlockGrid blocks={sec.blocks} />}
+    </div>
+  );
+}
+
+/** A section's plates, plus the small print beneath them. */
+function SectionMedia({ sec }: { sec: StudySection }) {
+  if (!sec.media?.length && !sec.caption) return null;
+  return (
+    <div className={styles.plates}>
+      <Media galleries={sec.media} />
+      {sec.caption && <p className="t-body2 muted">{sec.caption}</p>}
+    </div>
+  );
+}
+
 function Section({
   eyebrow,
+  layout,
   children,
 }: {
   eyebrow: string;
+  layout?: StudySection["layout"];
   children: React.ReactNode;
 }) {
   return (
     <section className={`section ${styles.section}`}>
       <div className="container-study">
         <SectionEyebrow>{eyebrow}</SectionEyebrow>
-        <div className={styles.sectionBody}>{children}</div>
+        {/* "split" mirrors the deck slides that set copy beside the visual;
+            everything else stacks, as the full-width slides do. */}
+        <div className={styles.sectionBody} data-layout={layout ?? "stacked"}>
+          {children}
+        </div>
       </div>
     </section>
   );

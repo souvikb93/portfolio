@@ -80,6 +80,8 @@ export type Metric = {
  */
 export type StudySection = {
   eyebrow: string;
+  /** "split" sets the copy beside the plates, as the deck slides do. */
+  layout?: "split" | "splitReverse";
   /** Plain list the live pages run under the section body. */
   bullets?: string[];
   title?: string;
