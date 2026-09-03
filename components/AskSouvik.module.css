@@ -3,6 +3,15 @@
    Colours and metrics come straight from the component's defaults. */
 
 .root {
+  /* Component-layer metrics. These are the Framer component's own values and
+     do not sit on the 4px space scale, so they are named here rather than
+     repeated as literals. */
+  --chat-bubble-pad-y: 9px;
+  --chat-bubble-pad-x: 13px;
+  --chat-bubble-radius: 14px;
+  --chat-bubble-font: 13.5px;
+  --chat-ai-pad-y: 11px;
+
   position: fixed;
   bottom: var(--space-6);
   right: var(--space-6);
@@ -97,9 +106,9 @@
 .bubble {
   align-self: flex-start;
   max-width: 85%;
-  padding: 9px 13px;
-  border-radius: 14px;
-  font-size: 13.5px;
+  padding: var(--chat-bubble-pad-y) var(--chat-bubble-pad-x);
+  border-radius: var(--chat-bubble-radius);
+  font-size: var(--chat-bubble-font);
   line-height: 1.45;
   white-space: pre-wrap;
   word-break: break-word;
@@ -127,8 +136,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-1);
-  padding: 11px 13px;
-  border-radius: 14px;
+  padding: var(--chat-ai-pad-y) var(--chat-bubble-pad-x);
+  border-radius: var(--chat-bubble-radius);
   background: var(--chat-ai-bubble);
   border: 1px solid var(--chat-border);
 }
@@ -182,7 +191,7 @@
   border: 1px solid var(--chat-border);
   border-radius: var(--card-gap);
   padding: 9px var(--space-3);
-  font-size: 13.5px;
+  font-size: var(--chat-bubble-font);
   color: var(--chat-text);
   outline: none;
   font-family: inherit;
@@ -254,4 +263,15 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .orb::before { animation: none; }
+}
+
+/* Keyboard focus, matching Nav/Button/ActionLink. */
+.root button:focus-visible,
+.root input:focus-visible {
+  outline: 2px solid var(--brand-secondary);
+  outline-offset: 2px;
+  border-radius: var(--chat-bubble-radius);
+}
+@media (prefers-reduced-motion: reduce) {
+  .chip:hover { transform: none; }
 }

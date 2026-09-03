@@ -1,12 +1,12 @@
 .footer {
   background: var(--brand-primary);
   color: var(--white);
-  padding: 64px 0 40px;
+  padding: var(--space-16) 0 var(--space-10);
 }
 .top {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px 48px;
+  gap: var(--space-6) var(--space-12);
   align-items: center;
   font-size: 14px;
 }
