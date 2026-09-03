@@ -32,6 +32,8 @@ export type Figure = {
   radius?: string;
   rounded?: boolean;
   kind?: "video" | "embed";
+  /** Small print under this single plate. */
+  caption?: string;
 };
 
 /** A row of figures. See components/Figure.tsx for what each layout means. */
@@ -102,6 +104,8 @@ export type CaseStudy = {
   hero?: Gallery;
   /** Interactive frame live floats over the hero image. */
   heroEmbed?: Figure;
+  /** Live puts a call to action between the summary and the meta table. */
+  cta?: { label: string; href: string };
   sections: StudySection[];
 };
 

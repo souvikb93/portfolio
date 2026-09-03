@@ -22,10 +22,21 @@ export function FigureGroup({ gallery }: { gallery: Gallery }) {
           maxWidth: item.width,
           borderRadius: item.radius,
         } as React.CSSProperties;
+        // A plate can carry its own small print, as the trade-off modals do.
+        const wrap = (el: React.ReactNode) =>
+          item.caption ? (
+            <figure key={item.src} className={styles.figure}>
+              {el}
+              <figcaption className="t-body2 muted">{item.caption}</figcaption>
+            </figure>
+          ) : (
+            el
+          );
+
         if (item.kind === "embed") {
           // Live embeds two interactive prototypes on the member portal study.
           // Sandboxed: scripts run (both need them), but nothing else is granted.
-          return (
+          return wrap(
             <iframe
               key={item.src}
               className={styles.item}
@@ -38,7 +49,8 @@ export function FigureGroup({ gallery }: { gallery: Gallery }) {
             />
           );
         }
-        return item.kind === "video" ? (
+        return wrap(
+          item.kind === "video" ? (
           <video
             key={item.src}
             className={styles.item}
@@ -63,6 +75,7 @@ export function FigureGroup({ gallery }: { gallery: Gallery }) {
             alt={item.alt}
             loading="lazy"
           />
+          )
         );
       })}
     </div>

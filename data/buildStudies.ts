@@ -9,14 +9,13 @@ export const buildStudies: Record<string, CaseStudy> = {
     summary:
       "As a solo product designer, I built Tracka to solve a real problem faced by job seekers while expanding my role beyond UX. Alongside designing the experience, I defined the product logic, business rules, and technical architecture required to bring a functional application to life.",
     meta: [
-      { label: "Client", value: "Self-initiated product" },
-      { label: "Duration", value: "3 months" },
+      { label: "Type", value: "Self-Initiated" },
+      { label: "Role", value: "Product Designer/Builder" },
       { label: "Industry", value: "Career Tech" },
-      {
-        label: "Scope of Work",
-        value: "Full-stack Build · Information Architecture · Design System",
-      },
+      { label: "Duration", value: "3 Months" },
+      { label: "Focus", value: "AI-Native Design Process" },
     ],
+    cta: { label: "Open Tracka", href: "https://www.tracka.my" },
     hero: {
       layout: "wide",
       items: [
@@ -100,7 +99,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             quoteInline: true,
             supportLabel: "Insight",
             support:
-              "Candidates increasingly relied on ATS checkers and manually compared resumes with job descriptions to improve their chances of reaching recruiters. Identifying the right keywords had become an additional step in every application.",
+              "Candidates increasingly relied on ATS checkers and compared resumes with job descriptions using AI to improve their chances of reaching recruiters. Identifying the right keywords had become an additional step in every application.",
             media: [
               { layout: "wide", items: [{ src: "/images/deck/theme-ats.png", alt: "ATS match analyzer scoring a resume against a job description", ratio: "1600 / 630" }] },
             ],
@@ -366,8 +365,8 @@ export const buildStudies: Record<string, CaseStudy> = {
             { src: "/images/deck/tradeoff-steps.png", alt: "Original approach, the challenge, the product decision and the outcome", ratio: "1900 / 319" },
           ] },
           { layout: "grid2", items: [
-            { src: "/images/deck/tradeoff-add-job.png", alt: "The original add-a-job modal built around URL extraction", ratio: "1600 / 1695" },
-            { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607" },
+            { src: "/images/deck/tradeoff-add-job.png", alt: "The original add-a-job modal built around URL extraction", ratio: "1600 / 1695", caption: "Initial job add modal using URL-based extraction" },
+            { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607", caption: "Initial job details modal after extraction failure" },
           ] },
         ],
       },

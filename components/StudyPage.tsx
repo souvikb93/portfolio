@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
+import { ActionLink } from "@/components/ActionLink";
 import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
@@ -51,6 +52,11 @@ export function StudyPage({
             )}
             <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
             <p className={`t-body muted ${styles.summary}`}>{study.summary}</p>
+            {study.cta && (
+              <p className={styles.headCta}>
+                <ActionLink href={study.cta.href}>{study.cta.label}</ActionLink>
+              </p>
+            )}
             <dl className={styles.meta}>
               {study.meta.map((m) => (
                 <div key={m.label}>

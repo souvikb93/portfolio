@@ -121,3 +121,6 @@
   max-width: calc(100% - var(--gutter) * 2);
   background: transparent;
 }
+
+/* Live sits the product link between the summary and the meta table. */
+.headCta { margin: var(--space-6) 0 0; }
