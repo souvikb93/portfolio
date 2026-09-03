@@ -61,3 +61,8 @@ iframe.item {
 @media (max-width: 810px) {
   .group[data-layout="grid4"] { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Five cards on one row — Tracka's ATS scoring steps. */
+.group[data-layout="grid5"] { grid-template-columns: repeat(5, 1fr); }
+@media (max-width: 1100px) { .group[data-layout="grid5"] { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 810px)  { .group[data-layout="grid5"] { grid-template-columns: repeat(2, 1fr); } }

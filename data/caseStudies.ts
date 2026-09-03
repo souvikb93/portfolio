@@ -10,6 +10,8 @@ export type Finding = {
   quoteInline?: boolean;
   /** Live labels this list per study — "Insight" on the build write-ups. */
   supportLabel?: string;
+  /** Plates that belong to this finding rather than the section. */
+  media?: Gallery[];
   /** Live runs these as bullet lists on some studies and prose on others. */
   support?: string | string[];
   impact?: string | string[];
@@ -36,6 +38,7 @@ export type Figure = {
 export type Gallery = {
   layout:
     | "wide"
+    | "grid5"
     | "grid4"
     | "grid3"
     | "grid2"

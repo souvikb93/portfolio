@@ -108,6 +108,7 @@ export function StudyPage({
                       label={f.supportLabel ?? "Supporting Findings"}
                       value={f.support}
                     />
+                    <Media galleries={f.media} />
                     <FindingList label="Business Impact" value={f.impact} />
                   </article>
                 ))}

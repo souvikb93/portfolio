@@ -1,0 +1,400 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"><title>journey preview</title></head>
+<body style="background:#FFFFFF;margin:0;">
+
+<div style="width:100%;max-width:1200px;box-sizing:border-box;padding:4px;font-family:'Helvetica Neue',Arial,sans-serif;">
+
+<div style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);" aria-live="polite" id="stageAnnounce3">Discovery</div>
+
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px;flex-wrap:wrap;gap:12px;">
+<div id="modeSegment3" role="tablist" aria-label="Journey type" style="position:relative;display:inline-flex;align-items:center;border-radius:16px;border:1px solid rgba(167,163,154,0.45);background:#ECEBE8;padding:4px;gap:2px;">
+  <div id="modeHighlight3" style="position:absolute;top:4px;left:0px;height:32px;border-radius:12px;background:#FFFFFF;box-shadow:0 1px 2px rgba(0,0,0,0.08);transition:left 250ms cubic-bezier(0.34,1.56,0.64,1),width 250ms cubic-bezier(0.34,1.56,0.64,1);z-index:0;"></div>
+  <button id="modeBtnNew3" type="button" role="tab" aria-selected="true" style="position:relative;z-index:1;display:inline-flex;align-items:center;height:32px;padding:0 14px;border:none;outline:none;background:transparent;border-radius:12px;font-size:13px;cursor:pointer;white-space:nowrap;font-family:inherit;font-weight:600;color:#151515;">
+    New User
+  </button>
+  <button id="modeBtnReturning3" type="button" role="tab" aria-selected="false" style="position:relative;z-index:1;display:inline-flex;align-items:center;height:32px;padding:0 14px;border:none;outline:none;background:transparent;border-radius:12px;font-size:13px;cursor:pointer;white-space:nowrap;font-family:inherit;font-weight:500;color:#4A4A4A;">
+    Returning User
+  </button>
+</div>
+<div style="display:flex;align-items:center;gap:20px;margin-right:1.92%;">
+  <div style="display:flex;align-items:center;gap:5px;">
+    <span style="width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:1px solid rgba(21,21,21,0.18);background:#FFEADB;display:inline-block;"></span>
+    <span style="font-size:9px;color:#8A8A8A;line-height:1;">1 Uncertain</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:5px;">
+    <span style="width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:1px solid rgba(21,21,21,0.18);background:#FFC49B;display:inline-block;"></span>
+    <span style="font-size:9px;color:#8A8A8A;line-height:1;">2 Hesitant</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:5px;">
+    <span style="width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:1px solid rgba(21,21,21,0.18);background:#FF9955;display:inline-block;"></span>
+    <span style="font-size:9px;color:#8A8A8A;line-height:1;">3 Neutral</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:5px;">
+    <span style="width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:1px solid rgba(21,21,21,0.18);background:#FF7328;display:inline-block;"></span>
+    <span style="font-size:9px;color:#8A8A8A;line-height:1;">4 Confident</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:5px;">
+    <span style="width:9px;height:9px;border-radius:50%;box-sizing:border-box;border:1px solid rgba(21,21,21,0.18);background:#E8480A;display:inline-block;"></span>
+    <span style="font-size:9px;color:#8A8A8A;line-height:1;">5 Empowered</span>
+  </div>
+</div>
+</div>
+
+<div style="position:relative;">
+<svg id="jrnSvg3" viewBox="0 0 1128 380" width="100%" style="display:block;overflow:visible;" role="img" aria-label="User journey stages">
+  <defs>
+    <clipPath id="plotClip3"><rect x="40" y="0" width="1060" height="314"/></clipPath>
+    <linearGradient id="curveGradient3" gradientUnits="userSpaceOnUse" x1="40" y1="0" x2="1100" y2="0"></linearGradient>
+  </defs>
+  <g id="grid3"></g>
+  <g id="yLabels3"></g>
+  <path id="areaPath3" d="" fill="rgba(255,90,47,0.08)" stroke="none" clip-path="url(#plotClip3)"/>
+  <path id="curvePath3" d="" fill="none" stroke="url(#curveGradient3)" stroke-width="2" clip-path="url(#plotClip3)"/>
+  <g id="anchors3"></g>
+  <g id="xLabels3"></g>
+  <circle id="hitArea3" r="22" fill="transparent" style="cursor:grab;touch-action:none;"/>
+  <circle id="dot3" r="9" fill="#FF5A2F" stroke="#FFFFFF" stroke-width="3" style="pointer-events:none;"/>
+</svg>
+</div>
+
+<style>
+.jc-row3{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px;}
+.jc-card3{background:#FFFFFF;border:1px solid rgba(21,21,21,0.10);border-radius:12px;padding:16px;position:relative;box-sizing:border-box;transition:border-color 220ms ease-out,background 220ms ease-out,transform 220ms ease-out;}
+.jc-card3.active{border-color:#FF5A2F;background:rgba(255,90,47,0.04);transform:scale(1.02);}
+.jc-title3{font-size:13px;font-weight:600;color:#151515;margin-bottom:2px;}
+.jc-label3{font-size:11px;font-weight:600;letter-spacing:0.02em;color:#FF5A2F;margin-top:12px;}
+.jc-val3{font-size:12px;color:#151515;line-height:1.5;margin-top:2px;}
+</style>
+
+<div class="jc-row3" id="jcRow3"></div>
+
+</div>
+<script>
+(function(){
+  var stageSets = {
+    first: [
+      {title:'1. Discover', axis:'Discover', v:2,
+       action:'Explores Tracka\'s features and pricing.',
+       goal:'Understand the product\'s value.',
+       touch:'Marketing Website'},
+      {title:'2. Sign In', axis:'Sign In', v:4,
+       action:'Creates an account using Google or Magic Link.',
+       goal:'Access the application.',
+       touch:'Authentication'},
+      {title:'3. Set Up Profile', axis:'Set Up Profile', v:3,
+       action:'Uploads a CV for AI extraction or manually enters profile details.',
+       goal:'Create a complete professional profile.',
+       touch:'Profile Setup Wizard'},
+      {title:'4. Explore Application', axis:'Explore App', v:3,
+       action:'Explores the dashboard with guided onboarding.',
+       goal:'Learn the application\'s core features.',
+       touch:'Guided Tooltips & Product Tour'},
+      {title:'5. Add First Job', axis:'Add First Job', v:4,
+       action:'Creates the first job by pasting a job description or entering details manually.',
+       goal:'Start a new job application.',
+       touch:'Job Creation Wizard'},
+      {title:'6. Complete Job Details', axis:'Job Details', v:2,
+       action:'Adds recruiter details, deadlines, links, and notes.',
+       goal:'Complete the job record.',
+       touch:'Job Details Form'},
+      {title:'7. Tailor Documents', axis:'Tailor Docs', v:4.5,
+       action:'Generates a tailored CV and cover letter.',
+       goal:'Prepare personalized application documents.',
+       touch:'CV & Cover Letter Builder'},
+      {title:'8. Save & Export', axis:'Save & Export', v:5,
+       action:'Saves the tailored CV and cover letter or exports them as a PDF.',
+       goal:'Prepare application documents for submission.',
+       touch:'Document Manager'}
+    ],
+    returning: [
+      {title:'1. Sign In', axis:'Sign In', v:3,
+       action:'Signs in to the application.',
+       goal:'Access the workspace.',
+       touch:'Authentication'},
+      {title:'2. Review Dashboard', axis:'Review Dashboard', v:3,
+       action:'Reviews active applications and upcoming tasks.',
+       goal:'Get a quick progress overview.',
+       touch:'Dashboard'},
+      {title:'3. Update Statuses', axis:'Update Statuses', v:4,
+       action:'Updates application stages, interviews, and follow-ups.',
+       goal:'Keep application progress current.',
+       touch:'Application tracker'},
+      {title:'4. Review Insights', axis:'Review Insights', v:4,
+       action:'Reviews AI insights and recommendations.',
+       goal:'Identify improvement opportunities.',
+       touch:'Career insights'},
+      {title:'5. Improve Resume', axis:'Improve Resume', v:5,
+       action:'Uses ATS recommendations to refine the resume for a selected role.',
+       goal:'Improve ATS compatibility.',
+       touch:'ATS score & suggestions'},
+      {title:'6. Manage Applications', axis:'Manage Apps', v:4,
+       action:'Adds new applications or updates existing ones.',
+       goal:'Keep applications organized.',
+       touch:'Job tracker'}
+    ]
+  };
+
+  var w = 1128, minX = 40, maxX = w - 28;
+  var yTop = 30, yBot = 310;
+  function xFor(i, n){ return minX + (maxX - minX) * (i / (n - 1)); }
+  function yFor(v){ return yBot - ((v - 1) / 4) * (yBot - yTop); }
+  function vForY(y){ return 1 + ((yBot - y) / (yBot - yTop)) * 4; }
+
+  var confidenceScale = ['#FFEADB','#FFC49B','#FF9955','#FF7328','#E8480A'];
+  function hexToRgb(hex){
+    var n = parseInt(hex.slice(1), 16);
+    return [(n>>16)&255, (n>>8)&255, n&255];
+  }
+  function colorForV(v){
+    v = Math.max(1, Math.min(5, v));
+    var idx = Math.min(3, Math.floor(v - 1));
+    var t = v - 1 - idx;
+    var c1 = hexToRgb(confidenceScale[idx]), c2 = hexToRgb(confidenceScale[idx+1]);
+    var r = Math.round(c1[0] + (c2[0]-c1[0])*t);
+    var g = Math.round(c1[1] + (c2[1]-c1[1])*t);
+    var b = Math.round(c1[2] + (c2[2]-c1[2])*t);
+    return 'rgb(' + r + ',' + g + ',' + b + ')';
+  }
+
+  var curveGradient = document.getElementById('curveGradient3');
+  var gridG = document.getElementById('grid3');
+  var yLabelsG = document.getElementById('yLabels3');
+  var xLabelsG = document.getElementById('xLabels3');
+  var anchorsG = document.getElementById('anchors3');
+  var pathEl = document.getElementById('curvePath3');
+  var areaEl = document.getElementById('areaPath3');
+  var svg = document.getElementById('jrnSvg3');
+  var dot = document.getElementById('dot3');
+  var hitArea = document.getElementById('hitArea3');
+  var grid = document.getElementById('jcRow3');
+  var announce = document.getElementById('stageAnnounce3');
+  var highlight = document.getElementById('modeHighlight3');
+  var btnNew = document.getElementById('modeBtnNew3');
+  var btnReturning = document.getElementById('modeBtnReturning3');
+
+  function catmullRom2bezier(pts){
+    var d = 'M' + pts[0].x + ',' + pts[0].y + ' ';
+    for(var i=0;i<pts.length-1;i++){
+      var p0 = pts[i-1] || pts[i];
+      var p1 = pts[i];
+      var p2 = pts[i+1];
+      var p3 = pts[i+2] || p2;
+      var c1x = p1.x + (p2.x - p0.x) / 6;
+      var c1y = p1.y + (p2.y - p0.y) / 6;
+      var c2x = p2.x - (p3.x - p1.x) / 6;
+      var c2y = p2.y - (p3.y - p1.y) / 6;
+      d += 'C' + c1x + ',' + c1y + ' ' + c2x + ',' + c2y + ' ' + p2.x + ',' + p2.y + ' ';
+    }
+    return d;
+  }
+
+  var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mode = 'first';
+  var stages, n, pts, total, stageLengths;
+  var currentLength = 0, currentIndex = 0, holdTimer = null, animGen = 0, playing = true, dragging = false;
+
+  function row(label, text){
+    return '<div class="jc-label3">' + label + '</div><div class="jc-val3">' + text + '</div>';
+  }
+
+  function lengthForX(targetX){
+    var lo = 0, hi = total;
+    for(var i=0;i<28;i++){
+      var mid = (lo+hi)/2;
+      var pt = pathEl.getPointAtLength(mid);
+      if(pt.x < targetX) lo = mid; else hi = mid;
+    }
+    return (lo+hi)/2;
+  }
+
+  function setDotAtLength(l){
+    var pt = pathEl.getPointAtLength(Math.max(0, Math.min(total, l)));
+    dot.setAttribute('cx', pt.x); dot.setAttribute('cy', pt.y);
+    dot.setAttribute('fill', colorForV(vForY(pt.y)));
+    hitArea.setAttribute('cx', pt.x); hitArea.setAttribute('cy', pt.y);
+  }
+
+  var cards = [];
+  function setActive(idx){
+    cards.forEach(function(c, i){ c.classList.toggle('active', i === idx); });
+    announce.textContent = stages[idx].title;
+  }
+
+  function easeInOutCubic(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2,3)/2; }
+
+  function animateTo(idx, cb){
+    var myGen = ++animGen;
+    var fromL = currentLength, toL = stageLengths[idx];
+    setActive(idx);
+    if(reducedMotion){
+      currentLength = toL; setDotAtLength(toL); currentIndex = idx;
+      if(cb) cb();
+      return;
+    }
+    var start = null, dur = 800;
+    function frame(ts){
+      if(myGen !== animGen) return;
+      if(!start) start = ts;
+      var t = Math.min(1, (ts - start) / dur);
+      var l = fromL + (toL - fromL) * easeInOutCubic(t);
+      currentLength = l; setDotAtLength(l);
+      if(t < 1){ requestAnimationFrame(frame); }
+      else { currentIndex = idx; if(cb) cb(); }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function scheduleNext(idx){
+    clearTimeout(holdTimer);
+    var hold = (idx === Math.min(3, n-1)) ? 3600 : 2600;
+    holdTimer = setTimeout(function(){
+      if(!playing) return;
+      var next = (idx + 1) % n;
+      animateTo(next, function(){ scheduleNext(next); });
+    }, hold);
+  }
+
+  function clientToSvgX(clientX){
+    var pt = svg.createSVGPoint(); pt.x = clientX; pt.y = 0;
+    var ctm = svg.getScreenCTM().inverse();
+    return pt.matrixTransform(ctm).x;
+  }
+  function nearestStageIndex(x){
+    var best = 0, bestD = Infinity;
+    pts.forEach(function(p, i){ var d = Math.abs(p.x - x); if(d < bestD){ bestD = d; best = i; } });
+    return best;
+  }
+
+  function endDrag(e){
+    if(!dragging) return;
+    dragging = false; hitArea.style.cursor = 'grab';
+    var x = Math.max(minX, Math.min(maxX, clientToSvgX(e.clientX)));
+    var idx = nearestStageIndex(x);
+    currentIndex = idx;
+    animateTo(idx, function(){
+      holdTimer = setTimeout(function(){ playing = true; scheduleNext(idx); }, 4000);
+    });
+  }
+
+  function buildChart(newMode){
+    mode = newMode;
+    stages = stageSets[mode];
+    n = stages.length;
+    pts = stages.map(function(s, i){ return { x: xFor(i, n), y: yFor(s.v) }; });
+
+    gridG.innerHTML = ''; yLabelsG.innerHTML = ''; xLabelsG.innerHTML = ''; anchorsG.innerHTML = ''; grid.innerHTML = '';
+
+    [1,2,3,4,5].forEach(function(v){
+      var y = yFor(v);
+      var line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', minX); line.setAttribute('x2', maxX);
+      line.setAttribute('y1', y); line.setAttribute('y2', y);
+      line.setAttribute('stroke', '#E5E4E0'); line.setAttribute('stroke-width', '1');
+      gridG.appendChild(line);
+      var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      t.setAttribute('x', 6); t.setAttribute('y', y - 4);
+      t.setAttribute('text-anchor', 'start');
+      t.setAttribute('font-size', '14'); t.setAttribute('fill', '#4A4A4A');
+      t.textContent = v;
+      yLabelsG.appendChild(t);
+    });
+
+    pts.forEach(function(p, i){
+      var t = document.createElementNS('http://www.w3.org/2000/svg','text');
+      var label = stages[i].axis;
+      var halfW = label.length * 7.15 / 2;
+      var x = Math.min(w - halfW, Math.max(halfW, p.x));
+      t.setAttribute('x', x); t.setAttribute('y', yBot + 28);
+      t.setAttribute('text-anchor', 'middle');
+      t.setAttribute('font-size', '13'); t.setAttribute('fill', '#4A4A4A');
+      t.textContent = label;
+      xLabelsG.appendChild(t);
+    });
+
+    var curveD = catmullRom2bezier(pts);
+    pathEl.setAttribute('d', curveD);
+    areaEl.setAttribute('d', curveD + ' L' + pts[n-1].x + ',' + yBot + ' L' + pts[0].x + ',' + yBot + ' Z');
+
+    curveGradient.innerHTML = '';
+    pts.forEach(function(p, i){
+      var stop = document.createElementNS('http://www.w3.org/2000/svg','stop');
+      var offset = (p.x - minX) / (maxX - minX);
+      stop.setAttribute('offset', offset);
+      stop.setAttribute('stop-color', colorForV(stages[i].v));
+      curveGradient.appendChild(stop);
+    });
+
+    pts.forEach(function(p, i){
+      var c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+      c.setAttribute('cx', p.x); c.setAttribute('cy', p.y);
+      c.setAttribute('r', 5);
+      c.setAttribute('fill', colorForV(stages[i].v));
+      anchorsG.appendChild(c);
+    });
+
+    total = pathEl.getTotalLength();
+    stageLengths = pts.map(function(p){ return lengthForX(p.x); });
+
+    cards = stages.map(function(s){
+      var el = document.createElement('div');
+      el.className = 'jc-card3';
+      el.innerHTML = '<div class="jc-title3">' + s.title + '</div>'
+        + row('Action', s.action)
+        + row('Goal', s.goal)
+        + row('Touchpoint', s.touch);
+      grid.appendChild(el);
+      return el;
+    });
+
+    playing = false; dragging = false; clearTimeout(holdTimer); animGen++;
+    currentLength = 0; currentIndex = 0;
+    setDotAtLength(0); setActive(0);
+    playing = true;
+    scheduleNext(0);
+  }
+
+  function positionHighlight(btn){
+    highlight.style.width = btn.offsetWidth + 'px';
+    highlight.style.left = btn.offsetLeft + 'px';
+  }
+
+  function selectMode(newMode){
+    if(newMode === mode) return;
+    var activeBtn = newMode === 'returning' ? btnReturning : btnNew;
+    var inactiveBtn = newMode === 'returning' ? btnNew : btnReturning;
+    activeBtn.setAttribute('aria-selected', 'true');
+    activeBtn.style.color = '#151515';
+    activeBtn.style.fontWeight = '600';
+    inactiveBtn.setAttribute('aria-selected', 'false');
+    inactiveBtn.style.color = '#4A4A4A';
+    inactiveBtn.style.fontWeight = '500';
+    positionHighlight(activeBtn);
+    svg.setAttribute('aria-label', 'User journey across ' + stageSets[newMode].length + ' stages: ' + stageSets[newMode].map(function(s){return s.axis;}).join(', '));
+    buildChart(newMode);
+  }
+
+  btnNew.addEventListener('click', function(){ selectMode('first'); });
+  btnReturning.addEventListener('click', function(){ selectMode('returning'); });
+  positionHighlight(btnNew);
+
+  hitArea.addEventListener('pointerdown', function(e){
+    dragging = true; playing = false; clearTimeout(holdTimer); animGen++;
+    hitArea.setPointerCapture(e.pointerId);
+    hitArea.style.cursor = 'grabbing';
+  });
+  hitArea.addEventListener('pointermove', function(e){
+    if(!dragging) return;
+    var x = Math.max(minX, Math.min(maxX, clientToSvgX(e.clientX)));
+    var l = lengthForX(x);
+    currentLength = l; setDotAtLength(l);
+    setActive(nearestStageIndex(x));
+  });
+  hitArea.addEventListener('pointerup', endDrag);
+  hitArea.addEventListener('pointercancel', endDrag);
+
+  buildChart('first');
+})();
+</script>
+</body>
+</html>
