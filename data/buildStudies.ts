@@ -179,6 +179,12 @@ export const buildStudies: Record<string, CaseStudy> = {
         media: [
           { layout: "center", items: [{ src: "/video/bami6O5MLqZdLUMdBO2ty9EVNA.mp4", alt: "Design system walkthrough", ratio: "600 / 600", width: "600px", kind: "video" }] },
           {
+            layout: "wide",
+            items: [
+              { src: "/images/deck/design-system-color-rules.png", alt: "Colour rules page: how to use colour correctly in Tracka UI", ratio: "1440 / 2276" },
+            ],
+          },
+          {
             layout: "grid4",
             items: [
               { src: "/images/wORQtUBM2tFRXAaa5tvsT0TEsM.png", alt: "Tokens", ratio: "228 / 500" },
@@ -366,7 +372,10 @@ export const buildStudies: Record<string, CaseStudy> = {
           ] },
           { layout: "grid2", items: [
             { src: "/images/deck/tradeoff-add-job.png", alt: "The original add-a-job modal built around URL extraction", ratio: "1600 / 1695", caption: "Initial job add modal using URL-based extraction" },
-            { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607", caption: "Initial job details modal after extraction failure" },
+            { src: "/images/deck/tradeoff-review-details.png", alt: "Review details modal listing the fields extraction could not find", ratio: "1600 / 1611", caption: "Initial job details modal after extraction failure" },
+          ] },
+          { layout: "wide", items: [
+            { src: "/images/deck/tradeoff-outcome.png", alt: "Finding a job on a job portal and bringing it into Tracka", ratio: "1600 / 1607" },
           ] },
         ],
       },
