@@ -1,0 +1,395 @@
+<title>Tracka &mdash; Login Device Mockup</title>
+<style>
+  :root {
+    --ink: #ededed;
+    --ink-muted: #9e9e9e;
+    --ink-subtle: #666666;
+    --brand: #ff5a2f;
+    --brand-2: #ff7350;
+    --line-strong: rgba(255,255,255,0.16);
+  }
+  * { box-sizing: border-box; }
+  html, body { background: transparent; margin: 0; height: 100%; }
+  .stage-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Fills whatever box it's placed in (Framer embed frame), keeps the
+     512:394 shape, scales down/up as that box is resized — no fixed cap. */
+  .frame-512 {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .frame-512 .device-shell {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    /* scale set by ResizeObserver in <script> so the whole frame stays fluid */
+  }
+
+  /* ── Device frame — silver aluminium, matching the reference iPad ──── */
+  .device-shell {
+    width: 838px;
+    background: linear-gradient(155deg, #e4e4e2 0%, #b9b9b6 45%, #d6d6d4 100%);
+    border-radius: 36px;
+    padding: 0.75px;
+    box-shadow:
+      0 60px 120px -30px rgba(0,0,0,0.65),
+      0 0 0 1px rgba(255,255,255,0.4) inset;
+  }
+  .device-inner {
+    background: #050505;
+    border-radius: 35.25px; /* outer 36px - 0.75px bezel, keeps stroke width uniform through the corner */
+    padding: 16px;
+  }
+  .device-cam {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #2a2a2a; margin: 0 auto 12px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.05);
+  }
+  .device-screen {
+    border-radius: 18px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 590px;
+    position: relative;
+    background: #0e0e0e;
+    font-family: "Helvetica Neue", system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+  }
+
+  /* gradient mesh spans the FULL screen (both columns), same as the real
+     BackgroundGradientAnimation which sits behind both halves — the right
+     panel is a frosted glass overlay on top, not a separate solid fill. */
+  .gradients { position: absolute; inset: 0; filter: blur(46px); z-index: 0; }
+
+  /* left half — animated auth panel */
+  .auth-left {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 28px 32px;
+  }
+  .blob {
+    position: absolute;
+    width: 62%; height: 62%;
+    top: 19%; left: 19%;
+    border-radius: 50%;
+    mix-blend-mode: hard-light;
+    opacity: 0.85;
+  }
+  .blob.b1 { background: radial-gradient(circle at center, rgba(255,89,38,0.85) 0%, rgba(255,89,38,0) 55%); transform-origin: center center; animation: mv1 30s ease infinite; }
+  .blob.b2 { background: radial-gradient(circle at center, rgba(255,140,80,0.85) 0%, rgba(255,140,80,0) 55%); transform-origin: calc(50% - 130px) center; animation: mv2 25s ease infinite; }
+  .blob.b3 { background: radial-gradient(circle at center, rgba(230,70,20,0.85) 0%, rgba(230,70,20,0) 55%); transform-origin: calc(50% + 130px) center; animation: mv3 35s ease infinite; }
+  .blob.b4 { background: radial-gradient(circle at center, rgba(255,200,130,0.7) 0%, rgba(255,200,130,0) 55%); transform-origin: calc(50% - 70px) center; animation: mv4 28s ease infinite; }
+  .blob.b5 { background: radial-gradient(circle at center, rgba(255,89,38,0.85) 0%, rgba(255,89,38,0) 55%); transform-origin: calc(50% - 260px) calc(50% + 260px); animation: mv5 32s ease infinite; }
+  @keyframes mv1 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(0,25%) rotate(180deg); } }
+  @keyframes mv2 { 0%,100% { transform: rotate(0deg) translate(0,-10%); } 50% { transform: rotate(360deg) translate(10%,10%); } }
+  @keyframes mv3 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(-25%,25%) rotate(360deg); } }
+  @keyframes mv4 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-25%,-10%); } }
+  @keyframes mv5 { 0%,100% { transform: translate(0,0) rotate(0deg); } 50% { transform: translate(15%,-25%) rotate(-360deg); } }
+  .veil { position: absolute; inset: 0; background: rgba(0,0,0,0.32); backdrop-filter: blur(6px); }
+
+  .al-top { position: relative; z-index: 2; display: flex; align-items: center; gap: 8px; }
+  .al-top .mark { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+  .al-top .word { font-size: 17px; font-weight: 600; }
+
+  .chars { position: relative; z-index: 2; align-self: center; margin: 0 auto; }
+
+  .al-bottom { position: relative; z-index: 2; }
+  .al-bottom blockquote { font-size: 12.5px; color: rgba(237,237,237,0.75); line-height: 1.5; max-width: 240px; margin: 0; font-style: normal; }
+  .al-bottom .links { display: flex; gap: 18px; margin-top: 14px; font-size: 10.5px; color: rgba(237,237,237,0.55); }
+
+  /* right half — frosted glass panel over the shared gradient mesh,
+     matching .glass-page-panel (dark): rgb(18,18,18 / 0.58) + blur(40px) */
+  .auth-right {
+    position: relative;
+    z-index: 1;
+    background: rgba(18,18,18,0.58);
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 32px;
+  }
+  /* card itself matches .glass-modal (dark): rgb(24,24,24 / 0.82) */
+  .gs-card {
+    width: 100%; max-width: 300px;
+    background: rgba(24,24,24,0.82);
+    border: 1px solid rgba(255,255,255,0.09);
+    -webkit-backdrop-filter: blur(48px);
+    backdrop-filter: blur(48px);
+    box-shadow: 0 24px 64px -16px rgba(0,0,0,0.6);
+    border-radius: 24px;
+    padding: 28px;
+  }
+  .gs-card h2 { font-size: 22px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .gs-card .gs-sub { font-size: 12.5px; color: var(--ink-muted); margin: 0 0 22px; }
+  .gs-label { font-size: 11px; font-weight: 600; color: var(--ink-muted); display: block; margin-bottom: 6px; }
+  .gs-input {
+    width: 100%; height: 42px; border-radius: 10px;
+    background: #1e1d1a; border: 1px solid var(--line-strong);
+    color: var(--ink); font-size: 13px; padding: 0 14px; margin-bottom: 14px;
+    outline: none;
+  }
+  .gs-input::placeholder { color: var(--ink-subtle); }
+  .gs-input:focus { border-color: var(--brand); box-shadow: 0 0 0 3px rgba(255,90,47,0.15); }
+  .gs-btn-primary {
+    width: 100%; height: 42px; border-radius: 999px; border: none;
+    background: var(--brand); color: #fff; font-size: 12.5px; font-weight: 700;
+    letter-spacing: 0.02em; cursor: pointer; margin-bottom: 16px;
+    transition: background 0.15s;
+  }
+  .gs-btn-primary:hover { background: var(--brand-2); }
+  .gs-divider { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .gs-divider .rule { flex: 1; height: 1px; background: var(--line-strong); }
+  .gs-divider span { font-size: 10.5px; color: var(--ink-subtle); }
+  .gs-btn-ghost {
+    width: 100%; height: 42px; border-radius: 999px;
+    background: #201f1c; border: 1px solid var(--line-strong); color: var(--ink);
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em;
+    display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer;
+  }
+</style>
+
+<div class="stage-wrap">
+ <div class="frame-512">
+  <div class="device-shell">
+    <div class="device-inner">
+      <div class="device-cam"></div>
+      <div class="device-screen">
+
+        <div class="gradients">
+          <div class="blob b1"></div>
+          <div class="blob b2"></div>
+          <div class="blob b3"></div>
+          <div class="blob b4"></div>
+          <div class="blob b5"></div>
+        </div>
+
+        <div class="auth-left">
+          <div class="veil"></div>
+
+          <div class="al-top">
+            <div class="mark">
+              <svg width="24" height="24" viewBox="0 0 56 56" fill="none">
+                <path d="M18.7 37.3L29.9 32.5L23.5 26.1L18.7 37.3Z" fill="#FF5A2F"/>
+                <path d="M41.3 0H14.7C6.6 0 0 6.6 0 14.7V41.3C0 49.4 6.6 56 14.7 56H41.3C49.4 56 56 49.4 56 41.3V14.7C56 6.6 49.4 0 41.3 0ZM42.4 16L34.8 33.8C34.7 34.1 34.5 34.3 34.3 34.5C34.2 34.6 34 34.7 33.9 34.7L16 42.4C15.3 42.7 14.5 42.5 14 42C13.5 41.5 13.3 40.7 13.6 40L21.2 22.2C21.4 21.8 21.7 21.5 22.1 21.3L40 13.6C40.7 13.3 41.5 13.5 42 14C42.5 14.5 42.7 15.3 42.4 16Z" fill="#FF5A2F"/>
+              </svg>
+            </div>
+            <div class="word">tracka</div>
+          </div>
+
+          <div class="chars" id="chars" style="width:260px; height:190px;">
+            <!-- built by JS -->
+          </div>
+
+          <div class="al-bottom">
+            <blockquote>&ldquo;Tracka keeps every application organised so you can focus on landing the role.&rdquo;</blockquote>
+            <div class="links"><span>Privacy</span><span>Terms</span><span>Contact</span></div>
+          </div>
+        </div>
+
+        <div class="auth-right">
+          <div class="gs-card">
+            <h2>Get started</h2>
+            <p class="gs-sub">Choose an option below to continue.</p>
+            <label class="gs-label">Email address</label>
+            <input class="gs-input" id="emailInput" type="email" placeholder="you@example.com" />
+            <button class="gs-btn-primary">Continue with Magic Link</button>
+            <div class="gs-divider"><div class="rule"></div><span>or</span><div class="rule"></div></div>
+            <button class="gs-btn-ghost">
+              <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.83z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.83C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
+              Continue with Google
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var container = document.getElementById('chars');
+  var SCALE = 260 / 480;
+
+  function el(style) {
+    var d = document.createElement('div');
+    Object.assign(d.style, style);
+    container.appendChild(d);
+    return d;
+  }
+  function px(v) { return (v * SCALE).toFixed(1) + 'px'; }
+
+  var purple = el({ position:'absolute', bottom:'0', left:px(60), width:px(160), height:px(340), background:'#ff5a2f', borderRadius:'6px 6px 0 0', zIndex:1, transition:'all 0.7s ease-in-out', transformOrigin:'bottom center' });
+  var black = el({ position:'absolute', bottom:'0', left:px(210), width:px(110), height:px(270), background:'#151515', borderRadius:'5px 5px 0 0', zIndex:2, transition:'all 0.7s ease-in-out', transformOrigin:'bottom center' });
+  var cream = el({ position:'absolute', bottom:'0', left:px(0), width:px(210), height:px(175), background:'#e8e0d0', borderRadius: (105*SCALE).toFixed(1)+'px '+(105*SCALE).toFixed(1)+'px 0 0', zIndex:3, transition:'all 0.7s ease-in-out', transformOrigin:'bottom center' });
+  var gray = el({ position:'absolute', bottom:'0', left:px(275), width:px(130), height:px(200), background:'#a7a39b', borderRadius: (65*SCALE).toFixed(1)+'px '+(65*SCALE).toFixed(1)+'px 0 0', zIndex:4, transition:'all 0.7s ease-in-out', transformOrigin:'bottom center' });
+
+  function eyeBall(parent, size, pupilSize) {
+    var e = document.createElement('div');
+    var h = px(size);
+    e.style.borderRadius = '50%'; e.style.background = '#fff';
+    e.style.width = h; e.style.height = h;
+    e.style.display = 'flex'; e.style.alignItems = 'center'; e.style.justifyContent = 'center';
+    e.style.overflow = 'hidden'; e.style.transition = 'height 0.15s';
+    var p = document.createElement('div');
+    p.style.borderRadius = '50%'; p.style.background = '#151515';
+    p.style.width = px(pupilSize); p.style.height = px(pupilSize);
+    p.style.flexShrink = '0';
+    p.style.transition = 'transform 0.1s ease-out';
+    e.appendChild(p);
+    parent.appendChild(e);
+    return { eye: e, pupil: p, fullHeight: h };
+  }
+  function dot(parent, size) {
+    var p = document.createElement('div');
+    p.style.borderRadius = '50%'; p.style.background = '#151515';
+    p.style.width = px(size); p.style.height = px(size);
+    p.style.transition = 'transform 0.1s ease-out';
+    parent.appendChild(p);
+    return p;
+  }
+
+  var purpleEyes = document.createElement('div');
+  purpleEyes.style.position = 'absolute'; purpleEyes.style.display = 'flex'; purpleEyes.style.gap = px(28);
+  purpleEyes.style.left = px(38); purpleEyes.style.top = px(36); purpleEyes.style.transition = 'all 0.4s';
+  purple.appendChild(purpleEyes);
+  var pe1 = eyeBall(purpleEyes, 18, 7), pe2 = eyeBall(purpleEyes, 18, 7);
+
+  var blackEyes = document.createElement('div');
+  blackEyes.style.position = 'absolute'; blackEyes.style.display = 'flex'; blackEyes.style.gap = px(20);
+  blackEyes.style.left = px(22); blackEyes.style.top = px(28); blackEyes.style.transition = 'all 0.4s';
+  black.appendChild(blackEyes);
+  var be1 = eyeBall(blackEyes, 16, 6), be2 = eyeBall(blackEyes, 16, 6);
+
+  var creamDots = document.createElement('div');
+  creamDots.style.position = 'absolute'; creamDots.style.display = 'flex'; creamDots.style.gap = px(28);
+  creamDots.style.left = px(72); creamDots.style.top = px(78);
+  cream.appendChild(creamDots);
+  dot(creamDots, 12); dot(creamDots, 12);
+
+  var grayDots = document.createElement('div');
+  grayDots.style.position = 'absolute'; grayDots.style.display = 'flex'; grayDots.style.gap = px(20);
+  grayDots.style.left = px(46); grayDots.style.top = px(36);
+  gray.appendChild(grayDots);
+  dot(grayDots, 11); dot(grayDots, 11);
+
+  var mouth = document.createElement('div');
+  mouth.style.position = 'absolute'; mouth.style.borderRadius = '999px'; mouth.style.background = '#151515';
+  mouth.style.width = px(60); mouth.style.height = px(4);
+  mouth.style.left = px(35); mouth.style.top = px(80);
+  gray.appendChild(mouth);
+
+  // ── behaviour ──────────────────────────────────────────────────────
+  var mouse = { x: 0, y: 0 };
+  var mouseActive = false;
+  var isTyping = false;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.addEventListener('mousemove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; mouseActive = true; });
+
+  var emailInput = document.getElementById('emailInput');
+  emailInput.addEventListener('focus', function () { isTyping = true; setTimeout(function () { isTyping = false; }, 800); });
+
+  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+
+  function blinkLoop(eyeParts) {
+    if (reduced) return;
+    var delay = Math.random() * 4000 + 3000;
+    setTimeout(function () {
+      eyeParts.forEach(function (p) { p.eye.style.height = '2px'; });
+      setTimeout(function () {
+        eyeParts.forEach(function (p) { p.eye.style.height = p.fullHeight; });
+        blinkLoop(eyeParts);
+      }, 150);
+    }, delay);
+  }
+  blinkLoop([pe1, pe2]);
+  blinkLoop([be1, be2]);
+
+  function frame() {
+    if (!reduced) {
+      var now = performance.now();
+      // gentle autonomous drift so the characters feel alive even when no
+      // real mouse ever crosses the mockup (portfolio embeds, static views) —
+      // always blended in, so it never freezes to a static default look
+      var idleX = Math.sin(now * 0.00055) * 7 + Math.sin(now * 0.0012 + 1.7) * 3.5;
+      var idleY = Math.cos(now * 0.00038 + 0.9) * 5;
+      var idleSkew = Math.sin(now * 0.00042 + 2.1) * 2.5;
+
+      var mx = 0, my = 0, mskew = 0;
+      if (mouseActive) {
+        var rect = container.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 3;
+        mx = (mouse.x - cx) / 20;
+        my = (mouse.y - cy) / 30;
+        mskew = -(mouse.x - cx) / 120;
+      }
+
+      var fx = clamp(mx + idleX, -15, 15) * SCALE;
+      var fy = clamp(my + idleY, -10, 10) * SCALE;
+      var skew = clamp(mskew + idleSkew, -6, 6);
+
+      // whole-body translate — same px amount for all 4 regardless of their
+      // own height, so response is equal (skewX alone shifts taller bodies
+      // more than short ones, which read as "uneven")
+      var bodyX = fx * 0.55;
+      var bodyY = fy * 0.45;
+      var bodyT = 'translate(' + bodyX + 'px,' + bodyY + 'px) ';
+
+      if (isTyping) {
+        purpleEyes.style.left = px(48); purpleEyes.style.top = px(58);
+        purple.style.transform = bodyT + 'skewX(' + (skew - 12) + 'deg) translateX(' + (36 * SCALE) + 'px)';
+        blackEyes.style.left = px(28); blackEyes.style.top = px(10);
+        black.style.transform = bodyT + 'skewX(' + (skew * 1.5 + 10) + 'deg) translateX(' + (18 * SCALE) + 'px)';
+      } else {
+        purpleEyes.style.left = (38 * SCALE + fx) + 'px'; purpleEyes.style.top = (36 * SCALE + fy) + 'px';
+        purple.style.transform = bodyT + 'skewX(' + skew + 'deg)';
+        blackEyes.style.left = (22 * SCALE + fx) + 'px'; blackEyes.style.top = (28 * SCALE + fy) + 'px';
+        black.style.transform = bodyT + 'skewX(' + skew + 'deg)';
+      }
+      cream.style.transform = bodyT + 'skewX(' + skew + 'deg)';
+      creamDots.style.left = (72 * SCALE + fx) + 'px'; creamDots.style.top = (78 * SCALE + fy) + 'px';
+      gray.style.transform = bodyT + 'skewX(' + skew + 'deg)';
+      grayDots.style.left = (46 * SCALE + fx) + 'px'; grayDots.style.top = (36 * SCALE + fy) + 'px';
+      mouth.style.left = (35 * SCALE + fx) + 'px'; mouth.style.top = (80 * SCALE + fy) + 'px';
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+
+  // ── responsive scale — keeps the 838px-native device-shell fitted to
+  // whatever width the surrounding .frame-512 box is given (e.g. Framer
+  // resizing the embed frame), instead of a fixed 0.611 transform. ──
+  var frameEl = document.querySelector('.frame-512');
+  var shellEl = document.querySelector('.device-shell');
+  var naturalW = shellEl.offsetWidth;
+  var naturalH = shellEl.offsetHeight;
+  function applyScale() {
+    var rect = frameEl.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return;
+    var scale = Math.min(rect.width / naturalW, rect.height / naturalH);
+    shellEl.style.transform = 'scale(' + scale + ')';
+    shellEl.style.left = ((rect.width - naturalW * scale) / 2) + 'px';
+    shellEl.style.top = ((rect.height - naturalH * scale) / 2) + 'px';
+  }
+  if (window.ResizeObserver) {
+    new ResizeObserver(applyScale).observe(frameEl);
+  } else {
+    window.addEventListener('resize', applyScale);
+  }
+  applyScale();
+})();
+</script>

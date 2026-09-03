@@ -23,8 +23,8 @@ export const buildStudies: Record<string, CaseStudy> = {
       ],
     },
     heroEmbed: {
-      src: "https://souvikb93.github.io/trackaportfolio_ipadframe/",
-      alt: "Tracka running in an iPad frame",
+      src: "/embeds/tracka-signin.html",
+      alt: "Tracka sign-in: continue with Magic Link or Google",
       ratio: "517 / 391",
       width: "517px",
     },
