@@ -2,10 +2,12 @@
 // Interactive HTML/CSS/JS embeds from the original are noted as TODO — text ported first.
 
 export type Finding = {
-  no: string;
+  no?: string;
   title: string;
   quote?: string;
   quoteBy?: string;
+  /** Live keeps the attribution on the quote line for some studies. */
+  quoteInline?: boolean;
   /** Live runs these as bullet lists on some studies and prose on others. */
   support?: string | string[];
   impact?: string | string[];
@@ -25,7 +27,7 @@ export type Figure = {
   /** Corner radius as rendered on the live site; defaults to square. */
   radius?: string;
   rounded?: boolean;
-  kind?: "video";
+  kind?: "video" | "embed";
 };
 
 /** A row of figures. See components/Figure.tsx for what each layout means. */
@@ -43,7 +45,7 @@ export type Gallery = {
 };
 
 export type Block = {
-  no: string;
+  no?: string;
   title: string;
   body: string;
   /** "Solution Highlights" list the live pages run under the body copy. */
@@ -59,6 +61,7 @@ export type Metric = {
   label: string;
   /** Live states how each number was measured. */
   note?: string;
+  source?: string;
 };
 
 /**
@@ -69,6 +72,8 @@ export type Metric = {
  */
 export type StudySection = {
   eyebrow: string;
+  /** Plain list the live pages run under the section body. */
+  bullets?: string[];
   title?: string;
   body?: string;
   blocks?: Block[];
@@ -87,17 +92,6 @@ export type CaseStudy = {
   meta: { label: string; value: string }[];
   /** Short line live runs under the study name. */
   subtitle?: string;
-  /**
-   * The header this study carries when the published site's swapped headers
-   * are not being mirrored. See data/fidelity.ts.
-   */
-  corrected?: {
-    name: string;
-    subtitle?: string;
-    headline: string;
-    summary: string;
-    meta: { label: string; value: string }[];
-  };
   /** Banner above the title, as on the live site. */
   hero?: Gallery;
   sections: StudySection[];
@@ -132,9 +126,9 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     sections: [
       {
-        eyebrow: "Objective",
+        eyebrow: "Challenge",
         title: "A Legacy Platform That Didn’t Meet Its Users’ Needs",
-        body: "The client had a healthcare product built for Medicare plan members in the U.S, enabling them to manage their health plans, benefits, claims, and payments through a unified digital experience. Medicare plans primarily serve adults aged 65 and older, people under 65 with certain qualifying disabilities, and people with long-term medical conditions. Despite serving a user base with significant accessibility and usability needs, the legacy product was neither intuitive for older adults nor accessible to people relying on assistive technologies. The redesign needed to modernise the user experience while achieving WCAG compliance and meeting U.S. accessibility requirements — creating a senior-friendly, inclusive experience that reduced legal and compliance risk without disrupting existing healthcare workflows."
+        body: "The client had a healthcare product built for Medicare plan members in the U.S, enabling them to manage their health plans, benefits, claims, and payments through a unified digital experience. Medicare plans primarily serve:"
       },
       {
         eyebrow: "Discovery",
@@ -150,19 +144,23 @@ export const caseStudies: Record<string, CaseStudy> = {
           },
         ],
         body: "Before proposing solutions, I wanted to understand whether the challenges were caused by accessibility barriers, usability issues, or both. I combined expert evaluation, stakeholder insights, and user research to identify the highest-impact opportunities.",
+        bullets: [
+          "Adults aged 65 and older",
+          "People under 65 with certain qualifying disabilities",
+          "People with long-term medical conditions",
+        ],
+        caption:
+          "Despite serving a user base with significant accessibility and usability needs, the legacy product was neither intuitive for older adults nor accessible to people relying on assistive technologies. The redesign needed to modernise the user experience while achieving WCAG compliance and meeting U.S. accessibility requirements. The goal was to create a senior-friendly, inclusive experience that reduced legal and compliance risk without disrupting existing healthcare workflows.",
         blocks: [
           {
-            no: "01",
             title: "Accessibility & Heuristic Evaluation",
             body: "Reviewed the product against Nielsen Norman usability heuristics and WCAG accessibility guidelines to identify usability issues, accessibility gaps, and inconsistent interaction patterns.",
           },
           {
-            no: "02",
             title: "Stakeholder Discovery Workshops",
             body: "Collaborated with product managers, engineers, and business stakeholders to understand business goals, technical constraints, and recurring feedback received from customers.",
           },
           {
-            no: "03",
             title: "Moderated User Testing",
             body: "Observed users with visual and hearing disabilities completing common tasks using assistive technologies. Through moderated sessions and screen sharing, I identified areas of friction throughout the experience.",
           },
@@ -192,7 +190,7 @@ export const caseStudies: Record<string, CaseStudy> = {
               "Screenshot of the legacy application showing unclear interactive controls, including a text-based “Close” action instead of a standard close icon, and low-contrast table content that reduces readability.",
             quote:
               "I can’t always tell what’s clickable, especially when I’m using 400% zoom, and my screen reader doesn’t give me enough context.",
-            quoteBy: "User relying on assistive technologies",
+            quoteBy: "\u2013User relying on assistive technologies",
             support: [
               "68% of audited screens contained at least one WCAG colour contrast violation.",
               "5 of 6 participants struggled to distinguish tertiary links from supporting text because colour was the only visual indicator.",
@@ -209,7 +207,7 @@ export const caseStudies: Record<string, CaseStudy> = {
               "Screenshot of legacy application showing weak button hierarchy and inconsistent input field patterns.",
             quote:
               "I rely on familiar patterns to navigate. When every screen uses different buttons and form layouts, I have to relearn the interface over and over.",
-            quoteBy: "User relying on assistive technologies",
+            quoteBy: "\u2013 User relying on assistive technologies",
             support: [
               "7 of 10 audited screens lacked a clear distinction between primary and secondary buttons.",
               "Long forms contained up to 18–24 input fields in one page before users reached the next major section.",
@@ -224,10 +222,10 @@ export const caseStudies: Record<string, CaseStudy> = {
             no: "03",
             title: "Application Was Not Optimized for Mobile Devices",
             caption:
-              "Mobile view of the legacy application showing a desktop-first interface that was not optimized for mobile, resulting in broken layouts.",
+              "Mobile view of the legacy application showing a desktop-first interface that was not optimized for mobile, resulting in broken layouts",
             quote:
               "Our analytics show that more and more users are accessing the platform on mobile, but the application isn’t optimized for smaller screens. It’s contributing to higher drop-off rates.",
-            quoteBy: "Product Manager",
+            quoteBy: "\u2013 Product Manager",
             support: [
               "WebAIM research shows that 90% of screen reader users access the web using a mobile screen reader, reinforcing the need for responsive, mobile-accessible experiences.",
               "Fixed-width layouts required users to zoom and scroll horizontally to complete key healthcare tasks.",
@@ -260,50 +258,50 @@ export const caseStudies: Record<string, CaseStudy> = {
           { layout: "center", items: [{ src: "/images/AZ2YY1OCKwquvzp5kP8pHtqcX8.png", alt: "Mobile member portal", ratio: "344 / 475", width: "344px" }] },
           { layout: "full", items: [{ src: "/images/5XPoAP7xb7e7FA8M0puFHGZCG88.png", alt: "Accessible design system overview", ratio: "1280 / 1031" }] },
         ],
-        body: "Guided by the research findings, I redesigned the experience to address the most critical accessibility and usability challenges — applying inclusive design principles and WCAG guidelines to create a more intuitive, consistent, and accessible product.",
+        body: "Guided by the research findings, I redesigned the experience to address the most critical accessibility and usability challenges. The following improvements demonstrate how inclusive design principles and WCAG guidelines were applied to create a more intuitive, consistent, and accessible product.",
         blocks: [
           {
             no: "01",
             title: "Making Colour Accessible and Readable",
-            body: "Through direct interaction with users who rely on high-contrast settings, I gained insight into their visual needs. These learnings informed colour combinations that meet WCAG standards, significantly improving readability, clarity, and overall usability across the product.",
+            body: "Through direct interaction with users who rely on high-contrast settings, I gained valuable insight into their visual needs. These learnings informed the selection of color combinations that meet WCAG standards, significantly improving readability, clarity, and overall usability across the product.",
           },
           {
             no: "02",
-            title: "Structuring Visual Hierarchy Using Gutenberg Principles",
-            body: "Applied Gutenberg’s diagram to establish a clear visual flow and guide user attention toward key actions. Repositioning content and CTAs along natural reading paths made the interface more intuitive, improving scanability and engagement.",
+            title: "Sructuring Visual Hierarchy Using Gutenberg Principles",
+            body: "Applied Gutenberg’s diagram to establish a clear visual flow and guide user attention toward key actions. By strategically repositioning content and CTAs along natural reading paths, the interface became more intuitive, improving scanability and engagement.",
           },
           {
             no: "03",
             title: "Optimizing UI for Users with Assistive Tech",
-            body: "Established descriptive placeholders, persistent labels, and clear error/success indicators. ARIA labels were defined for all interactive elements, ensuring screen reader clarity. These enhancements were embedded into the design system, making accessibility the default standard.",
+            body: "We established descriptive placeholders, persistent labels, and clear error/success indicators. ARIA labels were defined for all interactive elements, ensuring screen reader clarity. These enhancements were embedded into the design system, making accessibility the default standard.",
           },
           {
             no: "04",
             title: "Designing Responsive Experiences Across Breakpoints",
-            body: "Developed responsive prototypes using defined breakpoints for mobile, tablet, and desktop. Auto layout and constraints ensured consistent scaling of layouts, touch targets, and typography for a seamless experience across devices.",
+            body: "Developed responsive prototypes using defined breakpoints for mobile, tablet, and desktop. Leveraged auto layout and constraints to ensure consistent scaling of layouts, touch targets, and typography, delivering a seamless experience across devices.",
           },
         ]
       },
       {
         eyebrow: "Impact",
         title: "Measurable Business & User Impact",
-        metrics: [
+        blocks: [
           {
-            value: "2.2×",
-            label:
-              "Better readability — 67% → 13% task failure rate for users with low vision, through improved colour contrast and inline validation (moderated usability testing).",
+            title:
+              "2.2\u00d7 Better Readability - 67% \u2192 13% task failure rate for users with low vision through improved colour contrast and inline validation.",
+            body: "Validated through: Moderated usability testing",
           },
           {
-            value: "27%",
-            label:
-              "Faster design handoff — a shared design system and reusable components reduced design-to-development handoff time (scrum master data).",
+            title:
+              "27% Faster Design Handoff - A shared design system and reusable components reduced design-to-development handoff time.",
+            body: "Measured through: Data from scrum master",
           },
           {
-            value: "4 in 5",
-            label:
-              "Better action recognition — CTA recognition improved from 1 in 3 to 4 in 5 users with disability, through clearer button hierarchy and interaction states.",
+            title:
+              "Better Action Recognition - CTA recognition improved from 1 in 3 to 4 in 5 users with disability through clearer button hierarchy and interaction states.",
+            body: "Measured through: Moderated usability testing",
           },
-        ]
+        ],
       },
       {
         eyebrow: "Reflection",
@@ -313,17 +311,17 @@ export const caseStudies: Record<string, CaseStudy> = {
           {
             no: "01",
             title: "Accessibility is Becoming an AI Readiness Strategy",
-            body: "Accessible, semantically structured products are easier for both users and AI to understand. With Gartner forecasting a 25% decline in traditional search by 2026, accessibility is becoming a competitive advantage, not just a compliance requirement.",
+            body: "Accessibility now benefits both humans and AI. Accessible, semantically structured products are easier for both users and AI to understand. With Gartner forecasting a 25% decline in traditional search by 2026, accessibility is becoming a competitive advantage, not just a compliance requirement.",
           },
           {
             no: "02",
             title: "Design Systems are Becoming a Business Investment",
-            body: "Figma found designers complete tasks 34% faster using design systems, while Forrester reported 20–30% higher developer productivity. It changed how I view design systems — from a design initiative to a strategic business investment.",
+            body: "While researching how to demonstrate the value of investing in a design system to the client, I discovered that its benefits extend far beyond design consistency. Figma found that designers complete tasks 34% faster using design systems, while Forrester reported 20–30% higher developer productivity. It changed how I view design systems, from a design initiative to a strategic business investment.",
           },
           {
             no: "03",
             title: "Consistency Matters Most When Designing for Older Adults",
-            body: "Nielsen Norman Group research found that predictable interaction patterns help older users build confidence and complete tasks more successfully. Consistency is more than a design principle — it’s a usability tool.",
+            body: "One insight that stayed with me was that older adults rely heavily on consistency. Research from Nielsen Norman Group found that predictable interaction patterns help older users build confidence and complete tasks more successfully. It reinforced that consistency is more than a design principle, it's a usability tool.",
           },
         ]
       },
@@ -356,9 +354,18 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "Closing the Gap Between Portal and Mobile",
         body: "The client’s insurance agents work in the field, not at a desk, and had decided to make mobile their main channel. But the app was still missing features the legacy web portal had, so agents kept getting pulled back to desktop. Closing that gap is why I was brought on.",
         blocks: [
-          { no: "01", title: "Users Leaving Mid-Task", body: "Mobile drop-off ran well above what the portal saw for the same actions." },
-          { no: "02", title: "Support Absorbing the Overflow", body: "Over 15,000 calls a month came from members who got stuck on the app." },
-          { no: "03", title: "Half the Portal Wasn’t on Mobile Yet", body: "Several web portal features hadn’t made it into the app, so agents had to switch back to desktop to finish the task." },
+          {
+            title: "Users Leaving Mid-Task",
+            body: "Mobile drop-off ran well above what the portal saw for the same actions.",
+          },
+          {
+            title: "Support Absorbing the Overflow",
+            body: "Over 15,000 calls a month came from members who got stuck on the app.",
+          },
+          {
+            title: "Half the Portal Wasn\u2019t on Mobile Yet",
+            body: "Several web portal features hadn\u2019t made it into the app, so agents had to switch back to desktop to finish the task.",
+          },
         ],
       },
       {
@@ -367,34 +374,34 @@ export const caseStudies: Record<string, CaseStudy> = {
         body: "Before touching any screens, I ran a UX audit against NN Group heuristics and cross-checked it with two quarters of analytics and support ticket data. Four patterns kept showing up, and each one was quietly costing the business money.",
         findings: [
           {
-            no: "(01)",
             title: "Lack of Search Functionality",
             quote: "It takes me longer to find the record than to actually do the work.",
-            quoteBy: "Support Staff",
+            quoteBy: "\u2014 Support Staff",
+            quoteInline: true,
             support: "Finding the right plan took over 90 seconds on average.",
             impact: "Instead of finishing on their phone, members gave up and switched to desktop.",
           },
           {
-            no: "(02)",
             title: "Complex Navigation",
             quote: "I know this feature exists somewhere, I just never know which menu it’s hiding in.",
-            quoteBy: "Product Analyst",
+            quoteBy: "\u2014 Product Analyst",
+            quoteInline: true,
             support: "Users took 4 to 6 taps to reach screens that should’ve taken 2.",
             impact: "Every extra tap meant more people abandoning the task, and abandoned tasks were flowing straight into support call volume.",
           },
           {
-            no: "(03)",
             title: "Unclear Call-to-Action",
             quote: "I wasn’t sure if tapping that would submit my claim or just save it.",
-            quoteBy: "Insurance Agent",
+            quoteBy: "\u2014 Insurance Agent",
+            
             support: "About 3 in 5 users hesitated or picked the wrong action on core screens during user interviews.",
             impact: "Second-guessing what a button does slows every client interaction and erodes trust in the tool itself.",
           },
           {
-            no: "(04)",
             title: "Complex Form Structures",
             quote: "On mobile I have to scroll left and right just to fill out one form. I’d rather just do it on desktop where I can see the whole thing at once.",
-            quoteBy: "Insurance Agent",
+            quoteBy: "\u2014 Insurance Agent",
+            quoteInline: true,
             support: "Claims and enrollment forms had the highest drop-off in the app, around 40%.",
             impact: "Biggest single driver of support calls.",
           },
@@ -421,7 +428,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         eyebrow: "Solution",
         title: "Solutions Mapped to the Audit Findings",
-        body: "Each fix responds directly to a finding from the audit. The goal wasn’t a redesign for its own sake, it was to solve the specific problems agents were running into every day.",
+        body: "Each fix below responds directly to a finding from the audit. The goal wasn’t a redesign for its own sake, it was to solve the specific problems agents were already running into every day.",
         blocks: [
           {
             no: "01",
@@ -438,6 +445,17 @@ export const caseStudies: Record<string, CaseStudy> = {
                 items: [
                   { src: "/images/b8y7sSEzHNKqiJvNCPbe9t4cg.png", alt: "Simplified navigation", ratio: "628 / 421" },
                   { src: "/images/DwGsmAvGmMvMsFAcoHNxgfX4I.png", alt: "Focused primary action", ratio: "203 / 421" },
+                ],
+              },
+              {
+                layout: "wide",
+                items: [
+                  {
+                    src: "/embeds/member-portal-ia.html",
+                    alt: "Interactive information architecture map \u2014 drag cards, draw connections, zoom",
+                    ratio: "1148 / 600",
+                    kind: "embed",
+                  },
                 ],
               },
             ],
@@ -476,10 +494,21 @@ export const caseStudies: Record<string, CaseStudy> = {
             bullets: [
               "Switched to single-column layouts, removing horizontal scroll entirely",
               "Broke long forms into labeled steps with a visible progress indicator",
-              "Designed immediate success and error feedback instead of post-submission validation",
+              "Designed immediate success and error feedback instead of post-submission validation.",
             ],
             media: [
-              { layout: "center", items: [{ src: "/images/aR9W0ECwmb0A9lACmtnxzurCeE.png", alt: "Guided form steps", ratio: "262 / 525", width: "262px" }] },
+              {
+                layout: "center",
+                items: [
+                  {
+                    src: "https://souvikb93.github.io/member-portal-inputfield/",
+                    alt: "Interactive input field prototype",
+                    ratio: "254 / 525",
+                    width: "254px",
+                    kind: "embed",
+                  },
+                ],
+              },
             ],
             caption:
               "Wireframes were initially developed to align the team on the application’s structure and user flow. These were then evolved into interactive prototypes that communicated transition states and user interactions, enabling consistent implementation by developers.",
@@ -489,9 +518,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             title: "Introduced Search & Filtering to Improve Data Discovery",
             body: "Finding the right claims data or check application took over 90 seconds, so agents gave up and switched back to desktop. There was no way to search or narrow down long lists.",
             bullets: [
-              "Defined search and filter categories based on business workflows and stakeholder requirements",
-              "Designed clear empty, loading, and no-results states for search experiences",
-              "Defined filter chip behavior, multi-select patterns, and clear/reset interactions",
+              "Defined search and filter categories based on business workflows and stakeholder requirements.",
+              "Designed clear empty, loading, and no-results states for search experiences.",
+              "Defined filter chip behavior, multi-select patterns, and clear/reset interactions.",
             ],
             media: [
               {
@@ -524,17 +553,20 @@ export const caseStudies: Record<string, CaseStudy> = {
           {
             value: "+12%",
             label: "Higher User Engagement",
-            note: "Mobile app usage increased by 12% within the first month, with more insurance agents choosing the mobile app as part of their daily workflow. Validated using: Google Analytics.",
+            note: "Mobile app usage increased by 12% within the first month, with more insurance agents choosing the mobile app as part of their daily workflow.",
+            source: "Validated using: Google Analytics",
           },
           {
             value: "68 → 91",
             label: "Improved Accessibility",
-            note: "Lighthouse Accessibility Score improved from 68 to 91, reflecting a more accessible and inclusive experience across the redesigned member portal. Validated using: Lighthouse, Axe and manual accessibility testing.",
+            note: "Lighthouse Accessibility Score improved from 68 to 91, reflecting a more accessible and inclusive experience across the redesigned member portal.",
+            source: "Validated using: Lighthouse, axe & manual accessibility testing",
           },
           {
             value: "-24%",
             label: "Faster Task Completion",
-            note: "Task completion time improved by 24% during usability testing, with simplified navigation and fewer interaction steps reducing the time required. Validated using: moderated usability testing.",
+            note: "Task completion time improved by 24% during usability testing, with simplified navigation and fewer interaction steps reducing the time required.",
+            source: "Validated using: Moderated usability testing",
           },
         ],
       },
@@ -575,33 +607,20 @@ export const caseStudies: Record<string, CaseStudy> = {
 
   desi_aroma: {
     slug: "desi_aroma",
-    subtitle: "Reimagining Applications with AI",
-    name: "PitchHub",
-    headline: "From concept to scalable experience.",
+    name: "Desi Aroma",
+    headline: "Women\u2019s Empowerment Initiative",
     summary:
-      "Google’s sales enablement team creates hundreds of MVPs each quarter, demonstrating how Vertex AI integrates with diverse applications. As consultants, we ran a pilot project to prove we could take over this process, delivering scalable MVP development for Google.",
+      "Founded by two NID alumni, Desi Aroma is a community-driven initiative that empowers housewives in Gandhinagar by transforming their love for home-cooked food into a source of income and recognition, while serving affordable, wholesome meals to students.",
     meta: [
-      { label: "Client", value: "Google (Vertex AI – Sales Enablement Team)" },
-      { label: "Duration", value: "2 weeks" },
-      { label: "Industry", value: "AI & Cloud Computing" },
-      { label: "Scope of work", value: "SaaS · AI-Driven · No-code" },
+      { label: "Client", value: "Student Project" },
+      { label: "Duration", value: "2 Months" },
+      { label: "Industry", value: "Social Innovation" },
+      {
+        label: "Scope of Work",
+        value:
+          "Service Design \u00b7 System Design Design \u00b7 Brand Design \u00b7 Mobile App \u00b7 UX/UI \u00b7 Video Production",
+      },
     ],
-    corrected: {
-      name: "Desi Aroma",
-      headline: "Women’s Empowerment Initiative — From concept to scalable experience.",
-      summary:
-        "Founded by two NID alumni, Desi Aroma is a community-driven initiative that empowers housewives in Gandhinagar by transforming their love for home-cooked food into a source of income and recognition, while serving affordable, wholesome meals to students.",
-      meta: [
-        { label: "Client", value: "Student Project" },
-        { label: "Duration", value: "2 Months" },
-        { label: "Industry", value: "Social Innovation" },
-        {
-          label: "Scope of Work",
-          value:
-            "Service Design · System Design · Brand Design · Mobile App · UX/UI · Video Production",
-        },
-      ],
-    },
     hero: {
       layout: "wide",
       items: [
@@ -610,16 +629,27 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     sections: [
       {
+        eyebrow: "Recognition",
+        title: "\ud83c\udfc6 Second Runner-Up User Interface Design Category",
+        body: "From concept to scalable experience.",
+      },
+      {
         eyebrow: "Objective",
-        title: "Creating Economic Opportunities for Housewives While Meeting Student Needs",
+        title:
+          "Creating Economic Opportunities for Housewives While Meeting Student Needs",
         body: "Many women in Gandhinagar were looking for flexible ways to earn an income while managing their families, while many students lived away from home and missed the comfort of home-cooked food. We saw food as the natural connection between these two communities and explored how homemade food could bring the feeling of home to students while creating flexible earning opportunities for women.",
       },
       {
         eyebrow: "System Mapping",
         title: "System-Level Analysis of gandhinagar",
-        body: "Primary & Secondary Research · Focus Groups · System Mapping · Insights Articulation · Opportunity Mapping",
+        body: "Primary & Secondary Research \u2022  Focus Groups \u2022 System Mapping \u2022 Insights Articulation \u2022 Opportunity Mapping",
         media: [
-          { layout: "wide", items: [{ src: "/images/SjsFFtOJgAJkUGJBosOOYUh0aUc.jpg", alt: "System map of Gandhinagar", ratio: "1094 / 669" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/SjsFFtOJgAJkUGJBosOOYUh0aUc.jpg", alt: "System map of Gandhinagar", ratio: "1094 / 669" },
+            ],
+          },
         ],
         caption: "The above shows a system map of Gandhinagar.",
       },
@@ -629,101 +659,142 @@ export const caseStudies: Record<string, CaseStudy> = {
         body: "Synthesizing user interviews and discussions to uncover patterns, needs, and opportunities that informed design decisions.",
         blocks: [
           {
-            no: "01",
             title: "One-to-one interviews with potential customers",
-            body: "Insights from interviews and group discussions with students living away from home.",
+            body: "",
             bullets: [
-              "Limited time to cook, leading to dependence on restaurants",
+              "Limited time to cook \u2192 dependence on restaurants",
               "Carrying home-cooked food leads to cold, soggy meals",
               "Strong need for fresh, homemade food",
               "Existing services lack authentic home-style taste",
             ],
           },
           {
-            no: "02",
             title: "Food tasting workshop with students",
-            body: "What students were willing to pay for, and what they expected in return.",
+            body: "",
             bullets: [
-              "Willingness to pay ₹100–₹150 for non-veg meals",
+              "Willingness to pay \u20b9100\u2013\u20b9150 for non-veg meals",
               "Cost sensitivity; preference for simple packaging",
               "Quantity transparency expected in online menus",
               "Demand for personalization and portion options",
             ],
           },
           {
-            no: "03",
             title: "One-to-one discussions with homemakers",
-            body: "What would make participation realistic for the women the service depends on.",
+            body: "",
             bullets: [
-              "Family approval is critical for homemakers’ participation",
-              "Homemakers’ schedules revolve around family needs",
+              "Family approval is critical for homemakers\u2019 participation",
+              "Homemakers\u2019 schedules revolve around family needs",
               "Retired individuals seek meaningful engagement",
               "Stored homemade snacks fit anytime consumption needs",
             ],
           },
           {
-            no: "04",
-            title: "Insights from food business owners",
-            body: "What operators already running food businesses had learned the hard way.",
+            title: "Insights from Food Business Owners",
+            body: "",
             bullets: [
               "Cook selection is key to consistent homemade taste",
-              "Limited local market means the right customer targeting is needed",
+              "Limited local market \u2192 right customer targeting needed",
               "Importance of tracking customer preferences",
               "Loyalty requires assurance and stability for home chefs",
             ],
           },
         ],
         media: [
-          { layout: "center", items: [{ src: "/images/1C8DzuEyAy7rk5rkULtbQdAwVc.jpg", alt: "Field research", ratio: "209 / 266", width: "209px" }] },
+          {
+            layout: "center",
+            items: [
+              { src: "/images/1C8DzuEyAy7rk5rkULtbQdAwVc.jpg", alt: "Research artefacts", ratio: "209 / 266" },
+            ],
+          },
         ],
+        caption: "Insights from Interviews & Group Discussions",
       },
       {
         eyebrow: "Comparative Analysis",
         title: "From Existing Services to New Opportunities",
         body: "Benchmarking existing food services to understand the landscape, gaps, and opportunities for a community-driven model.",
         media: [
-          { layout: "wide", items: [{ src: "/images/GV12Wz2AUp2nk0c1DpNpNk4Ds.jpg", alt: "Comparative analysis", ratio: "1018 / 573" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/GV12Wz2AUp2nk0c1DpNpNk4Ds.jpg", alt: "From Existing Services to New Opportunities", ratio: "1018 / 573" },
+            ],
+          },
         ],
-        caption: "*Original artifacts shown as-is in 2018, not recreated.",
+        caption:
+          "*Original artifacts shown as-is in 2018, not recreated. Please use the custom-built zoom feature to view the research text in detail.",
       },
       {
         eyebrow: "Stakeholder Mapping",
         title: "From Stakeholders to Service Ecosystem",
         body: "Mapping key stakeholders, relationships, and interactions to understand how the service could function within the wider ecosystem.",
         media: [
-          { layout: "wide", items: [{ src: "/images/68k9G833PEFIVks3kQPJavkWGA.jpg", alt: "Stakeholder map", ratio: "1018 / 573" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/68k9G833PEFIVks3kQPJavkWGA.jpg", alt: "From Stakeholders to Service Ecosystem", ratio: "1018 / 573" },
+            ],
+          },
         ],
+        caption:
+          "*Original artifacts shown as-is in 2018, not recreated. Please use the custom-built zoom feature to view the research text in detail.",
       },
       {
         eyebrow: "Journey Mapping",
         title: "From Individual Journeys to Shared Experiences",
         body: "Mapping the end-to-end experiences of home chefs and customers to uncover pain points, expectations, and opportunities.",
         media: [
-          { layout: "wide", items: [{ src: "/images/KJB7Y0g0VMKzU1PktFiAxppgC8.jpg", alt: "Journey map", ratio: "1018 / 573" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/KJB7Y0g0VMKzU1PktFiAxppgC8.jpg", alt: "From Individual Journeys to Shared Experiences", ratio: "1018 / 573" },
+            ],
+          },
         ],
+        caption:
+          "*Original artifacts shown as-is in 2018, not recreated. Please use the custom-built zoom feature to view the research text in detail.",
       },
       {
         eyebrow: "Service Blueprint",
         title: "From Experiences to Service Operations",
         body: "Translating customer and chef journeys into the operational processes and touchpoints needed to deliver the service.",
         media: [
-          { layout: "wide", items: [{ src: "/images/yPgr4DLOyx05l44uilEH8ItRiVQ.png", alt: "Service blueprint", ratio: "1018 / 573" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/yPgr4DLOyx05l44uilEH8ItRiVQ.png", alt: "From Experiences to Service Operations", ratio: "1018 / 573" },
+            ],
+          },
         ],
+        caption:
+          "*Original artifacts shown as-is in 2018, not recreated. Please use the custom-built zoom feature to view the research text in detail.",
       },
       {
         eyebrow: "Brand Building",
         title: "From Service Concept to Brand Identity",
         body: "Translating the service concept into a cohesive brand through identity, communication, packaging, and marketing touchpoints.",
         media: [
-          { layout: "wide", items: [{ src: "/images/s4cSCilOy9wpzPdYApUc4fpZWUQ.jpg", alt: "Brand identity", ratio: "1018 / 573" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/s4cSCilOy9wpzPdYApUc4fpZWUQ.jpg", alt: "From Service Concept to Brand Identity", ratio: "1018 / 573" },
+            ],
+          },
         ],
+        caption:
+          "*Original artifacts shown as-is in 2018, not recreated. Please use the custom-built zoom feature to view the research text in detail.",
       },
       {
         eyebrow: "Concept Video",
         title: "From Concept to Story",
         body: "Bringing the service concept to life through a short video that communicates its value, vision, and experience to stakeholders.",
         media: [
-          { layout: "wide", items: [{ src: "/video/j6bOtMAnk1jhu46ZoAclLZZjjaw.webm", alt: "Concept video", ratio: "1152 / 648", kind: "video" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/j6bOtMAnk1jhu46ZoAclLZZjjaw.webm", alt: "Concept video", ratio: "1152 / 648", kind: "video" },
+            ],
+          },
         ],
       },
       {
@@ -740,10 +811,17 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         eyebrow: "Interface Design",
         title: "From Service to Product",
-        body: "User Persona · User Flows · Wireframing · Design System · Prototyping · User Testing. An app-based platform was envisioned as part of the scaling strategy, and a prototype was developed to demonstrate its functionality and potential.",
+        body: "User Persona \u2022 User Flows \u2022 Wireframing \u2022 Design System \u2022 Prototyping \u2022 User Testing",
         media: [
-          { layout: "full", items: [{ src: "/images/3QRI5gCdHRlRKXEWUbFamb4GX8.jpg", alt: "Interface design", ratio: "1280 / 767" }] },
+          {
+            layout: "full",
+            items: [
+              { src: "/images/3QRI5gCdHRlRKXEWUbFamb4GX8.jpg", alt: "App interface", ratio: "1280 / 767" },
+            ],
+          },
         ],
+        caption:
+          "An app-based platform was envisioned as part of the scaling strategy, and a prototype was developed to demonstrate its functionality and potential.",
       },
     ],
 
@@ -751,16 +829,16 @@ export const caseStudies: Record<string, CaseStudy> = {
 
   aero_check: {
     slug: "aero_check",
-    name: "PitchHub",
-    subtitle: "Reimagining Applications with AI",
-    headline: "Validating Manufacturing Diagrams for Airbus.",
+    name: "Aero Check",
+    headline:
+      "Designing an AI-Assisted Validation Tool That Increased Processing Speed by 3.3\u00d7",
     summary:
-      "Google’s sales enablement team creates hundreds of MVPs each quarter, demonstrating how Vertex AI integrates with diverse applications. As consultants, we ran a pilot project to prove we could take over this process, delivering scalable MVP development for Google.",
+      "As a consultant, I worked on a pilot project for Airbus to demonstrate how AI could assist in validating complex manufacturing diagrams. The goal was to explore how AI could reduce manual effort by identifying missing or inconsistent information and supporting engineers with a faster, more reliable validation workflow.",
     meta: [
-      { label: "Client", value: "Google (Vertex AI – Sales Enablement Team)" },
-      { label: "Duration", value: "2 weeks" },
-      { label: "Industry", value: "AI & Cloud Computing" },
-      { label: "Scope of work", value: "SaaS · AI-Driven · No-code" },
+      { label: "Client", value: "Airbus" },
+      { label: "Duration", value: "4 Weeks" },
+      { label: "Industry", value: "Aviation" },
+      { label: "Scope of Work", value: "AI-Driven \u00b7 Enterprise Saas \u00b7 No-code" },
     ],
     hero: {
       layout: "wide",
@@ -770,40 +848,169 @@ export const caseStudies: Record<string, CaseStudy> = {
     },
     sections: [
       {
-        eyebrow: "Overview",
-        title: "Validating Manufacturing Diagrams for Airbus.",
-        body: "One of the key use cases to showcase Vertex AI’s real impact was with Airbus. We applied AI to streamline the validation of complex, legacy manufacturing diagrams. The system cross-referenced each diagram with the bill of materials and part data, automatically completing missing details. When gaps couldn’t be resolved, the AI clearly highlighted them on both the diagram and validation tables, ensuring accuracy, efficiency, and production readiness.",
+        eyebrow: "Objective",
+        title:
+          "Making Manufacturing Diagram Validation Faster Without Compromising Engineering Confidence.",
+        body: "Engineers previously validated diagrams manually by comparing drawings against Bill of Material (BOM) data and supporting information. The repetitive process made validation time-consuming and required engineers to repeatedly cross-reference multiple sources. The objective was to reduce validation time by automating repetitive comparisons while ensuring every AI recommendation remained transparent, reviewable, and under human control.",
       },
       {
-        eyebrow: "My Process",
-        title: "My Process",
-        body: "Working on rapid MVP builds meant balancing speed with clarity. My process moved from understanding requirements to validating storyboards with stakeholders, designing high-fidelity prototypes within FlutterFlow’s constraints, and closing the loop with final reviews before handoff.",
-        blocks: [
-          { no: "01", title: "Requirement Analysis", body: "Reviewed requirement docs to understand goals, users, and constraints." },
-          { no: "02", title: "Storyboard Validation", body: "Created and showcased storyboards to align on user flow and demo expectations." },
-          { no: "03", title: "Prototype Design", body: "Designed interactive prototypes and collaborated with developers to build in FlutterFlow." },
-          { no: "04", title: "Final Review & Sign-off", body: "Conducted final walkthrough with stakeholders and incorporated feedback." },
-        ],
-        media: [
+        eyebrow: "Business Impact",
+        title: "Reducing Validation Time by 70%.",
+        body: "By shifting repetitive comparison work from manual checks to an AI-assisted workflow, engineers could spend less time searching and reconciling information and more time reviewing the results that require their expertise.",
+        metrics: [
           {
-            layout: "grid3",
-            items: [
-              { src: "/images/9KaLvxH5RBdryHTufo6WRngdK5c.png", alt: "Requirement analysis", ratio: "276 / 215" },
-              { src: "/images/XMaXzxbkI1OahLIQ1HWAwjhK8Gk.png", alt: "Storyboard validation", ratio: "276 / 215" },
-              { src: "/images/UO6BqLgAAXWdFtnsNfYSCx7PFk.png", alt: "Prototype design", ratio: "257 / 212" },
+            value: "3.3X Faster",
+            label:
+              "Streamlined diagram validation by reducing repetitive manual comparisons across drawings and Bill of Material (BOM) data.",
+          },
+        ],
+      },
+      {
+        eyebrow: "Discovery",
+        title: "Understanding How Engineers Validate Manufacturing Diagrams",
+        body: "I spoke with engineers involved in diagram validation to understand how they review drawings, compare them against BOM and engineering data, and investigate discrepancies across supporting documentation.",
+        findings: [
+          {
+            no: "(01)",
+            title: "Cross-Referencing Engineering Data",
+            quote:
+              "...I need to check the drawing with the BOM and master data, especially the P/N, quantity and parameters. Sometimes I have to pivot between different data sets to understand where the deviation is coming from...",
+            quoteBy: "Design Engineer",
+            caption:
+              "Insight- Validation requires cross-referencing multiple engineering data sources and attributes, not just matching a part number.",
+          },
+          {
+            no: "(02)",
+            title: "Making Validation Traceable",
+            quote:
+              "...when there is a missing or validation deviation in the Post-BOM, I want to know what was compared, which validation rules were applied...",
+            quoteBy: "Design Engineer",
+            caption:
+              "Insight- Engineers need a traceable validation trail showing what was checked, which rules were applied, and where human review is still required.",
+          },
+          {
+            no: "(03)",
+            title: "Establishing Document Relationships",
+            quote:
+              "...for one part there can be the drawing, BOM and other technical data. I need to check the revision, configuration and document mapping before I know which information is valid for the component...",
+            quoteBy: "Design Engineer",
+            caption:
+              "Insight- Engineers need relationships between drawings, BOMs and technical documents to determine which data should be trusted.",
+          },
+          {
+            no: "(04)",
+            title: "Tracing the Source of AI Recommendations",
+            quote:
+              "...if the AI suggests a different material, supplier or P/N, I need to see where it got the information from. I cannot just accept the suggestion if I can\u2019t confirm the source data...",
+            quoteBy: "Design Engineer",
+            caption:
+              "Insight- AI recommendations need source-level evidence so engineers can assess and trust the suggested value.",
+          },
+        ],
+      },
+      {
+        eyebrow: "Analysis",
+        title: "Three Core Requirements for the Solution.",
+        body: "The analysis distilled the recurring needs across the validation process into three essential pillars for the solution.",
+        blocks: [
+          {
+            title: "Data Comparison",
+            body: "Compare the manufacturing diagram against BOMs, revisions, configurations, and other engineering data.",
+            media: [
+              {
+                layout: "center",
+                items: [
+                  { src: "/images/9KaLvxH5RBdryHTufo6WRngdK5c.png", alt: "Data comparison", ratio: "256 / 189" },
+                ],
+              },
+            ],
+          },
+          {
+            title: "Deviation Resolution",
+            body: "Identify missing or conflicting information and determine the appropriate resolution.",
+            media: [
+              {
+                layout: "center",
+                items: [
+                  { src: "/images/UO6BqLgAAXWdFtnsNfYSCx7PFk.png", alt: "Deviation resolution", ratio: "256 / 211" },
+                ],
+              },
+            ],
+          },
+          {
+            title: "Source Traceability",
+            body: "Show the source and evidence behind each finding or AI recommendation.",
+            media: [
+              {
+                layout: "center",
+                items: [
+                  { src: "/images/XMaXzxbkI1OahLIQ1HWAwjhK8Gk.png", alt: "Source traceability", ratio: "256 / 189" },
+                ],
+              },
             ],
           },
         ],
       },
       {
-        eyebrow: "Storyboard",
-        title: "Storyboard",
-        body: "The storyboard was carefully designed to map out each step of the user’s actions alongside the corresponding generative AI responses. At every stage, we outlined what the user would do and how the AI would assist, whether by validating data, completing missing parts, or highlighting gaps.",
+        eyebrow: "Interaction Workflow",
+        title: "Mapping How Engineers, AI, and Data Work Together.",
+        body: "I mapped the validation journey to define how engineers and AI interact across the primary flow and key exception scenarios, from data comparison and discrepancy detection to review, confirmation, and override.",
         media: [
-          { layout: "wide", items: [{ src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "Storyboard", ratio: "1018 / 573" }] },
+          {
+            layout: "wide",
+            items: [
+              { src: "/images/eRwXsOJdq5KiO8G1WW1Fg5s.png", alt: "Interaction workflow map", ratio: "1018 / 573" },
+            ],
+          },
         ],
         caption:
-          "*Replica of the original project artifact, unchanged to reflect real delivery under time constraints. Use the custom zoom to view research text.",
+          "The workflow illustrates one primary review process alongside four supporting scenarios: missing values, AI-confirmed suggestions, manual overrides, and re-review before submission. Bringing these together in a single map helped align product, design, and engineering before prototyping.",
+      },
+      {
+        eyebrow: "Design Advocacy",
+        title: "How I Proposed AX Principles to Build User Trust.",
+        body: "The development team initially focused on surfacing the AI result. I used three concepts to demonstrate why engineers also needed the source, reasoning, validation context, and clear paths when AI succeeds or fails.",
+        blocks: [
+          {
+            no: "01",
+            title: "Contextual Feedback",
+            body: "When the system detected a mismatch, such as a part number in the manufacturing diagram not matching the Bill of Materials (BOM), I highlighted the exact region in the diagram and displayed the conflicting BOM entry alongside it. Engineers could immediately validate the issue without searching through lists or switching screens.",
+            media: [
+              {
+                layout: "wide",
+                items: [
+                  { src: "/images/Z0pVDqzTy3ChPFYNlghgaPask.png", alt: "Contextual feedback", ratio: "1072 / 605" },
+                ],
+              },
+            ],
+          },
+          {
+            no: "02",
+            title: "AI Transparency and Explainability",
+            body: "When the system automatically resolved missing information by retrieving data from another source file, I surfaced the action together with its source. Engineers could review, confirm, or reject the AI recommendation instead of relying on silent automation.",
+            media: [
+              {
+                layout: "wide",
+                items: [
+                  { src: "/images/R7yB2WULGZcVYACGYFbQ9OeFk.png", alt: "AI transparency and explainability", ratio: "1072 / 565" },
+                ],
+              },
+            ],
+          },
+          {
+            no: "03",
+            title: "Human AI Handoff",
+            body: "Instead of showing a generic \"Needs Review\" state, I displayed the validation steps performed, the data sources consulted, and why the issue remained unresolved. Engineers could continue from where the AI stopped instead of repeating the investigation.",
+            media: [
+              {
+                layout: "wide",
+                items: [
+                  { src: "/images/5EA2VLkcnffffwkEhlvfXyfn2wk.png", alt: "Human AI handoff", ratio: "1072 / 579" },
+                ],
+              },
+            ],
+          },
+        ],
       },
       {
         eyebrow: "Design",
@@ -823,68 +1030,14 @@ export const caseStudies: Record<string, CaseStudy> = {
         eyebrow: "Prototype",
         title: "Prompt to Code",
         body: "For the project, we originally built it in FlutterFlow, but for the purpose of showcasing it in my portfolio, I created a working prototype using Claude.",
-        blocks: [
-          { no: "01", title: "Prototype features & interactions", body: "Filter Part Cards → Sort by AI processed, errors, or all. Open Part Details → Click on any card to view detailed screen. Upload Flow → Simulate uploading diagrams and BOM data. Inspect Diagram → Identify AI-marked missing information. Cross-Reference Tables → See issues mapped with reference IDs. Scrollable Tables → Navigate Pre-BOM and Post-BOM data. View Part Details Panel → Review part metadata in the side panel." },
-        ],
         media: [
           {
             layout: "grid2",
             items: [
-              { src: "/images/MPizP4rzrfBa53vALBAm6ptwj0w.jpg", alt: "Prompt to code", ratio: "505 / 469" },
-              { src: "/images/bAxOxScd2j9HtWHZ67NDrtk6uE.png", alt: "Generated interface", ratio: "541 / 509" },
+              { src: "/images/MPizP4rzrfBa53vALBAm6ptwj0w.jpg", alt: "Prototype", ratio: "505 / 469" },
+              { src: "/images/bAxOxScd2j9HtWHZ67NDrtk6uE.png", alt: "Prototype interactions", ratio: "541 / 509" },
             ],
           },
-        ],
-        caption:
-          "PIXELWAVE INNOVATION — this prototype is only available in desktop or tablet view. Please switch to a desktop or tablet device to interact.",
-      },
-      {
-        eyebrow: "Design Advocacy",
-        title: "How I Built Trust in AI-Assisted Review Systems",
-        body: "Through stakeholder interviews and user feedback, I found that trust was the key adoption barrier. Engineers valued AI assistance, but only when they could understand its recommendations, validate its reasoning, and remain accountable for every decision.",
-        blocks: [
-          {
-            no: "01.",
-            title: "Principle: Contextual Feedback",
-            body: "Present AI feedback within the user’s visual context and workflow. How I applied it — when the system detected a mismatch, such as a part number in the manufacturing diagram not matching the Bill of Materials (BOM), I highlighted the exact region in the diagram and displayed the conflicting BOM entry alongside it. Engineers could immediately validate the issue without searching through lists or switching screens.",
-            media: [
-              { layout: "wide", items: [{ src: "/images/Z0pVDqzTy3ChPFYNlghgaPask.png", alt: "Contextual feedback", ratio: "1072 / 605" }] },
-            ],
-          },
-          {
-            no: "02.",
-            title: "Principle: AI Transparency and Explainability",
-            body: "Make AI decisions, actions, and reasoning visible to users. How I applied it — when the system automatically resolved missing information by retrieving data from another source file, I surfaced the action together with its source. Engineers could review, confirm, or reject the AI recommendation instead of relying on silent automation.",
-            media: [
-              { layout: "wide", items: [{ src: "/images/R7yB2WULGZcVYACGYFbQ9OeFk.png", alt: "AI transparency", ratio: "1072 / 565" }] },
-            ],
-          },
-          {
-            no: "03.",
-            title: "Principle: Human AI Handoff",
-            body: "Provide sufficient context when AI requires human intervention. How I applied it — instead of showing a generic \"Needs Review\" state, I displayed the validation steps performed, the data sources consulted, and why the issue remained unresolved. Engineers could continue from where the AI stopped instead of repeating the investigation.",
-            media: [
-              { layout: "wide", items: [{ src: "/images/5EA2VLkcnffffwkEhlvfXyfn2wk.png", alt: "Human AI handoff", ratio: "1072 / 579" }] },
-            ],
-          },
-          {
-            no: "04.",
-            title: "Principle: Human in the Loop Control",
-            body: "Ensure users retain final control over AI assisted decisions. How I applied it — I designed Confirm and Override as equally accessible actions with an optional rationale field. This enabled quick validation while creating a feedback loop to improve future AI performance.",
-          },
-        ],
-      },
-      {
-        eyebrow: "Measurable Impact",
-        title: "Measurable Impact",
-        metrics: [
-          {
-            value: "3.3X Faster",
-            label: "Faster turnaround validating complex manufacturing diagrams against the bill of materials — compared to the fully manual workflow.",
-          },
-        ],
-        blocks: [
-          { no: "01", title: "Process Comparison", body: "Manual Process — validate relationships. AI-Powered Workflow — finished. Validation Time Saved ~70%." },
         ],
       },
     ],

@@ -22,6 +22,22 @@ export function FigureGroup({ gallery }: { gallery: Gallery }) {
           maxWidth: item.width,
           borderRadius: item.radius,
         } as React.CSSProperties;
+        if (item.kind === "embed") {
+          // Live embeds two interactive prototypes on the member portal study.
+          // Sandboxed: scripts run (both need them), but nothing else is granted.
+          return (
+            <iframe
+              key={item.src}
+              className={styles.item}
+              data-rounded={item.rounded ? "true" : undefined}
+              style={style}
+              src={item.src}
+              title={item.alt}
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
+            />
+          );
+        }
         return item.kind === "video" ? (
           <video
             key={item.src}

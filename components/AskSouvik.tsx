@@ -9,12 +9,11 @@ type Msg = { sender: "ai" | "user"; text: string };
 const GREETING = "Hey, I'm Souvik 👋";
 const SUB_GREETING =
   "Ask me anything about my work, experience, or projects.";
-const PLACEHOLDER = "Ask a question";
+const PLACEHOLDER = "What are you looking for?";
 const PILL_LABEL = "Ask Souvik";
 const SUGGESTED = [
-  "Tell me about your work",
-  "What are you looking for?",
-  "Show me a project",
+  "What have you been working on lately?",
+  "How do you use AI in your design process?",
 ];
 
 const IDLE_COLLAPSE_MS = 12_000;
@@ -75,7 +74,7 @@ export function AskSouvik() {
   const [isThinking, setIsThinking] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([]);
-  const [showGreeting, setShowGreeting] = useState(false);
+  const [showGreeting, setShowGreeting] = useState(true);
   const [greetingTyping, setGreetingTyping] = useState(false);
   const [usedPrompts, setUsedPrompts] = useState<Set<string>>(new Set());
   const [showChips, setShowChips] = useState(false);
@@ -106,10 +105,10 @@ export function AskSouvik() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Closing resets the greeting so it replays next time it opens.
+  // Closing leaves the greeting in place: live keeps this copy rendered rather
+  // than replaying a typing beat on each open.
   const close = useCallback(() => {
     setOpen(false);
-    setShowGreeting(false);
     setGreetingTyping(false);
   }, []);
 

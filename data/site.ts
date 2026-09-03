@@ -28,9 +28,9 @@ export const hero = {
 };
 
 export const intro = {
-  heading: "Building products at the intersection of design and AI.",
+  heading: "Building Products at the Intersection of Design and AI.",
   body:
-    "I’m curious about what happens when designers move closer to building. I’m exploring AI, automation, business logic, and rapid prototyping, and how designers can shape not just the experience, but the product itself. That space between design and building is what excites me most.",
+    "Designing beyond interfaces. I use AI to automate workflows, build business rule engines, generate production-ready code, and create experiences that make AI output understandable, reliable, and trustworthy.",
 };
 
 export const experience = [
@@ -64,21 +64,24 @@ export const projects: Project[] = [
   {
     no: "(01)",
     title: "Member Portal",
+    // Home dates this © 2024, /projects © 2023.
+    yearHome: "\u00a9 2024",
     category: "Mobile App for Mendical Insurers",
     year: "© 2023",
     href: "/projects/member_portal",
     image: "/images/KIEFX4kEuByXd9JpGIS8twFgVoQ.png",
     imageFg: "/images/rfp44x8PMyDNpOJEIvkRhLl2GbI.jpg",
     blurb:
-      "Revamped UnitedHealthcare's member portal end-to-end, now having 5M+ downloads on the Play Store.",
+      "Revamped UnitedHealthcare's member portal end-to-end, now having 5M+ download on Playstore.",
   },
   {
     no: "(02)",
-    // Live's index reads "Access Now" with this category and typo; the home
-    // band reads "AccessNow / Accessible Healthcare SaaS Product for Medicare
-    // Patients". Mirroring each surface as published.
+    // The two surfaces publish different copy for this project. /projects reads
+    // "Access Now / Accebility First Medicare Product" (typo live's); the home
+    // band currently reads "Airbus" over AccessNow's own category. Each surface
+    // is mirrored as published.
     title: "Access Now",
-    titleHome: "AccessNow",
+    titleHome: "Airbus",
     category: "Accebility First Medicare Product",
     categoryHome: "Accessible Healthcare SaaS Product for Medicare Patients",
     year: "© 2024",
@@ -92,9 +95,9 @@ export const projects: Project[] = [
     no: "(03)",
     title: "Aero Check",
     category: "AI-Powered Manufacturing Diagram Validation Tool",
-    // Live shows 2025 on the index and 2024 on the home band.
+    // Live shows 2025 on the index and 2023 on the home band.
     year: "© 2025",
-    yearHome: "© 2024",
+    yearHome: "© 2023",
     href: "/projects/aero_check",
     image: "/images/yuS2M7JfOtnVFgldybJXykkAWh8.png",
     imageFg: "/images/0WVv7WVddGAaPFm7sjj9ECNGFM.jpg",
@@ -138,18 +141,16 @@ export type Build = {
    * taglines below them are correct and distinct. Mirrored deliberately; set
    * this to `title` to show the real names.
    */
-  cardTitle: string;
 };
 
 export const builds: Build[] = [
   {
     no: "01",
     title: "Tracka",
-    cardTitle: "Tracka",
     live: true,
     tagline: "Career Application Toolkit",
     body:
-      "Inspired by my own job search, Tracka is an AI-powered workspace for tailored resumes, cover letters, and application tracking.",
+      "Inspired by my own job search experience, I designed Tracka, an AI-powered workspace for tailored resumes, cover letters, and application tracking.",
     href: "/builds/tracka",
     cta: "View Project",
     year: "© 2026",
@@ -164,7 +165,7 @@ export const builds: Build[] = [
       " and Product Designer, I took the product from concept to a full-fledged experience by defining ",
       { b: "use cases" },
       ", mapping ",
-      { b: "user journey" },
+      { b: "user journeys" },
       " and ",
       { b: "edge cases" },
       ", building the ",
@@ -177,7 +178,6 @@ export const builds: Build[] = [
   {
     no: "02",
     title: "Shift Assist",
-    cardTitle: "Tracka",
     live: true,
     tagline: "AI-Powered Diagnostics",
     body:
@@ -205,8 +205,11 @@ export const builds: Build[] = [
   {
     no: "03",
     title: "Farm.doc",
-    cardTitle: "Tracka",
-    live: true,
+    // Published earlier, but the live site no longer lists it on /builds or in
+    // the home builds band (verified after a full scroll on both, so it is not
+    // a lazy-mount miss). Kept here in full: flip this back to true if it
+    // returns.
+    live: false,
     tagline: "Farm Compliance Automation",
     body:
       "Farm.doc helps farmers document farm activities while staying compliant with evolving German agricultural regulations through an n8n-based orchestration layer.",
@@ -245,10 +248,11 @@ export const about = [
 export const testimonials = [
   {
     name: "Eleisha Z. Tetteh",
-    role: "Creative Leadership Senior Manager, Accenture London",
+    role: "Creative Leadership Senior Manager,",
+    company: "Accenture London",
     photo: "/images/WLwNGgVqQYCNhli7aq6EDylq0Y.png",
     quote:
-      "Souvik was an invaluable contributor to the Google PitchHub project, a highly strategic and competitive 8-week pilot showcasing ACN’s [genai] capabilities with Google Gemini AI. His work helped create five high-impact sales demos for prominent clients, including Airbus, UHG, Coca-Cola, Banco BV, and Woolworths — demonstrating ACN’s ability to rapidly scale and deliver cutting-edge solutions. As a UX/UI Designer, Souvik played a critical role in crafting compelling, high-quality design solutions tailored to each demo. His expertise in user-centred design was evident and his ability to collaborate effectively within the team under tight timelines was truly commendable. He demonstrated strong adaptability, seamlessly responding to feedback and refining designs to meet the specific needs of diverse industries and global markets across AMER, APAC, EMEA, and LATAM.",
+      "Souvik was an invaluable contributor to the Google PitchHub project, a highly strategic and competitive 8-week pilot showcasing ACN’s [genai] capabilities with Google Gemini AI. His work helped create five high-impact sales demos for prominent clients, including Airbus, UHG, Coca-Cola, Banco BV, and Woolworths — demonstrating ACN’s ability to rapidly scale and deliver cutting-edge solutions. As a UX/UI Designer, Souvik played a critical role in crafting compelling, high-quality design solutions tailored to each demo. His expertise in user-centred design was evident and his ability to collaborate effectively within the team under tight timelines was truly commendable. He demonstrated strong adaptability, seamlessly responding to feedback and refining designs to meet the specific needs of diverse industries and global markets across AMER, APAC, EMEA, and LATAM. Thank you Souvik for your dedication and valuable contributions, your ability to balance creativity, user experience and strategic business impact will be a great asset in your future roles.",
   },
 ];
 

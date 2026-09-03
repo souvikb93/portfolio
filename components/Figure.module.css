@@ -43,3 +43,15 @@
   .group[data-layout="grid2"] { grid-template-columns: 1fr; }
   .group[data-layout="portraitPair"] { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Interactive embeds: iframes are replaced elements, so they take neither the
+   image rules' intrinsic sizing nor a useful height:auto. Size them from the
+   inline aspect-ratio instead. */
+iframe.item {
+  width: 100%;
+  height: auto;
+  border: 0;
+  background: var(--white);
+}
+.group[data-layout="full"] iframe.item,
+.group[data-layout="center"] iframe.item { display: block; }

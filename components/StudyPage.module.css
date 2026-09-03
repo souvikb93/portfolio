@@ -52,14 +52,14 @@
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: var(--space-5);
 }
+/* Measured on the live pages: these carry no card chrome — no border, padding
+   or radius. They sit directly on the 1152px body column, which is also why an
+   embed inside one reaches the full column width. */
 .block,
 .finding {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: var(--space-8);
-  border: 1px solid var(--gray);
-  border-radius: var(--space-5);
 }
 .finding { gap: var(--space-3); }
 
@@ -96,4 +96,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+}
+
+/* Live puts the attribution on its own line under the quote. */
+.cite {
+  display: block;
+  margin-top: var(--space-2);
+  font-style: normal;
 }

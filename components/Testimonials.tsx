@@ -26,6 +26,7 @@ export function Testimonials() {
         <div className={styles.who}>
           <span className="t-body">{t.name}</span>
           <span className="t-body muted">{t.role}</span>
+          <span className="t-body muted">{t.company}</span>
         </div>
         {testimonials.length > 1 && (
           <div className={styles.dots}>
@@ -37,7 +38,7 @@ export function Testimonials() {
       </div>
 
       <blockquote className={styles.quote}>
-        <p className="t-body">“{t.quote}”</p>
+        <p className="t-body">{t.quote}</p>
       </blockquote>
 
       <div className={styles.nav} data-multiple={testimonials.length > 1}>

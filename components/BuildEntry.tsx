@@ -1,5 +1,4 @@
 import type { Build, RichText } from "@/data/site";
-import { MIRROR_LIVE } from "@/data/fidelity";
 import { ActionLink } from "./ActionLink";
 import styles from "./BuildEntry.module.css";
 
@@ -31,7 +30,7 @@ export function BuildEntry({ build }: { build: Build }) {
       <div className={`t-meta ${styles.meta}`}>
         <span>({build.no})</span>
         <span className={styles.title}>
-          {MIRROR_LIVE ? build.cardTitle : build.title}
+          {build.title}
         </span>
         <span>{build.year}</span>
       </div>

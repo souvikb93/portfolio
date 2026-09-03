@@ -5,7 +5,6 @@ import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
 import { ScrollStage } from "./ScrollStage";
 import type { Block, Gallery } from "@/data/caseStudies";
-import { MIRROR_LIVE } from "@/data/fidelity";
 import styles from "./StudyPage.module.css";
 
 // Shared long-form study layout used by /projects/[slug] and /builds/[slug].
@@ -18,11 +17,6 @@ export function StudyPage({
   backHref: string;
   backLabel: string;
 }) {
-
-  // Live currently prints a different project's header on two studies; the
-  // switch in data/fidelity.ts decides whether we reproduce that.
-  const head =
-    !MIRROR_LIVE && study.corrected ? study.corrected : study;
 
   return (
     <>
@@ -41,14 +35,14 @@ export function StudyPage({
 
         <header className={`${study.hero ? "over-hero" : ""} ${styles.head}`}>
           <div className="container-study">
-            <p className="t-body muted">{head.name}</p>
-            {head.subtitle && (
-              <p className="t-body2 muted">{head.subtitle}</p>
+            <p className="t-body muted">{study.name}</p>
+            {study.subtitle && (
+              <p className="t-body2 muted">{study.subtitle}</p>
             )}
-            <h1 className={`t-h3 ${styles.headline}`}>{head.headline}</h1>
-            <p className={`t-body muted ${styles.summary}`}>{head.summary}</p>
+            <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
+            <p className={`t-body muted ${styles.summary}`}>{study.summary}</p>
             <dl className={styles.meta}>
-              {head.meta.map((m) => (
+              {study.meta.map((m) => (
                 <div key={m.label}>
                   <dt className="t-body2 muted">{m.label}</dt>
                   <dd className="t-body">{m.value}</dd>
@@ -63,23 +57,43 @@ export function StudyPage({
           <Section key={`${sec.eyebrow}-${i}`} eyebrow={sec.eyebrow}>
             {sec.title && <h2 className="t-h4">{sec.title}</h2>}
             {sec.body && <p className="t-body muted">{sec.body}</p>}
+            {sec.bullets && (
+              <ul className={styles.bullets}>
+                {sec.bullets.map((x) => (
+                  <li key={x} className="t-body muted">
+                    {x}
+                  </li>
+                ))}
+              </ul>
+            )}
 
             {sec.findings && (
               <div className={styles.findings}>
                 {sec.findings.map((f) => (
-                  <article key={f.no} className={styles.finding}>
+                  <article key={f.no ?? f.title} className={styles.finding}>
                     <h3 className="t-h5">
-                      {f.no} · {f.title}
+                      {f.no ? `${f.no} · ` : ""}
+                      {f.title}
                     </h3>
-                    {f.quote && (
-                      <blockquote className={styles.quote}>
-                        “{f.quote}”
-                        {f.quoteBy && (
-                          <cite className="t-body2 muted"> — {f.quoteBy}</cite>
-                        )}
-                      </blockquote>
-                    )}
                     {f.caption && <p className="t-body2 muted">{f.caption}</p>}
+                    {f.quote && (
+                      <>
+                        <p className="t-body2 muted">User Quote</p>
+                        <blockquote className={styles.quote}>
+                          <p className="t-body">
+                            &quot;{f.quote}&quot;
+                            {f.quoteBy && f.quoteInline && (
+                              <cite className="t-body2 muted"> {f.quoteBy}</cite>
+                            )}
+                          </p>
+                          {f.quoteBy && !f.quoteInline && (
+                            <cite className={`t-body2 muted ${styles.cite}`}>
+                              {f.quoteBy}
+                            </cite>
+                          )}
+                        </blockquote>
+                      </>
+                    )}
                     <FindingList label="Supporting Findings" value={f.support} />
                     <FindingList label="Business Impact" value={f.impact} />
                   </article>
@@ -94,6 +108,7 @@ export function StudyPage({
                     <span className="t-h3">{m.value}</span>
                     <p className="t-body muted">{m.label}</p>
                     {m.note && <p className="t-body2 muted">{m.note}</p>}
+                    {m.source && <p className="t-body2 muted">{m.source}</p>}
                   </div>
                 ))}
               </div>
@@ -107,7 +122,7 @@ export function StudyPage({
 
         <div className={`container-study ${styles.next}`}>
           <Link href={backHref} className={styles.link}>
-            {backLabel} →
+            {backLabel}
           </Link>
         </div>
       </main>
@@ -124,11 +139,13 @@ function BlockGrid({
   return (
     <div className={styles.blockGrid}>
       {blocks.map((b) => (
-        <article key={b.no} className={styles.block}>
+        <article key={b.no ?? b.title} className={styles.block}>
           {/* Live sets these as one line, "02 · Title", not a number above a
-              heading — keeping them separate broke the reading order. */}
+              heading — keeping them separate broke the reading order. Some
+              groups (Aero Check's three core requirements) carry no numeral. */}
           <h3 className="t-h6">
-            {b.no} · {b.title}
+            {b.no ? `${b.no} · ` : ""}
+            {b.title}
           </h3>
           <p className="t-body muted">{b.body}</p>
           {b.bullets && (
