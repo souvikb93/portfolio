@@ -15,7 +15,9 @@
   height: auto;
   display: block;
   object-fit: cover;
-  background: var(--gray);
+  /* No placeholder tint here: most of these PNGs are palette images with a
+     tRNS chunk, so a background shows through their transparent ground as a
+     grey slab. `aspect-ratio` already reserves the box, so nothing shifts. */
 }
 .item[data-rounded="true"] { border-radius: var(--space-2); }
 
@@ -57,6 +59,12 @@ iframe.item {
   border: 0;
   background: var(--white);
 }
+/* `centre` and `wide` size their grid area to fit-content, and a replaced
+   element's `width: 100%` against an indefinite size falls back to the iframe's
+   intrinsic 300px. An embed there states its design width — see Figure.tsx.
+   Specific enough to beat the `[data-layout="center"] .item` rule above. */
+.group[data-layout="center"] iframe.item,
+.group[data-layout="wide"] iframe.item { width: var(--embed-w, 100%); }
 .group[data-layout="full"] iframe.item,
 .group[data-layout="center"] iframe.item { display: block; }
 
@@ -82,8 +90,68 @@ iframe.item {
 .embedScroll { min-width: 0; }
 @media (max-width: 810px) {
   .embedScroll { overflow-x: auto; overscroll-behavior-x: contain; }
-  .embedScroll iframe.item { width: 760px; max-width: none; }
+  /* Keep the design width and scroll sideways, but never past 760px. Matches
+     the centre/wide rule's specificity and wins on order. */
+  .group .embedScroll iframe.item { width: min(var(--embed-w, 760px), 760px); max-width: none; }
 }
 
 /* A plate with its own small print. */
 .figure { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+
+/* Before/after columns. Live runs these as two equal columns 48px apart, each
+   stacking its own plates 20px apart under a label with 25px of air below it. */
+.columns {
+  display: grid;
+  gap: var(--space-12, 48px);
+  margin-block: var(--space-16);
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  min-width: 0;
+}
+.column > p { margin: 0 0 var(--space-1); }
+/* The rows inside a column carry the column's rhythm, not the page's. */
+.column .group { margin-block: 0; width: 100%; }
+@media (max-width: 810px) {
+  .columns { grid-template-columns: 1fr !important; margin-block: var(--space-10); }
+}
+
+/* One frame, plates placed absolutely inside it — see Stage in Figure.tsx.
+   The frame is capped at its live width and scales below that; every child is
+   positioned in percentages, so the composition holds together as it shrinks. */
+/* A definite track, so the frame's own `max-width: 100%` has something to
+   measure against and the whole composition scales down on a narrow screen. */
+.group[data-layout="stage"] {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+}
+.stage {
+  position: relative;
+  max-width: 100%;
+  margin-inline: auto;
+}
+.placed {
+  position: absolute;
+  display: block;
+  border: 0;
+  /* An image given only a height keeps its own aspect, as the live frames rely
+     on for the phone plate. */
+  width: auto;
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+}
+iframe.placed { background: var(--white); }
+
+/* Two tiles at their own width, side by side — the diagram and the card it
+   describes, as the Gutenberg columns pair them. */
+.group[data-layout="tilePair"] {
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: center;
+  gap: 10px;
+}
+.group[data-layout="tilePair"] .item { width: var(--tile-w, 100%); }

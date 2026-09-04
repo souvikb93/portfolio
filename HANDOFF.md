@@ -1,6 +1,6 @@
 # HANDOFF
 
-Last session: 2026-08-31
+Last session: 2026-09-04
 
 ## Goal
 
@@ -82,6 +82,100 @@ type every render → remounted the heading, restarting the animation). Two CSS-
 a global utility was used unscoped inside a module (`.copy .t-body`, `.edgeCard .t-h3`) so it was
 hashed to a name that never matched. A `width: 100%` overriding the hero container. Carousel
 arrows falling back to Arial.
+
+## Changed 2026-09-04 — Access Now's interactive plates
+
+The live Access Now page's Solution section is built from six HTML embeds that the port
+had dropped. All six are now self-hosted in `/public/embeds` and placed in the block they
+illustrate, matching the live composition.
+
+The source of truth this session was the **Framer MCP** (`mcp.unframer.co`), not the rendered
+site: `getNodeXml` on page `DqWZnxfDC` returns the whole page tree *including each Embed's
+inline HTML*, so the embeds were lifted from it verbatim rather than re-authored. Use the same
+route for anything else that is missing — it beats measuring the live DOM when the question is
+"what is actually on this page".
+
+**New embeds** (Framer nodeId in brackets):
+
+- `contrast-checker-before.html` [SUolmht20] / `contrast-checker-after.html` [dMyUGKpKq] —
+  block 01. #34C9B6 on white is 2.06:1 (fails AA); #008573 on white is 4.56:1 (passes AA);
+  both numbers verified independently.
+- `gutenberg-before.html` [MT7ilBnRf] / `gutenberg-after.html` [NgoYU7u7_] — block 02.
+- `input-field-states.html` [US4Iryu5q] — block 03.
+- `responsive-breakpoints.html` [GR67SbHkx] — block 04.
+
+**Adapted from the Framer originals**, which were sized for fixed Framer frames:
+
+- The contrast checkers were a 900px card cropped by a 454x108 wrapper at `scale(0.504)`.
+  They now scale the card to fit whatever box the study gives them.
+- Every embed respects `prefers-reduced-motion`: the checkers skip the intro sweep and show
+  their verdict, the states walkthrough shows all five states at rest instead of cycling, the
+  Gutenberg cards draw their finished path in one go, and the breakpoint scale renders complete
+  rather than looping the draw-on.
+- Labels, `aria-label`s and focus-visible rings added — the originals had none.
+- `animateRatio` never stored its first `requestAnimationFrame` id, so `cancelAnimationFrame`
+  could not stop a tween that had not recursed yet and a slider drag stacked one live tween
+  per frame. Fixed in both checkers.
+
+**Impact band.** `5XPoAP7...` is not a plate — on the live page it is the *background image* of
+the Impact section (Framer `height: fit-image`), and the green shape plus the device mockups are
+all in that one picture, with the copy held to 499px on top of it. `StudySection.backdrop` +
+`copyWidth` now do that: the band is full-bleed, `aspect-ratio: 2048 / 1650` so its height tracks
+the picture, `background-size: 100% auto`. Verified 1280x1031 at desktop with the copy at 499px
+and 716px tall inside a 1031px band. Under 810px the aspect is dropped and the picture covers,
+so the band grows with the text instead of clipping it.
+
+**Images added** that the port was missing: `YXRF5YF3…`, `EkN8mGfd…` (block 02 cards),
+`kGt0TVznt…`, `aejwPveGij…`, `DCsWSD55…` (block 04 breakpoints). All were already on disk.
+
+**Embed sizing bug fixed (affected the member portal too).** `.group[data-layout="center"|"wide"]`
+sizes its grid area to fit-content, and a replaced element's `width: 100%` against an indefinite
+size falls back to an iframe's intrinsic 300px — so `member-portal-ia.html` had been rendering at
+**300x157 instead of 1148x600**. Embeds now pass their design width to CSS as `--embed-w`
+(`components/Figure.tsx`), which `Figure.module.css` uses on centre/wide and caps at 760px on a
+phone. Verified: all six Access Now embeds and the member-portal IA map now render at their exact
+design size on desktop and keep it (scrolling in-box, no page overflow) at 390px.
+
+**Grey slab behind the plates removed.** `.item` carried `background: var(--gray)` as a load
+placeholder. Most of these images are *palette* PNGs with a `tRNS` chunk — a PNG header check
+reports them opaque, but their corners are alpha 0–4 — so the placeholder was showing through
+their transparent ground as a grey box. Dropped; `aspect-ratio` already reserves the space, so
+nothing shifts, and the section tint now shows through as on the live site. `iframe.item` keeps
+its white ground.
+
+### The Solution section is now laid out as the live page lays it out
+
+Two layouts were added to `Figure` because the row-grid vocabulary could not express what
+Framer does here. Both take the live px numbers straight from the MCP node tree:
+
+- **`columns`** — labelled before/after columns, each stacking *its own* plates. Row grids
+  pair plates across the full width, which is wrong when the two columns hold different
+  numbers of plates at different sizes (block 02: two 176x115 tiles over a 446x253 shot).
+  `labelSize` picks the live label size — `sub` on block 01, `lead` on block 02.
+- **`stage`** — one frame with plates placed absolutely inside it, via `Figure.place` in the
+  live frame's px. `Figure` converts them to percentages of the frame, so the composition
+  scales down as one piece instead of reflowing. Block 03 is a 652x556 frame (phone pinned
+  bottom-left at 500 tall, states panel 581x500 pinned top-right, overlapping it); block 04 is
+  715x568 (desktop 552x313 top-right, tablet 222x307 at 78/83, mobile 136x273 bottom-left at
+  107, breakpoint scale 715x100 pinned to the bottom at -3).
+- **`tilePair`** — two natural-width tiles 10px apart, for the diagram-plus-card rows.
+- **`Block.band`** puts a block's plates in a full-bleed `rgb(244,245,247)` band with the live
+  64/64/96 padding, so the page alternates white copy bands with tinted plate bands as it does
+  on the live site.
+
+Verified at 1280 against the live numbers: laptops 552x313 with the checkers 552x165 twenty
+pixels under them; Gutenberg tiles 176x115 ten apart over 446x253 shots; block 03's phone
+362x500 (its own 657/908 aspect off a 500 height) under a 581x500 panel; block 04's four plates
+all exact. Every embed's content now fits its frame to the pixel — the states embed's body
+padding is `18px 22px` precisely so its stage lands on 581x500. At 390px the stages scale to
+342 wide keeping their aspect, and the page has no horizontal overflow.
+
+### Known differences from the live page, Access Now
+
+- The breakpoint scale is 130px of content in a 100px frame, centred and clipped top and
+  bottom — as on the live site, which pins it at `height: 100px`. Nothing meaningful is cut.
+- Framer's own `Before`/`After` labels are separate text nodes with 25px of padding; here they
+  are the column's `label` with the column gap doing that work.
 
 ## Failed / open
 

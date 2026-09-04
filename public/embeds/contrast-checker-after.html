@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contrast Ratio Checker</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { width: 100%; height: 100%; overflow: hidden; }
+
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* The card is drawn at its design size and scaled to whatever box the study
+     gives it, so the labels never shrink past legibility. */
+  .scaler {
+    width: 900px;
+    height: 200px;
+    transform-origin: center center;
+    flex-shrink: 0;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    width: 900px;
+    height: 200px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr auto 1fr auto auto;
+    grid-template-rows: 20px 16px 44px 12px 44px;
+    padding: 32px 40px;
+  }
+
+  .label-text  { grid-column: 1; grid-row: 1; }
+  .label-bg    { grid-column: 3; grid-row: 1; }
+  .label-ratio { grid-column: 5; grid-row: 1; }
+
+  .label-text, .label-bg, .label-ratio {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #6b7280;
+    letter-spacing: 0.04em;
+    align-self: center;
+  }
+
+  .input-text  { grid-column: 1; grid-row: 3; align-self: center; }
+  .input-bg    { grid-column: 3; grid-row: 3; align-self: center; }
+  .input-ratio { grid-column: 5; grid-row: 3; align-self: center; }
+
+  .color-input-row {
+    display: flex;
+    align-items: stretch;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 44px;
+  }
+
+  .color-input-row input[type="text"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    color: #111827;
+    padding: 0 12px;
+    background: transparent;
+    min-width: 0;
+  }
+  .color-input-row input[type="text"]:focus-visible {
+    outline: 2px solid #008573;
+    outline-offset: -2px;
+    border-radius: 6px;
+  }
+
+  .swatch {
+    width: 44px;
+    flex-shrink: 0;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+  }
+
+  .swatch-color {
+    display: block;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1.5px solid #d1d5db;
+    flex-shrink: 0;
+  }
+
+  .swatch input[type="color"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+  .swatch input[type="color"]:focus-visible + .swatch-color,
+  .swatch:focus-within .swatch-color { outline: 2px solid #008573; outline-offset: 2px; }
+
+  .input-ratio {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ratio-number {
+    font-family: 'Poppins', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    width: 148px;
+    display: inline-block;
+  }
+
+  .status-icon { font-size: 20px; line-height: 1; }
+
+  .slider-text { grid-column: 1; grid-row: 5; align-self: start; }
+  .slider-bg   { grid-column: 3; grid-row: 5; align-self: start; }
+
+  .slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 44px;
+  }
+
+  .sun-icon { color: #9ca3af; flex-shrink: 0; font-size: 14px; line-height: 1; }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    height: 8px;
+    border-radius: 99px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"].text-slider {
+    background: linear-gradient(to right, #0a7a6e, #34C9B6, #b2ede7);
+  }
+  input[type="range"].bg-slider {
+    background: linear-gradient(to right, #374151, #d1d5db, #ffffff);
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2.5px solid #d1d5db;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    cursor: pointer;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2.5px solid #d1d5db;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    cursor: pointer;
+  }
+  input[type="range"].text-slider::-webkit-slider-thumb {
+    border-color: #008573;
+    box-shadow: 0 2px 6px rgba(0,133,115,0.3);
+  }
+  input[type="range"].text-slider::-moz-range-thumb {
+    border-color: #008573;
+    box-shadow: 0 2px 6px rgba(0,133,115,0.3);
+  }
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 6px rgba(52,201,182,0.15);
+  }
+  input[type="range"]:focus-visible { outline: 2px solid #008573; outline-offset: 4px; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .status-badge {
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+    grid-column: 5;
+    grid-row: 5;
+    align-self: center;
+    opacity: 0;
+    transition: color 0.4s;
+  }
+
+  .status-badge.blinking {
+    animation: blink 1s step-end infinite;
+    opacity: 1;
+  }
+
+  .sep-swap {
+    grid-column: 2; grid-row: 3;
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 32px;
+  }
+
+  .swap-btn {
+    background: none; border: none; cursor: pointer;
+    color: #6b7280; font-size: 18px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s, background 0.2s, transform 0.35s;
+  }
+  .swap-btn:hover { color: #374151; background: #f3f4f6; transform: rotate(180deg); }
+  .swap-btn:focus-visible { outline: 2px solid #008573; outline-offset: 2px; }
+
+  .sep-divider {
+    grid-column: 4; grid-row: 1 / 6;
+    display: flex; align-items: stretch; justify-content: center;
+    padding: 0 32px;
+  }
+  .divider { width: 1px; background: #e5e7eb; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status-badge.blinking { animation: none; }
+    .swap-btn { transition: color 0.2s, background 0.2s; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scaler">
+<div class="card">
+
+  <span class="label-text" id="labelText">Text Color</span>
+  <span class="label-bg" id="labelBg">Background Color</span>
+  <span class="label-ratio">Contrast Ratio</span>
+
+  <div class="color-input-row input-text">
+    <input type="text" id="textHex" value="#008573" maxlength="7" autocomplete="off" spellcheck="false" aria-labelledby="labelText">
+    <div class="swatch" id="textSwatch">
+      <input type="color" id="textColor" value="#008573" aria-label="Pick text colour">
+      <span class="swatch-color" id="textSwatchColor" style="background:#008573;"></span>
+    </div>
+  </div>
+
+  <div class="color-input-row input-bg">
+    <input type="text" id="bgHex" value="#FFFFFF" maxlength="7" autocomplete="off" spellcheck="false" aria-labelledby="labelBg">
+    <div class="swatch" id="bgSwatch">
+      <input type="color" id="bgColor" value="#FFFFFF" aria-label="Pick background colour">
+      <span class="swatch-color" id="bgSwatchColor" style="background:#FFFFFF;"></span>
+    </div>
+  </div>
+
+  <div class="input-ratio">
+    <span class="ratio-number" id="ratioDisplay">4.56  :  1</span>
+    <span class="status-icon" id="statusIcon" aria-hidden="true">✅</span>
+  </div>
+
+  <div class="slider-wrapper slider-text">
+    <span class="sun-icon" aria-hidden="true">☀</span>
+    <input type="range" class="text-slider" id="textBrightness" min="0" max="100" value="50" aria-label="Text colour brightness">
+  </div>
+
+  <div class="slider-wrapper slider-bg">
+    <span class="sun-icon" aria-hidden="true">☀</span>
+    <input type="range" class="bg-slider" id="bgBrightness" min="0" max="100" value="100" aria-label="Background colour brightness">
+  </div>
+
+  <span class="status-badge" id="statusBadge" style="color:#059669;" role="status">ADA Compliant</span>
+
+  <div class="sep-swap">
+    <button class="swap-btn" id="swapBtn" title="Swap colors" aria-label="Swap text and background colours">⇌</button>
+  </div>
+
+  <div class="sep-divider"><div class="divider"></div></div>
+
+</div>
+</div>
+
+<script>
+  // Fit the fixed 900x200 design into whatever frame the study gives it.
+  const scaler = document.querySelector('.scaler');
+  function fit() {
+    const w = document.documentElement.clientWidth;
+    const h = document.documentElement.clientHeight;
+    const s = Math.min((w - 40) / 900, (h - 40) / 200, 1);
+    scaler.style.transform = 'scale(' + Math.max(s, 0.1) + ')';
+  }
+  fit();
+  window.addEventListener('resize', fit);
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function hexToRgb(hex) {
+    hex = hex.replace('#','');
+    if (hex.length===3) hex = hex.split('').map(c=>c+c).join('');
+    const n = parseInt(hex,16);
+    return {r:(n>>16)&255, g:(n>>8)&255, b:n&255};
+  }
+  function rgbToHex(r,g,b) {
+    return '#'+[r,g,b].map(v=>Math.round(Math.max(0,Math.min(255,v))).toString(16).padStart(2,'0')).join('').toUpperCase();
+  }
+  function luminance({r,g,b}) {
+    const ch=[r,g,b].map(v=>{const s=v/255;return s<=0.03928?s/12.92:Math.pow((s+0.055)/1.055,2.4);});
+    return 0.2126*ch[0]+0.7152*ch[1]+0.0722*ch[2];
+  }
+  function contrastRatio(h1,h2){
+    const l1=luminance(hexToRgb(h1)),l2=luminance(hexToRgb(h2));
+    return (Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);
+  }
+  function adjustBrightness(hex,pct){
+    const {r,g,b}=hexToRgb(hex),f=(pct-50)/50;
+    return rgbToHex(r+(f>0?(255-r):r)*f, g+(f>0?(255-g):g)*f, b+(f>0?(255-b):b)*f);
+  }
+
+  function setTextColor(hex) {
+    document.getElementById('textColor').value = hex;
+    document.getElementById('textHex').value = hex.toUpperCase();
+    document.getElementById('textSwatchColor').style.background = hex;
+  }
+  function setBgColor(hex) {
+    document.getElementById('bgColor').value = hex;
+    document.getElementById('bgHex').value = hex.toUpperCase();
+    document.getElementById('bgSwatchColor').style.background = hex;
+  }
+
+  let currentRatio=4.56, animFrame, baseTextHex='#008573', baseBgHex='#FFFFFF';
+
+  function animateRatio(from, to, dur=2000){
+    cancelAnimationFrame(animFrame);
+    if (reduceMotion) {
+      currentRatio = to;
+      document.getElementById('ratioDisplay').textContent = to.toFixed(2)+'  :  1';
+      return;
+    }
+    const start=performance.now(), startVal=from;
+    function step(now){
+      const t=Math.min((now-start)/dur,1);
+      const ease=t<0.5?2*t*t:-1+(4-2*t)*t;
+      const val=startVal+(to-startVal)*ease;
+      currentRatio=val;
+      document.getElementById('ratioDisplay').textContent=val.toFixed(2)+'  :  1';
+      if(t<1) animFrame=requestAnimationFrame(step);
+      else { currentRatio=to; document.getElementById('ratioDisplay').textContent=to.toFixed(2)+'  :  1'; }
+    }
+    // Hold the first frame's id too: without it cancelAnimationFrame cannot
+    // stop a tween that has not recursed yet, so a slider drag stacks up one
+    // live tween per frame and the number settles wherever they collide.
+    animFrame = requestAnimationFrame(step);
+  }
+
+  let isAnimating = false;
+
+  function updateContrast(dur=120){
+    const ratio=contrastRatio(document.getElementById('textColor').value, document.getElementById('bgColor').value);
+    animateRatio(currentRatio, ratio, dur);
+    const badge=document.getElementById('statusBadge'), icon=document.getElementById('statusIcon');
+    if (isAnimating) return;
+    if(ratio>=4.5)      { badge.textContent='ADA Compliant';   badge.style.color='#059669'; icon.textContent='✅'; }
+    else if(ratio>=3)   { badge.textContent='Large Text Only'; badge.style.color='#d97706'; icon.textContent='⚠️'; }
+    else                { badge.textContent='Non Compliant';   badge.style.color='#dc2626'; icon.textContent='🚫'; }
+  }
+
+  document.getElementById('textHex').addEventListener('input', () => {
+    const v = document.getElementById('textHex').value.trim();
+    if (/^#[0-9a-fA-F]{6}$/.test(v)) { setTextColor(v); baseTextHex=v; document.getElementById('textBrightness').value=50; updateContrast(); }
+  });
+  document.getElementById('textColor').addEventListener('input', () => {
+    const v = document.getElementById('textColor').value;
+    setTextColor(v); baseTextHex=v; document.getElementById('textBrightness').value=50; updateContrast();
+  });
+  document.getElementById('textBrightness').addEventListener('input', function() {
+    const adj = adjustBrightness(baseTextHex, +this.value);
+    setTextColor(adj);
+    updateContrast();
+  });
+
+  document.getElementById('bgHex').addEventListener('input', () => {
+    const v = document.getElementById('bgHex').value.trim();
+    if (/^#[0-9a-fA-F]{6}$/.test(v)) { setBgColor(v); baseBgHex=v; document.getElementById('bgBrightness').value=50; updateContrast(); }
+  });
+  document.getElementById('bgColor').addEventListener('input', () => {
+    const v = document.getElementById('bgColor').value;
+    setBgColor(v); baseBgHex=v; document.getElementById('bgBrightness').value=50; updateContrast();
+  });
+  document.getElementById('bgBrightness').addEventListener('input', function() {
+    const adj = adjustBrightness(baseBgHex, +this.value);
+    setBgColor(adj); updateContrast();
+  });
+
+  document.getElementById('swapBtn').addEventListener('click', () => {
+    const t=document.getElementById('textColor').value, b=document.getElementById('bgColor').value;
+    setTextColor(b); baseTextHex=b; document.getElementById('textBrightness').value=50;
+    setBgColor(t); baseBgHex=t; document.getElementById('bgBrightness').value=50;
+    updateContrast();
+  });
+
+  // Any hands-on interaction ends the intro sweep and hands control to the user.
+  function stopIntro() {
+    isAnimating = false;
+    const badge = document.getElementById('statusBadge');
+    badge.classList.remove('blinking');
+    badge.style.opacity = '1';
+    updateContrast();
+  }
+  ['textBrightness','bgBrightness','textColor','bgColor','textHex','bgHex','swapBtn'].forEach(id =>
+    document.getElementById(id).addEventListener('pointerdown', stopIntro)
+  );
+
+  document.getElementById('statusBadge').style.opacity = '0';
+  updateContrast();
+
+  // Intro: sweep the text colour up from dark to the brand teal so the ratio
+  // and the compliance verdict are seen changing together.
+  if (reduceMotion) {
+    document.getElementById('statusBadge').style.opacity = '1';
+  } else {
+    setTimeout(function() {
+      if (isAnimating === false && document.getElementById('statusBadge').style.opacity === '1') return;
+      const slider = document.getElementById('textBrightness');
+      const dur1=9000, t0=performance.now();
+      isAnimating = true;
+      slider.value=0; slider.dispatchEvent(new Event('input'));
+
+      function sweepForward(now) {
+        if (!isAnimating) return;
+        const t=Math.min((now-t0)/dur1,1), ease=t<0.5?2*t*t:-1+(4-2*t)*t;
+        slider.value=ease*50; slider.dispatchEvent(new Event('input'));
+        if(t<1) requestAnimationFrame(sweepForward);
+        else {
+          isAnimating = false;
+          updateContrast();
+          document.getElementById('statusBadge').style.opacity='1';
+        }
+      }
+      requestAnimationFrame(sweepForward);
+    }, 600);
+  }
+</script>
+</body>
+</html>

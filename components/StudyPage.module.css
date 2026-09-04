@@ -150,3 +150,53 @@
 /* Section layouts. Default stacks, as the full-width slides do. "split" puts
    the copy beside the plates the way the deck's two-column slides read, at
    roughly the slide's 5:7 balance; "splitReverse" leads with the plate. */
+
+/* Live alternates a white band carrying a solution block's copy with a tinted,
+   full-bleed band carrying its plates. Padding and tint are the live values. */
+.mediaBand {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  margin-block: var(--space-10) 0;
+  background: rgb(244, 245, 247);
+  padding: 64px 64px 96px;
+  display: flex;
+  justify-content: center;
+}
+.mediaBandInner {
+  width: 100%;
+  max-width: 1200px;
+  min-width: 0;
+}
+/* The band supplies the air, so the groups inside it do not add their own. */
+.mediaBandInner :global(.group):first-child,
+.mediaBandInner > * > :global(.group):first-child { margin-top: 0; }
+.mediaBandInner > * > :global(.group):last-child { margin-bottom: 0; }
+@media (max-width: 810px) {
+  .mediaBand { padding: var(--space-10) var(--space-6) var(--space-12); }
+}
+
+/* A band whose ground is a picture, not a colour — live's Impact section. The
+   picture spans the viewport and sets the band's height (Framer: `fit-image`),
+   with the copy held to its own column on top. */
+.section[data-backdrop] {
+  width: 100vw;
+  margin-inline: calc(50% - 50vw);
+  padding: 64px 0 128px;
+  background-image: var(--backdrop);
+  background-size: 100% auto;
+  background-position: top center;
+  background-repeat: no-repeat;
+  aspect-ratio: var(--backdrop-ratio);
+}
+.section[data-backdrop] > :global(.container-study) { max-width: 1200px; }
+.section[data-backdrop] :global(.container-study) > * { max-width: var(--copy-width, none); }
+/* Below the breakpoint the copy is taller than the picture's own aspect, so the
+   band grows with the text and the picture covers whatever height that is. */
+@media (max-width: 810px) {
+  .section[data-backdrop] {
+    aspect-ratio: auto;
+    background-size: cover;
+    padding: var(--space-10) 0 var(--space-16);
+  }
+  .section[data-backdrop] :global(.container-study) > * { max-width: none; }
+}

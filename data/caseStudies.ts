@@ -24,6 +24,22 @@ export type Finding = {
 
 
 
+/**
+ * Absolute placement inside a "stage" gallery, in the px the live frame uses.
+ * Figure converts these to percentages of the frame so the whole composition
+ * scales as one. Give the two axes you want pinned — the live frames pin, say,
+ * `bottom`/`left` on one plate and `top`/`right` on the one it overlaps.
+ */
+export type Place = {
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
+  width?: number;
+  /** Omit on an image to let it keep its own aspect off the given height. */
+  height?: number;
+};
+
 /** One image or clip inside a case study. `ratio` is the live rendered aspect. */
 export type Figure = {
   src: string;
@@ -35,6 +51,8 @@ export type Figure = {
   radius?: string;
   rounded?: boolean;
   kind?: "video" | "embed";
+  /** Where this plate sits inside a "stage" gallery. Ignored by other layouts. */
+  place?: Place;
   /** Small print under this single plate. */
   caption?: string;
 };
@@ -51,14 +69,32 @@ export type Gallery = {
     | "halfRight"
     | "portraitPair"
     | "center"
-    | "full";
-  items: Figure[];
+    | "full"
+    | "columns"
+    | "stage"
+    | "tilePair";
+  items?: Figure[];
+  /**
+   * "columns": the before/after pairs the live pages run — a label over each
+   * column, and each column stacking its own plates rather than the rows
+   * pairing up across the whole width.
+   */
+  columns?: { label: string; rows: Gallery[] }[];
+  /** How large that label is. Live uses both sizes across the solution blocks. */
+  labelSize?: "sub" | "lead";
+  /** "stage": the frame the placed plates sit in, at the live px size. */
+  stage?: { width: number; height: number };
 };
 
 export type Block = {
   no?: string;
   title: string;
   body?: string;
+  /**
+   * Live alternates a white band carrying the copy with a tinted, full-bleed
+   * band carrying that block's plates. Set this to put the media in one.
+   */
+  band?: boolean;
   /** "Solution Highlights" list the live pages run under the body copy. */
   bullets?: string[];
   /** Small print under this block's media. */
@@ -88,6 +124,15 @@ export type SectionRatio = "even" | "evenWide" | "mediaLed" | "copyLed";
 
 export type StudySection = {
   eyebrow: string;
+  /**
+   * Live runs the Impact band on a full-width picture rather than a flat
+   * colour — the green shape and the device mockups are all one image, with
+   * the copy sitting on top of it. `ratio` sizes the band, since Framer sets
+   * the section to `fit-image`.
+   */
+  backdrop?: { src: string; ratio: string };
+  /** Cap on the copy column — live sets 499px over that backdrop. */
+  copyWidth?: string;
   /** Which side the plates sit on — see StudyLayout. */
   layout?: SectionVariant;
   /** How wide the copy column is against them. Ratios are measured, not even. */
@@ -279,50 +324,231 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         eyebrow: "Solution",
         title: "How I Improved the Overall User Experience",
-        media: [
-          {
-            layout: "grid2",
-            items: [
-              { src: "/images/JjkM4aIGwDfsDQZd1GVWPoKCdk.png", alt: "Redesigned dashboard", ratio: "552 / 313" },
-              { src: "/images/DwMGPjO7IPxAGwiVgA897RWcOwI.png", alt: "Redesigned claims flow", ratio: "552 / 313" },
-            ],
-          },
-          {
-            layout: "grid2",
-            items: [
-              { src: "/images/ZGJ9fY6rWT08w9d9g6tsNqeVWbk.png", alt: "Accessible form patterns", ratio: "446 / 253" },
-              { src: "/images/GNHZ4A77qlrfB2PHOXUCG7Ji8ps.png", alt: "Focus and contrast states", ratio: "446 / 253" },
-            ],
-          },
-          { layout: "center", items: [{ src: "/images/AZ2YY1OCKwquvzp5kP8pHtqcX8.png", alt: "Mobile member portal", ratio: "344 / 475", width: "344px" }] },
-          { layout: "full", items: [{ src: "/images/5XPoAP7xb7e7FA8M0puFHGZCG88.png", alt: "Accessible design system overview", ratio: "1280 / 1031" }] },
-        ],
         body: "Guided by the research findings, I redesigned the experience to address the most critical accessibility and usability challenges. The following improvements demonstrate how inclusive design principles and WCAG guidelines were applied to create a more intuitive, consistent, and accessible product.",
         blocks: [
           {
             no: "01",
             title: "Making Colour Accessible and Readable",
             body: "Through direct interaction with users who rely on high-contrast settings, I gained valuable insight into their visual needs. These learnings informed the selection of color combinations that meet WCAG standards, significantly improving readability, clarity, and overall usability across the product.",
+            band: true,
+            media: [
+              {
+                layout: "columns",
+                labelSize: "sub",
+                columns: [
+                  {
+                    label: "Before",
+                    rows: [
+                      {
+                        layout: "center",
+                        items: [
+                          {
+                            src: "/images/JjkM4aIGwDfsDQZd1GVWPoKCdk.png",
+                            alt: "The screen in the legacy palette, before the contrast work",
+                            ratio: "2048 / 1161",
+                          },
+                        ],
+                      },
+                      {
+                        layout: "half",
+                        items: [
+                          {
+                            src: "/embeds/contrast-checker-before.html",
+                            alt: "Contrast checker \u2014 the legacy teal on white, measured live against WCAG",
+                            ratio: "552 / 165",
+                            kind: "embed",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    label: "After",
+                    rows: [
+                      {
+                        layout: "center",
+                        items: [
+                          {
+                            src: "/images/DwMGPjO7IPxAGwiVgA897RWcOwI.png",
+                            alt: "The same screen in the corrected, WCAG-compliant palette",
+                            ratio: "2048 / 1161",
+                          },
+                        ],
+                      },
+                      {
+                        layout: "half",
+                        items: [
+                          {
+                            src: "/embeds/contrast-checker-after.html",
+                            alt: "Contrast checker \u2014 the corrected teal on white, measured live against WCAG",
+                            ratio: "552 / 165",
+                            kind: "embed",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
           },
           {
             no: "02",
             title: "Sructuring Visual Hierarchy Using Gutenberg Principles",
-            body: "Applied Gutenberg’s diagram to establish a clear visual flow and guide user attention toward key actions. By strategically repositioning content and CTAs along natural reading paths, the interface became more intuitive, improving scanability and engagement.",
+            body: "Applied Gutenberg\u2019s diagram to establish a clear visual flow and guide user attention toward key actions. By strategically repositioning content and CTAs along natural reading paths, the interface became more intuitive, improving scanability and engagement.",
+            band: true,
+            media: [
+              {
+                layout: "columns",
+                labelSize: "lead",
+                columns: [
+                  {
+                    label: "Before",
+                    rows: [
+                      {
+                        layout: "tilePair",
+                        items: [
+                          {
+                            src: "/embeds/gutenberg-before.html",
+                            alt: "The eye's path across the old card, cutting back against the reading order",
+                            ratio: "176 / 115",
+                            width: "176px",
+                            kind: "embed",
+                          },
+                          {
+                            src: "/images/YXRF5YF3SzSSpFWb6sNONTby5s.png",
+                            alt: "The old prescription-payment card: heading, paragraph, then a button mid-sentence",
+                            ratio: "176 / 115",
+                            width: "176px",
+                          },
+                        ],
+                      },
+                      {
+                        layout: "center",
+                        items: [
+                          {
+                            src: "/images/ZGJ9fY6rWT08w9d9g6tsNqeVWbk.png",
+                            alt: "The card in place on the old screen",
+                            ratio: "446 / 253",
+                            width: "446px",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    label: "After",
+                    rows: [
+                      {
+                        layout: "tilePair",
+                        items: [
+                          {
+                            src: "/embeds/gutenberg-after.html",
+                            alt: "The eye's path across the new card, running the Gutenberg diagonal to the action",
+                            ratio: "176 / 115",
+                            width: "176px",
+                            kind: "embed",
+                          },
+                          {
+                            src: "/images/EkN8mGfd6rSLlwYirVtqkeGtJCs.png",
+                            alt: "The rebuilt card: status first, supporting detail next, the action in the terminal corner",
+                            ratio: "176 / 115",
+                            width: "176px",
+                          },
+                        ],
+                      },
+                      {
+                        layout: "center",
+                        items: [
+                          {
+                            src: "/images/GNHZ4A77qlrfB2PHOXUCG7Ji8ps.png",
+                            alt: "The card in place on the redesigned screen",
+                            ratio: "446 / 253",
+                            width: "446px",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
           },
           {
             no: "03",
             title: "Optimizing UI for Users with Assistive Tech",
             body: "We established descriptive placeholders, persistent labels, and clear error/success indicators. ARIA labels were defined for all interactive elements, ensuring screen reader clarity. These enhancements were embedded into the design system, making accessibility the default standard.",
+            band: true,
+            media: [
+              {
+                layout: "stage",
+                stage: { width: 652, height: 556 },
+                items: [
+                  {
+                    src: "/images/AZ2YY1OCKwquvzp5kP8pHtqcX8.png",
+                    alt: "The redesigned form on a phone",
+                    ratio: "657 / 908",
+                    place: { bottom: 0, left: 0, height: 500 },
+                  },
+                  {
+                    src: "/embeds/input-field-states.html",
+                    alt: "The five input states \u2014 default, active, success, error and disabled \u2014 each with what a screen reader announces",
+                    ratio: "581 / 500",
+                    kind: "embed",
+                    place: { top: 0, right: 0, width: 581, height: 500 },
+                  },
+                ],
+              },
+            ],
           },
           {
             no: "04",
             title: "Designing Responsive Experiences Across Breakpoints",
             body: "Developed responsive prototypes using defined breakpoints for mobile, tablet, and desktop. Leveraged auto layout and constraints to ensure consistent scaling of layouts, touch targets, and typography, delivering a seamless experience across devices.",
+            band: true,
+            media: [
+              {
+                layout: "stage",
+                stage: { width: 715, height: 568 },
+                items: [
+                  {
+                    src: "/images/kGt0TVzntoX5KrJlX9KpM97KlhE.png",
+                    alt: "The portal at desktop width",
+                    ratio: "552 / 313",
+                    place: { top: 0, right: 0, width: 552, height: 313 },
+                  },
+                  {
+                    src: "/images/aejwPveGijYl9EpQBZ0jdxpro.png",
+                    alt: "The same portal at tablet width",
+                    ratio: "222 / 307",
+                    place: { top: 83, left: 78, width: 222, height: 307 },
+                  },
+                  {
+                    src: "/images/DCsWSD55A8dLxfrwDpse9uYQZg.png",
+                    alt: "The same portal at mobile width",
+                    ratio: "136 / 273",
+                    place: { bottom: 107, left: 0, width: 136, height: 273 },
+                  },
+                  {
+                    src: "/embeds/responsive-breakpoints.html",
+                    alt: "The breakpoint scale the three layouts are built against",
+                    ratio: "715 / 100",
+                    kind: "embed",
+                    place: { left: 0, bottom: -3, width: 715, height: 100 },
+                  },
+                ],
+              },
+            ],
           },
         ]
       },
       {
         eyebrow: "Impact",
+        backdrop: {
+          src: "/images/5XPoAP7xb7e7FA8M0puFHGZCG88.png",
+          ratio: "2048 / 1650",
+        },
+        copyWidth: "499px",
         title: "Measurable Business & User Impact",
         blocks: [
           {
@@ -488,6 +714,7 @@ export const caseStudies: Record<string, CaseStudy> = {
                     src: "/embeds/member-portal-ia.html",
                     alt: "Interactive information architecture map \u2014 drag cards, draw connections, zoom",
                     ratio: "1148 / 600",
+                    width: "1148px",
                     kind: "embed",
                   },
                 ],

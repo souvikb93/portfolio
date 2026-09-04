@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang='en' style='overflow:hidden'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Responsive Breakpoints</title>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap' rel='stylesheet'>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { overflow: hidden; }
+  body { background: transparent; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Inter', sans-serif; }
+  .breakpoints { position: relative; width: 715px; height: 130px; transition: opacity 0.6s ease; }
+  .line-seg { position: absolute; top: 30px; height: 1px; background: #1a1a1a; transform-origin: left center; transform: scaleX(0); }
+  .line-seg-1 { left: 5px; width: 126px; }
+  .line-seg-2 { left: 141px; width: 154px; }
+  .line-seg-3 { left: 305px; width: 405px; }
+  .playing .line-seg-1 { animation: drawSeg 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+  .playing .line-seg-2 { animation: drawSeg 1.0s cubic-bezier(0.16, 1, 0.3, 1) 3.1s forwards; }
+  .playing .line-seg-3 { animation: drawSeg 1.2s cubic-bezier(0.16, 1, 0.3, 1) 5.9s forwards; }
+  @keyframes drawSeg { to { transform: scaleX(1); } }
+  .tri { position: absolute; top: 30px; width: 0; height: 0; border-style: solid; opacity: 0; transform: translateY(-50%); }
+  .tri-1 { left: 0; border-width: 3px 5px 3px 0; border-color: transparent #1a1a1a transparent transparent; }
+  .tri-2 { left: 131px; border-width: 3px 0 3px 5px; border-color: transparent transparent transparent #1a1a1a; }
+  .tri-3 { left: 136px; border-width: 3px 5px 3px 0; border-color: transparent #1a1a1a transparent transparent; }
+  .tri-4 { left: 295px; border-width: 3px 0 3px 5px; border-color: transparent transparent transparent #1a1a1a; }
+  .tri-5 { left: 300px; border-width: 3px 5px 3px 0; border-color: transparent #1a1a1a transparent transparent; }
+  .tri-6 { left: 710px; border-width: 3px 0 3px 5px; border-color: transparent transparent transparent #1a1a1a; }
+  .playing .tri-1 { animation: fadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.0s forwards; }
+  .playing .tri-2 { animation: fadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 1.4s forwards; }
+  .playing .tri-3 { animation: fadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 2.8s forwards; }
+  .playing .tri-4 { animation: fadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 4.3s forwards; }
+  .playing .tri-5 { animation: fadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 5.6s forwards; }
+  .playing .tri-6 { animation: fadeSlide 0.5s cubic-bezier(0.16, 1, 0.3, 1) 7.3s forwards; }
+  @keyframes fadeSlide { 0% { opacity: 0; transform: translateY(-50%) scale(0.7); } 100% { opacity: 1; transform: translateY(-50%) scale(1); } }
+  .label-group { position: absolute; top: 50px; opacity: 0; text-align: center; transform: translateY(6px); }
+  .label-range { font-size: 16px; font-weight: 400; color: #1a1a1a; letter-spacing: -0.01em; line-height: 1.45; }
+  .label-device { font-size: 18px; font-weight: 600; color: #1a1a1a; letter-spacing: -0.015em; line-height: 1.5; }
+  .label-smartphone { left: 0; width: 136px; }
+  .label-tablet { left: 136px; width: 164px; }
+  .label-desktop { left: 300px; width: 415px; }
+  .playing .label-smartphone { animation: labelIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.7s forwards; }
+  .playing .label-tablet { animation: labelIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 4.6s forwards; }
+  .playing .label-desktop { animation: labelIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 7.6s forwards; }
+  @keyframes labelIn { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+<div class='breakpoints' id='bp'>
+  <div class='line-seg line-seg-1'></div>
+  <div class='line-seg line-seg-2'></div>
+  <div class='line-seg line-seg-3'></div>
+  <div class='tri tri-1'></div>
+  <div class='tri tri-2'></div>
+  <div class='tri tri-3'></div>
+  <div class='tri tri-4'></div>
+  <div class='tri tri-5'></div>
+  <div class='tri tri-6'></div>
+  <div class='label-group label-smartphone'>
+    <div class='label-range'>0px – 480px</div>
+    <div class='label-device'>Smartphone</div>
+  </div>
+  <div class='label-group label-tablet'>
+    <div class='label-range'>481px – 1025px</div>
+    <div class='label-device'>Tablet</div>
+  </div>
+  <div class='label-group label-desktop'>
+    <div class='label-range'>1025px +</div>
+    <div class='label-device'>Desktop</div>
+  </div>
+</div>
+<script>
+  var bp = document.getElementById('bp');
+  var TOTAL_CYCLE = 23000;
+  var FADE_MS = 600;
+  var fadeTimer = null;
+  var cycleTimer = null;
+  var isRunning = false;
+  function hardReset() {
+    bp.classList.remove('playing');
+    bp.querySelectorAll('.line-seg').forEach(function(el) { el.style.animation = 'none'; el.style.transform = 'scaleX(0)'; });
+    bp.querySelectorAll('.tri').forEach(function(el) { el.style.animation = 'none'; el.style.opacity = '0'; });
+    bp.querySelectorAll('.label-group').forEach(function(el) { el.style.animation = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(6px)'; });
+    void bp.offsetWidth;
+    bp.querySelectorAll('.line-seg, .tri, .label-group').forEach(function(el) { el.style.animation = ''; el.style.transform = ''; el.style.opacity = ''; });
+    void bp.offsetWidth;
+  }
+  function scheduleCycle() {
+    fadeTimer = setTimeout(function() {
+      bp.style.opacity = '0';
+    }, TOTAL_CYCLE - FADE_MS);
+    cycleTimer = setTimeout(function() {
+      if (!isRunning) return;
+      hardReset();
+      requestAnimationFrame(function() {
+        bp.classList.add('playing');
+        bp.style.opacity = '1';
+        scheduleCycle();
+      });
+    }, TOTAL_CYCLE);
+  }
+  function playFirst() {
+    hardReset();
+    bp.style.opacity = '1';
+    bp.classList.add('playing');
+    scheduleCycle();
+  }
+  function startLoop() {
+    if (isRunning) return;
+    isRunning = true;
+    playFirst();
+  }
+  function stopLoop() {
+    isRunning = false;
+    clearTimeout(fadeTimer);
+    clearTimeout(cycleTimer);
+    fadeTimer = null;
+    cycleTimer = null;
+  }
+  function resetAll() {
+    stopLoop();
+    bp.style.opacity = '1';
+    hardReset();
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { startLoop(); } else { resetAll(); }
+    });
+  }, { threshold: 0.3 });
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Show the finished scale — three drawn spans with their labels — rather
+    // than looping the draw-on.
+    bp.style.opacity = '1';
+    bp.querySelectorAll('.line-seg').forEach(function(el) { el.style.transform = 'scaleX(1)'; });
+    bp.querySelectorAll('.tri').forEach(function(el) { el.style.opacity = '1'; });
+    bp.querySelectorAll('.label-group').forEach(function(el) { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; });
+  } else {
+    obs.observe(bp);
+    setTimeout(function() { if (!isRunning) { startLoop(); } }, 800);
+  }
+</script>
+</body>
+</html>

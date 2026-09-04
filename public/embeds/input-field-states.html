@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Input Field States</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue:  #2f56f5;
+    --red:   #c0392b;
+    --green: #1a7a4a;
+    --border-default: #c8c8c8;
+    --purple-dash: #c0a8e8;
+  }
+
+  html, body { overflow: hidden; }
+
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: transparent;
+    /* Sized to the live 581x500 frame: 22*2 + 300 card + 52 arrow channel +
+       185 detail = 581 wide; 18*2 + the card's own 464 = 500 tall. */
+    margin: 0; padding: 18px 22px;
+    display: inline-block;
+  }
+
+  /* Stage is the positioning root for both the card and the SVG arrow overlay */
+  .stage {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  /* ── INPUT CARD ── */
+  .card {
+    width: 300px;
+    flex-shrink: 0;
+    background: #fff;
+    border: 2px dashed var(--purple-dash);
+    border-radius: 12px;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  .field-slot {
+    height: 68px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    opacity: 0.18;
+    transition: opacity 0.4s ease;
+  }
+  .field-slot + .field-slot { margin-top: 18px; }
+  .field-slot.current { opacity: 1; }
+  .field-slot.done    { opacity: 1; }
+  #fs-5 { opacity: 0.3; }
+  #fs-5.current, #fs-5.done { opacity: 1; }
+
+  .field-label {
+    font-size: 12px; font-weight: 600; color: #4B4D4F;
+    display: block; margin-bottom: 5px;
+  }
+  .field-label.dimmed { color: #bbb; }
+
+  .input-wrapper { position: relative; display: flex; align-items: center; }
+
+  input[type="text"] {
+    width: 100%; padding: 9px 13px;
+    font-size: 13.5px; font-family: inherit;
+    border-radius: 6px; outline: none;
+    border: 1.5px solid var(--border-default);
+    background: #fff; color: #1a1a1a;
+    transition: border-color 0.35s, box-shadow 0.35s, background 0.35s, color 0.35s;
+  }
+  input::placeholder { color: #bbb; }
+  input.s-focused  { border-color: var(--blue);  box-shadow: 0 0 0 3px rgba(47,86,245,.12); }
+  input.s-disabled { background: #f2f2f2; border-color: #dcdcdc; color: #aaa; cursor: not-allowed; }
+  input.s-error    { border-color: var(--red);   box-shadow: 0 0 0 3px rgba(192,57,43,.1);  padding-right: 34px; }
+  input.s-success  { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,122,74,.1);  padding-right: 34px; }
+
+  .typing-cursor::after { content:'|'; color:var(--blue); animation:blink .85s step-end infinite; margin-left:1px; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  .inp-icon { position:absolute; right:9px; pointer-events:none; display:flex; align-items:center; opacity:0; transition:opacity .3s; }
+  .inp-icon.show { opacity:1; }
+  .inp-icon svg { width:16px; height:16px; }
+
+  .lock-icon { position:absolute; right:9px; color:#ccc; pointer-events:none; display:flex; align-items:center; }
+  .lock-icon svg { width:13px; height:13px; }
+
+  .field-hint {
+    margin-top:4px; font-size:10.5px;
+    display:flex; align-items:center; gap:3px;
+    line-height:1.4; min-height:16px;
+    opacity:0; transition:opacity .3s ease;
+  }
+  .field-hint.show { opacity:1; }
+  .field-hint svg  { width:11px; height:11px; flex-shrink:0; }
+  .hint-error   { color:var(--red); }
+  .hint-success { color:var(--green); }
+
+  .shake { animation:shake .42s ease; }
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 20%{transform:translateX(-5px)}
+    40%{transform:translateX(5px)}   60%{transform:translateX(-4px)} 80%{transform:translateX(3px)}
+  }
+  .check-path { stroke-dasharray:22; stroke-dashoffset:22; transition:stroke-dashoffset .4s ease .1s; }
+  .check-path.drawn { stroke-dashoffset:0; }
+
+  /* ── ARROW SVG OVERLAY ── */
+  #arrowOverlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 2;
+  }
+  #arrowPath {
+    fill: none;
+    stroke: #1a1a1a;
+    stroke-width: 1;
+    stroke-linecap: round;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  #arrowPath.show { opacity: 1; }
+  #arrowHead {
+    fill: none;
+    stroke: #1a1a1a;
+    stroke-width: 1;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  #arrowHead.show { opacity: 1; }
+
+  /* ── DETAIL COLUMN ── */
+  /* Static, top-aligned, no movement */
+  .detail-col {
+    margin-left: 52px;   /* gap = arrow channel */
+    width: 185px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .bubble {
+    border-radius: 8px 8px 8px 2px;
+    padding: 9px 11px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+  }
+  .bubble.show { opacity: 1; transform: translateX(0); }
+  .b-state  { transition-delay: 0.04s; }
+  .b-typing { transition-delay: 0.10s; }
+  .b-sr     { transition-delay: 0.17s; }
+
+  .b-label {
+    font-size: 8px; font-weight: 700; letter-spacing: 0.9px;
+    text-transform: uppercase; color: #1a1a1a; margin-bottom: 4px;
+  }
+  .b-text {
+    font-size: 12.5px; line-height: 1.55; white-space: pre-wrap; color: #1a1a1a;
+  }
+
+  /* Reduced motion gets the five states at rest, all legible, no walkthrough. */
+  @media (prefers-reduced-motion: reduce) {
+    .field-slot, #fs-5 { opacity: 1; transition: none; }
+    .typing-cursor::after { animation: none; content: ''; }
+    .shake { animation: none; }
+    .check-path { transition: none; }
+    .bubble { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- Arrow overlay — drawn between card and detail col -->
+  <svg id="arrowOverlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path id="arrowPath" d=""/>
+    <polyline id="arrowHead" points=""/>
+  </svg>
+
+  <!-- ══ INPUT CARD ══ -->
+  <div class="card" id="card">
+
+    <div class="field-slot" id="fs-1">
+      <label class="field-label" for="i1">Email address</label>
+      <div class="input-wrapper">
+        <input type="text" id="i1" placeholder="Enter email address" autocomplete="email" readonly>
+      </div>
+    </div>
+
+    <div class="field-slot" id="fs-2">
+      <label class="field-label" for="i2">Email address</label>
+      <div class="input-wrapper">
+        <input type="text" id="i2" placeholder="Enter email address" autocomplete="email" readonly>
+      </div>
+    </div>
+
+    <div class="field-slot" id="fs-3">
+      <label class="field-label" for="i5">Email address</label>
+      <div class="input-wrapper">
+        <input type="text" id="i5" placeholder="Enter email address" aria-invalid="false" autocomplete="email" readonly>
+        <span class="inp-icon" id="suc-icon" style="color:var(--green)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="9 12 11 14 15 10" class="check-path" id="checkPath"/>
+          </svg>
+        </span>
+      </div>
+      <span id="h5" class="field-hint hint-success" role="status">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Looks good!
+      </span>
+    </div>
+
+    <div class="field-slot" id="fs-4">
+      <label class="field-label" for="i4">Email address</label>
+      <div class="input-wrapper" id="ew">
+        <input type="text" id="i4" placeholder="Enter email address" aria-invalid="true" autocomplete="email" readonly>
+        <span class="inp-icon" id="err-icon" style="color:var(--red)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <circle cx="12" cy="16" r=".5" fill="currentColor"/>
+          </svg>
+        </span>
+      </div>
+      <span id="h4" class="field-hint hint-error" role="alert">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <circle cx="12" cy="16" r=".5" fill="currentColor"/>
+        </svg>
+        Please enter a valid email address.
+      </span>
+    </div>
+
+    <div class="field-slot" id="fs-5">
+      <label class="field-label dimmed" for="i3">Email address</label>
+      <div class="input-wrapper">
+        <input type="text" id="i3" placeholder="Not available at checkout" class="s-disabled" aria-disabled="true" disabled>
+        <span class="lock-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+
+  </div><!-- /card -->
+
+  <!-- ══ DETAIL COLUMN (static, top-aligned) ══ -->
+  <div class="detail-col" id="detailCol">
+    <div class="bubble b-state" id="bState">
+      <div class="b-label" id="bStateLabel">State</div>
+      <div class="b-text"  id="bStateText">—</div>
+    </div>
+    <div class="bubble b-typing" id="bTyping">
+      <div class="b-label">Interaction</div>
+      <div class="b-text" id="bTypingText">—</div>
+    </div>
+    <div class="bubble b-sr" id="bSr">
+      <div class="b-label">🔊 Screen reader</div>
+      <div class="b-text" id="bSrText">—</div>
+    </div>
+  </div>
+
+</div><!-- /stage -->
+
+<script>
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  const bState  = document.getElementById('bState');
+  const bTyping = document.getElementById('bTyping');
+  const bSr     = document.getElementById('bSr');
+  const bSLabel = document.getElementById('bStateLabel');
+  const bSText  = document.getElementById('bStateText');
+  const bTText  = document.getElementById('bTypingText');
+  const bSrText = document.getElementById('bSrText');
+  const arrowPath = document.getElementById('arrowPath');
+  const arrowHead = document.getElementById('arrowHead');
+
+  /* ── ARROW: bezier from active input right-centre → top detail card left-centre ── */
+  function moveArrow(slotId) {
+    const stage     = document.getElementById('stage').getBoundingClientRect();
+    // Find the input element inside the slot for a tighter endpoint
+    const inp       = document.querySelector('#' + slotId + ' input').getBoundingClientRect();
+    const topCard   = document.getElementById('bState').getBoundingClientRect();
+
+    // Start: right edge of input, vertically centred — relative to stage
+    const x1 = inp.right  - stage.left;
+    const y1 = inp.top    - stage.top + inp.height / 2;
+
+    // End: left edge of top detail card, vertically centred — relative to stage
+    const x2 = topCard.left - stage.left;
+    const y2 = topCard.top  - stage.top + topCard.height / 2;
+
+    // Cubic bezier: depart rightward from x1, arrive leftward at x2
+    const span = x2 - x1; // positive (detail col is to the right)
+    const d = `M ${x1} ${y1} C ${x1 + span * 0.5} ${y1}, ${x2 - span * 0.5} ${y2}, ${x2} ${y2}`;
+
+    arrowPath.setAttribute('d', d);
+
+    // Arrowhead pointing → into the input field right edge
+    const s = 5.5;
+    arrowHead.setAttribute('points',
+      `${x1 + s},${y1 - s} ${x1},${y1} ${x1 + s},${y1 + s}`
+    );
+
+    arrowPath.classList.add('show');
+    arrowHead.classList.add('show');
+  }
+
+  function hideArrow() {
+    arrowPath.classList.remove('show');
+    arrowHead.classList.remove('show');
+  }
+
+  /* ── SLOT STATE ── */
+  function activateSlot(id) {
+    document.querySelectorAll('.field-slot').forEach(s => {
+      s.classList.remove('current');
+      if (!s.classList.contains('done')) s.style.opacity = s.id === 'fs-5' ? '0.3' : '0.18';
+    });
+    const el = document.getElementById(id);
+    el.classList.add('current');
+    el.style.opacity = '1';
+  }
+
+  function doneSlot(id) {
+    const el = document.getElementById(id);
+    el.classList.remove('current');
+    el.classList.add('done');
+    el.style.opacity = '1';
+  }
+
+  /* ── BUBBLES ── */
+  function showPanel(lbl, s1, s2, s3) {
+    bState.classList.remove('show');
+    bTyping.classList.remove('show');
+    bSr.classList.remove('show');
+    bSLabel.textContent = lbl;
+    bSText.textContent  = s1;
+    bTText.textContent  = s2;
+    bSrText.textContent = s3;
+    requestAnimationFrame(() => {
+      bState.classList.add('show');
+      bTyping.classList.add('show');
+      bSr.classList.add('show');
+    });
+  }
+
+  function typeInto(el, text, speed, cb) {
+    return new Promise(res => {
+      let i = 0;
+      el.classList.add('typing-cursor');
+      const iv = setInterval(() => {
+        el.value = text.slice(0, ++i);
+        if (cb) cb(el.value);
+        if (i >= text.length) { clearInterval(iv); res(); }
+      }, speed);
+    });
+  }
+
+  async function run() {
+    await sleep(700);
+
+    /* 1. DEFAULT */
+    activateSlot('fs-1');
+    showPanel('Default',
+      'Field at rest. Placeholder guides the user in a lighter colour.',
+      'No interaction yet.\nPlaceholder: "Enter email address"',
+      '"Email address, edit text."');
+    moveArrow('fs-1');
+    await sleep(2200);
+    doneSlot('fs-1');
+
+    /* 2. ACTIVE */
+    activateSlot('fs-2');
+    showPanel('Active',
+      'User clicks in — border turns blue. Text is entered.',
+      'Typing email address…',
+      '"Email address, edit text."');
+    moveArrow('fs-2');
+    const i2 = document.getElementById('i2');
+    i2.classList.add('s-focused');
+    await sleep(500);
+    await typeInto(i2, 'sarah@studio.com', 75, v => { bTText.textContent = `Typing… "${v}"`; });
+    i2.classList.remove('typing-cursor');
+    bTText.textContent = '"sarah@studio.com" entered ✓';
+    bSrText.textContent = '"sarah@studio.com typed."';
+    await sleep(1500);
+    doneSlot('fs-2');
+
+    /* 3. SUCCESS */
+    activateSlot('fs-3');
+    showPanel('Success',
+      'Valid text entered. Border turns green, checkmark appears.',
+      'Typing valid email address…',
+      '"Email address, valid.\nLooks good!"');
+    moveArrow('fs-3');
+    const i5 = document.getElementById('i5');
+    await typeInto(i5, 'sarah@studio.com', 72, v => { bTText.textContent = `Typing… "${v}"`; });
+    i5.classList.remove('typing-cursor');
+    await sleep(300);
+    i5.classList.add('s-success');
+    document.getElementById('suc-icon').classList.add('show');
+    document.getElementById('checkPath').classList.add('drawn');
+    document.getElementById('h5').classList.add('show');
+    bTText.textContent = '"sarah@studio.com" — valid ✓';
+    bSrText.textContent = '"Email address, valid.\nLooks good!"';
+    await sleep(1600);
+    doneSlot('fs-3');
+
+    /* 4. ERROR */
+    activateSlot('fs-4');
+    showPanel('Error',
+      'Invalid input — red border and error message appear.',
+      'Typing wrong email…',
+      '"Email address, invalid.\nPlease enter a valid email."');
+    moveArrow('fs-4');
+    const i4 = document.getElementById('i4');
+    const ew = document.getElementById('ew');
+    await sleep(600);
+    await typeInto(i4, 'sarah@@wrong', 80, v => { bTText.textContent = `Typing… "${v}"`; });
+    i4.classList.remove('typing-cursor');
+    await sleep(300);
+    i4.classList.add('s-error');
+    document.getElementById('err-icon').classList.add('show');
+    document.getElementById('h4').classList.add('show');
+    ew.classList.add('shake');
+    bTText.textContent = '"sarah@@wrong" — invalid ✗';
+    bSrText.textContent = '"Email address, invalid.\nPlease enter a valid email."';
+    await sleep(450); ew.classList.remove('shake');
+    await sleep(1500);
+    doneSlot('fs-4');
+
+    /* 5. DISABLED */
+    activateSlot('fs-5');
+    showPanel('Disabled',
+      'Field greyed out. Lock icon — cannot be edited.',
+      'User attempts to type — nothing happens.',
+      '"Email address, dimmed.\nNot available for this order."');
+    moveArrow('fs-5');
+    const w3 = document.getElementById('i3').closest('.input-wrapper');
+    for (let t = 0; t < 3; t++) {
+      w3.classList.add('shake');
+      bTText.textContent = '⛔ Blocked — cannot type';
+      await sleep(420); w3.classList.remove('shake'); await sleep(300);
+    }
+    await sleep(900);
+    doneSlot('fs-5');
+
+    /* RESET */
+    await sleep(1200);
+    hideArrow();
+    bState.classList.remove('show');
+    bTyping.classList.remove('show');
+    bSr.classList.remove('show');
+
+    document.getElementById('i2').value = ''; document.getElementById('i2').classList.remove('s-focused');
+    document.getElementById('i4').value = ''; document.getElementById('i4').classList.remove('s-error');
+    document.getElementById('err-icon').classList.remove('show');
+    document.getElementById('h4').classList.remove('show');
+    document.getElementById('i5').value = ''; document.getElementById('i5').classList.remove('s-success');
+    document.getElementById('suc-icon').classList.remove('show');
+    document.getElementById('h5').classList.remove('show');
+    document.getElementById('checkPath').classList.remove('drawn');
+
+    document.querySelectorAll('.field-slot').forEach(s => {
+      s.classList.remove('current', 'done');
+      s.style.opacity = s.id === 'fs-5' ? '0.3' : '0.18';
+    });
+
+    await sleep(400);
+    run();
+  }
+
+  /* The walkthrough is the whole point of this plate, so when motion is not
+     wanted the five states are shown at rest instead of cycling. */
+  function showAllStatesAtRest() {
+    document.querySelectorAll('.field-slot').forEach(s => {
+      s.classList.add('done');
+      s.style.opacity = '1';
+    });
+    const i2 = document.getElementById('i2');
+    i2.value = 'sarah@studio.com'; i2.classList.add('s-focused');
+    const i5 = document.getElementById('i5');
+    i5.value = 'sarah@studio.com'; i5.classList.add('s-success');
+    document.getElementById('suc-icon').classList.add('show');
+    document.getElementById('checkPath').classList.add('drawn');
+    document.getElementById('h5').classList.add('show');
+    const i4 = document.getElementById('i4');
+    i4.value = 'sarah@@wrong'; i4.classList.add('s-error');
+    document.getElementById('err-icon').classList.add('show');
+    document.getElementById('h4').classList.add('show');
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    showAllStatesAtRest();
+  } else {
+    run();
+  }
+</script>
+</body>
+</html>

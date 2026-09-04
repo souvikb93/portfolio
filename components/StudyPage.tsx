@@ -22,7 +22,7 @@ export function StudyPage({
   return (
     <>
       <main className={styles.page}>
-        {study.hero?.items[0] && (
+        {study.hero?.items?.[0] && (
           <section className={`sticky-hero ${styles.hero}`}>
             {/* The picture and the embed share one stage, sized the way
                 object-fit:cover would size the picture. That keeps the embed in
@@ -104,7 +104,15 @@ function BlockGrid({ blocks }: { blocks: Block[] }) {
               </ul>
             </>
           )}
-          <Media galleries={b.media} />
+          {b.band ? (
+            <div className={styles.mediaBand}>
+              <div className={styles.mediaBandInner}>
+                <Media galleries={b.media} />
+              </div>
+            </div>
+          ) : (
+            <Media galleries={b.media} />
+          )}
           {b.caption && <p className="t-body2 muted">{b.caption}</p>}
         </article>
       ))}
@@ -211,7 +219,19 @@ function SectionMedia({ sec }: { sec: StudySection }) {
 
 function Section({ sec }: { sec: StudySection }) {
   return (
-    <section className={`section ${styles.section}`}>
+    <section
+      className={`section ${styles.section}`}
+      data-backdrop={sec.backdrop ? "true" : undefined}
+      style={
+        sec.backdrop
+          ? ({
+              "--backdrop": `url(${sec.backdrop.src})`,
+              "--backdrop-ratio": sec.backdrop.ratio,
+              "--copy-width": sec.copyWidth,
+            } as React.CSSProperties)
+          : undefined
+      }
+    >
       <div className="container-study">
         <SectionEyebrow>{sec.eyebrow}</SectionEyebrow>
         <StudyLayout
