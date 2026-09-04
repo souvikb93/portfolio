@@ -205,7 +205,12 @@ p { margin: 0; }
   .t-page { font-size: 48px; }
   .t-h1 { font-size: 84px; } .t-h2 { font-size: 36px; } .t-h3 { font-size: 28px; }
   .t-h4 { font-size: 26px; } .t-h5 { font-size: 20px; } .t-h6 { font-size: 17px; }
-  .t-sub { font-size: 15px; } .t-body { font-size: 15px; }
+  .t-sub { font-size: 15px; }
+  /* Live keeps running copy at 16px on a phone and only tightens the leading:
+     measured 16/24 on souvikb.net/builds/tracka at 375px. The 28px heading
+     there is set 28/36, looser than the desktop ratio, not tighter. */
+  .t-body { font-size: 16px; line-height: 1.5; }
+  .t-h3 { line-height: 1.2857; }
 }
 
 /* --- layout helpers --- */

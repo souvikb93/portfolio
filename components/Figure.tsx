@@ -36,17 +36,21 @@ export function FigureGroup({ gallery }: { gallery: Gallery }) {
         if (item.kind === "embed") {
           // Live embeds two interactive prototypes on the member portal study.
           // Sandboxed: scripts run (both need them), but nothing else is granted.
+          // These are fixed-width interactive layouts. Below the breakpoint they
+          // keep their design width and scroll sideways inside their own box,
+          // rather than shrinking their labels past legibility.
           return wrap(
-            <iframe
-              key={item.src}
-              className={styles.item}
-              data-rounded={item.rounded ? "true" : undefined}
-              style={style}
-              src={item.src}
-              title={item.alt}
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-            />
+            <div key={item.src} className={styles.embedScroll}>
+              <iframe
+                className={styles.item}
+                data-rounded={item.rounded ? "true" : undefined}
+                style={style}
+                src={item.src}
+                title={item.alt}
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin"
+              />
+            </div>
           );
         }
         return wrap(

@@ -274,7 +274,6 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Lo-fi to Hi-fi",
-        title: "Applying the Design System to the Structure",
         blocks: [
           { title: "Visual Balance", body: "Checked hierarchy, spacing, density, and composition." },
           { title: "Refinement", body: "Adjusted the design system where the application revealed inconsistencies or visual issues." },
@@ -292,7 +291,6 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Design to Code",
-        title: "Applying the Design System to the Structure",
         media: [
           {
             layout: "grid3",
@@ -452,6 +450,14 @@ export const buildStudies: Record<string, CaseStudy> = {
           },
           {
             no: "02",
+            title: "User Control: AI should assist, while users control the final outcome.",
+            body: "User feedback showed that small edits were often easier to make directly than through AI. This led me to keep AI outputs editable, giving users control over the final result.",
+            media: [
+              { layout: "wide", items: [{ src: "/images/deck/learnings-user-control.png", alt: "Letter Builder: an AI-drafted cover letter the user can edit", ratio: "1600 / 885", caption: "Example: AI-assisted cover letter \u2014 AI generates, the user reviews, the user edits." }] },
+            ],
+          },
+          {
+            no: "03",
             title: "Consistency & Reliability: Reliable products build more trust than clever features.",
             media: [
               { layout: "wide", items: [{ src: "/images/L5HpHx26RmmM7uvn63gekQPcLE.png", alt: "Consistency and reliability", ratio: "1152 / 193", caption: "Reliability chosen over automation that only worked on some job boards." }] },
@@ -459,7 +465,7 @@ export const buildStudies: Record<string, CaseStudy> = {
             body: "While designing the job tracker, I initially allowed users to add a job by pasting a job posting URL. Since different job boards use different page structures, universal URL extraction wasn\u2019t practical. Instead of forcing the feature to work everywhere, I redesigned the workflow so users paste the job description directly while the AI automatically extracts and fills the required fields. This reinforced that reliability creates more value than automation that only works in certain situations.",
           },
           {
-            no: "03",
+            no: "04",
             title: "Continuous Refinement: A design system evolves through continuous feedback.",
             media: [
               { layout: "wide", items: [{ src: "/images/deck/refinement-loop.png", alt: "Review AI output, identify gaps, update the Figma system, re-extract context, keep context fresh", ratio: "1900 / 318", caption: "Keeping the design system and the AI in step as the product changed." }] },

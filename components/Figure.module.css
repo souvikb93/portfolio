@@ -6,6 +6,10 @@
   margin-block: var(--space-16);
 }
 
+/* Grid and flex children default to min-width:auto, which lets a wide embed
+   push its own column open instead of scrolling inside it. */
+.group > * { min-width: 0; max-width: 100%; }
+
 .item {
   width: 100%;
   height: auto;
@@ -67,5 +71,19 @@ iframe.item {
 @media (max-width: 1100px) { .group[data-layout="grid5"] { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 810px)  { .group[data-layout="grid5"] { grid-template-columns: repeat(2, 1fr); } }
 
+/* On a phone a half-width column is 154px: these sets are screenshots of Figma,
+   code and dashboards, which are unreadable at that size. One per row instead. */
+@media (max-width: 560px) {
+  .group[data-layout="grid4"],
+  .group[data-layout="grid5"] { grid-template-columns: 1fr; }
+}
+
+/* Embeds keep their design width on a phone and scroll sideways. */
+.embedScroll { min-width: 0; }
+@media (max-width: 810px) {
+  .embedScroll { overflow-x: auto; overscroll-behavior-x: contain; }
+  .embedScroll iframe.item { width: 760px; max-width: none; }
+}
+
 /* A plate with its own small print. */
-.figure { margin: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.figure { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: var(--space-2); }

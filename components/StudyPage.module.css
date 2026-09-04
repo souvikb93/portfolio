@@ -24,9 +24,19 @@
 /* Opaque — this band scrolls up over the hero behind the diagonal curtain, so
    without a background the copy reads straight over the hero image. */
 .head {
+  --study-head-top-sm: 164px;
   background: var(--bg);
   padding: var(--space-10) 0 var(--space-6);
 }
+/* Live drops the pinned hero on a phone: /builds/tracka and /projects/aero_check
+   both open straight on the header at 375px, with no full-viewport plate and no
+   image above the fold. The floating frame goes with it — it only exists to sit
+   over that plate. Measured on souvikb.net: the study name lands at y=164. */
+@media (max-width: 810px) {
+  .hero { display: none; }
+  .head { padding-top: var(--study-head-top-sm); }
+}
+
 .headline { margin: var(--space-4) 0 var(--space-5); max-width: var(--content-max); }
 .summary { max-width: var(--prose-max); }
 .meta {
