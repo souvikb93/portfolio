@@ -1,0 +1,96 @@
+/* --- study intro ------------------------------------------------------------
+   The block every study opens with. It is deliberately not a StudyLayout
+   section: Framer builds it as its own horizontal stack — 1fr, a 1px rule,
+   1fr, 48px gaps — with the project name as the page's H3 and the facts
+   listed down the right. Values below are that stack's, read from the
+   Framer project.
+--------------------------------------------------------------------------- */
+.intro {
+  background: var(--bg);
+  padding: var(--study-intro-top) 0 var(--study-intro-bottom);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  gap: var(--study-intro-gap);
+  align-items: stretch;
+}
+
+/* Left: name, tagline, summary, then the product link under them. */
+.lead {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+.titles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+/* Framer links the tagline in the brand orange, one step under the name. */
+.tagline {
+  color: var(--brand-secondary);
+  margin: 0;
+}
+.name { margin: 0; }
+.summary {
+  margin: 0;
+  max-width: var(--study-intro-summary-max);
+}
+
+/* The hairline between the two columns. */
+.rule {
+  background: var(--gray);
+  width: 1px;
+}
+
+/* Right: label over value, one pair per fact. */
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: 0;
+  min-width: 0;
+}
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.label { margin: 0; color: var(--text-primary); }
+.value { margin: 0; }
+
+/* Scope of work reads as chips rather than a run-on line. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tag {
+  background: var(--gray);
+  border-radius: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+}
+
+/* One column on a phone: the rule has nothing to divide, and the facts read
+   as a continuation of the copy rather than a second column beside it. */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+  .rule { display: none; }
+}
+
+/* .t-sub drops to 15px on a phone, which would put the tagline and the fact
+   labels *below* the 16px body they sit above. Hold them at body size so the
+   hierarchy still reads; the heading face and the ink keep them distinct. */
+@media (max-width: 810px) {
+  .tagline,
+  .label { font-size: var(--study-intro-sub-sm); }
+}

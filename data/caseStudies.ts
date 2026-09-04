@@ -111,7 +111,8 @@ export type CaseStudy = {
   name: string;
   headline: string;
   summary: string;
-  meta: { label: string; value: string }[];
+  /** `tags` renders as chips, the way Framer sets Scope of Work. */
+  meta: { label: string; value?: string; tags?: string[] }[];
   /** Short line live runs under the study name. */
   subtitle?: string;
   /** Banner above the title, as on the live site. */
@@ -135,10 +136,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Wipro (Internal Product)" },
       { label: "Duration", value: "6 months" },
       { label: "Industry", value: "Healthcare Insurance" },
-      {
-        label: "Scope of Work",
-        value: "Accessibility Design · Design System · User Acceptance Testing",
-      },
+      { label: "Scope of Work", tags: ["Accessibility Design", "Design System", "User Acceptance Testing"] },
     ],
     hero: {
       layout: "wide",
@@ -374,7 +372,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "United Healthcare Group" },
       { label: "Duration", value: "18 months" },
       { label: "Industry", value: "Healthcare Insurance" },
-      { label: "Scope of Work", value: "App Design · Design System · Information Architecture" },
+      { label: "Scope of Work", tags: ["App Design", "Design System", "Information Architecture"] },
     ],
     hero: {
       layout: "wide",
@@ -644,11 +642,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Student Project" },
       { label: "Duration", value: "2 Months" },
       { label: "Industry", value: "Social Innovation" },
-      {
-        label: "Scope of Work",
-        value:
-          "Service Design \u00b7 System Design Design \u00b7 Brand Design \u00b7 Mobile App \u00b7 UX/UI \u00b7 Video Production",
-      },
+      { label: "Scope of Work", tags: ["Service Design", "System Design Design", "Brand Design", "Mobile App", "UX/UI", "Video Production"] },
     ],
     hero: {
       layout: "wide",
@@ -867,7 +861,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       { label: "Client", value: "Airbus" },
       { label: "Duration", value: "4 Weeks" },
       { label: "Industry", value: "Aviation" },
-      { label: "Scope of Work", value: "AI-Driven \u00b7 Enterprise Saas \u00b7 No-code" },
+      { label: "Scope of Work", tags: ["AI-Driven", "Enterprise Saas", "No-code"] },
     ],
     hero: {
       layout: "wide",

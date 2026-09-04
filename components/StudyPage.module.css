@@ -18,35 +18,17 @@
 
 /* No top padding: the hero owns the first viewport and starts flush under the
    nav, which is absolute and overlays it. Pages without a hero get their
-   clearance from .head's own padding instead. */
+   clearance from the intro's own padding instead. */
 .page { padding-top: 0; }
 
-/* Opaque — this band scrolls up over the hero behind the diagonal curtain, so
-   without a background the copy reads straight over the hero image. */
-.head {
-  --study-head-top-sm: 164px;
-  background: var(--bg);
-  padding: var(--space-10) 0 var(--space-6);
-}
-/* Live drops the pinned hero on a phone: /builds/tracka and /projects/aero_check
-   both open straight on the header at 375px, with no full-viewport plate and no
-   image above the fold. The floating frame goes with it — it only exists to sit
-   over that plate. Measured on souvikb.net: the study name lands at y=164. */
+/* The hero is dropped on a phone, as live does: /builds/tracka and
+   /projects/aero_check both open straight on the intro at 375px, with no
+   full-viewport plate and no image above the fold. The floating frame goes with
+   it — it only exists to sit over that plate. The intro takes over the top
+   clearance from there (--study-intro-top). */
 @media (max-width: 810px) {
   .hero { display: none; }
-  .head { padding-top: var(--study-head-top-sm); }
 }
-
-.headline { margin: var(--space-4) 0 var(--space-5); max-width: var(--content-max); }
-.summary { max-width: var(--prose-max); }
-.meta {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: var(--space-6);
-  margin: var(--space-12) 0 0;
-}
-.meta dt { margin-bottom: var(--space-1); }
-.meta dd { margin: 0; }
 
 /* Study sections carry no dividing rule on live, and a tighter rhythm than the
    site-wide .section: 60px above, 64px below. 60 is off the space scale. */

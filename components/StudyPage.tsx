@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
 import { StudyLayout } from "@/components/StudyLayout";
+import { StudyIntro } from "@/components/StudyIntro";
 import { ActionLink } from "@/components/ActionLink";
 import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
@@ -47,33 +48,7 @@ export function StudyPage({
             </section>
           )}
 
-          <header className={`${study.hero ? "over-hero" : ""} ${styles.head}`}>
-            <div className="container-study">
-              <p className="t-body muted">{study.name}</p>
-              {study.subtitle && (
-                <p className="t-body2 muted">{study.subtitle}</p>
-              )}
-              <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
-              <p className={`t-body muted ${styles.summary}`}>
-                {study.summary}
-              </p>
-              {study.cta && (
-                <p className={styles.headCta}>
-                  <ActionLink href={study.cta.href}>
-                    {study.cta.label}
-                  </ActionLink>
-                </p>
-              )}
-              <dl className={styles.meta}>
-                {study.meta.map((m) => (
-                  <div key={m.label}>
-                    <dt className="t-body2 muted">{m.label}</dt>
-                    <dd className="t-body">{m.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          </header>
+          <StudyIntro study={study} />
         </ScrollStage>
 
         {study.sections.map((sec, i) => (
