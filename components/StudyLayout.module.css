@@ -1,0 +1,76 @@
+/* --- study section layout ---------------------------------------------------
+   Three arrangements, taken off the deck slides by measuring where the copy
+   and the plates actually sit on each page (Souvik_Google deck.pdf, p11-p66).
+   The content column runs 0.07 -> 0.93 of the slide, so every fraction below
+   is read against that same 0.86-wide band.
+--------------------------------------------------------------------------- */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+.body > p { max-width: var(--prose-max); }
+
+/* The two side-by-side arrangements. The split is never 50/50 on the slides —
+   it changes with how much the plate has to show — so the ratio is a separate
+   choice from the side the plate sits on. */
+.body[data-variant="mediaRight"],
+.body[data-variant="mediaLeft"] {
+  display: grid;
+  grid-template-columns: minmax(0, var(--copy-col)) minmax(0, var(--media-col));
+  gap: var(--split-gap);
+  align-items: start;
+}
+
+/* The splits the site itself uses, read from the Framer project rather than
+   guessed off a screenshot: each two-column stack there is a pair of `fr`
+   widths with its own gap, and the pair is never the same as the gap suggests.
+   Names point at the section the pair was taken from. */
+.body { --split-gap: var(--space-12); }
+.body[data-ratio="even"]     { --copy-col: 1fr; --media-col: 1fr;   --split-gap: 40px; }  /* Tracka Context, Problem */
+.body[data-ratio="evenWide"] { --copy-col: 1fr; --media-col: 1fr;   --split-gap: 64px; }  /* Tracka Concept Finalization */
+.body[data-ratio="mediaLed"] { --copy-col: 1fr; --media-col: 1.5fr; --split-gap: 10px; }  /* Tracka Research */
+.body[data-ratio="copyLed"]  { --copy-col: 2fr; --media-col: 1fr;   --split-gap: 40px; }  /* Member Portal audit findings */
+
+/* The plate leads: same tracks, opposite order. Declared on the columns rather
+   than by swapping the DOM, so the copy still reads first to a screen reader. */
+.body[data-variant="mediaLeft"] {
+  grid-template-columns: minmax(0, var(--media-col)) minmax(0, var(--copy-col));
+}
+.body[data-variant="mediaLeft"] > .copy { order: 2; }
+.body[data-variant="mediaLeft"] > .plates { order: 1; }
+
+/* Copy across the full column, plates beneath it. */
+.body[data-variant="stacked"] { display: flex; flex-direction: column; }
+
+.copy,
+.plates {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+/* Beside the copy, the plate should start level with the heading, so drop the
+   figure group's own leading margin. */
+.body[data-variant="mediaRight"] .plates > :global(div):first-child,
+.body[data-variant="mediaLeft"] .plates > :global(div):first-child {
+  margin-block-start: 0;
+}
+
+/* Framer pins the copy while the plates scroll past it (Tracka's Problem).
+   Only meaningful beside a plate, so it is dropped with the two-column layout. */
+.copy[data-sticky="true"] { position: sticky; top: var(--space-16); }
+
+/* Below this the column is too narrow to hold two readable tracks, so every
+   arrangement becomes the stacked one. */
+@media (max-width: 900px) {
+  .body[data-variant="mediaRight"],
+  .body[data-variant="mediaLeft"] {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+  .body[data-variant="mediaLeft"] > .copy,
+  .body[data-variant="mediaLeft"] > .plates { order: 0; }
+  .copy[data-sticky="true"] { position: static; }
+}

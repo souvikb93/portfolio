@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SectionEyebrow } from "@/components/SectionEyebrow";
+import { StudyLayout } from "@/components/StudyLayout";
 import { ActionLink } from "@/components/ActionLink";
 import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
@@ -18,66 +19,65 @@ export function StudyPage({
   backHref: string;
   backLabel: string;
 }) {
-
   return (
     <>
       <main className={styles.page}>
         <ScrollStage>
-        {study.hero?.items[0] && (
-          <section className={`sticky-hero ${styles.hero}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className={styles.heroBg}
-              src={study.hero.items[0].src}
-              alt={study.hero.items[0].alt}
-            />
-            {study.heroEmbed && (
-              <iframe
-                className={styles.heroEmbed}
-                src={study.heroEmbed.src}
-                title={study.heroEmbed.alt}
-                style={{ aspectRatio: study.heroEmbed.ratio, width: study.heroEmbed.width }}
-                loading="lazy"
-                sandbox="allow-scripts allow-same-origin"
+          {study.hero?.items[0] && (
+            <section className={`sticky-hero ${styles.hero}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className={styles.heroBg}
+                src={study.hero.items[0].src}
+                alt={study.hero.items[0].alt}
               />
-            )}
-          </section>
-        )}
+              {study.heroEmbed && (
+                <iframe
+                  className={styles.heroEmbed}
+                  src={study.heroEmbed.src}
+                  title={study.heroEmbed.alt}
+                  style={{
+                    aspectRatio: study.heroEmbed.ratio,
+                    width: study.heroEmbed.width,
+                  }}
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
+                />
+              )}
+            </section>
+          )}
 
-        <header className={`${study.hero ? "over-hero" : ""} ${styles.head}`}>
-          <div className="container-study">
-            <p className="t-body muted">{study.name}</p>
-            {study.subtitle && (
-              <p className="t-body2 muted">{study.subtitle}</p>
-            )}
-            <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
-            <p className={`t-body muted ${styles.summary}`}>{study.summary}</p>
-            {study.cta && (
-              <p className={styles.headCta}>
-                <ActionLink href={study.cta.href}>{study.cta.label}</ActionLink>
+          <header className={`${study.hero ? "over-hero" : ""} ${styles.head}`}>
+            <div className="container-study">
+              <p className="t-body muted">{study.name}</p>
+              {study.subtitle && (
+                <p className="t-body2 muted">{study.subtitle}</p>
+              )}
+              <h1 className={`t-h3 ${styles.headline}`}>{study.headline}</h1>
+              <p className={`t-body muted ${styles.summary}`}>
+                {study.summary}
               </p>
-            )}
-            <dl className={styles.meta}>
-              {study.meta.map((m) => (
-                <div key={m.label}>
-                  <dt className="t-body2 muted">{m.label}</dt>
-                  <dd className="t-body">{m.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </header>
+              {study.cta && (
+                <p className={styles.headCta}>
+                  <ActionLink href={study.cta.href}>
+                    {study.cta.label}
+                  </ActionLink>
+                </p>
+              )}
+              <dl className={styles.meta}>
+                {study.meta.map((m) => (
+                  <div key={m.label}>
+                    <dt className="t-body2 muted">{m.label}</dt>
+                    <dd className="t-body">{m.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </header>
         </ScrollStage>
 
         {study.sections.map((sec, i) => (
-          <Section
-            key={`${sec.eyebrow}-${i}`}
-            eyebrow={sec.eyebrow}
-            layout={sec.layout}
-          >
-            <SectionCopy sec={sec} />
-            <SectionMedia sec={sec} />
-          </Section>
+          <Section key={`${sec.eyebrow}-${i}`} sec={sec} />
         ))}
 
         <div className={`container-study ${styles.next}`}>
@@ -91,11 +91,7 @@ export function StudyPage({
   );
 }
 
-function BlockGrid({
-  blocks,
-}: {
-  blocks: Block[];
-}) {
+function BlockGrid({ blocks }: { blocks: Block[] }) {
   return (
     <div className={styles.blockGrid}>
       {blocks.map((b) => (
@@ -131,7 +127,7 @@ function BlockGrid({
 /** Everything a section says: heading, prose, lists, findings, metrics, blocks. */
 function SectionCopy({ sec }: { sec: StudySection }) {
   return (
-    <div className={styles.copy}>
+    <>
       {sec.title && <h2 className="t-h4">{sec.title}</h2>}
       {sec.body && <p className="t-body muted">{sec.body}</p>}
       {sec.bullets && (
@@ -148,35 +144,49 @@ function SectionCopy({ sec }: { sec: StudySection }) {
         <div className={styles.findings}>
           {sec.findings.map((f) => (
             <article key={f.no ?? f.title} className={styles.finding}>
-              <h3 className="t-h5">
-                {f.no ? `${f.no} · ` : ""}
-                {f.title}
-              </h3>
-              {f.caption && <p className="t-body2 muted">{f.caption}</p>}
-              {f.quote && (
-                <>
-                  <p className="t-body2 muted">User Quote</p>
-                  <blockquote className={styles.quote}>
-                    <p className="t-body">
-                      &quot;{f.quote}&quot;
-                      {f.quoteBy && f.quoteInline && (
-                        <cite className="t-body2 muted"> {f.quoteBy}</cite>
-                      )}
-                    </p>
-                    {f.quoteBy && !f.quoteInline && (
-                      <cite className={`t-body2 muted ${styles.cite}`}>
-                        {f.quoteBy}
-                      </cite>
+              {/* Live sets a finding's plate beside its copy on some studies and
+                  above it on others, so the finding carries its own layout. */}
+              <StudyLayout
+                variant={f.layout}
+                ratio={f.ratio}
+                plates={f.layout ? <Media galleries={f.media} /> : null}
+                copy={
+                  <>
+                    <h3 className="t-h5">
+                      {f.no ? `${f.no} · ` : ""}
+                      {f.title}
+                    </h3>
+                    {f.caption && <p className="t-body2 muted">{f.caption}</p>}
+                    {f.quote && (
+                      <>
+                        <p className="t-body2 muted">User Quote</p>
+                        <blockquote className={styles.quote}>
+                          <p className="t-body">
+                            &quot;{f.quote}&quot;
+                            {f.quoteBy && f.quoteInline && (
+                              <cite className="t-body2 muted">
+                                {" "}
+                                {f.quoteBy}
+                              </cite>
+                            )}
+                          </p>
+                          {f.quoteBy && !f.quoteInline && (
+                            <cite className={`t-body2 muted ${styles.cite}`}>
+                              {f.quoteBy}
+                            </cite>
+                          )}
+                        </blockquote>
+                      </>
                     )}
-                  </blockquote>
-                </>
-              )}
-              <FindingList
-                label={f.supportLabel ?? "Supporting Findings"}
-                value={f.support}
+                    <FindingList
+                      label={f.supportLabel ?? "Supporting Findings"}
+                      value={f.support}
+                    />
+                    {!f.layout && <Media galleries={f.media} />}
+                    <FindingList label="Business Impact" value={f.impact} />
+                  </>
+                }
               />
-              <Media galleries={f.media} />
-              <FindingList label="Business Impact" value={f.impact} />
             </article>
           ))}
         </div>
@@ -196,7 +206,7 @@ function SectionCopy({ sec }: { sec: StudySection }) {
       )}
 
       {sec.blocks && <BlockGrid blocks={sec.blocks} />}
-    </div>
+    </>
   );
 }
 
@@ -204,31 +214,25 @@ function SectionCopy({ sec }: { sec: StudySection }) {
 function SectionMedia({ sec }: { sec: StudySection }) {
   if (!sec.media?.length && !sec.caption) return null;
   return (
-    <div className={styles.plates}>
+    <>
       <Media galleries={sec.media} />
       {sec.caption && <p className="t-body2 muted">{sec.caption}</p>}
-    </div>
+    </>
   );
 }
 
-function Section({
-  eyebrow,
-  layout,
-  children,
-}: {
-  eyebrow: string;
-  layout?: StudySection["layout"];
-  children: React.ReactNode;
-}) {
+function Section({ sec }: { sec: StudySection }) {
   return (
     <section className={`section ${styles.section}`}>
       <div className="container-study">
-        <SectionEyebrow>{eyebrow}</SectionEyebrow>
-        {/* "split" mirrors the deck slides that set copy beside the visual;
-            everything else stacks, as the full-width slides do. */}
-        <div className={styles.sectionBody} data-layout={layout ?? "stacked"}>
-          {children}
-        </div>
+        <SectionEyebrow>{sec.eyebrow}</SectionEyebrow>
+        <StudyLayout
+          variant={sec.layout}
+          ratio={sec.ratio}
+          stickyCopy={sec.stickyCopy}
+          copy={<SectionCopy sec={sec} />}
+          plates={<SectionMedia sec={sec} />}
+        />
       </div>
     </section>
   );

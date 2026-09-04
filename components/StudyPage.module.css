@@ -55,12 +55,6 @@
   padding: var(--study-section-top) 0 var(--space-16);
 }
 /* The eyebrow already owns the 26px gap above the title. */
-.sectionBody {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-}
-.sectionBody > p { max-width: var(--prose-max); }
 
 .blockGrid {
   display: grid;
@@ -138,39 +132,3 @@
 /* Section layouts. Default stacks, as the full-width slides do. "split" puts
    the copy beside the plates the way the deck's two-column slides read, at
    roughly the slide's 5:7 balance; "splitReverse" leads with the plate. */
-.sectionBody[data-layout="split"],
-.sectionBody[data-layout="splitReverse"] {
-  display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: var(--space-12);
-  align-items: start;
-}
-.sectionBody[data-layout="splitReverse"] > .copy { order: 2; }
-.sectionBody[data-layout="splitReverse"] > .plates { order: 1; }
-
-.copy,
-.plates {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  min-width: 0;
-}
-/* Stacked sections keep the plates' own top margin doing the spacing. */
-.sectionBody[data-layout="stacked"] { display: flex; flex-direction: column; }
-
-@media (max-width: 900px) {
-  .sectionBody[data-layout="split"],
-  .sectionBody[data-layout="splitReverse"] {
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-  }
-  .sectionBody[data-layout="splitReverse"] > .copy,
-  .sectionBody[data-layout="splitReverse"] > .plates { order: 0; }
-}
-
-/* In a split, the plate should start level with the heading, so drop the
-   figure group's own leading margin there. */
-.sectionBody[data-layout="split"] .plates > :global(div):first-child,
-.sectionBody[data-layout="splitReverse"] .plates > :global(div):first-child {
-  margin-block-start: 0;
-}

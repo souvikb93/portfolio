@@ -31,7 +31,9 @@ export const buildStudies: Record<string, CaseStudy> = {
     sections: [
       {
         eyebrow: "Context",
-        layout: "split",
+        // Framer: 1fr/1fr, 40px gap.
+        layout: "mediaRight",
+        ratio: "even",
         title: "A Changing Job Market in the Age of AI",
         body: "When I moved to Berlin and began my own job search, I noticed how diverse the job market was, with people from different cultural, educational, professional, and language backgrounds. At the same time, AI was changing how candidates were screened and evaluated, from AI-powered CV screening to AI-led interviews.",
         media: [
@@ -47,7 +49,10 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Problem",
-        layout: "split",
+        // Framer: 1fr/1fr, 40px gap, copy column pinned.
+        layout: "mediaRight",
+        ratio: "even",
+        stickyCopy: true,
         title: "Job Searching Has Become a Process to Manage",
         body: "Every application came with its own requirements, materials, and next steps. Context was constantly recreated across CVs, cover letters, applications, and interviews. As applications multiplied, the effort wasn\u2019t just finding jobs. It was managing everything around each application.",
         media: [
@@ -61,7 +66,9 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Research",
-        layout: "splitReverse",
+        // Framer: 1fr/1.5fr, 10px gap.
+        layout: "mediaRight",
+        ratio: "mediaLed",
         title: "Understanding the Job Search Journey",
         body: "Before exploring solutions, I wanted to understand how people actually manage their job search. I captured recurring behaviors, frustrations, and workarounds through informal conversations with job seekers and recruiters.",
         metrics: [
@@ -164,7 +171,9 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Product Hierarchy",
-        layout: "split",
+        // Deck p31 sets the copy narrow beside a wide plate.
+        layout: "mediaRight",
+        ratio: "mediaLed",
         title: "Defining the Information Hierarchy",
         body: "Before moving into UI design, I defined the information architecture and key user entry points. The experience separates marketing, authentication, onboarding, and the core workspace into a clear navigation structure, creating an intuitive journey for both first-time and returning users.",
         media: [
@@ -180,7 +189,9 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Design System",
-        layout: "split",
+        // Deck p33.
+        layout: "mediaRight",
+        ratio: "mediaLed",
         title: "From Design System to Consistent Interfaces",
         body: "I translated the design system into structured documentation that AI could interpret, enabling reusable components, predictable layouts, and consistent outputs across the product.",
         media: [
@@ -241,7 +252,9 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Concept Finalization",
-        layout: "split",
+        // Framer: 1fr/1fr, 64px gap.
+        layout: "mediaRight",
+        ratio: "evenWide",
         title: "Selecting the Direction to Take Forward",
         body: "I selected this direction based on three key considerations to ensure it best supported the overall job-search experience.",
         blocks: [
@@ -305,7 +318,9 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Technical Architecture",
-        layout: "split",
+        // Deck p47.
+        layout: "mediaRight",
+        ratio: "mediaLed",
         title: "Building a Scalable Architecture",
         body: "Rather than building custom infrastructure, I evaluated modern tools that could accelerate development while keeping costs low and maintenance minimal. The architecture prioritizes rapid iteration today, with the flexibility to replace individual services as the product scales.",
         media: [
@@ -368,7 +383,9 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Design Trade-off",
-        layout: "split",
+        // Deck p57-59.
+        layout: "mediaRight",
+        ratio: "mediaLed",
         title: "Choosing Reliability Over Automation",
         body: "I wanted to make adding a job to the Tracker as effortless as possible, while keeping the experience automated, reliable, and consistent.",
         blocks: [
@@ -416,6 +433,9 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Impact",
+        // Deck p61 puts the chart left of the copy.
+        layout: "mediaLeft",
+        ratio: "mediaLed",
         title: "Tracka was fast, and refinement can make it faster",
         body: "The comparative test showed that Tracka reduced the time needed to create a tailored cover letter, while also revealing opportunities to streamline the workflow further.",
         metrics: [

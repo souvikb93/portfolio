@@ -12,6 +12,9 @@ export type Finding = {
   supportLabel?: string;
   /** Plates that belong to this finding rather than the section. */
   media?: Gallery[];
+  /** Live sets some findings beside their plate rather than above it. */
+  layout?: SectionVariant;
+  ratio?: SectionRatio;
   /** Live runs these as bullet lists on some studies and prose on others. */
   support?: string | string[];
   impact?: string | string[];
@@ -78,10 +81,19 @@ export type Metric = {
  * "Design Advocacy"...) and order them differently per study, so this is an
  * ordered list rather than a fixed set of named slots.
  */
+/** Where a section's plates sit relative to its copy. */
+export type SectionVariant = "stacked" | "mediaRight" | "mediaLeft";
+/** The measured column splits the deck uses. See StudyLayout.module.css. */
+export type SectionRatio = "even" | "evenWide" | "mediaLed" | "copyLed";
+
 export type StudySection = {
   eyebrow: string;
-  /** "split" sets the copy beside the plates, as the deck slides do. */
-  layout?: "split" | "splitReverse";
+  /** Which side the plates sit on — see StudyLayout. */
+  layout?: SectionVariant;
+  /** How wide the copy column is against them. Ratios are measured, not even. */
+  ratio?: SectionRatio;
+  /** Framer pins the copy column on Tracka's Problem section while the plates scroll. */
+  stickyCopy?: boolean;
   /** Plain list the live pages run under the section body. */
   bullets?: string[];
   title?: string;
@@ -184,20 +196,14 @@ export const caseStudies: Record<string, CaseStudy> = {
         eyebrow: "Synthesis",
         title: "Key Research Findings",
         media: [
-          { layout: "half", items: [{ src: "/images/l4jOXmRKhJuAi4Vs3phyxKiTo.jpg", alt: "Research synthesis board", ratio: "552 / 340", rounded: true }] },
-          { layout: "half", items: [{ src: "/images/2r9utmvCNQaNmQbC8af4a3kp89k.jpg", alt: "Affinity mapping of findings", ratio: "552 / 443", rounded: true }] },
-          {
-            layout: "portraitPair",
-            items: [
-              { src: "/images/3jGHNPpb1gpwiWzLQ40X0Rvc.jpg", alt: "Assistive technology testing", ratio: "252 / 543", rounded: true },
-              { src: "/images/TDQ0v0hiB3php81bnyeeVkr3iIY.jpg", alt: "Screen reader walkthrough", ratio: "252 / 543", rounded: true },
-            ],
-          },
           { layout: "full", items: [{ src: "/video/Bg3EZMZeCz8GdHAFGYfbnuRtwA.mp4", alt: "Prototype walkthrough", ratio: "1280 / 150", kind: "video" }] },
         ],
         body: "Findings from user research, stakeholder workshops, accessibility audits, and heuristic evaluation revealed the most critical barriers affecting usability, accessibility, and business outcomes.",
         findings: [
           {
+            layout: "mediaLeft",
+            ratio: "even",
+            media: [{ layout: "half", items: [{ src: "/images/l4jOXmRKhJuAi4Vs3phyxKiTo.jpg", alt: "Research synthesis board", ratio: "552 / 340", rounded: true }] }],
             no: "01",
             title: "Accessibility Barriers Reduced Task Success Rate",
             caption:
@@ -215,6 +221,9 @@ export const caseStudies: Record<string, CaseStudy> = {
             ],
           },
           {
+            layout: "mediaLeft",
+            ratio: "even",
+            media: [{ layout: "half", items: [{ src: "/images/2r9utmvCNQaNmQbC8af4a3kp89k.jpg", alt: "Affinity mapping of findings", ratio: "552 / 443", rounded: true }] }],
             no: "02",
             title: "Inconsistent Design Patterns Slowed Decision Making",
             caption:
@@ -233,6 +242,17 @@ export const caseStudies: Record<string, CaseStudy> = {
             ],
           },
           {
+            layout: "mediaLeft",
+            ratio: "even",
+            media: [
+              {
+                layout: "portraitPair",
+                items: [
+                  { src: "/images/3jGHNPpb1gpwiWzLQ40X0Rvc.jpg", alt: "Assistive technology testing", ratio: "252 / 543", rounded: true },
+                  { src: "/images/TDQ0v0hiB3php81bnyeeVkr3iIY.jpg", alt: "Screen reader walkthrough", ratio: "252 / 543", rounded: true },
+                ],
+              },
+            ],
             no: "03",
             title: "Application Was Not Optimized for Mobile Devices",
             caption:
@@ -387,55 +407,50 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "UX Audit & Key Findings",
         body: "Before touching any screens, I ran a UX audit against NN Group heuristics and cross-checked it with two quarters of analytics and support ticket data. Four patterns kept showing up, and each one was quietly costing the business money.",
         findings: [
+          // Framer runs these four as 2fr/1fr stacks with a 40px gap, the plate
+          // alternating sides down the column. Order and pairing are Framer's.
           {
+            layout: "mediaLeft",
+            ratio: "copyLed",
+            media: [{ layout: "wide", items: [{ src: "/images/4BfM8vfOJ28Nn1gvhGlHOtpUTW8.png", alt: "Navigation audit", ratio: "352 / 416", radius: "24px" }] }],
+            title: "Complex Navigation",
+            quote: "I know this feature exists somewhere, I just never know which menu it\u2019s hiding in.",
+            quoteBy: "\u2014 Product Analyst",
+            quoteInline: true,
+            support: "Users took 4 to 6 taps to reach screens that should\u2019ve taken 2.",
+            impact: "Every extra tap meant more people abandoning the task, and abandoned tasks were flowing straight into support call volume.",
+          },
+          {
+            layout: "mediaRight",
+            ratio: "copyLed",
+            media: [{ layout: "wide", items: [{ src: "/images/TzMN54p9mY4McvUUg7HNbLmW4w.png", alt: "Call-to-action audit", ratio: "371 / 472", radius: "24px" }] }],
+            title: "Unclear Call-to-Action",
+            quote: "I wasn\u2019t sure if tapping that would submit my claim or just save it.",
+            quoteBy: "\u2014 Insurance Agent",
+            support: "About 3 in 5 users hesitated or picked the wrong action on core screens during user interviews.",
+            impact: "Second-guessing what a button does slows every client interaction and erodes trust in the tool itself.",
+          },
+          {
+            layout: "mediaLeft",
+            ratio: "copyLed",
+            media: [{ layout: "wide", items: [{ src: "/images/XVF7lubG4aSHdDyIdYiiwrSics.png", alt: "Form structure audit", ratio: "371 / 472", radius: "24px" }] }],
+            title: "Complex Form Structures",
+            quote: "On mobile I have to scroll left and right just to fill out one form. I\u2019d rather just do it on desktop where I can see the whole thing at once.",
+            quoteBy: "\u2014 Insurance Agent",
+            quoteInline: true,
+            support: "Claims and enrollment forms had the highest drop-off in the app, around 40%.",
+            impact: "Biggest single driver of support calls.",
+          },
+          {
+            layout: "mediaRight",
+            ratio: "copyLed",
+            media: [{ layout: "wide", items: [{ src: "/images/aQdPDGSUnioclPASar0F9Sm0bdE.png", alt: "Search audit", ratio: "371 / 472", radius: "24px" }] }],
             title: "Lack of Search Functionality",
             quote: "It takes me longer to find the record than to actually do the work.",
             quoteBy: "\u2014 Support Staff",
             quoteInline: true,
             support: "Finding the right plan took over 90 seconds on average.",
             impact: "Instead of finishing on their phone, members gave up and switched to desktop.",
-          },
-          {
-            title: "Complex Navigation",
-            quote: "I know this feature exists somewhere, I just never know which menu it’s hiding in.",
-            quoteBy: "\u2014 Product Analyst",
-            quoteInline: true,
-            support: "Users took 4 to 6 taps to reach screens that should’ve taken 2.",
-            impact: "Every extra tap meant more people abandoning the task, and abandoned tasks were flowing straight into support call volume.",
-          },
-          {
-            title: "Unclear Call-to-Action",
-            quote: "I wasn’t sure if tapping that would submit my claim or just save it.",
-            quoteBy: "\u2014 Insurance Agent",
-            
-            support: "About 3 in 5 users hesitated or picked the wrong action on core screens during user interviews.",
-            impact: "Second-guessing what a button does slows every client interaction and erodes trust in the tool itself.",
-          },
-          {
-            title: "Complex Form Structures",
-            quote: "On mobile I have to scroll left and right just to fill out one form. I’d rather just do it on desktop where I can see the whole thing at once.",
-            quoteBy: "\u2014 Insurance Agent",
-            quoteInline: true,
-            support: "Claims and enrollment forms had the highest drop-off in the app, around 40%.",
-            impact: "Biggest single driver of support calls.",
-          },
-        ],
-        media: [
-          {
-            layout: "half",
-            items: [{ src: "/images/4BfM8vfOJ28Nn1gvhGlHOtpUTW8.png", alt: "Search audit", ratio: "352 / 416", radius: "24px", width: "352px" }],
-          },
-          {
-            layout: "halfRight",
-            items: [{ src: "/images/TzMN54p9mY4McvUUg7HNbLmW4w.png", alt: "Navigation audit", ratio: "371 / 472", radius: "24px", width: "371px" }],
-          },
-          {
-            layout: "half",
-            items: [{ src: "/images/XVF7lubG4aSHdDyIdYiiwrSics.png", alt: "Call-to-action audit", ratio: "371 / 472", radius: "24px", width: "371px" }],
-          },
-          {
-            layout: "halfRight",
-            items: [{ src: "/images/aQdPDGSUnioclPASar0F9Sm0bdE.png", alt: "Form structure audit", ratio: "371 / 472", radius: "24px", width: "371px" }],
           },
         ],
       },
