@@ -133,6 +133,12 @@ export type StudySection = {
   backdrop?: { src: string; ratio: string };
   /** Cap on the copy column — live sets 499px over that backdrop. */
   copyWidth?: string;
+  /**
+   * How this section's blocks sit. Live runs the discovery methods as columns
+   * but stacks the reflection points full width, and the two are the same
+   * shape in the data, so the section has to say which.
+   */
+  blockLayout?: "columns" | "stack";
   /** Which side the plates sit on — see StudyLayout. */
   layout?: SectionVariant;
   /** How wide the copy column is against them. Ratios are measured, not even. */
@@ -570,6 +576,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Reflection",
+        blockLayout: "stack",
         title: "How This Project Changed My Thinking",
         body: "This project challenged a few assumptions I had and changed how I think about designing accessible, scalable products.",
         blocks: [
@@ -701,20 +708,13 @@ export const caseStudies: Record<string, CaseStudy> = {
             ],
             media: [
               {
-                layout: "grid2",
-                items: [
-                  { src: "/images/b8y7sSEzHNKqiJvNCPbe9t4cg.png", alt: "Simplified navigation", ratio: "628 / 421" },
-                  { src: "/images/DwGsmAvGmMvMsFAcoHNxgfX4I.png", alt: "Focused primary action", ratio: "203 / 421" },
-                ],
-              },
-              {
-                layout: "wide",
+                layout: "center",
                 items: [
                   {
                     src: "/embeds/member-portal-ia.html",
                     alt: "Interactive information architecture map \u2014 drag cards, draw connections, zoom",
-                    ratio: "1148 / 600",
-                    width: "1148px",
+                    ratio: "1152 / 600",
+                    width: "1152px",
                     kind: "embed",
                   },
                 ],
@@ -732,7 +732,24 @@ export const caseStudies: Record<string, CaseStudy> = {
               "Ordered the hamburger menu to match, most used to least",
             ],
             media: [
-              { layout: "center", items: [{ src: "/images/RnninTV2md2x7JBJSglnAqKX9U.png", alt: "Navigation hierarchy from analytics", ratio: "600 / 586", width: "600px" }] },
+              {
+                layout: "stage",
+                stage: { width: 1152, height: 421 },
+                items: [
+                  {
+                    src: "/images/b8y7sSEzHNKqiJvNCPbe9t4cg.png",
+                    alt: "The Google Analytics page report, most-visited pages ringed",
+                    ratio: "628 / 421",
+                    place: { left: 127, top: 0, width: 628, height: 421 },
+                  },
+                  {
+                    src: "/images/DwGsmAvGmMvMsFAcoHNxgfX4I.png",
+                    alt: "The hamburger menu reordered to match that ranking",
+                    ratio: "203 / 421",
+                    place: { left: 822, top: 0, width: 203, height: 421 },
+                  },
+                ],
+              },
             ],
             caption:
               "The most visited pages identified in Google Analytics (left) were used to determine the hierarchy of items in the hamburger menu (right), aligning navigation with real user behavior.",
@@ -747,6 +764,74 @@ export const caseStudies: Record<string, CaseStudy> = {
               "Covered buttons, form fields, cards, navigation elements and interaction states",
               "Standardized CTA labels to improve action clarity and consistency",
             ],
+            media: [
+              {
+                layout: "stage",
+                stage: { width: 1152, height: 661 },
+                items: [
+                  {
+                    src: "/images/RnninTV2md2x7JBJSglnAqKX9U.png",
+                    alt: "The mobile component sheet",
+                    ratio: "600 / 586",
+                    place: { left: 276, top: 0, width: 600, height: 586 },
+                  },
+                  {
+                    src: "/images/i5T4UQXAEUBTmK0x8XpU3YW88.png",
+                    alt: "Primary button states",
+                    ratio: "170 / 56",
+                    place: { left: 355, top: 86, width: 170, height: 56 },
+                  },
+                  {
+                    src: "/images/K2Ken5K0ojusMOGrZY5YvicxF4.png",
+                    alt: "Secondary button states",
+                    ratio: "169 / 56",
+                    place: { left: 802, top: 86, width: 169, height: 56 },
+                  },
+                  {
+                    src: "/images/2ibiXoqS5sujEjtaerPi24iJ5Q.png",
+                    alt: "Form field, resting and focused",
+                    ratio: "170 / 85",
+                    place: { left: 143, top: 122, width: 170, height: 85 },
+                  },
+                  {
+                    src: "/images/YtGrFayPZOUygYSKDslUO1Pgyw.png",
+                    alt: "Card component",
+                    ratio: "165 / 84",
+                    place: { left: 844, top: 198, width: 165, height: 84 },
+                  },
+                  {
+                    src: "/images/GVv2G8IUZm9QuHx2by39B9jwI.png",
+                    alt: "Selection control states",
+                    ratio: "169 / 85",
+                    place: { left: 178, top: 234, width: 169, height: 85 },
+                  },
+                  {
+                    src: "/images/BgufDTfnCUpkHpwILyBqm1bSQVU.png",
+                    alt: "Navigation element",
+                    ratio: "186 / 94",
+                    place: { left: 491, top: 352, width: 186, height: 94 },
+                  },
+                  {
+                    src: "/images/WLM89yNp9ibR8zt4kGsQjpX9SQo.png",
+                    alt: "Alert and feedback component",
+                    ratio: "173 / 105",
+                    place: { left: 836, top: 452, width: 173, height: 105 },
+                  },
+                  {
+                    src: "/images/5rwvUSnmGUzQpxHQxNSoAOjQ.png",
+                    alt: "Input with helper text",
+                    ratio: "170 / 85",
+                    place: { left: 161, top: 563, width: 170, height: 85 },
+                  },
+                  {
+                    src: "/images/k8qfQMzkSvNyZpOuY0U1iuvGD0.png",
+                    alt: "Tertiary action",
+                    ratio: "166 / 56",
+                    place: { left: 788, top: 605, width: 166, height: 56 },
+                  },
+                ],
+              },
+            ],
           },
           {
             no: "04",
@@ -759,14 +844,21 @@ export const caseStudies: Record<string, CaseStudy> = {
             ],
             media: [
               {
-                layout: "center",
+                layout: "stage",
+                stage: { width: 1152, height: 525 },
                 items: [
                   {
+                    src: "/images/aR9W0ECwmb0A9lACmtnxzurCeE.png",
+                    alt: "The long multi-column form as it was, on a phone",
+                    ratio: "262 / 525",
+                    place: { left: 251, top: 0, width: 262, height: 525 },
+                  },
+                  {
                     src: "https://souvikb93.github.io/member-portal-inputfield/",
-                    alt: "Interactive input field prototype",
+                    alt: "Interactive input field prototype \u2014 the same form as guided steps",
                     ratio: "254 / 525",
-                    width: "254px",
                     kind: "embed",
+                    place: { left: 648, top: 0, width: 254, height: 525 },
                   },
                 ],
               },
@@ -785,10 +877,22 @@ export const caseStudies: Record<string, CaseStudy> = {
             ],
             media: [
               {
-                layout: "grid2",
+                layout: "stage",
+                stage: { width: 1152, height: 374 },
                 items: [
-                  { src: "/images/YMmNg5RoIAtZ9AGQvmaNllff2FU.png", alt: "Search and filtering", ratio: "670 / 368", radius: "12px" },
-                  { src: "/images/7IQJUxN4YeaG2rOEKvDOG0HF5tw.png", alt: "Mobile parity", ratio: "299 / 374" },
+                  {
+                    src: "/images/YMmNg5RoIAtZ9AGQvmaNllff2FU.png",
+                    alt: "Search and filtering",
+                    ratio: "670 / 368",
+                    radius: "12px",
+                    place: { left: 60, top: 0, width: 670, height: 368 },
+                  },
+                  {
+                    src: "/images/7IQJUxN4YeaG2rOEKvDOG0HF5tw.png",
+                    alt: "Mobile parity",
+                    ratio: "299 / 374",
+                    place: { left: 793, top: 0, width: 299, height: 374 },
+                  },
                 ],
               },
             ],
@@ -802,11 +906,30 @@ export const caseStudies: Record<string, CaseStudy> = {
         title: "Measurable Business & User Impact",
         media: [
           {
-            layout: "grid3",
+            layout: "stage",
+            stage: { width: 1152, height: 292 },
             items: [
-              { src: "/images/TeIvsNJgRD2FayZrptxBbautI.png", alt: "Adoption metric", ratio: "296 / 296", radius: "24px" },
-              { src: "/images/txOOsTpVEKtsjhPxV75EabF3rwo.png", alt: "Task completion metric", ratio: "288 / 288", radius: "24px" },
-              { src: "/images/fE8T7KtXCbDlHDPyumc6gIfs.png", alt: "Support load metric", ratio: "288 / 288", radius: "24px" },
+              {
+                src: "/images/TeIvsNJgRD2FayZrptxBbautI.png",
+                alt: "Adoption metric",
+                ratio: "296 / 296",
+                radius: "24px",
+                place: { left: 28, top: 0, width: 296, height: 296 },
+              },
+              {
+                src: "/images/txOOsTpVEKtsjhPxV75EabF3rwo.png",
+                alt: "Task completion metric",
+                ratio: "288 / 288",
+                radius: "24px",
+                place: { left: 432, top: 4, width: 288, height: 288 },
+              },
+              {
+                src: "/images/fE8T7KtXCbDlHDPyumc6gIfs.png",
+                alt: "Support load metric",
+                ratio: "288 / 288",
+                radius: "24px",
+                place: { left: 832, top: 4, width: 288, height: 288 },
+              },
             ],
           },
         ],
@@ -833,6 +956,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Reflection",
+        blockLayout: "stack",
         title: "What This Project Taught Me",
         body: "Beyond improving accessibility and responsiveness, these are three lessons I’ll carry into future projects.",
         blocks: [

@@ -79,9 +79,15 @@ export function StudyPage({
   );
 }
 
-function BlockGrid({ blocks }: { blocks: Block[] }) {
+function BlockGrid({
+  blocks,
+  layout,
+}: {
+  blocks: Block[];
+  layout?: "columns" | "stack";
+}) {
   return (
-    <div className={styles.blockGrid}>
+    <div className={styles.blockGrid} data-blocks={layout ?? "columns"}>
       {blocks.map((b) => (
         <article key={b.no ?? b.title} className={styles.block}>
           {/* Live sets these as one line, "02 · Title", not a number above a
@@ -201,7 +207,7 @@ function SectionCopy({ sec }: { sec: StudySection }) {
         </div>
       )}
 
-      {sec.blocks && <BlockGrid blocks={sec.blocks} />}
+      {sec.blocks && <BlockGrid blocks={sec.blocks} layout={sec.blockLayout} />}
     </>
   );
 }

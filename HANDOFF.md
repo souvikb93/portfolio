@@ -177,6 +177,41 @@ padding is `18px 22px` precisely so its stage lands on 581x500. At 390px the sta
 - Framer's own `Before`/`After` labels are separate text nodes with 25px of padding; here they
   are the column's `label` with the column gap doing that work.
 
+## Changed 2026-09-05 — the testimonial, and the member portal's plates
+
+**Testimonial (home).** The arrows were hidden behind `testimonials.length > 1` and there is one
+quote — but the live site has one quote too and still shows both, so the gate was never right.
+They also sat bottom-right across the grid; live keeps them under the attribution at the
+container edge. The gutter was the real spacing bug: the quote was capped at 779px and pushed
+over with `space-between`, so at 1920 the hole opened to 449px. Live holds the gutter at a fixed
+241px and lets the quote take the rest (779 at 1280, 987 at 1920). The attribution is BDO Grotesk
+16/24 at -0.5px tracking, weight 500 — not the Inter 16/26 the quote uses — which is why the role
+wrapped. Dots removed; live has none.
+
+**Member portal.** The solution blocks' plates were mis-assigned and stretched to grid columns.
+Live, measured at 1280: block 01 is the IA map alone at 1152x600; 02 is the analytics sheet
+628x421 beside the reordered menu 203x421; 03 is the component sheet 600x586 with nine cards
+scattered over it; 04 is the old form 262x525 beside the prototype 254x525. The port had 02's
+images sitting under 01's heading, 03's sheet under 02's, nothing under 03, and the phone
+stretched to a 552px column at 1145px tall. All four now use `stage` at the live px, as do the
+search pair (670x368 + 299x374) and the three impact tiles (296 + 288 + 288), which were being
+stretched to 552 and 352.
+
+**Block columns.** `.blockGrid` was `auto-fill minmax(260px)` at a 20px gap, giving four 273px
+columns — so a three-block group's copy sat at 64/357/650 while the plates above it sat at
+64/464/864. It now tracks the figure grid: `auto-fit minmax(252px)` at `--figure-gap`, which
+lands three blocks on 352px columns and still fits four at 252px. `StudySection.blockLayout:
+"stack"` stacks a group full width, which is what live does with the reflection points on both
+studies while keeping the discovery methods in columns — the two are identical in the data.
+
+### Not reproduced
+
+- The orange arrows live draws between the before/after pairs on member portal blocks 02 and 04
+  are inline SVG in Framer, with no asset to pull; the plates are placed correctly around the
+  gap they sit in.
+- On a phone a `stage` scales as one piece, so the member portal's impact tiles come out 342x87.
+  Live's mobile behaviour there has not been checked.
+
 ## Failed / open
 
 **BLOCKING — user action required:**

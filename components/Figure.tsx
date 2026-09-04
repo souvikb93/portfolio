@@ -153,7 +153,11 @@ function Stage({ gallery }: { gallery: Gallery }) {
         style={{ width: stage.width, aspectRatio: `${stage.width} / ${stage.height}` }}
       >
         {(gallery.items ?? []).map((item) => {
-          const style = { aspectRatio: item.ratio, ...placeStyle(item.place ?? {}, stage) };
+          const style = {
+            aspectRatio: item.ratio,
+            borderRadius: item.radius,
+            ...placeStyle(item.place ?? {}, stage),
+          };
           return item.kind === "embed" ? (
             <iframe
               key={item.src}

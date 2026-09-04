@@ -64,10 +64,16 @@
 }
 /* The eyebrow already owns the 26px gap above the title. */
 
+/* Column count and gutter track the figure grid above them, so a block's copy
+   lines up with the plate it describes — at 1152 that is three 352px columns,
+   not the four 273px ones an auto-fill at the tighter gap was producing. */
 .blockGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: var(--space-5);
+  /* 252px is the largest minimum that still fits four tracks at this gutter,
+     so a four-block group keeps its four columns while a three-block one
+     collapses the spare track and lands on the figure grid's 352px. */
+  grid-template-columns: repeat(auto-fit, minmax(252px, 1fr));
+  gap: var(--figure-gap);
 }
 /* Measured on the live pages: these carry no card chrome — no border, padding
    or radius. They sit directly on the 1152px body column, which is also why an
@@ -200,3 +206,7 @@
   }
   .section[data-backdrop] :global(.container-study) > * { max-width: none; }
 }
+
+/* Live stacks some block groups full width — the reflection points — while
+   running others as columns. Same shape in the data, so the section says. */
+.blockGrid[data-blocks="stack"] { grid-template-columns: minmax(0, 1fr); }
