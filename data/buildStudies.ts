@@ -19,14 +19,23 @@ export const buildStudies: Record<string, CaseStudy> = {
     hero: {
       layout: "wide",
       items: [
-        { src: "/images/j4GfC2irkQU5bFWLES6jP4YnhI.jpg", alt: "Tracka case study", ratio: "1200 / 800" },
+        { src: "/images/j4GfC2irkQU5bFWLES6jP4YnhI.jpg", alt: "Tracka case study", ratio: "2048 / 1365" },
       ],
     },
     heroEmbed: {
       src: "/embeds/tracka-signin.html",
       alt: "Tracka sign-in: continue with Magic Link or Google",
       ratio: "517 / 391",
-      width: "517px",
+      // The hero picture has a tablet in it showing this same sign-in screen.
+      // The live frame is laid over that tablet, edge to edge, so the screen in
+      // the picture is the one that animates. Edges measured off the source
+      // file (2048x1365): x 1059-1936, y 210-897.
+      frame: {
+        left: "51.709%",
+        top: "15.385%",
+        width: "42.822%",
+        height: "50.330%",
+      },
     },
     sections: [
       {

@@ -118,7 +118,14 @@ export type CaseStudy = {
   /** Banner above the title, as on the live site. */
   hero?: Gallery;
   /** Interactive frame live floats over the hero image. */
-  heroEmbed?: Figure;
+  heroEmbed?: Figure & {
+    /**
+     * Where the embed sits on the hero picture, as percentages of the source
+     * file. Set this when the picture contains a device the embed should land
+     * on, so the live frame covers the printed one instead of floating.
+     */
+    frame?: { left: string; top: string; width: string; height: string };
+  };
   /** Live puts a call to action between the summary and the meta table. */
   cta?: { label: string; href: string };
   sections: StudySection[];

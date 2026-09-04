@@ -17,11 +17,29 @@
   align-items: center;
   justify-content: center;
   background: var(--black-pure);
+  /* The stage below is sized in cqw/cqh so it tracks the hero, not the
+     viewport — a scrollbar makes 100vw wider than the hero. */
+  container-type: size;
 }
+
+/* The cover box: the picture's rendered rectangle, which overflows the hero on
+   whichever axis has the spare aspect. Anything positioned in here is in the
+   picture's coordinates, so a percentage read off the source file lands in the
+   same place at every viewport shape. */
+.heroStage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(100cqw, calc(100cqh * (var(--hero-img-ar))));
+  height: max(100cqh, calc(100cqw / (var(--hero-img-ar))));
+}
+/* The stage already carries the picture's aspect, so the picture just fills it
+   — the cropping is done by the stage overflowing the hero. */
 .heroBg {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
 /* No top padding: the hero owns the first viewport and starts flush under the
@@ -114,6 +132,16 @@
   border: 0;
   max-width: calc(100% - var(--gutter) * 2);
   background: transparent;
+}
+/* With a frame, the embed is not floating in the middle of the picture — it is
+   laid over the device printed in it, at the rect the study measured. Inline
+   left/top/width/height place it; the centring transform and the cap have to go
+   or they would pull it back off the device. */
+.heroEmbed[data-framed="true"] {
+  top: auto;
+  left: auto;
+  transform: none;
+  max-width: none;
 }
 
 /* Live sits the product link between the summary and the meta table. */

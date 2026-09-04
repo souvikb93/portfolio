@@ -24,25 +24,41 @@ export function StudyPage({
       <main className={styles.page}>
         {study.hero?.items[0] && (
           <section className={`sticky-hero ${styles.hero}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className={styles.heroBg}
-              src={study.hero.items[0].src}
-              alt={study.hero.items[0].alt}
-            />
-            {study.heroEmbed && (
-              <iframe
-                className={styles.heroEmbed}
-                src={study.heroEmbed.src}
-                title={study.heroEmbed.alt}
-                style={{
-                  aspectRatio: study.heroEmbed.ratio,
-                  width: study.heroEmbed.width,
-                }}
-                loading="lazy"
-                sandbox="allow-scripts allow-same-origin"
+            {/* The picture and the embed share one stage, sized the way
+                object-fit:cover would size the picture. That keeps the embed in
+                the picture's own coordinates, so it stays on the device it is
+                covering however the viewport is shaped. */}
+            <div
+              className={styles.heroStage}
+              style={
+                {
+                  "--hero-img-ar": study.hero.items[0].ratio,
+                } as React.CSSProperties
+              }
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className={styles.heroBg}
+                src={study.hero.items[0].src}
+                alt={study.hero.items[0].alt}
               />
-            )}
+              {study.heroEmbed && (
+                <iframe
+                  className={styles.heroEmbed}
+                  data-framed={study.heroEmbed.frame ? "true" : undefined}
+                  src={study.heroEmbed.src}
+                  title={study.heroEmbed.alt}
+                  style={
+                    study.heroEmbed.frame ?? {
+                      aspectRatio: study.heroEmbed.ratio,
+                      width: study.heroEmbed.width,
+                    }
+                  }
+                  loading="lazy"
+                  sandbox="allow-scripts allow-same-origin"
+                />
+              )}
+            </div>
           </section>
         )}
 
