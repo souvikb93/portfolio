@@ -120,6 +120,7 @@
   --build-intro-ratio: 178 / 232;
   --build-intro-pull: 190px;         /* clip rises this far into the gap above
                                         the headline, so exactly one line wraps */
+  --testimonial-gutter: 241px;       /* measured: fixed at 1280 and 1920 */
   --testimonial-photo-w: 212px;
   --testimonial-photo-ratio: 212 / 253;
   /* hero card, scroll-driven (values measured off the live site) */

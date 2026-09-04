@@ -24,31 +24,26 @@ export function Testimonials() {
           height={253}
         />
         <div className={styles.who}>
-          <span className="t-body">{t.name}</span>
-          <span className="t-body muted">{t.role}</span>
-          <span className="t-body muted">{t.company}</span>
+          <span>{t.name}</span>
+          <span className="muted">{t.role}</span>
+          <span className="muted">{t.company}</span>
         </div>
-        {testimonials.length > 1 && (
-          <div className={styles.dots}>
-            {testimonials.map((_, n) => (
-              <span key={n} data-active={n === i} />
-            ))}
-          </div>
-        )}
+        {/* Live keeps both arrows under the attribution and shows them live
+            even on a single quote — there are no dots, the arrows are the
+            whole control. With one quote the modulo lands back on it. */}
+        <div className={styles.nav}>
+          <Button label="Previous testimonial" onClick={() => go(-1)}>
+            ←
+          </Button>
+          <Button label="Next testimonial" onClick={() => go(1)}>
+            →
+          </Button>
+        </div>
       </div>
 
       <blockquote className={styles.quote}>
         <p className="t-body">{t.quote}</p>
       </blockquote>
-
-      <div className={styles.nav} data-multiple={testimonials.length > 1}>
-        <Button label="Previous" onClick={() => go(-1)}>
-          ←
-        </Button>
-        <Button label="Next" onClick={() => go(1)}>
-          →
-        </Button>
-      </div>
     </div>
   );
 }

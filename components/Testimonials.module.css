@@ -1,12 +1,13 @@
-/* Live layout: portrait plus attribution on the left, quote on the right at
-   779px, both starting at the container edges. */
+/* Live layout, measured at 1280 and 1920: the portrait and its attribution on
+   the left, the quote filling whatever is left of the container. The gutter
+   between them is a fixed 241px — the quote grows with the container, it is
+   not capped, which is why a max-width here opened a 449px hole at 1920. */
 .wrap {
   width: 100%;
   display: grid;
-  grid-template-columns: var(--testimonial-photo-w) minmax(0, 779px);
-  justify-content: space-between;
+  grid-template-columns: var(--testimonial-photo-w) minmax(0, 1fr);
   align-items: start;
-  gap: var(--space-10);
+  gap: var(--testimonial-gutter);
 }
 
 .person { display: flex; flex-direction: column; gap: var(--space-8); }
@@ -17,23 +18,28 @@
   object-fit: contain;
   border-radius: var(--radius-media);
 }
-.who { display: flex; flex-direction: column; }
-
-.dots { display: flex; gap: 6px; }
-.dots span {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: 1px solid var(--black-16);
+/* The attribution is BDO Grotesk 16/24 on the live site, not the Inter 16/26
+   the quote itself uses — measured on both. In Inter the role does not fit the
+   273px the block is given and wraps to two lines. The block is wider than the
+   portrait above it, so it runs into the gutter, as live does. */
+.who {
+  display: flex;
+  flex-direction: column;
+  width: 273px;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.5px;
+  font-variation-settings: "wght" 500;
 }
-.dots span[data-active="true"] { background: var(--brand-secondary); border-color: var(--brand-secondary); }
+.who > :first-child { margin-bottom: 10px; }
 
 .quote { margin: 0; display: flex; flex-direction: column; gap: var(--space-6); }
 .quote footer { display: flex; flex-direction: column; gap: var(--space-1); }
 
-.nav { display: none; gap: var(--space-3); grid-column: 1 / -1; justify-content: flex-end; }
-.nav[data-multiple="true"] { display: flex; }
-
+/* Live sits the arrows under the attribution, at the container's left edge,
+   and shows them whether or not there is a second quote to move to. */
+.nav { display: flex; gap: 10px; }
 
 @media (max-width: 810px) {
   .wrap { grid-template-columns: 1fr; gap: var(--space-6); }
