@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { BuildEntry } from "@/components/BuildEntry";
 import { Footer } from "@/components/Footer";
-import { ScrollStage } from "@/components/ScrollStage";
 import { liveBuilds } from "@/data/site";
 import styles from "./Builds.module.css";
 
@@ -14,7 +13,6 @@ export default function BuildsPage() {
   return (
     <>
       <main className={styles.page}>
-        <ScrollStage>
         <section className={`sticky-hero ${styles.hero}`}>
           <Image
             src="/images/QMPpU75EPMKUWpqueYj7rlfygDE.webp"
@@ -41,7 +39,6 @@ export default function BuildsPage() {
             ))}
           </div>
         </section>
-        </ScrollStage>
       </main>
       <Footer />
     </>

@@ -6,7 +6,6 @@ import { ActionLink } from "@/components/ActionLink";
 import { Footer } from "@/components/Footer";
 import type { CaseStudy } from "@/data/caseStudies";
 import { FigureGroup } from "./Figure";
-import { ScrollStage } from "./ScrollStage";
 import type { Block, Gallery, StudySection } from "@/data/caseStudies";
 import styles from "./StudyPage.module.css";
 
@@ -23,33 +22,31 @@ export function StudyPage({
   return (
     <>
       <main className={styles.page}>
-        <ScrollStage>
-          {study.hero?.items[0] && (
-            <section className={`sticky-hero ${styles.hero}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className={styles.heroBg}
-                src={study.hero.items[0].src}
-                alt={study.hero.items[0].alt}
+        {study.hero?.items[0] && (
+          <section className={`sticky-hero ${styles.hero}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className={styles.heroBg}
+              src={study.hero.items[0].src}
+              alt={study.hero.items[0].alt}
+            />
+            {study.heroEmbed && (
+              <iframe
+                className={styles.heroEmbed}
+                src={study.heroEmbed.src}
+                title={study.heroEmbed.alt}
+                style={{
+                  aspectRatio: study.heroEmbed.ratio,
+                  width: study.heroEmbed.width,
+                }}
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin"
               />
-              {study.heroEmbed && (
-                <iframe
-                  className={styles.heroEmbed}
-                  src={study.heroEmbed.src}
-                  title={study.heroEmbed.alt}
-                  style={{
-                    aspectRatio: study.heroEmbed.ratio,
-                    width: study.heroEmbed.width,
-                  }}
-                  loading="lazy"
-                  sandbox="allow-scripts allow-same-origin"
-                />
-              )}
-            </section>
-          )}
+            )}
+          </section>
+        )}
 
-          <StudyIntro study={study} />
-        </ScrollStage>
+        <StudyIntro study={study} />
 
         {study.sections.map((sec, i) => (
           <Section key={`${sec.eyebrow}-${i}`} sec={sec} />

@@ -1,6 +1,14 @@
 /* The whole study body sits on an opaque surface above the sticky hero. */
 .page > * { position: relative; z-index: var(--content-z); background: var(--bg); }
-.page > .hero { z-index: var(--hero-z); background: var(--black-pure); }
+/* .page > * sets position:relative on every band; the hero is the exception —
+   it has to keep the sticky pin it gets from .sticky-hero, or the picture
+   scrolls away with the page instead of staying under the rising band. */
+.page > .hero {
+  position: sticky;
+  top: 0;
+  z-index: var(--hero-z);
+  background: var(--black-pure);
+}
 
 /* Full-viewport hero plate, mirroring the index pages: the study content
    scrolls up over it behind the diagonal curtain. */
