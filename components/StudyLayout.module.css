@@ -47,8 +47,16 @@
 .plates {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  /* Heading to body. Anything that is a *group* below the body — a list, the
+     findings, the metrics, the blocks — steps out to --flow-group instead. */
+  gap: var(--flow-body);
   min-width: 0;
+}
+.copy > :global(ul),
+.copy > [class*="findings"],
+.copy > [class*="metrics"],
+.copy > [class*="blockGrid"] {
+  margin-top: calc(var(--flow-group) - var(--flow-body));
 }
 
 /* Beside the copy, the plate should start level with the heading, so drop the

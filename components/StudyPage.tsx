@@ -82,9 +82,11 @@ export function StudyPage({
 function BlockGrid({
   blocks,
   layout,
+  titleSize,
 }: {
   blocks: Block[];
   layout?: "columns" | "stack";
+  titleSize?: "h5" | "h6";
 }) {
   return (
     <div className={styles.blockGrid} data-blocks={layout ?? "columns"}>
@@ -93,14 +95,18 @@ function BlockGrid({
           {/* Live sets these as one line, "02 · Title", not a number above a
               heading — keeping them separate broke the reading order. Some
               groups (Aero Check's three core requirements) carry no numeral. */}
-          <h3 className="t-h6">
+          <h3 className={titleSize === "h5" ? "t-h5" : "t-h6"}>
             {b.no ? `${b.no} · ` : ""}
             {b.title}
           </h3>
           {b.body && <p className="t-body muted">{b.body}</p>}
           {b.bullets && (
             <>
-              <p className="t-body2 muted">Solution Highlights</p>
+              {/* Live runs this label in the body face at 16/26, bold — not
+                  the 12px heading-face small print it had here. */}
+              <p className={`t-body muted ${styles.bulletsLabel}`}>
+                <strong>Solution Highlights</strong>
+              </p>
               <ul className={styles.bullets}>
                 {b.bullets.map((x) => (
                   <li key={x} className="t-body muted">
@@ -207,7 +213,7 @@ function SectionCopy({ sec }: { sec: StudySection }) {
         </div>
       )}
 
-      {sec.blocks && <BlockGrid blocks={sec.blocks} layout={sec.blockLayout} />}
+      {sec.blocks && <BlockGrid blocks={sec.blocks} layout={sec.blockLayout} titleSize={sec.blockTitle} />}
     </>
   );
 }

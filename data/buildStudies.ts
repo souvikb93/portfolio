@@ -456,6 +456,7 @@ export const buildStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Reflection",
+        blockLayout: "stack",
         title: "What I Learned While Building Tracka",
         body: "Designing, building, and testing the product exposed challenges that only became visible during implementation. These experiences reshaped how I think about design systems, product logic, and product decisions.",
         blocks: [

@@ -1,8 +1,8 @@
-/* Measured on the live study pages: 18/26 heading face, primary ink, no
-   uppercasing or tracking, and 26px of air before the section title. 26px is
-   off the 4px space scale, so it is named here at the component layer. */
+/* 18/26 heading face, primary ink, no uppercasing or tracking. The air before
+   the section title is the first step of the study flow scale — see
+   --flow-head in globals.css. */
 .eyebrow {
-  --eyebrow-gap: 26px;
+  --eyebrow-gap: var(--flow-head);
   color: var(--text-primary);
   margin: 0 0 var(--eyebrow-gap);
 }

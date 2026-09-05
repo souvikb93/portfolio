@@ -56,11 +56,11 @@
   .hero { display: none; }
 }
 
-/* Study sections carry no dividing rule on live, and a tighter rhythm than the
-   site-wide .section: 60px above, 64px below. 60 is off the space scale. */
+/* Study sections carry no dividing rule on live. Every band — white, tinted or
+   picture-backed — sits on the same 64px top and bottom, so the rhythm between
+   sections reads the same wherever the background changes. */
 .section {
-  --study-section-top: 60px;
-  padding: var(--study-section-top) 0 var(--space-16);
+  padding: var(--flow-after) 0;
 }
 /* The eyebrow already owns the 26px gap above the title. */
 
@@ -82,9 +82,23 @@
 .finding {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--flow-body);
 }
-.finding { gap: var(--space-3); }
+/* The points under a block's body, and its plates, sit a group-step away. */
+.block > .bulletsLabel,
+.block > .bullets,
+.finding > .bullets {
+  margin-top: calc(var(--flow-group) - var(--flow-body));
+}
+.block > .bulletsLabel + .bullets { margin-top: var(--space-2); }
+/* A figure group's own class is hashed inside Figure's module, so `:global(.group)`
+   never matches it from here — key off the data attribute it carries. Direct
+   children only, so the groups nested inside a `columns` layout keep theirs.
+   Both values are net of the flex gap either side. */
+.block > [data-layout] {
+  margin-block: calc(var(--flow-group) - var(--flow-body))
+    calc(var(--flow-after) - var(--flow-body));
+}
 
 .quote {
   margin: 0;
@@ -114,12 +128,15 @@
 
 /* "Solution Highlights" list. */
 .bullets {
-  margin: var(--space-2) 0 0;
+  margin: 0;
   padding-left: var(--space-5);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  /* Live runs these as continuous prose lines — the line-height is the whole
+     spacing, there is no extra step between one point and the next. */
+  gap: 0;
 }
+.bulletsLabel { margin: 0; }
 
 /* Live puts the attribution on its own line under the quote. */
 .cite {
@@ -162,9 +179,11 @@
 .mediaBand {
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  margin-block: var(--space-10) 0;
+  /* Net of the block's flex gap, so the band opens the same group-step below
+     the copy as an unbanded figure group does. */
+  margin-block: calc(var(--flow-group) - var(--flow-body)) 0;
   background: rgb(244, 245, 247);
-  padding: 64px 64px 96px;
+  padding: var(--flow-after) var(--flow-after);
   display: flex;
   justify-content: center;
 }
@@ -187,7 +206,7 @@
 .section[data-backdrop] {
   width: 100vw;
   margin-inline: calc(50% - 50vw);
-  padding: 64px 0 128px;
+  padding: var(--flow-after) 0;
   background-image: var(--backdrop);
   background-size: 100% auto;
   background-position: top center;

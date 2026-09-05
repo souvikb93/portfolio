@@ -139,6 +139,12 @@ export type StudySection = {
    * shape in the data, so the section has to say which.
    */
   blockLayout?: "columns" | "stack";
+  /**
+   * How large a block's heading is. Live sets the solution blocks in H5 (30/38)
+   * and everything else — discovery methods, reflection points — in H6 (24/31),
+   * and they are the same shape in the data.
+   */
+  blockTitle?: "h5" | "h6";
   /** Which side the plates sit on — see StudyLayout. */
   layout?: SectionVariant;
   /** How wide the copy column is against them. Ratios are measured, not even. */
@@ -329,6 +335,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Solution",
+        blockTitle: "h5",
         title: "How I Improved the Overall User Experience",
         body: "Guided by the research findings, I redesigned the experience to address the most critical accessibility and usability challenges. The following improvements demonstrate how inclusive design principles and WCAG guidelines were applied to create a more intuitive, consistent, and accessible product.",
         blocks: [
@@ -694,6 +701,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         eyebrow: "Solution",
+        blockTitle: "h5",
         title: "Solutions Mapped to the Audit Findings",
         body: "Each fix below responds directly to a finding from the audit. The goal wasn’t a redesign for its own sake, it was to solve the specific problems agents were already running into every day.",
         blocks: [

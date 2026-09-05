@@ -137,6 +137,14 @@
   --content-narrow: 1200px;          /* hero rows (home, /projects, /builds) */
   --content-study: 1152px;           /* case-study body (3x352 or 2x552 + 48 gap) */
   --figure-gap: var(--space-12);     /* gap between figures in a gallery */
+
+  /* Study flow scale — the vertical rhythm every case-study section runs on:
+     eyebrow to heading, heading to its body copy, body to the points or plates
+     that follow it, and the air after that group. */
+  --flow-head: 24px;                 /* eyebrow  -> heading   */
+  --flow-body: var(--space-3);       /* heading  -> body      */
+  --flow-group: var(--space-12);     /* body     -> points / plates */
+  --flow-after: var(--space-16);     /* after that group      */
   --prose-max: 720px;                /* long-form text column */
   --measure: 500px;                  /* short intro paragraphs */
   --panel-col: 600px;                /* hero panel 2 column */

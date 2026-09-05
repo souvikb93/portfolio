@@ -212,6 +212,47 @@ studies while keeping the discovery methods in columns — the two are identical
 - On a phone a `stage` scales as one piece, so the member portal's impact tiles come out 342x87.
   Live's mobile behaviour there has not been checked.
 
+## Changed 2026-09-05 — one type and spacing rhythm across every study
+
+The case-study sections were running on ad-hoc gaps and a collapsed heading scale. There is now
+a **flow scale** in `globals.css` that every study section uses:
+
+    --flow-head  24px   eyebrow  -> heading
+    --flow-body  12px   heading  -> body copy
+    --flow-group 48px   body     -> the points or plates under it
+    --flow-after 64px   after that group
+
+`StudyLayout`'s `.copy` and `StudyPage`'s `.block` carry `--flow-body` as their flex gap, and the
+groups below the body — a bullet list, the findings, the metrics, the block grid, a figure group
+— step out to `--flow-group` with a margin net of that gap.
+
+**Heading scale.** Block headings were all `t-h6` (24px), which put a 40px section title straight
+onto 24px and skipped a step. Live sets the solution blocks in H5 (30/38) and leaves discovery,
+challenge, impact and reflection in H6, so `StudySection.blockTitle` says which. The scale now
+reads 18 eyebrow → 40 section → 16 body → 30 solution block → 16 body → 16 points.
+
+**Other fixes.** "Solution Highlights" was 12px heading-face small print; live has it in the body
+face at 16/26 bold. Bullets had an 8px gap between them; live runs them as continuous prose lines
+where the line-height is the whole spacing. Tracka's reflection ran in columns while the other
+studies stacked it.
+
+**A selector that never matched:** `.block :global(.group)` — a figure group's class is hashed
+inside Figure's own module, so `:global(.group)` cannot reach it from `StudyPage.module.css`.
+Key off `[data-layout]` instead. Worth checking the same mistake in `.mediaBandInner`.
+
+**Section bands.** Study sections were 60px above and 64px below, the tinted media bands
+64/64/96, and the picture-backed Impact band 64/0/128. Every band — white, tinted or
+picture-backed — now sits on `--flow-after` top and bottom, so the rhythm reads the same wherever
+the background changes. A banded block's plates open the same 48px group-step below the copy as
+an unbanded figure group does.
+
+Verified at 1280 on Access Now, Member Portal, Aero Check, Desi Aroma and Tracka: every section
+runs 24 / 12 / 48 / 12 on 64/64 bands, no page overflows.
+
+Note: the section eyebrow is BDO 18/26 on live and stays that way. Live's Member Portal
+"Solution" eyebrow renders Inter 16/19.2 — it is the only one that does, and it is a Framer slip,
+not the pattern.
+
 ## Failed / open
 
 **BLOCKING — user action required:**
