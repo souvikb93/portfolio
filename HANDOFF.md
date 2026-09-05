@@ -253,6 +253,20 @@ Note: the section eyebrow is BDO 18/26 on live and stays that way. Live's Member
 "Solution" eyebrow renders Inter 16/19.2 — it is the only one that does, and it is a Framer slip,
 not the pattern.
 
+## Changed 2026-09-05 — arrows, and the intro's clearance
+
+**Arrows.** The orange arrow the live member portal draws between its before/after pairs is inline
+SVG in Framer with no asset to pull, so it came from the user's own exports: `arrow-right.png`
+(196x128) now sits between the analytics report and the reordered menu on block 02, and between
+the old form and the prototype on block 04, at the live x and vertical centre. Two more assets are
+in `/public/images` and **not placed yet** — `equals.png` (128x84) and `arrow-curved.svg` (87x90,
+green loop). Live shows neither on these pages, so there is nothing to measure them against; ask
+which block they belong to.
+
+**Intro clearance.** `--study-intro-top` was `--space-10` (40px). It is 128px now — the project
+name on every study and build page sits that far below the hero transition. Added `--space-32`
+to the scale for it. The phone override (164px) is unchanged.
+
 ## Failed / open
 
 **BLOCKING — user action required:**
